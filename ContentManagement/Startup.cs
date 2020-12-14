@@ -33,7 +33,7 @@ namespace ContetManagement
             services.AddMvc(options => options.EnableEndpointRouting = false);
 
             services.AddDbContext<ApplicationDbContext>(options =>
-          options.UseMySql(
+          options.UseMySQL(
               Configuration.GetConnectionString("MySqlConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
