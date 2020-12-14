@@ -3,7 +3,23 @@
 @{
 
 }
+<div style="height:2vw;"></div>
+<table>
+    <tbody>
+        <tr>
+            <td>
+                <h5><b style="color:#555555">Sidor Arkiv</b></h5>
+            </td>
+            <td style="padding-left:4vw;height:2vw;">
+                <div style="height: 1.4vw; width: 4vw;background-color:#0293fc;text-align:center;border-radius:10%;">
+                    <a asp-action="" style="color:white;font-size:0.6vw;">+ Ny Sida</a>
+                </div>
+            </td>
+        </tr>
 
+    </tbody>
+</table>
+<div style="height:0.8vw;"></div>
 <h1>UserView</h1>
 <table class="table">
     <thead>
@@ -24,36 +40,36 @@
         {
             @if (!item.Equals(null))
             {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserPassword)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { item.Id }) |
-                @Html.ActionLink("Details", "Details", new { item.Id }) |
-            </td>
-        </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserPassword)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { item.Id }) |
+                    </td>
+                </tr>
             }
             else
             {
-    <tr>
-        <td>
-            <p style="color:red;">No user in database!</p>
-        </td>
-        <td>
-            <p style="color:red;">No user in database!</p>
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { item.Id }) |
-            @Html.ActionLink("Details", "Details", new { item.Id}) |
-        </td>
-    </tr>
+                <tr>
+                    <td>
+                        <p style="color:red;">No user in database!</p>
+                    </td>
+                    <td>
+                        <p style="color:red;">No user in database!</p>
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { item.Id }) |
+                    </td>
+                </tr>
             }
         }
 

@@ -14,10 +14,11 @@ namespace ContentManagement.Controllers
         [Route("admin")]
         public IActionResult Index()
         {
-            MysqlStoreContext context = HttpContext.RequestServices.GetService(typeof(MysqlStoreContext)) as MysqlStoreContext;
-            return View(context.GetListOfUsers());
+            // MysqlStoreContext context = HttpContext.RequestServices.GetService(typeof(MysqlStoreContext)) as MysqlStoreContext;
+            //return View(context.GetListOfUsers());
+            return View();
         }
-
+/*
         // GET: TextContentController/Details/5
         public IActionResult Details(int? id)
         {
@@ -79,6 +80,6 @@ namespace ContentManagement.Controllers
                 System.Diagnostics.Debug.WriteLine(e.Message.ToString());
                 return View(context.FindTextContent("SELECT * FROM user WHERE Id = ", user.Id));
             }
-        }
+        }*/
     }
 }

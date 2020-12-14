@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "N94rDM7Bcpk4/acg7Y9VFhRI/NlrQGEDootCYhdo3MrIclnBVhU8igkl9rXjQX5ZEM8JjXeBzrBjthXReDqK1A==",
+  "dgSpecHash": "yLX3iD6jZPmZE6DbosvYwI6PiQN5zvf09WgYHgwiB9mCadM43I86XAFQHPawTU6Nz5kDkBp8EXdwZwK+NdvFiQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\nicla\\source\\repos\\ContentManagement\\ContentManagement\\ContentManagement.csproj",
   "expectedPackageFiles": [
@@ -52,8 +52,11 @@
     "C:\\Users\\nicla\\.nuget\\packages\\microsoft.win32.registry\\4.5.0\\microsoft.win32.registry.4.5.0.nupkg.sha512",
     "C:\\Users\\nicla\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "C:\\Users\\nicla\\.nuget\\packages\\mysql.data\\8.0.22\\mysql.data.8.0.22.nupkg.sha512",
+    "C:\\Users\\nicla\\.nuget\\packages\\mysqlconnector\\0.69.9\\mysqlconnector.0.69.9.nupkg.sha512",
     "C:\\Users\\nicla\\.nuget\\packages\\netstandard.library\\1.6.0\\netstandard.library.1.6.0.nupkg.sha512",
     "C:\\Users\\nicla\\.nuget\\packages\\newtonsoft.json\\12.0.2\\newtonsoft.json.12.0.2.nupkg.sha512",
+    "C:\\Users\\nicla\\.nuget\\packages\\pomelo.entityframeworkcore.mysql\\3.2.4\\pomelo.entityframeworkcore.mysql.3.2.4.nupkg.sha512",
+    "C:\\Users\\nicla\\.nuget\\packages\\pomelo.jsonobject\\2.2.1\\pomelo.jsonobject.2.2.1.nupkg.sha512",
     "C:\\Users\\nicla\\.nuget\\packages\\runtime.native.system\\4.3.0\\runtime.native.system.4.3.0.nupkg.sha512",
     "C:\\Users\\nicla\\.nuget\\packages\\runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\nicla\\.nuget\\packages\\runtime.native.system.io.compression\\4.1.0\\runtime.native.system.io.compression.4.1.0.nupkg.sha512",

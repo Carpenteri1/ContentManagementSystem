@@ -10,6 +10,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ContentManagement.Data;
 using ContentManagement.Models.ContentManagement;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 namespace ContetManagement
 {
     public class Startup
@@ -26,7 +31,16 @@ namespace ContetManagement
         {
             services.AddControllersWithViews();
             services.AddMvc(options => options.EnableEndpointRouting = false);
-            services.Add(new ServiceDescriptor(typeof(MysqlStoreContext), new MysqlStoreContext(Configuration.GetConnectionString("MySqlConnection"))));
+
+            services.AddDbContext<ApplicationDbContext>(options =>
+          options.UseMySql(
+              Configuration.GetConnectionString("MySqlConnection")));
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddControllersWithViews();
+            services.AddRazorPages();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,22 +63,13 @@ namespace ContetManagement
 
             app.UseAuthorization();
             app.UseAuthentication();
-
-            app.UseMvc(routes =>
-            {
-
-                routes.MapRoute(
-                    name: "Default",
-                    template: "{Controller=Home}/{action=Index}/{id?}");
-            });
-
-            /*
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-            }); */
+            }); 
         }
     }
 }

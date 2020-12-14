@@ -6,40 +6,33 @@ using ContentManagement.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ContentManagement.Models.ContentManagement;
+using Microsoft.EntityFrameworkCore;
+using MySql.Data.MySqlClient;
 
 namespace ContentManagement.Controllers
 {
     [BindProperties]
     public class TextContentController : Controller
     {
+        private readonly ApplicationDbContext context;
+
+        public TextContentController(ApplicationDbContext context)
+        {
+            this.context = context;
+        }
+
         // GET: TextContentController
         [Route("text")]
-        public ActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            MysqlStoreContext context = HttpContext.RequestServices.GetService(typeof(MysqlStoreContext)) as MysqlStoreContext;
-            return View(context.GetListOfTextContent());
+            return View(await context.TextContentModels.ToListAsync());
         }
-        
+       
         // GET: TextContentController/Details/5
         public IActionResult Details(int? id)
         {
 
-            if (id == null)
-            {
-                return RedirectToAction("Index");
-            }
-
-            MysqlStoreContext context = 
-                HttpContext.RequestServices.GetService(typeof(MysqlStoreContext)) 
-                as MysqlStoreContext;
-            TextContentModel grabTextContent = context.FindTextContent("SELECT * FROM textcontent WHERE Id = ", id);
-
-            if (grabTextContent == null)
-            {
-                return RedirectToAction("Index");
-            }
-
-            return View(grabTextContent);
+            return View(context.TextContentModels.Find(id));
         }
 
             // GET: TextContentController/Create
@@ -56,8 +49,8 @@ namespace ContentManagement.Controllers
         {
             try
             {
-                MysqlStoreContext context = HttpContext.RequestServices.GetService(typeof(MysqlStoreContext)) as MysqlStoreContext;
                 context.Add(newTextContent);
+                context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -73,17 +66,14 @@ namespace ContentManagement.Controllers
             {
                 return RedirectToAction("Index");
             }
-
-            MysqlStoreContext context =
-                HttpContext.RequestServices.GetService(typeof(MysqlStoreContext))
-                as MysqlStoreContext;
-            TextContentModel grabTextContent = context.FindTextContent("SELECT * FROM textcontent WHERE Id = ", id);
+            TextContentModel grabTextContent = context.TextContentModels.Find(id);
 
             if (grabTextContent == null)
             {
                 return RedirectToAction("Index");
             }
-
+            context.Remove(grabTextContent);
+            context.SaveChanges();
             return View(grabTextContent);
         }
 
@@ -92,55 +82,47 @@ namespace ContentManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(TextContentModel textContentModel)
         {
-            MysqlStoreContext context = HttpContext.RequestServices.GetService(typeof(MysqlStoreContext)) as MysqlStoreContext;
             try
             {
-                context.Edit($"UPDATE  textcontent SET Content = '{textContentModel.Content}',Name = '{textContentModel.ContentName}' WHERE Id = ",textContentModel.Id);
+                context.Add(textContentModel);
+                context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch(Exception e)
             {
-                System.Diagnostics.Debug.WriteLine(e.Message.ToString());
-                return View(context.FindTextContent("SELECT * FROM textcontent WHERE Id = ", textContentModel.Id));
+                return View();
             }
         }
 
         // GET: TextContentController/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            try
             {
-                return RedirectToAction("Index");
+                var content = context.TextContentModels.Find(id);
+                return View(content);
             }
-
-            MysqlStoreContext context =
-                HttpContext.RequestServices.GetService(typeof(MysqlStoreContext))
-                as MysqlStoreContext;
-            TextContentModel grabTextContent = context.FindTextContent("SELECT * FROM textcontent WHERE Id = ",id);
-            
-            if (grabTextContent == null)
+            catch
             {
-                return RedirectToAction("Index");
+                return View();
             }
-
-
-            return View(grabTextContent);
+          
         }
 
         // POST: TextContentController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(TextContentModel content)
         {
-            MysqlStoreContext context = HttpContext.RequestServices.GetService(typeof(MysqlStoreContext)) as MysqlStoreContext;
             try
             {
-                context.Delete(id);
+                context.TextContentModels.Remove(content);
+                context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View(context.FindTextContent("SELECT * FROM textcontent WHERE Id = ", id));
+                return View();
             }
         }
     }
