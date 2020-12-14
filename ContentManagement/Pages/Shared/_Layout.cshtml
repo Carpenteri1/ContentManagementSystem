@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ContetManagementSystem</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body style="height:100%;">
+    <header>
+        <div class="navbar navbar-expand-sm" style="background-color:#292a2c;">
+            <div class="row">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img class="img-fluid" src="~/Content/Images/header-logo.png" alt="Kan ej ladda bilden" />
+                </a>
+            </div>
+        </div>
+    </header>
+    <div class="row mw-100 mh-100">
+        <ul class="col-2 d-inline" style="color:white;list-style:none;background-color:#3f4044;">
+            <li style="border-bottom:1px solid #5b5c60;">
+                <a class="nav-link text-dark" asp-area="" asp-controller="TextContent" asp-action="Index"><b style="color: white;">Innehåll</b></a>
+            </li>
+            <li style="border-bottom:1px solid #5b5c60;width:100%;">
+                <a class="nav-link text-dark" asp-area="" asp-controller="TextContent" asp-action="Index"><b style="color: white;"> GolfEvent</b></a>
+            </li>
+            <li style="border-bottom:1px solid #5b5c60;">
+                <a class="nav-link text-dark" asp-area="" asp-controller="TextContent" asp-action="Index"><b style="color: white;">Annonser</b></a>
+            </li>
+            <li style="border-bottom:1px solid #5b5c60;">
+                <a class="nav-link" asp-area="" asp-controller="TextContent" asp-action="Index"><b style="color: white;">Logga ut</b></a>
+            </li>
+            <li style="border-bottom:1px solid #5b5c60;">
+                <a class="nav-link" asp-area="" asp-controller="TextContent" asp-action="Index"><b style="color: white;">Text Managment</b></a>
+            </li>
+            <li style="border-bottom:1px solid #5b5c60;">
+                <a class="nav-link" asp-area="" asp-controller="User" asp-action="Index"><b style="color: white;">User Managment</b></a>
+            </li>
+        </ul>
+        <div class="col-6 d-inline" style="border:2px solid green;">
+            <div class="container">
+                @RenderBody()
+            </div>
+        </div>
+        <div class="col-4"></div>
+    </div>
+
+    <footer></footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

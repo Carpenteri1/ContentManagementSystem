@@ -1,0 +1,32 @@
+﻿@model IEnumerable<ContentManagement.Models.ContentManagement.TextContentModel>
+
+@{
+    ViewData["Title"] = "TextContentView";
+}
+<div class="row p-4">
+    <div class="col">
+        <h5><b style="color:#555555">Sidor Arkiv</b></h5>
+    </div> 
+    <div class="col p-1" style="text-align:center;">
+            <a asp-action="" class="d-block" style="background-color:#0293fc;color:white;font-size:0.7vw;text-align:center;border-radius:8%;width:40%;height:1.2vw;">+ Ny Sida</a>
+    </div>
+    <div class="col"></div>
+    <div class="col"></div>
+</div>
+    <table class="table">
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Content)
+                    </td>
+                    <td style="font-weight:400;color:red;">
+                        @Html.ActionLink("Ändra", "Edit", new { id = (item.Id) },new { style= "color:blue;font-weight:bold;" } ) 
+                        <!--Html.ActionLink("Details", "Details", new { id = (item.Id)}) |
+                        Html.ActionLink("Delete", "Delete", new { id = (item.Id) })-->
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

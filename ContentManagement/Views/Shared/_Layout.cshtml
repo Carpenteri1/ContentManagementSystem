@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ContetManagementSystem</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body style="height:100%;">
+    <header>
+        <div class="navbar navbar-expand-sm" style="background-color:#292a2c;">
+            <div class="row" >
+                <a class="navbar-brand p-2" style="margin-left:2vw;" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img height="200" width="200" class="img-fluid" src="~/Content/Images/header-logo.png" alt="Kan ej ladda bilden" />
+                </a>
+            </div>
+        </div>
+    </header>
+    <div class="row mw-100 mh-100">
+        
+        <div class="col-2" style="background-color:#3f4044">
+            <div class="row" style="height:2vw;border-bottom:1px solid #5b5c60;">
+                <div class=" col" style="padding-left: 2vw;">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Content"><b style="color: white;">Innehåll</b></a>
+
+                </div>
+            </div>
+            <div class="row" style="height:2vw;border-bottom:1px solid #5b5c60">
+                <div class=" col"  style="padding-left: 2vw;">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><b style="color: white;"> GolfEvent</b></a>
+                </div>
+            </div>
+            <div class="row" style="height:2vw;border-bottom:1px solid #5b5c60">
+                <div class=" col"  style="padding-left: 2vw;">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><b style="color: white;">Annonser</b></a>
+                </div>
+            </div>
+            <div class="row" style="height:2vw;border-bottom:1px solid #5b5c60">
+                <div class=" col"  style="padding-left: 2vw;">
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index"><b style="color:white;">Logga ut</b></a>
+                </div>
+            </div>
+            <!--
+            <div class="row" style="height:2vw;border-bottom:1px solid #5b5c60">
+                <div class=" col">
+                    <a class="nav-link" asp-area="" asp-controller="TextContent" asp-action="Index"><b style="color: white;font-size:0.6vw;">Text Managment</b></a>
+                </div>
+            </div>
+            <div class="row" style="height:2vw;border-bottom:1px solid #5b5c60">
+                <div class=" col">
+                    <a class="nav-link" asp-area="" asp-controller="User" asp-action="Index"><b style="color: white;font-size:0.6vw;">User Managment</b></a>
+                </div>
+            </div>-->
+        </div>
+            <div class="col-8">
+                <div class="container">
+                    @RenderBody()
+                </div>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

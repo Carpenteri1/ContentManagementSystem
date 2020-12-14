@@ -1,0 +1,61 @@
+﻿@model IEnumerable<ContentManagement.Models.UserModel>
+
+@{
+
+}
+
+<h1>UserView</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserPassword)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            @if (!item.Equals(null))
+            {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserPassword)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { item.Id }) |
+                @Html.ActionLink("Details", "Details", new { item.Id }) |
+            </td>
+        </tr>
+            }
+            else
+            {
+    <tr>
+        <td>
+            <p style="color:red;">No user in database!</p>
+        </td>
+        <td>
+            <p style="color:red;">No user in database!</p>
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { item.Id }) |
+            @Html.ActionLink("Details", "Details", new { item.Id}) |
+        </td>
+    </tr>
+            }
+        }
+
+    </tbody>
+</table>
