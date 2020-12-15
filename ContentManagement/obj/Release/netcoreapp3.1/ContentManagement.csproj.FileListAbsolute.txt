@@ -10,13 +10,6 @@ C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Release\netc
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\ContentManagement.TagHelpers.output.cache
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\ContentManagement.RazorCoreGenerate.cache
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\Razor\Areas\Identity\Pages\_ViewStart.cshtml.g.cs
-C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\Razor\Pages\Error.cshtml.g.cs
-C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\Razor\Pages\Privacy.cshtml.g.cs
-C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\Razor\Pages\Shared\_Layout.cshtml.g.cs
-C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\Razor\Pages\Shared\_LoginPartial.cshtml.g.cs
-C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\Razor\Pages\Shared\_ValidationScriptsPartial.cshtml.g.cs
-C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\Razor\Pages\_ViewImports.cshtml.g.cs
-C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\Razor\Pages\_ViewStart.cshtml.g.cs
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\Razor\Views\Home\Content.cshtml.g.cs
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\Razor\Views\Home\Privacy.cshtml.g.cs
@@ -120,3 +113,5 @@ C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Release\netc
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\staticwebassets\ContentManagement.StaticWebAssets.Manifest.cache
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\staticwebassets\ContentManagement.StaticWebAssets.xml
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\ContentManagement.genruntimeconfig.cache
+C:\Users\nicla\source\repos\ContentManagement\ContentManagement\bin\Release\netcoreapp3.1\MySql.Data.EntityFrameworkCore.dll
+C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\Razor\Views\Login\Login.cshtml.g.cs
