@@ -26,8 +26,15 @@ using ContentManagement.Models;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 3 "C:\Users\nicla\source\repos\ContentManagement\ContentManagement\Views\_ViewImports.cshtml"
+using ContentManagement.Models.ContentManagement;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"0b60392e8b35e47a6912312cf1ff50798e6b287e", @"/Views/Home/Content.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"1e6b7aff87533dc461051721b7bca3f8cb1a3713", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"7581fc12321dc09c90c29b50cab499b5c815977c", @"/Views/_ViewImports.cshtml")]
     public class Views_Home_Content : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -66,7 +73,7 @@ using ContentManagement.Models;
             <td style=""padding-left:4vw;height:2vw;"">
                 <div style=""height: 1.4vw; width: 4vw;background-color:#0293fc;text-align:center;border-radius:10%;"">
                     ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0b60392e8b35e47a6912312cf1ff50798e6b287e4154", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0b60392e8b35e47a6912312cf1ff50798e6b287e4375", async() => {
                 WriteLiteral("+ Ny Sida");
             }
             );

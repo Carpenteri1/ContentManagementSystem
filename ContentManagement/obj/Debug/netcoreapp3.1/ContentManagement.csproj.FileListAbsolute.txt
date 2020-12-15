@@ -114,3 +114,4 @@ C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcor
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\ContentManagement.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\ContentManagement.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\bin\Debug\netcoreapp3.1\MySql.Data.EntityFrameworkCore.dll
+C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Login\Login.cshtml.g.cs
