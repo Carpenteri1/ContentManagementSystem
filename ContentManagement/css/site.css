@@ -68,7 +68,6 @@ body {
     /* 
         Margin bottom by footer height 
     */
-    zoom: 150%;
     min-height: 100%;
     margin: 0;
 }
