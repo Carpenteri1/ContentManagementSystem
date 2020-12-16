@@ -31,7 +31,6 @@ namespace ContentManagement.Controllers
         // GET: TextContentController/Details/5
         public IActionResult Details(int? id)
         {
-
             return View(context.TextContentModels.Find(id));
         }
 

@@ -6,16 +6,19 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ContentManagement.Models;
+using ContentManagement.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace ContentManagement.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ILogger<HomeController> logger;
+        private readonly ApplicationDbContext context;
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
         {
-            _logger = logger;
+            this.logger = logger;
+            this.context = context;
         }
 
         public IActionResult Index()
@@ -31,7 +34,7 @@ namespace ContentManagement.Controllers
         [Route("content")]
         public IActionResult Content()
         {
-            return View();
+            return View(context.TextContentModels.ToList());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

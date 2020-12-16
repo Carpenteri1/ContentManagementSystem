@@ -8,9 +8,14 @@
 
   <ItemGroup>
     <None Remove="css\site.css" />
+    <None Remove="css\sitestyle.css" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="css\sitestyle.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
     <Content Include="css\site.css">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

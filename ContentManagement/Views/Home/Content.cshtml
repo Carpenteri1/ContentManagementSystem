@@ -1,79 +1,94 @@
-﻿@{
+﻿@model IEnumerable<TextContentModel>
+@{
+    ViewData["Text"] = "Start".ToString();
 }
-<div class="container">
-    <div style="height:2vw;"></div>
-    <table>
-        <tbody>
-            <tr>
-                <td style="padding-right:1vw;">
-                    <h6><b style="color:#555555">Sidor arkiv</b></h6>
-                <td>
-                <td style="padding-left:1vw;">
-                    <div style="height:0.6vw; width:2.5vw;background-color:#0293fc;text-align:center;border-radius:5%;">
-                        <a asp-action="" style="text-decoration:none;"><p style="font-size:0.4vw;" class="text-white">+ Ny Sida</p></a>
-                    </div>
-                </td>
-            </tr>
 
-        </tbody>
-    </table>
-    <div style="height:0.4vw;"></div>
+<div class="container" style="border:2px solid yellow;">
+    <div style="height:1.5vw;"></div>
+    <div class="centered-div mw-100 mh-100" style="border-bottom:2px solid black;">
+        <div class="row">
+            <div class="container">
+                <div class="row">
+                    <div class="col-6">
+                        <label style=" width: 100%; text-align: left; display: inline-block;">
+                            <b style="color:#555555;font-size:0.8vw;">Sidor arkiv</b>
+                            <a class="text-white btn" type="button" asp-action="" style="text-decoration:none;height:1vw; width:2.5vw;background-color:#0293fc;border-radius:5%;padding:0vw;font-size:0.5vw;">
+                            + Ny Sida 
+                            </a>
+                        </label>
+                    </div>
+                    <div class="col-6">
+                        <label style=" width: 100%; text-align: right; display: inline-block;">
+                            <b style="font-size:0.5vw;margin-top:0.2vw;">Välj huvudmeny:</b>
+                            <select data-live-search="true" class="selectpicker show-menu-arrow float-right;border:2px solid red;" style="font-size:0.5vw;width:10vw;margin-top:0.2vw">
+                                <option>Start</option>
+                                <option>Två</option>
+                                <option>Tree</option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+            
+            </div>
+          </div>
+    </div>
+
+    <!--List-->
+
     <table class="table">
         <tbody>
-            <tr style="background-color:#f4f4f4;border-top:2px solid #b7b7b7;line-height:0.2vw;">
+            <tr style="background-color:#f4f4f4;line-height:0.2vw;">
                 <td>
-                    <a style="font-size:0.5vw;color:#515151;"><b>Sidans Rubrik</b></a>
+                    <a style="text-align: left;width:10vw;display: inline-block; font-size: 0.5vw; color: #515151;"><b>Sidans Rubrik</b></a>
                 </td>
                 <td>
-                    <a href=""><b style="margin-left:28vw;font-size:0.5vw;">Ändra</b></a>
+                    <a href=""><b style="text-align: right; width:100%;  display: inline-block;font-size:0.5vw;">Ändra</b></a>
                 </td>
             </tr>
             <tr style="line-height:0.2vw;">
                 <td>
-                    <a style="font-size:0.5vw;color:#515151;"><b>Sidans Rubrik</b></a>
+                    <a style="text-align: left;width:10vw;display: inline-block; font-size: 0.5vw; color: #515151;"><b>Sidans Rubrik</b></a>
                 </td>
-                <td>
-                    <a href=""><b style="margin-left:28vw;font-size:0.5vw;">Ändra</b></a>
-                </td>
+                <td><a href=""><b style="text-align: right; width:100%;  display: inline-block;font-size:0.5vw;">Ändra</b></a></td>
             </tr>
             <tr style="background-color:#f4f4f4;line-height:0.2vw;">
                 <td>
-                    <a style="font-size:0.5vw;color:#515151;"><b>Sidans Rubrik</b></a>
+                    <a style="text-align: left;width:10vw;display: inline-block; font-size: 0.5vw; color: #515151;"><b>Sidans Rubrik</b></a>
                 </td>
                 <td>
-                    <a href=""><b style="margin-left:28vw;font-size:0.5vw;">Ändra</b></a>
+                    <a href=""><b style="text-align: right; width:100%;  display: inline-block;font-size:0.5vw;">Ändra</b></a>
                 </td>
             </tr>
             <tr style="line-height:0.2vw;">
                 <td>
-                    <a style="font-size:0.5vw;color:#515151;"><b>Sidans Rubrik</b></a>
+                    <a style="text-align: left;width:10vw;display: inline-block; font-size: 0.5vw; color: #515151;"><b>Sidans Rubrik</b></a>
                 </td>
                 <td>
-                    <a href=""><b style="margin-left:28vw;font-size:0.5vw;">Ändra</b></a>
+                    <a href=""><b style="text-align: right; width:100%;  display: inline-block;font-size:0.5vw;">Ändra</b></a>
                 </td>
             </tr>
             <tr style="background-color:#f4f4f4;line-height:0.2vw;">
                 <td>
-                    <a style="font-size:0.5vw;color:#515151;"><b>Sidans Rubrik</b></a>
+                    <a style="text-align: left;width:10vw;display: inline-block; font-size: 0.5vw; color: #515151;"><b>Sidans Rubrik</b></a>
                 </td>
                 <td>
-                    <a href=""><b style="margin-left:28vw;font-size:0.5vw;">Ändra</b></a>
+                    <a href=""><b style="text-align: right; width:100%;  display: inline-block;font-size:0.5vw;">Ändra</b></a>
                 </td>
             </tr>
             <tr style="line-height:0.2vw;">
                 <td>
-                    <a style="font-size:0.5vw;color:#515151;"><b>Sidans Rubrik</b></a>
+                    <a style="text-align: left;width:10vw;display: inline-block; font-size: 0.5vw; color: #515151;"><b>Sidans Rubrik</b></a>
                 </td>
                 <td>
-                    <a href=""><b style="margin-left:28vw;font-size:0.5vw;">Ändra</b></a>
+                    <a href=""><b style="text-align: right; width:100%;  display: inline-block;font-size:0.5vw;">Ändra</b></a>
                 </td>
             </tr>
             <tr style="background-color:#f4f4f4;line-height:0.2vw;">
                 <td>
-                    <a style="font-size:0.5vw;color:#515151;"><b>Sidans Rubrik</b></a>
+                    <a style="text-align: left;width:10vw;display: inline-block; font-size: 0.5vw; color: #515151;"><b>Sidans Rubrik</b></a>
                 </td>
                 <td>
-                    <a href=""><b style="margin-left:28vw;font-size:0.5vw;">Ändra</b></a>
+                    <a href=""><b style="text-align: right; width:100%;  display: inline-block;font-size:0.5vw;">Ändra</b></a>
                 </td>
             </tr>
         </tbody>
