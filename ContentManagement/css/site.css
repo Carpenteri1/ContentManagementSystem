@@ -59,10 +59,7 @@ html {
 
 }
 
-main {
-    border: 2px solid yellow;
-  
-}
+
 
 body {
     /* 
@@ -99,7 +96,7 @@ header{
 
 
 .container {
-    background: yellow;
+
     width: 100%;
     display: flex;
     flex-direction: row;

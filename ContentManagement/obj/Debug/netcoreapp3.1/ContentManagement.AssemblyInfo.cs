@@ -11,7 +11,6 @@
 using System;
 using System.Reflection;
 
-[assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap4")]
 [assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("aspnet-ContentManagement-8650872F-E559-45B7-BFEC-A8F96EA33792")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("ContentManagement")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]

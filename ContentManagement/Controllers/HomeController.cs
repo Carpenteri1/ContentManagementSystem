@@ -1,29 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ContentManagement.Models;
 using ContentManagement.Data;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace ContentManagement.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> logger;
-        private readonly ApplicationDbContext context;
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
+        private readonly CMSDbContext context;
+        public HomeController(ILogger<HomeController> logger, CMSDbContext context)
         {
             this.logger = logger;
             this.context = context;
         }
-
+        [AllowAnonymous]
         public IActionResult Index()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                return View();
+            }
+            else
+            {
+                return Redirect(Url.Content("~/Login"));
+            }
+          
         }
         [Route("privacy")]
         public IActionResult Privacy()
@@ -31,10 +38,26 @@ namespace ContentManagement.Controllers
             return View();
         }
 
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult Logout()
+        {
+            return RedirectToAction("Index");
+        }
+       
         [Route("content")]
         public IActionResult Content()
         {
-            return View(context.TextContentModels.ToList());
+            if (User.Identity.IsAuthenticated)
+            {
+                return View(context.TextContentModels.ToList());
+            }
+            else
+            {
+                return Redirect(Url.Content("~/Login")); 
+            }
+          
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

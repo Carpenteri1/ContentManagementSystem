@@ -8,21 +8,22 @@ using Microsoft.AspNetCore.Mvc;
 using ContentManagement.Models.ContentManagement;
 using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ContentManagement.Controllers
 {
     [BindProperties]
+    [Authorize]
     public class TextContentController : Controller
     {
-        private readonly ApplicationDbContext context;
+        private readonly CMSDbContext context;
 
-        public TextContentController(ApplicationDbContext context)
+        public TextContentController(CMSDbContext context)
         {
             this.context = context;
         }
 
         // GET: TextContentController
-        [Route("text")]
         public async Task<IActionResult> Index()
         {
             return View(await context.TextContentModels.ToListAsync());

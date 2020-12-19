@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,13 +13,15 @@ using ContentManagement.Data;
 using ContentManagement.Models.ContentManagement;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using ContentManagement.Models.Account;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace ContetManagement
 {
     public class Startup
     {
+       
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -31,21 +34,28 @@ namespace ContetManagement
         {
             services.AddControllersWithViews();
             services.AddMvc(options => options.EnableEndpointRouting = false);
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(options =>
+            {
+                options.Cookie.Name = ".Cookies.DontEatThem";
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                options.SlidingExpiration = true;
+            });
 
-            services.AddDbContext<ApplicationDbContext>(options =>
+
+           services.AddDbContext<CMSDbContext>(options =>
           options.UseMySQL(
-              Configuration.GetConnectionString("MySqlConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+              Configuration.GetConnectionString("LocalConnection")));
+
             services.AddControllersWithViews();
             services.AddRazorPages();
-
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -56,6 +66,7 @@ namespace ContetManagement
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -63,12 +74,13 @@ namespace ContetManagement
 
             app.UseAuthorization();
             app.UseAuthentication();
-            
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             }); 
         }
     }

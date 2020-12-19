@@ -1,4 +1,13 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-<h1>@ViewData["Title"]</h1>
+@if (User.Identity.IsAuthenticated)
+{
+    <h1>Hello @User.Identity.Name</h1>
+
+}
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

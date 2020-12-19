@@ -20,42 +20,51 @@
             </div>
         </div>
     </header>
-    <div class="row mw-100 mh-100">
-        <div class="col-auto" style="background-color:#3f4044;">
-            <div class="row" style="height:2vw;border-bottom:1px solid #5b5c60;">
-                <div class="col" style="padding-left: 1.2vw;">
-                        <a class="nav-link text-white" style="font-size:0.6vw;" asp-area="" asp-controller="Home" asp-action="Content">Innehåll</a>
-                </div>
-            </div>
-            <div class="row" style="height:2vw;border-bottom:1px solid #5b5c60">
-                <div class=" col" style="padding-left: 1.2vw;">
-                    <a class="nav-link text-white" style="font-size:0.6vw;" asp-area="" asp-controller="Home" asp-action="Index">GolfEvent</a>
-                </div>
-            </div>
-            <div class="row" style="height:2vw;border-bottom:1px solid #5b5c60">
-                <div class=" col" style="padding-left: 1.2vw;">
-                    <a class="nav-link text-white" style="font-size:0.6vw;" asp-area="" asp-controller="Home" asp-action="Index">Annonser</a>
-                </div>
-            </div>
 
-            <div class="row" style="height:2vw;border-bottom:1px solid #5b5c60">
-                <div class=" col" style="padding-left: 1.2vw;">
-                    <a class="nav-link text-white" style="font-size:0.6vw;" asp-area="" asp-controller="Home" asp-action="Index">Logga ut</a>
-                </div>
-            </div>
-            <div class="row" style="height:2vw;border-bottom:1px solid #5b5c60">
-                <div class=" col" style="padding-left: 1.2vw;">
-                    <a class="nav-link text-white" style="font-size:0.6vw;" asp-area="" asp-controller="Login" asp-action="Login">Logga in</a>
-                </div>
+    @if (User.Identity.IsAuthenticated)
+    {
+<div class="row mw-100 mh-100">
+    <div class="col-auto" style="background-color:#3f4044;">
+        <div class="row" style="height:2vw;border-bottom:1px solid #5b5c60;">
+            <div class="col" style="padding-left: 1.2vw;">
+                <a class="nav-link text-white" style="font-size:0.6vw;" asp-area="" asp-controller="Home" asp-action="Content">Innehåll</a>
             </div>
         </div>
-            <div class="col-8">
-                <div class="container">
-                    @RenderBody()
-                </div>
+        <div class="row" style="height:2vw;border-bottom:1px solid #5b5c60">
+            <div class=" col" style="padding-left: 1.2vw;">
+                <a class="nav-link text-white" style="font-size:0.6vw;" asp-area="" asp-controller="Home" asp-action="Index">GolfEvent</a>
             </div>
-            <div class="col-2"></div>
         </div>
+        <div class="row" style="height:2vw;border-bottom:1px solid #5b5c60">
+            <div class=" col" style="padding-left: 1.2vw;">
+                <a class="nav-link text-white" style="font-size:0.6vw;" asp-area="" asp-controller="Home" asp-action="Index">Annonser</a>
+            </div>
+        </div>
+        <div class="row" style="height:2vw;border-bottom:1px solid #5b5c60">
+            <div class=" col" style="padding-left: 1.2vw;">
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Identity/Account/Login", new { area = "" })" method="post">
+                    <button type="submit" style="font-size:0.6vw;" class="nav-link btn btn-link text-white">Logga ut</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-8">
+        <div class="container">
+            @RenderBody()        </div>
+    </div>
+    <div class="col-2"></div>
+</div>
+    }
+    else
+    {
+        <div class="container">
+            <div role="main">
+                @RenderBody()
+            </div>
+        </div>
+    }
+
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

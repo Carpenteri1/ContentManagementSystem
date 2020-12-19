@@ -34,19 +34,19 @@
     <None Include="Views\TextContent\Details.cshtml" />
     <None Include="Views\TextContent\Edit.cshtml" />
     <None Include="Views\TextContent\Index.cshtml" />
-    <None Include="Views\User\Details.cshtml" />
-    <None Include="Views\User\Edit.cshtml" />
-    <None Include="Views\User\Index.cshtml" />
     <None Include="Views\_ViewImports.cshtml" />
     <None Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.9" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.9" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.9" />
+    <PackageReference Include="Microsoft.AspNetCore.CookiePolicy" Version="2.2.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
     <PackageReference Include="MySql.Data" Version="8.0.22" />
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.22" />
   </ItemGroup>
