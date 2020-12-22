@@ -37,21 +37,13 @@ namespace ContentManagement.Controllers
         {
             return View();
         }
-
-
-        [HttpPost]
-        [Authorize]
-        public ActionResult Logout()
-        {
-            return RedirectToAction("Index");
-        }
        
         [Route("content")]
         public IActionResult Content()
         {
             if (User.Identity.IsAuthenticated)
             {
-                return View(context.TextContentModels.ToList());
+                return View(context.Content.ToList());
             }
             else
             {

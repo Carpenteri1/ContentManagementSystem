@@ -16,8 +16,7 @@ namespace ContentManagement.Data
         {
         }
 
-        public DbSet<TextContentModel> TextContentModels { get; set; }
-        public DbSet<LoginModel> LoginModel { get; set; }
-
+        public DbSet<TextContentModel> Content { get; set; }
+        public DbSet<Users> Users { get; set; }
     }
 }

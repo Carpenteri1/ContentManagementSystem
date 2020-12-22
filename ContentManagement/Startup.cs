@@ -33,7 +33,8 @@ namespace ContetManagement
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddMvc(options => options.EnableEndpointRouting = false);
+            services.AddSession();
+            services.AddMvc();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options =>
             {
@@ -41,6 +42,8 @@ namespace ContetManagement
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
                 options.SlidingExpiration = true;
             });
+
+
 
 
            services.AddDbContext<CMSDbContext>(options =>
@@ -74,7 +77,7 @@ namespace ContetManagement
 
             app.UseAuthorization();
             app.UseAuthentication();
-
+            app.UseSession();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

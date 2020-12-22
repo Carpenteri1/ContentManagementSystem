@@ -16,7 +16,7 @@ namespace ContentManagement.Migrations
                 .HasAnnotation("ProductVersion", "3.1.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("ContentManagement.Models.Account.LoginModel", b =>
+            modelBuilder.Entity("ContentManagement.Models.Account.Users", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,7 +32,7 @@ namespace ContentManagement.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("LoginModel");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("ContentManagement.Models.ContentManagement.TextContentModel", b =>
@@ -51,7 +51,7 @@ namespace ContentManagement.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TextContentModels");
+                    b.ToTable("Content");
                 });
 #pragma warning restore 612, 618
         }

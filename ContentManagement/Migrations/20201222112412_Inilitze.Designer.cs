@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ContentManagement.Migrations
 {
     [DbContext(typeof(CMSDbContext))]
-    [Migration("20201219155418_Initlize")]
-    partial class Initlize
+    [Migration("20201222112412_Inilitze")]
+    partial class Inilitze
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -18,7 +18,7 @@ namespace ContentManagement.Migrations
                 .HasAnnotation("ProductVersion", "3.1.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("ContentManagement.Models.Account.LoginModel", b =>
+            modelBuilder.Entity("ContentManagement.Models.Account.Users", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -34,7 +34,7 @@ namespace ContentManagement.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("LoginModel");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("ContentManagement.Models.ContentManagement.TextContentModel", b =>
@@ -53,7 +53,7 @@ namespace ContentManagement.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TextContentModels");
+                    b.ToTable("Content");
                 });
 #pragma warning restore 612, 618
         }

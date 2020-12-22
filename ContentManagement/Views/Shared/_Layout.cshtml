@@ -30,6 +30,11 @@
                 <a class="nav-link text-white" style="font-size:0.6vw;" asp-area="" asp-controller="Home" asp-action="Content">Innehåll</a>
             </div>
         </div>
+        <div class="row" style="height:2vw;border-bottom:1px solid #5b5c60;">
+            <div class="col" style="padding-left: 1.2vw;">
+                <a class="nav-link text-white" style="font-size:0.6vw;" asp-area="" asp-controller="Home" asp-action="Index">Startsida</a>
+            </div>
+        </div>
         <div class="row" style="height:2vw;border-bottom:1px solid #5b5c60">
             <div class=" col" style="padding-left: 1.2vw;">
                 <a class="nav-link text-white" style="font-size:0.6vw;" asp-area="" asp-controller="Home" asp-action="Index">GolfEvent</a>
@@ -42,7 +47,12 @@
         </div>
         <div class="row" style="height:2vw;border-bottom:1px solid #5b5c60">
             <div class=" col" style="padding-left: 1.2vw;">
-                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Identity/Account/Login", new { area = "" })" method="post">
+                <a class="nav-link text-white" style="font-size:0.6vw;" asp-area="" asp-controller="Account" asp-action="UserAccount">Konto</a>
+            </div>
+        </div>
+        <div class="row" style="height:2vw;border-bottom:1px solid #5b5c60">
+            <div class=" col" style="padding-left: 1.2vw;">
+                <form class="form-inline" asp-controller="Account" asp-action="Logout">
                     <button type="submit" style="font-size:0.6vw;" class="nav-link btn btn-link text-white">Logga ut</button>
                 </form>
             </div>

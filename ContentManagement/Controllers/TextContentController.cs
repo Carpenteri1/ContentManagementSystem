@@ -26,13 +26,13 @@ namespace ContentManagement.Controllers
         // GET: TextContentController
         public async Task<IActionResult> Index()
         {
-            return View(await context.TextContentModels.ToListAsync());
+            return View(await context.Content.ToListAsync());
         }
        
         // GET: TextContentController/Details/5
         public IActionResult Details(int? id)
         {
-            return View(context.TextContentModels.Find(id));
+            return View(context.Content.Find(id));
         }
 
             // GET: TextContentController/Create
@@ -44,19 +44,27 @@ namespace ContentManagement.Controllers
 
         // POST: TextContentController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Create(TextContentModel newTextContent)
         {
-            try
+            if (User.Identity.IsAuthenticated)
             {
-                context.Add(newTextContent);
-                context.SaveChanges();
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    context.Add(newTextContent);
+                    context.SaveChanges();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch
+                {
+                    return View();
+                }
             }
-            catch
+            else
             {
-                return View();
+              return  Redirect("/Login");
             }
+          
         }
 
         // GET: TextContentController/Edit/5
@@ -66,7 +74,7 @@ namespace ContentManagement.Controllers
             {
                 return RedirectToAction("Index");
             }
-            TextContentModel grabTextContent = context.TextContentModels.Find(id);
+            TextContentModel grabTextContent = context.Content.Find(id);
 
             if (grabTextContent == null)
             {
@@ -99,7 +107,7 @@ namespace ContentManagement.Controllers
         {
             try
             {
-                var content = context.TextContentModels.Find(id);
+                var content = context.Users.Find(id);
                 return View(content);
             }
             catch
@@ -116,7 +124,7 @@ namespace ContentManagement.Controllers
         {
             try
             {
-                context.TextContentModels.Remove(content);
+                context.Content.Remove(content);
                 context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
