@@ -14,11 +14,10 @@
                 <div style="height:0.5vw;"></div>
                 <div style="list-style:none;font-size:0.6vw;border-top:1px solid #bbad93;height:0.5vw;">
                     <div style="height:1vw;"></div>
-                    <div class="float-left">
+                    <div class="form-group">
                         <button type="button" class="btn text-white p-0 text-center " onclick="location.href='@Url.Action("Register")'" style="font-size: 0.4vw;width:2.8vw;height:1.2vw;background-color:#0293fc;">Ny användare</button>
-                    </div>
-                    <div class="">
-                        <button type="button" class="btn text-white p-0 text-center" onclick="location.href='@Url.Action("Edit")'" style="font-size: 0.4vw;width:2.8vw;height:1.2vw;background-color:#0293fc;">Ändra konto</button>
+                        <button type="button" class="btn text-white p-0 text-center" onclick="location.href='@Url.Action("EditName")'" style="font-size: 0.4vw;width:2.8vw;height:1.2vw;background-color:#0293fc;">Ändra användarnamn</button>
+                        <button type="button" class="btn text-white p-0 text-center" onclick="location.href='@Url.Action("EditPass")'" style="font-size: 0.4vw;width:2.8vw;height:1.2vw;background-color:#0293fc;">Ändra lösenord</button>
                     </div>
                     <div style="height:1vw;"></div>
                 </div>
@@ -29,7 +28,6 @@
     <div class="col"></div>
 </div>
 
-
-@{
-
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

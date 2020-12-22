@@ -173,5 +173,8 @@ C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcor
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Account\Login.cshtml.g.cs
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Account\UserAccount.cshtml.g.cs
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Account\Register.cshtml.g.cs
-C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Account\Confirm.cshtml.g.cs
-C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Account\Edit.cshtml.g.cs
+C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Account\EditName.cshtml.g.cs
+C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Account\ConfirmRegister.cshtml.g.cs
+C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Account\ConfirmName.cshtml.g.cs
+C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Account\ConfirmPass.cshtml.g.cs
+C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Account\EditPass.cshtml.g.cs

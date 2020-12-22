@@ -87,7 +87,6 @@ namespace ContentManagement.Controllers
 
         // POST: TextContentController/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Edit(TextContentModel textContentModel)
         {
             try
@@ -119,7 +118,6 @@ namespace ContentManagement.Controllers
 
         // POST: TextContentController/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Delete(TextContentModel content)
         {
             try

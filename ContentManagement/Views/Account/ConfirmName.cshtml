@@ -10,8 +10,10 @@
                     <form id="login-form" class="form" action="" method="post">
                         <div style="height:0.5vw;"></div>
                         <div class="row">
-                            <img style="margin-right:0.4vw;margin-top:0.3vw;height:1vw;width:1vw;" src="~/Content/Icons/amv-symbol.png" />
-                            <h4 class="text-white" style="font-size:1.2vw;">Bekräfta ändringar</h4>
+                            <label style=" width: 100%;color:white; text-align: left; display: inline-block;">
+                                <img style="height:1vw;width:1vw;margin-top:-0.2vw;" src="~/Content/Icons/amv-symbol.png" />
+                                Bekräfta ändringar
+                            </label>
                         </div>
                         <div style="height:0.5vw;"></div>
                         <div class="form-group" style="font-size:0.6vw;">
@@ -33,7 +35,6 @@
         </div>
     </div>
 </div>
-
-@{
-
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -9,6 +9,7 @@ using System.Security.Claims;
 using ContentManagement.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
+using MySqlX.XDevAPI;
 
 namespace ContentManagement.Controllers
 {
@@ -20,9 +21,9 @@ namespace ContentManagement.Controllers
             this.context = context;
         }
 
-        [Route("Edit")]
+        [Route("EditPass")]
         [HttpGet]
-        public ActionResult Edit()
+        public ActionResult EditPass()
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -34,22 +35,135 @@ namespace ContentManagement.Controllers
             }
         }
 
-
-
-        [Route("Edit")]
+        [Route("EditPass")]
         [HttpPost]
-        public ActionResult Edit(Users user)
+        public ActionResult EditPass(Users editPass)
+        {
+            var grabUser = context
+            .Users
+            .ToList()
+            .Where(item =>
+            item.UserName == User.Identity.Name).FirstOrDefault();
+            if (grabUser != null)
+            {
+
+                TempData["User_Pass"] = editPass.Password;
+                return Redirect("ConfirmPass");
+
+            }
+            return Redirect("UserAccount");
+        }
+
+        [Route("ConfirmPass")]
+        [HttpGet]
+        public ActionResult ConfirmPass()
         {
             if (User.Identity.IsAuthenticated)
             {
-
-
                 return View();
             }
             else
             {
                 return Redirect("/Login");
             }
+        }
+
+        [Route("ConfirmPass")]
+        [HttpPost]
+        public ActionResult ConfirmPass(Users user)
+        {
+            var grabUser = context
+            .Users
+            .ToList()
+            .Where(item =>
+            item.Password == user.Password)
+            .FirstOrDefault();
+
+            if (grabUser != null)
+            {
+                grabUser.Password = TempData["User_Pass"].ToString();
+                TempData.Remove("User_Pass");
+                context.Update(grabUser);
+                context.SaveChanges();
+                return Redirect("/UserAccount");
+            }
+            TempData.Remove("User_Pass");
+            return Redirect("/UserAccount");
+        }
+
+
+        [Route("EditName")]
+        [HttpGet]
+        public ActionResult EditName()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return View();
+            }
+            else
+            {
+                return Redirect("/Login");
+            }
+        }
+
+        
+        [Route("EditName")]
+        [HttpPost]
+        public ActionResult EditName(Users newName)
+        {
+
+            var grabUser = context
+                .Users
+                .ToList()
+                .Where(item =>
+                item.UserName == User.Identity.Name).FirstOrDefault();
+
+            if (grabUser != null)
+            {
+
+                TempData["User_NewName"] = newName.UserName;
+                return Redirect("ConfirmName");
+
+            }
+
+                return View();
+        }
+
+        [Route("ConfirmName")]
+        [HttpGet]
+        public ActionResult ConfirmName()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return View();
+            }
+            else
+            {
+                return Redirect("/Login");
+            }
+        }
+
+        [Route("ConfirmName")]
+        [HttpPost]
+        public ActionResult ConfirmName(Users user)
+        {
+            var grabUser = context
+            .Users
+            .ToList()
+            .Where(item =>
+            item.Password == user.Password)
+            .FirstOrDefault();
+
+            if (grabUser != null)
+            {
+                grabUser.UserName = TempData["User_NewName"].ToString();
+                TempData.Remove("User_NewName");
+                context.Update(grabUser);
+                context.SaveChanges();
+                return Redirect("/UserAccount");
+            }
+            TempData.Remove("User_NewName");
+            return Redirect("/UserAccount");
         }
 
 
@@ -82,7 +196,7 @@ namespace ContentManagement.Controllers
                 item.UserName == newLogin.UserName &&
                 item.Password == newLogin.Password).FirstOrDefault();
 
-            if (!grabUser.Equals(null))
+            if (grabUser != null)
             {
                 if (newLogin.UserName != grabUser.UserName)
                 {
@@ -104,8 +218,12 @@ namespace ContentManagement.Controllers
                     return Redirect("~/");
                 }
             }
-
+            else
+            {
                 return Redirect("/Login");
+            }
+
+            return Redirect("/Login");
         }
 
         [Route("Logout")]
@@ -170,7 +288,9 @@ namespace ContentManagement.Controllers
                     TempData["NewUser_Name"] = newUser.UserName;
                     TempData["NewUser_Pass"] = newUser.Password;
                     TempData["NewUser_ConPass"] = newUser.ConfirmPassword;
-                    return Redirect("/Confirm");
+
+
+                    return Redirect("/ConfirmRegister");
                 }
             }
             else
@@ -182,7 +302,7 @@ namespace ContentManagement.Controllers
 
         [Route("Confirm")]
         [HttpGet]
-        public IActionResult Confirm()
+        public IActionResult ConfirmRegister()
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -196,7 +316,7 @@ namespace ContentManagement.Controllers
 
         [Route("Confirm")]
         [HttpPost]
-        public IActionResult Confirm(Users user)
+        public IActionResult ConfirmRegister(Users user)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -216,13 +336,21 @@ namespace ContentManagement.Controllers
                         Password = TempData["NewUser_Pass"].ToString(),
                         ConfirmPassword = TempData["NewUser_ConPass"].ToString()
                     };
-               
+
+                    TempData.Remove("NewUser_Name");
+                    TempData.Remove("NewUser_Pass");
+                    TempData.Remove("NewUser_ConPass");
+
                     context.Users.Add(newUser);
                     context.SaveChangesAsync();
                     return Redirect("/UserAccount");
                 }
                 else
                 {
+                    TempData.Remove("NewUser_Name");
+                    TempData.Remove("NewUser_Pass");
+                    TempData.Remove("NewUser_ConPass");
+
                     return Redirect("/Register");
                 }
             }
