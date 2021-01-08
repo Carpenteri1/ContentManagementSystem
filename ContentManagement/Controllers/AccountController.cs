@@ -10,15 +10,21 @@ using ContentManagement.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using MySqlX.XDevAPI;
+using Microsoft.AspNetCore.Server.HttpSys;
+using ContentManagement.Security;
 
 namespace ContentManagement.Controllers
 {
     public class AccountController : Controller
     {
         private readonly CMSDbContext context;
+        private const string claimsKey = "KeyOne";
+        private List<Claim> claims = new List<Claim>();
+
         public AccountController(CMSDbContext context)
         {
             this.context = context;
+           
         }
 
         [Route("EditPass")]
@@ -44,6 +50,7 @@ namespace ContentManagement.Controllers
             .ToList()
             .Where(item =>
             item.UserName == User.Identity.Name).FirstOrDefault();
+
             if (grabUser != null)
             {
 
@@ -51,6 +58,7 @@ namespace ContentManagement.Controllers
                 return Redirect("ConfirmPass");
 
             }
+
             return Redirect("UserAccount");
         }
 
@@ -83,6 +91,8 @@ namespace ContentManagement.Controllers
             {
                 grabUser.Password = TempData["User_Pass"].ToString();
                 TempData.Remove("User_Pass");
+
+                grabUser.Password = PasswordHandler.HashPassword(grabUser.Password);
                 context.Update(grabUser);
                 context.SaveChanges();
                 return Redirect("/UserAccount");
@@ -114,9 +124,9 @@ namespace ContentManagement.Controllers
 
             var grabUser = context
                 .Users
-                .ToList()
-                .Where(item =>
-                item.UserName == User.Identity.Name).FirstOrDefault();
+                .First
+                (item =>
+                item.UserName == User.Identity.Name);
 
             if (grabUser != null)
             {
@@ -145,21 +155,30 @@ namespace ContentManagement.Controllers
 
         [Route("ConfirmName")]
         [HttpPost]
-        public ActionResult ConfirmName(Users user)
+        public async Task<ActionResult> ConfirmName(Users user)
         {
             var grabUser = context
             .Users
             .ToList()
             .Where(item =>
-            item.Password == user.Password)
+            item.UserName == User.Identity.Name)
             .FirstOrDefault();
 
             if (grabUser != null)
             {
                 grabUser.UserName = TempData["User_NewName"].ToString();
+                var existingClaim = claims.Find(item => item.Value == claimsKey);//find excisting user.identity using claims
+                claims.Remove(existingClaim);
+                claims.Add(new Claim(ClaimTypes.Name, grabUser.UserName));//<-- adds the new username to claims
+
+                var claimsIdentity = new ClaimsIdentity(claims, claimsKey);
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+
+
                 TempData.Remove("User_NewName");
                 context.Update(grabUser);
                 context.SaveChanges();
+
                 return Redirect("/UserAccount");
             }
             TempData.Remove("User_NewName");
@@ -174,7 +193,7 @@ namespace ContentManagement.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return View();
+                    return View();
             }
             else
             {
@@ -189,32 +208,34 @@ namespace ContentManagement.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(Users newLogin)
         {
-            var grabUser = context
+
+            var verifyUser = context
                 .Users
                 .ToList()
                 .Where(item =>
-                item.UserName == newLogin.UserName &&
-                item.Password == newLogin.Password).FirstOrDefault();
+                item.UserName == newLogin.UserName)
+                .FirstOrDefault();
 
-            if (grabUser != null)
+            if (verifyUser != null)
             {
-                if (newLogin.UserName != grabUser.UserName)
+                if (newLogin.UserName != verifyUser.UserName)
                 {
                     //TODO Message text
                 }  
-                if(newLogin.Password != grabUser.Password)
+                if(!PasswordHandler.VerifyHashedPassword(verifyUser.Password,newLogin.Password))
                 {
                     //TODO Message text
                 }
                 else
                 {
-                    var claims = new List<Claim>
-                    {
-                        new Claim(ClaimTypes.Name, newLogin.UserName)
-                    };
-                    var claimsIdentity = new ClaimsIdentity(claims, "Login");
 
+                    claims.Add(new Claim(ClaimTypes.Name, newLogin.UserName));
+                    var claimsIdentity = new ClaimsIdentity(claims, claimsKey);
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+
+                    verifyUser.LastLoggedIn = DateTime.Now;
+                    context.Update(verifyUser);
+                    context.SaveChanges();
                     return Redirect("~/");
                 }
             }
@@ -242,13 +263,20 @@ namespace ContentManagement.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return View();
+                var model = new List<Users>();
+                foreach(var s in context.Users.ToList())
+                {
+                    model.Add(s);
+                }
+
+                return View(model);
             }
             else
             {
                 return Redirect("/Login");
             }
         }
+
 
 
         [Route("Register")]

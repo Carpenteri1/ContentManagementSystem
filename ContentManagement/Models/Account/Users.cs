@@ -1,4 +1,5 @@
 ﻿using ContentManagement.Data;
+using ContentManagement.Models.ContentManagement;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -31,7 +32,15 @@ namespace ContentManagement.Models.Account
         [Compare("Password", ErrorMessage = "Lösenorden matchar inte")]
         public string ConfirmPassword { get; set; }
 
+        [DataType(DataType.DateTime)]
+        public DateTime UserCreated { get; set; }
+        [DataType(DataType.DateTime)]
+        public DateTime LastLoggedIn { get; set; }
 
+
+        public ICollection<TitleModel> Titles { get; set; }
+        public ICollection<TextContentModel> TextContent { get; set; }
+        public ICollection<ImgModel> ImgContent { get; set; }
 
 
     }

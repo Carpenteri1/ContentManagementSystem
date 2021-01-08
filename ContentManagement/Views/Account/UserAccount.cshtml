@@ -1,33 +1,64 @@
-﻿@model Users
+﻿@model List<Users> 
 
 <div style="height:2vw;"></div>
 <div class="row">
-    <div class="col"></div>
-    <div class="col">
-        <div class="container">
-            <div style=" border: 2px solid #bbad93; padding: 20px; width: 300px;background-color:#3f4044;">
-                <h5 class="text-white text-left">Kontouppgifter</h5>
-                <p class="text-white text-left">
-                    Användare: @User.Identity.Name<br />
-                    Konto typ: (placeholder) admin
-                </p>
-                <div style="height:0.5vw;"></div>
-                <div style="list-style:none;font-size:0.6vw;border-top:1px solid #bbad93;height:0.5vw;">
-                    <div style="height:1vw;"></div>
-                    <div class="form-group">
-                        <button type="button" class="btn text-white p-0 text-center " onclick="location.href='@Url.Action("Register")'" style="font-size: 0.4vw;width:2.8vw;height:1.2vw;background-color:#0293fc;">Ny användare</button>
-                        <button type="button" class="btn text-white p-0 text-center" onclick="location.href='@Url.Action("EditName")'" style="font-size: 0.4vw;width:2.8vw;height:1.2vw;background-color:#0293fc;">Ändra användarnamn</button>
-                        <button type="button" class="btn text-white p-0 text-center" onclick="location.href='@Url.Action("EditPass")'" style="font-size: 0.4vw;width:2.8vw;height:1.2vw;background-color:#0293fc;">Ändra lösenord</button>
+    <div class="container p-2">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-4 p-2">
+                <div style=" border: 2px solid #bbad93; padding: 20px; width: 300px;background-color:#3f4044;">
+                    <h5 class="text-white text-left">Kontouppgifter</h5>
+                    <p class="text-white text-left">
+                        Användare: @User.Identity.Name <br />
+                        Konto typ: (placeholder) admin
+                    </p>
+                    <div style="height:0.5vw;"></div>
+                    <div style="list-style:none;font-size:0.6vw;border-top:1px solid #bbad93;height:0.5vw;">
+                        <div style="height:1vw;"></div>
+                        <div class="form-group">
+                            <button type="button" class="btn text-white p-0 text-center " onclick="location.href='@Url.Action("Register")'" style="font-size: 0.4vw;width:2.8vw;height:1.2vw;background-color:#0293fc;">Ny användare</button>
+                            <button type="button" class="btn text-white p-0 text-center" onclick="location.href='@Url.Action("EditName")'" style="font-size: 0.4vw;width:2.8vw;height:1.2vw;background-color:#0293fc;">Ändra användarnamn</button>
+                            <button type="button" class="btn text-white p-0 text-center" onclick="location.href='@Url.Action("EditPass")'" style="font-size: 0.4vw;width:2.8vw;height:1.2vw;background-color:#0293fc;">Ändra lösenord</button>
+                        </div>
+                        <div style="height:1vw;"></div>
                     </div>
-                    <div style="height:1vw;"></div>
+                    <div style="height:2vw;"></div>
                 </div>
-                <div style="height:2vw;"></div>
             </div>
+            <div class="col-1"></div>
+            <div class="col-4 p-2">
+                <div style=" border: 2px solid #bbad93; padding: 20px; width: 300px;background-color:#3f4044;">
+                    <h5 class="text-white">Kontouppgifter</h5>
+                    @foreach (var user in Model)
+                    {
+                        <ul class="text-white" style="list-style:none;font-size:0.6vw;">
+                            <li>Användare: @user.UserName</li>
+                            <li>Loggade In: @user.LastLoggedIn</li>
+                            <li>Skapades: @user.UserCreated</li>
+                        </ul>
+                    }
+                        <div style="height:0.5vw;"></div>
+                        <div style="list-style:none;font-size:0.6vw;border-top:1px solid #bbad93;height:0.5vw;">
+                            <div style="height:1vw;"></div>
+                            <div class="form-group">
+                                <button type="button" class="btn text-white p-0 text-center " onclick="location.href='@Url.Action("Register")'" style="font-size: 0.4vw;width:2.8vw;height:1.2vw;background-color:#0293fc;">Ny användare</button>
+                                <button type="button" class="btn text-white p-0 text-center" onclick="location.href='@Url.Action("EditName")'" style="font-size: 0.4vw;width:2.8vw;height:1.2vw;background-color:#0293fc;">Ändra användarnamn</button>
+                                <button type="button" class="btn text-white p-0 text-center" onclick="location.href='@Url.Action("EditPass")'" style="font-size: 0.4vw;width:2.8vw;height:1.2vw;background-color:#0293fc;">Ändra lösenord</button>
+                            </div>
+                            <div style="height:1vw;"></div>
+                        </div>
+                        <div style="height:2vw;"></div>
+                    </div>
+            </div>
+            <div class="col-1"></div>
         </div>
+
     </div>
-    <div class="col"></div>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
 }
+

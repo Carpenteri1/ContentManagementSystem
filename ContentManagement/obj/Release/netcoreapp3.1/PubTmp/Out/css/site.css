@@ -59,10 +59,7 @@ html {
 
 }
 
-main {
-    border: 2px solid yellow;
-  
-}
+
 
 body {
     /* 
@@ -89,3 +86,29 @@ header{
     height: 100%;
 }
 
+
+.btn-dropdown {
+    font-size: 0.4vw !important;
+    height: 1vw !important;
+    width: 3vw !important;
+    padding: 0vw !important; 
+}
+
+
+.container {
+
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.centered-div {
+    width: 80%;
+    height: 190px;
+    margin: 10px;
+    padding: 5px;
+    background: blue;
+    color: white;
+}

@@ -24,10 +24,6 @@ C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcor
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\ContentManagement.pdb
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\bin\Debug\netcoreapp3.1\appsettings.json
-C:\Users\nicla\source\repos\ContentManagement\ContentManagement\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
-C:\Users\nicla\source\repos\ContentManagement\ContentManagement\bin\Debug\netcoreapp3.1\Properties\serviceDependencies.json
-C:\Users\nicla\source\repos\ContentManagement\ContentManagement\bin\Debug\netcoreapp3.1\Properties\serviceDependencies.local.json
-C:\Users\nicla\source\repos\ContentManagement\ContentManagement\bin\Debug\netcoreapp3.1\Properties\ServiceDependencies\AMV - Web Deploy\profile.arm.json
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\bin\Debug\netcoreapp3.1\ContentManagement.exe
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\bin\Debug\netcoreapp3.1\ContentManagement.deps.json
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\bin\Debug\netcoreapp3.1\ContentManagement.runtimeconfig.json
@@ -70,7 +66,6 @@ C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcor
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\staticwebassets\ContentManagement.StaticWebAssets.Manifest.cache
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\staticwebassets\ContentManagement.StaticWebAssets.xml
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\ContentManagement.genruntimeconfig.cache
-C:\Users\nicla\source\repos\ContentManagement\ContentManagement\bin\Debug\netcoreapp3.1\Properties\serviceDependencies.AMV - Web Deploy.json
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\bin\Debug\netcoreapp3.1\MySql.Data.EntityFrameworkCore.dll
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Razor.Language.dll
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.dll
@@ -178,3 +173,4 @@ C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcor
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Account\ConfirmName.cshtml.g.cs
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Account\ConfirmPass.cshtml.g.cs
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Account\EditPass.cshtml.g.cs
+C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\scopedcss\bundle\ContentManagement.styles.css

@@ -40,8 +40,15 @@ using ContentManagement.Models.Account;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 5 "C:\Users\nicla\source\repos\ContentManagement\ContentManagement\Views\_ViewImports.cshtml"
+using ContentManagement.Data;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"3dd28e6fb0b636e4901b984a9213784108adc308", @"/Views/Home/Content.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"318be6cb39ed8637ce6022cb6123b618dc2c11fb", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"daf4047b99225a29ec945f87b195e7323bfe1992", @"/Views/_ViewImports.cshtml")]
     public class Views_Home_Content : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<IEnumerable<TextContentModel>>
     {
         #line hidden
@@ -94,7 +101,7 @@ using ContentManagement.Models.Account;
                             <b style=""font-size:0.5vw;margin-top:0.2vw;"">Välj huvudmeny:</b>
                             <select data-live-search=""true"" class=""sele");
             WriteLiteral("ctpicker show-menu-arrow float-right;border:2px solid red;\" style=\"font-size:0.5vw;width:10vw;margin-top:0.2vw\">\r\n                                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3dd28e6fb0b636e4901b984a9213784108adc3085025", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3dd28e6fb0b636e4901b984a9213784108adc3085226", async() => {
                 WriteLiteral("Start");
             }
             );
@@ -108,7 +115,7 @@ using ContentManagement.Models.Account;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n                                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3dd28e6fb0b636e4901b984a9213784108adc3086014", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3dd28e6fb0b636e4901b984a9213784108adc3086215", async() => {
                 WriteLiteral("Två");
             }
             );
@@ -122,7 +129,7 @@ using ContentManagement.Models.Account;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n                                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3dd28e6fb0b636e4901b984a9213784108adc3087001", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3dd28e6fb0b636e4901b984a9213784108adc3087202", async() => {
                 WriteLiteral("Tree");
             }
             );
