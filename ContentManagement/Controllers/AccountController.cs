@@ -49,16 +49,15 @@ namespace ContentManagement.Controllers
             .Users
             .ToList()
             .Where(item =>
-            item.UserName == User.Identity.Name).FirstOrDefault();
+            item.UserName == User.Identity.Name)
+            .FirstOrDefault();
 
             if (grabUser != null)
             {
 
                 TempData["User_Pass"] = editPass.Password;
                 return Redirect("ConfirmPass");
-
             }
-
             return Redirect("UserAccount");
         }
 
@@ -304,21 +303,20 @@ namespace ContentManagement.Controllers
                .ToList()
                .Where(item =>
                item.UserName == newUser.UserName)
-               .FirstOrDefault();
+               .FirstOrDefault(); 
            
-                if(grabUser != null)
+                if(grabUser == null)//<-- if the new user dont exist
                 {
-                    return Redirect("/Register"); 
-                }
-                else
-                {
-                    
+                    newUser.Password = PasswordHandler.HashPassword(newUser.Password);
                     TempData["NewUser_Name"] = newUser.UserName;
                     TempData["NewUser_Pass"] = newUser.Password;
                     TempData["NewUser_ConPass"] = newUser.ConfirmPassword;
 
-
-                    return Redirect("/ConfirmRegister");
+                    return Redirect("/Confirm"); 
+                }
+                else
+                {
+                    return Redirect("/UserAccount");
                 }
             }
             else
@@ -344,34 +342,44 @@ namespace ContentManagement.Controllers
 
         [Route("Confirm")]
         [HttpPost]
-        public IActionResult ConfirmRegister(Users user)
+        public IActionResult ConfirmRegister(Users newUser)
         {
             if (User.Identity.IsAuthenticated)
             {
-                
-              var grabUser = context
-              .Users
-              .ToList()
-              .Where(item =>
-              item.Password == user.Password)
-              .FirstOrDefault();
+                var verifyedUser = context
+                    .Users
+                    .First
+                    (item => item.UserName == User.Identity.Name);
 
-                if (grabUser != null)
+                if (verifyedUser != null)
                 {
-                    var newUser = new Users
+                    if (!PasswordHandler.VerifyHashedPassword(verifyedUser.Password,newUser.Password))
                     {
-                        UserName = TempData["NewUser_Name"].ToString(),
-                        Password = TempData["NewUser_Pass"].ToString(),
-                        ConfirmPassword = TempData["NewUser_ConPass"].ToString()
-                    };
+                        TempData.Remove("NewUser_Name");
+                        TempData.Remove("NewUser_Pass");
+                        TempData.Remove("NewUser_ConPass");
+                        return Redirect("/UserAcount");
+                    }
+                    else
+                    {
 
-                    TempData.Remove("NewUser_Name");
-                    TempData.Remove("NewUser_Pass");
-                    TempData.Remove("NewUser_ConPass");
+                        newUser.UserName = TempData["NewUser_Name"].ToString();
+                        newUser.Password = TempData["NewUser_Pass"].ToString();
+                        newUser.UserCreated = DateTime.Now;
+                
+                        TempData.Remove("NewUser_Name");
+                        TempData.Remove("NewUser_Pass");
+                        TempData.Remove("NewUser_ConPass");
 
-                    context.Users.Add(newUser);
-                    context.SaveChangesAsync();
-                    return Redirect("/UserAccount");
+
+
+
+                        context.Add(newUser);
+                        context.SaveChanges();
+                        return Redirect("/UserAccount");
+                    }
+
+
                 }
                 else
                 {

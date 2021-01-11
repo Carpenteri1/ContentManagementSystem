@@ -94,3 +94,16 @@ header{
 .table > tbody > tr > th {
     border-top: none;
 }
+
+tr.d0 td {
+    background-color: #f4f4f4;
+}
+
+tr.d1 td {
+    background-color: #ffffff;
+}
+
+.dropdown-thin a {
+    height: 25px;
+    padding-top: 2px;
+}

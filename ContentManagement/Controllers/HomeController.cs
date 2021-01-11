@@ -4,9 +4,10 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ContentManagement.Models;
+using ContentManagement.Models.Content;
 using ContentManagement.Data;
 using Microsoft.AspNetCore.Authorization;
-
+using System.Collections.Generic;
 
 namespace ContentManagement.Controllers
 {
@@ -37,13 +38,20 @@ namespace ContentManagement.Controllers
         {
             return View();
         }
-       
-        [Route("content")]
+
+        [AllowAnonymous]
         public IActionResult Content()
         {
             if (User.Identity.IsAuthenticated)
             {
-                return View(context.Content.ToList());
+                var model = new List<TitleModel>();
+                foreach (var s in context.TitleModel)
+                {
+                    s.TypeOfTitle = "h1";
+                    model.Add(s);
+                }
+
+                return View(model);
             }
             else
             {

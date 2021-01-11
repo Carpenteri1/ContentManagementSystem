@@ -1,5 +1,5 @@
 ﻿using ContentManagement.Data;
-using ContentManagement.Models.ContentManagement;
+using ContentManagement.Models.Content;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

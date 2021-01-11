@@ -23,17 +23,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\Home\Content.cshtml" />
     <None Include="Views\Home\Index.cshtml" />
     <None Include="Views\Home\Privacy.cshtml" />
     <None Include="Views\Shared\Error.cshtml" />
     <None Include="Views\Shared\_Layout.cshtml" />
     <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
-    <None Include="Views\TextContent\Create.cshtml" />
-    <None Include="Views\TextContent\Delete.cshtml" />
-    <None Include="Views\TextContent\Details.cshtml" />
-    <None Include="Views\TextContent\Edit.cshtml" />
-    <None Include="Views\TextContent\Index.cshtml" />
     <None Include="Views\_ViewImports.cshtml" />
     <None Include="Views\_ViewStart.cshtml" />
   </ItemGroup>

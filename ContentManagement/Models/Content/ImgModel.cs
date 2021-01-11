@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ContentManagement.Models.ContentManagement
+namespace ContentManagement.Models.Content
 {
     public class ImgModel
     {

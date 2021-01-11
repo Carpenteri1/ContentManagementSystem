@@ -5,17 +5,11 @@ C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcor
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\ContentManagement.TagHelpers.input.cache
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\ContentManagement.TagHelpers.output.cache
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\ContentManagement.RazorCoreGenerate.cache
-C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Home\Content.cshtml.g.cs
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Home\Privacy.cshtml.g.cs
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
-C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\TextContent\Create.cshtml.g.cs
-C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\TextContent\Delete.cshtml.g.cs
-C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\TextContent\Details.cshtml.g.cs
-C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\TextContent\Edit.cshtml.g.cs
-C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\TextContent\Index.cshtml.g.cs
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\_ViewImports.cshtml.g.cs
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\_ViewStart.cshtml.g.cs
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\ContentManagement.RazorTargetAssemblyInfo.cache
@@ -145,7 +139,6 @@ C:\Users\nicla\source\repos\ContentManagement\ContentManagement\bin\Debug\netcor
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.dll
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Binder.dll
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ViewStart.cshtml.g.cs
-C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\ContentManagement.csprojAssemblyReference.cache
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\bin\Debug\netcoreapp3.1\Microsoft.Data.SqlClient.dll
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.SqlServer.dll
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\bin\Debug\netcoreapp3.1\Microsoft.Identity.Client.dll
@@ -174,3 +167,5 @@ C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcor
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Account\ConfirmPass.cshtml.g.cs
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Account\EditPass.cshtml.g.cs
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\scopedcss\bundle\ContentManagement.styles.css
+C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Home\Content.cshtml.g.cs
+C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\ContentManagement.csprojAssemblyReference.cache
