@@ -27,13 +27,44 @@ namespace ContentManagement.Controllers
            
         }
 
+
+        [Route("EditUser")]
+        [HttpGet]
+        public IActionResult EditUser()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole(UserRoles.Admin.ToString()))
+                {
+                    return View();
+                }
+                else
+                {
+                    return Redirect("/UserAccount");
+                }
+
+            }
+            else
+            {
+                return Redirect("/Login");
+            }
+        }
+
         [Route("EditPass")]
         [HttpGet]
         public ActionResult EditPass()
         {
             if (User.Identity.IsAuthenticated)
             {
-                return View();
+                if (User.IsInRole(UserRoles.Admin.ToString()))
+                {
+                    return View();
+                }
+                else
+                {
+                    return Redirect("/UserAccount");
+                }
+
             }
             else
             {
@@ -67,7 +98,15 @@ namespace ContentManagement.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return View();
+                if (User.IsInRole(UserRoles.Admin.ToString()))
+                {
+                    return View();
+                }
+                else
+                {
+                    return Redirect("/UserAccount");
+                }
+
             }
             else
             {
@@ -107,7 +146,15 @@ namespace ContentManagement.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return View();
+                if (User.IsInRole(UserRoles.Admin.ToString()))
+                {
+                    return View();
+                }
+                else
+                {
+                    return Redirect("/UserAccount");
+                }
+
             }
             else
             {
@@ -144,7 +191,15 @@ namespace ContentManagement.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return View();
+                if (User.IsInRole(UserRoles.Admin.ToString()))
+                {
+                    return View();
+                }
+                else
+                {
+                    return Redirect("/UserAccount");
+                }
+
             }
             else
             {
@@ -227,8 +282,25 @@ namespace ContentManagement.Controllers
                 }
                 else
                 {
+                    if (verifyUser.UserRole.Equals(UserRoles.Admin.ToString()))
+                    {
+                        verifyUser.UserRole = UserRoles.Admin.ToString();
+                        User.IsInRole(UserRoles.Admin.ToString());
+                        claims.Add(new Claim(ClaimTypes.Role, verifyUser.UserRole));
+                    }
+                    else if(verifyUser.UserRole.Equals(UserRoles.User.ToString()))
+                    {
+                        verifyUser.UserRole = UserRoles.User.ToString();
+                        User.IsInRole(UserRoles.User.ToString());
+                        claims.Add(new Claim(ClaimTypes.Role, verifyUser.UserRole));
+                    }
+                    else
+                    {
+                        return Redirect("~/Login");
+                    }
 
-                    claims.Add(new Claim(ClaimTypes.Name, newLogin.UserName));
+        
+                    claims.Add(new Claim(ClaimTypes.Name, verifyUser.UserName));
                     var claimsIdentity = new ClaimsIdentity(claims, claimsKey);
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
@@ -284,7 +356,15 @@ namespace ContentManagement.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return View();
+                if (User.IsInRole(UserRoles.Admin.ToString()))
+                {
+                    return View();
+                }
+                else
+                {
+                    return Redirect("/UserAccount");
+                }
+
             }
             else
             {
@@ -308,9 +388,12 @@ namespace ContentManagement.Controllers
                 if(grabUser == null)//<-- if the new user dont exist
                 {
                     newUser.Password = PasswordHandler.HashPassword(newUser.Password);
-                    TempData["NewUser_Name"] = newUser.UserName;
+                    TempData["NewUser_UserName"] = newUser.UserName;
                     TempData["NewUser_Pass"] = newUser.Password;
                     TempData["NewUser_ConPass"] = newUser.ConfirmPassword;
+                    TempData["NewUser_Name"] = newUser.Name;
+                    TempData["NewUser_Surname"] = newUser.Surname;
+                    TempData["NewUser_Role"] = newUser.UserRole;
 
                     return Redirect("/Confirm"); 
                 }
@@ -332,7 +415,14 @@ namespace ContentManagement.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return View();
+                if (User.IsInRole(UserRoles.Admin.ToString()))
+                {
+                    return View();
+                }
+                else
+                {
+                    return Redirect("/UserAccount");
+                }
             }
             else
             {
@@ -353,28 +443,36 @@ namespace ContentManagement.Controllers
 
                 if (verifyedUser != null)
                 {
-                    if (!PasswordHandler.VerifyHashedPassword(verifyedUser.Password,newUser.Password))
+                    if (!PasswordHandler.VerifyHashedPassword(verifyedUser.Password, newUser.Password))
                     {
-                        TempData.Remove("NewUser_Name");
+
+                        TempData.Remove("NewUser_UserName");
                         TempData.Remove("NewUser_Pass");
                         TempData.Remove("NewUser_ConPass");
+                        TempData.Remove("NewUser_Name");
+                        TempData.Remove("NewUser_Surname");
+                        TempData.Remove("NewUser_Role");
+
                         return Redirect("/UserAcount");
                     }
                     else
                     {
 
-                        newUser.UserName = TempData["NewUser_Name"].ToString();
+                        newUser.UserName = TempData["NewUser_UserName"].ToString();
                         newUser.Password = TempData["NewUser_Pass"].ToString();
                         newUser.UserCreated = DateTime.Now;
-                
+                        newUser.Name = TempData["NewUser_Name"].ToString();
+                        newUser.Surname = TempData["NewUser_Surname"].ToString();
+                        newUser.UserRole = TempData["NewUser_Role"].ToString();
+
                         TempData.Remove("NewUser_Name");
                         TempData.Remove("NewUser_Pass");
                         TempData.Remove("NewUser_ConPass");
+                        TempData.Remove("NewUser_Name");
+                        TempData.Remove("NewUser_Surname");
+                        TempData.Remove("NewUser_Role");
 
-
-
-
-                        context.Add(newUser);
+                        context.Users.Add(newUser);
                         context.SaveChanges();
                         return Redirect("/UserAccount");
                     }
@@ -383,9 +481,13 @@ namespace ContentManagement.Controllers
                 }
                 else
                 {
+
                     TempData.Remove("NewUser_Name");
                     TempData.Remove("NewUser_Pass");
                     TempData.Remove("NewUser_ConPass");
+                    TempData.Remove("NewUser_Name");
+                    TempData.Remove("NewUser_Surname");
+                    TempData.Remove("NewUser_Role");
 
                     return Redirect("/Register");
                 }

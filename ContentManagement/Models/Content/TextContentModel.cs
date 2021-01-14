@@ -22,6 +22,6 @@ namespace ContentManagement.Models.Content
         public int UserId { get; set; }
         public Users Users { get; set; }
 
-        public ICollection<MergedContent> MergedContents { get; set; }
+        public ICollection<PageModel> PageModel { get; set; }
     }
 }

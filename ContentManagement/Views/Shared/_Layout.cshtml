@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/sitestyle.css" />
+    @*<script src="https://cdn.ckeditor.com/ckeditor5/24.0.0/classic/ckeditor.js"></script>*@
+    <script src="https://cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script>
 </head>
 <body style="height:100%;">
     <header>
@@ -27,22 +29,22 @@
     <div class="col-auto" style="background-color:#3f4044;">
         <div class="row" style="height:2vw;border-bottom:1px solid #5b5c60;">
             <div class="col" style="padding-left: 1.2vw;">
-                <a class="nav-link text-white" style="font-size:0.6vw;" asp-area="" asp-controller="Home" asp-action="Content">Innehåll</a>
+                <a class="nav-link text-white" style="font-size:0.6vw;" asp-area="" asp-controller="Content" asp-action="Content">Innehåll</a>
             </div>
         </div>
         <div class="row" style="height:2vw;border-bottom:1px solid #5b5c60;">
             <div class="col" style="padding-left: 1.2vw;">
-                <a class="nav-link text-white" style="font-size:0.6vw;" asp-area="" asp-controller="Home" asp-action="Index">Startsida</a>
+                <a class="nav-link text-white" style="font-size:0.6vw;" asp-area="" asp-controller="Content" asp-action="StartPage">Startsida</a>
             </div>
         </div>
         <div class="row" style="height:2vw;border-bottom:1px solid #5b5c60">
             <div class=" col" style="padding-left: 1.2vw;">
-                <a class="nav-link text-white" style="font-size:0.6vw;" asp-area="" asp-controller="Home" asp-action="Index">GolfEvent</a>
+                <a class="nav-link text-white" style="font-size:0.6vw;" asp-area="" asp-controller="Content" asp-action="Events">GolfEvent</a>
             </div>
         </div>
         <div class="row" style="height:2vw;border-bottom:1px solid #5b5c60">
             <div class=" col" style="padding-left: 1.2vw;">
-                <a class="nav-link text-white" style="font-size:0.6vw;" asp-area="" asp-controller="Home" asp-action="Index">Annonser</a>
+                <a class="nav-link text-white" style="font-size:0.6vw;" asp-area="" asp-controller="Content" asp-action="Adverts">Annonser</a>
             </div>
         </div>
         <div class="row" style="height:2vw;border-bottom:1px solid #5b5c60">

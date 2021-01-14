@@ -11,15 +11,20 @@
                         <div class="col-6">
                             <label style=" width: 100%; text-align: left; display: inline-block;">
                                 <b style="color:#555555;font-size:0.8vw;">Kontouppgifter:</b>
+                                @if (User.IsInRole(UserRoles.Admin.ToString()))
+                                {
+                                    <button type="button" class="btn text-white p-0 text-center" onclick="location.href='@Url.Action("EditUser")'" style="font-size: 0.6vw;width:5vw;height:1.2vw;background-color:#0293fc;">Ändra uppgifter</button>
+                                }
                             </label>
                         </div>
                         <div class="col-6">
                             <label style=" width: 100%; text-align: right; display: inline-block;">
-                                <button type="button" class="btn text-white p-0 text-center " onclick="location.href='@Url.Action("Register")'" style="font-size: 0.4vw;width:5vw;height:1.2vw;background-color:#0293fc;">Skapa ny användare</button>
-                                <button type="button" class="btn text-white p-0 text-center" onclick="location.href='@Url.Action("EditName")'" style="font-size: 0.4vw;width:5vw;height:1.2vw;background-color:#0293fc;">Ändra användarnamn</button>
-                                <button type="button" class="btn text-white p-0 text-center" onclick="location.href='@Url.Action("EditPass")'" style="font-size: 0.4vw;width:5vw;height:1.2vw;background-color:#0293fc;">Ändra lösenord</button>
+                                @if (User.IsInRole(UserRoles.Admin.ToString()))
+                                {
+                                    <button type="button" class="btn text-white p-0 text-center " onclick="location.href='@Url.Action("Register")'" style="font-size: 0.6vw;width:5vw;height:1.2vw;background-color:#0293fc;">Ny användare +</button>
+                                }
                             </label>
-                        </div>
+                            </div>
                     </div>
 
                 </div>
@@ -45,10 +50,18 @@
                                     <b style="text-align: left;width:10vw;display: inline-block; font-size: 0.5vw; color: #515151;">Kontotyp: </b>
                                 </td>
                                 <td>
-                                    <b style="text-align: right; width:100%;  display: inline-block;font-size:0.5vw;">Admin</b>
+                                    <b style="text-align: right; width:100%;  display: inline-block;font-size:0.5vw;">@s.UserRole</b>
                                 </td>
                             </tr>
                             <tr style="background-color:#f4f4f4;line-height:0.2vw;">
+                                <td>
+                                    <b style="text-align: left;width:10vw;display: inline-block; font-size: 0.5vw; color: #515151;">Namn: </b>
+                                </td>
+                                <td>
+                                    <b style="text-align: right; width:100%;  display: inline-block;font-size:0.5vw;">@s.Name &nbsp; @s.Surname</b>
+                                </td>
+                            </tr>
+                            <tr style="background-color:white;line-height:0.2vw;">
                                 <td>
                                     <b style="text-align: left;width:10vw;display: inline-block; font-size: 0.5vw; color: #515151;">Skapad: </b>
                                 </td>
@@ -56,12 +69,12 @@
                                     <b style="text-align: right; width:100%;  display: inline-block;font-size:0.5vw;">@s.UserCreated</b>
                                 </td>
                             </tr>
-                            <tr style="background-color:white;line-height:0.2vw;">
+                            <tr style="background-color:#f4f4f4;line-height:0.2vw;">
                                 <td>
                                     <b style="text-align: left;width:10vw;display: inline-block; font-size: 0.5vw; color: #515151;">Senast inloggad: </b>
                                 </td>
                                 <td>
-                                    <b  style="text-align: right; width:100%;  display: inline-block;font-size:0.5vw;">@s.LastLoggedIn</b>
+                                    <b style="text-align: right; width:100%;  display: inline-block;font-size:0.5vw;">@s.LastLoggedIn</b>
                                 </td>
                             </tr>
                         }

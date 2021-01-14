@@ -10,8 +10,8 @@ namespace ContentManagement.Models.Content
 {
     public class ImgModel
     {
-       [Key]
-       public int Id { get; set; }
+        [Key]
+        public int Id { get; set; }
         [DataType(DataType.ImageUrl)]
         public string ImgUrl { get; set; }
         public int ImgHeight { get; set; }
@@ -23,7 +23,7 @@ namespace ContentManagement.Models.Content
         public int UserId { get; set; }
         public Users Users { get; set; }
 
-        public ICollection<MergedContent> MergedContents { get; set; }
+        public ICollection<PageModel> PageModel { get; set; }
 
     }
 }

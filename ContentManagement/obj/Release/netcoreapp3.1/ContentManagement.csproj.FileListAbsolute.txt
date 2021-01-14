@@ -15,11 +15,6 @@ C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Release\netc
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
-C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\Razor\Views\TextContent\Create.cshtml.g.cs
-C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\Razor\Views\TextContent\Delete.cshtml.g.cs
-C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\Razor\Views\TextContent\Details.cshtml.g.cs
-C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\Razor\Views\TextContent\Edit.cshtml.g.cs
-C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\Razor\Views\TextContent\Index.cshtml.g.cs
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\Razor\Views\_ViewImports.cshtml.g.cs
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\Razor\Views\_ViewStart.cshtml.g.cs
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\ContentManagement.RazorTargetAssemblyInfo.cache

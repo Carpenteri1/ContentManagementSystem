@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ContentManagement.Migrations
 {
     [DbContext(typeof(CMSDbContext))]
-    [Migration("20210108164848_MoreTablesAndColumnsAdded")]
-    partial class MoreTablesAndColumnsAdded
+    [Migration("20210114103952_initlize")]
+    partial class initlize
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,7 +28,15 @@ namespace ContentManagement.Migrations
                     b.Property<DateTime>("LastLoggedIn")
                         .HasColumnType("datetime");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Surname")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -39,12 +47,16 @@ namespace ContentManagement.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("UserRole")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("ContentManagement.Models.ContentManagement.ImgModel", b =>
+            modelBuilder.Entity("ContentManagement.Models.Content.ImgModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -72,7 +84,7 @@ namespace ContentManagement.Migrations
                     b.ToTable("ImgModel");
                 });
 
-            modelBuilder.Entity("ContentManagement.Models.ContentManagement.MergedContent", b =>
+            modelBuilder.Entity("ContentManagement.Models.Content.PageModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -100,26 +112,10 @@ namespace ContentManagement.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("MergedContent");
-                });
-
-            modelBuilder.Entity("ContentManagement.Models.ContentManagement.PageModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("MergedContentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MergedContentId");
-
                     b.ToTable("PageModel");
                 });
 
-            modelBuilder.Entity("ContentManagement.Models.ContentManagement.TextContentModel", b =>
+            modelBuilder.Entity("ContentManagement.Models.Content.TextContentModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -138,10 +134,10 @@ namespace ContentManagement.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Content");
+                    b.ToTable("TextContent");
                 });
 
-            modelBuilder.Entity("ContentManagement.Models.ContentManagement.TitleModel", b =>
+            modelBuilder.Entity("ContentManagement.Models.Content.TitleModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -166,7 +162,7 @@ namespace ContentManagement.Migrations
                     b.ToTable("TitleModel");
                 });
 
-            modelBuilder.Entity("ContentManagement.Models.ContentManagement.ImgModel", b =>
+            modelBuilder.Entity("ContentManagement.Models.Content.ImgModel", b =>
                 {
                     b.HasOne("ContentManagement.Models.Account.Users", "Users")
                         .WithMany("ImgContent")
@@ -175,21 +171,21 @@ namespace ContentManagement.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ContentManagement.Models.ContentManagement.MergedContent", b =>
+            modelBuilder.Entity("ContentManagement.Models.Content.PageModel", b =>
                 {
-                    b.HasOne("ContentManagement.Models.ContentManagement.ImgModel", "ImgModel")
-                        .WithMany("MergedContents")
+                    b.HasOne("ContentManagement.Models.Content.ImgModel", "ImgModel")
+                        .WithMany("PageModel")
                         .HasForeignKey("ImgId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ContentManagement.Models.ContentManagement.TextContentModel", "TextContentModel")
-                        .WithMany("MergedContents")
+                    b.HasOne("ContentManagement.Models.Content.TextContentModel", "TextContentModel")
+                        .WithMany("PageModel")
                         .HasForeignKey("TextContentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ContentManagement.Models.ContentManagement.TitleModel", "TitleModel")
+                    b.HasOne("ContentManagement.Models.Content.TitleModel", "TitleModel")
                         .WithMany("MergedContents")
                         .HasForeignKey("TitleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -202,16 +198,7 @@ namespace ContentManagement.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ContentManagement.Models.ContentManagement.PageModel", b =>
-                {
-                    b.HasOne("ContentManagement.Models.ContentManagement.MergedContent", "MergedContent")
-                        .WithMany("MergedContents")
-                        .HasForeignKey("MergedContentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ContentManagement.Models.ContentManagement.TextContentModel", b =>
+            modelBuilder.Entity("ContentManagement.Models.Content.TextContentModel", b =>
                 {
                     b.HasOne("ContentManagement.Models.Account.Users", "Users")
                         .WithMany("TextContent")
@@ -220,7 +207,7 @@ namespace ContentManagement.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ContentManagement.Models.ContentManagement.TitleModel", b =>
+            modelBuilder.Entity("ContentManagement.Models.Content.TitleModel", b =>
                 {
                     b.HasOne("ContentManagement.Models.Account.Users", "Users")
                         .WithMany("Titles")

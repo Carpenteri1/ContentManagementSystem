@@ -21,14 +21,14 @@ using ContentManagement;
 #nullable disable
 #nullable restore
 #line 2 "C:\Users\nicla\source\repos\ContentManagement\ContentManagement\Views\_ViewImports.cshtml"
-using ContentManagement.Models;
+using ContentManagement.Models.Content;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 3 "C:\Users\nicla\source\repos\ContentManagement\ContentManagement\Views\_ViewImports.cshtml"
-using ContentManagement.Models.ContentManagement;
+using ContentManagement.Models;
 
 #line default
 #line hidden
@@ -40,8 +40,15 @@ using ContentManagement.Models.Account;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 5 "C:\Users\nicla\source\repos\ContentManagement\ContentManagement\Views\_ViewImports.cshtml"
+using ContentManagement.Data;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"d8ddb6bffa5a9b264bf8f89038bf03c234083fd3", @"/Views/Home/Privacy.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"318be6cb39ed8637ce6022cb6123b618dc2c11fb", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"423d4ae3ea40340adb685d35b22ea05d29d2d1e8", @"/Views/_ViewImports.cshtml")]
     public class Views_Home_Privacy : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998

@@ -5,8 +5,6 @@ C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcor
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\ContentManagement.TagHelpers.input.cache
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\ContentManagement.TagHelpers.output.cache
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\ContentManagement.RazorCoreGenerate.cache
-C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
-C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Home\Privacy.cshtml.g.cs
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
@@ -167,5 +165,11 @@ C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcor
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Account\ConfirmPass.cshtml.g.cs
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Account\EditPass.cshtml.g.cs
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\scopedcss\bundle\ContentManagement.styles.css
-C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Home\Content.cshtml.g.cs
+C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Content\Content.cshtml.g.cs
+C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Content\EditPage.cshtml.g.cs
+C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Content\Adverts.cshtml.g.cs
+C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Content\Events.cshtml.g.cs
+C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Content\StartPage.cshtml.g.cs
+C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Content\NewPage.cshtml.g.cs
+C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Account\EditUser.cshtml.g.cs
 C:\Users\nicla\source\repos\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\ContentManagement.csprojAssemblyReference.cache

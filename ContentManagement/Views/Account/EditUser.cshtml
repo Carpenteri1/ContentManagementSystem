@@ -1,0 +1,39 @@
+﻿@{
+}
+
+<div id="login">
+    <div style="height:4vw;"></div>
+    <div class="container">
+        <div id="login-row" class="row justify-content-center align-items-center">
+            <div id="login-column" class="col-auto" style="background-color:#3f4044;border:2px solid #cab290;">
+                <div id="login-box" class="col-md-12">
+                    <form id="login-form" class="form" action="" method="post">
+                        <div style="height:0.5vw;"></div>
+                        <div class="row">
+                            <div class="col-1"></div>
+                            <div class="col-10">
+                                <label style="width: 100%;color:white;font-size:0.8vw;text-align:center;">
+                                    Ändra dina konto uppgifter
+                                </label>
+                            </div>
+                            <div class="col-1"></div>
+                        </div>
+                        <div style="height:0.5vw;"></div>
+                        <div class="form-group">
+                            <button type="button" class="btn text-white p-0 text-center" onclick="location.href='@Url.Action("UserAccount")'" style="font-size: 0.6vw;width:5vw;height:1.2vw;background-color:#0293fc;">Avbryt</button>
+                            <button type="button" class="btn text-white p-0 text-center" onclick="location.href='@Url.Action("EditName")'" style="font-size: 0.6vw;width:5vw;height:1.2vw;background-color:#0293fc;">Användarnamn</button>
+                            <button type="button" class="btn text-white p-0 text-center" onclick="location.href='@Url.Action("EditPass")'" style="font-size: 0.6vw;width:5vw;height:1.2vw;background-color:#0293fc;">Lösenord</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+
+

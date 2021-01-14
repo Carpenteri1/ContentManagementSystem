@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ContentManagement.Models.Account;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -12,9 +13,22 @@ namespace ContentManagement.Models.Content
         [Key]
         public int Id { get; set; }
 
-        [ForeignKey("MergedContent")]
-        public int MergedContentId { get; set; }
-        public MergedContent MergedContent { get; set; }
+        [ForeignKey("TitleModel")]
+        public int TitleId { get; set; }
+        public TitleModel TitleModel { get; set; }
+
+
+        [ForeignKey("TextContentModel")]
+        public int TextContentId { get; set; }
+        public TextContentModel TextContentModel { get; set; }
+
+        [ForeignKey("ImgModel")]
+        public int ImgId { get; set; }
+        public ImgModel ImgModel{ get; set; }
+
+        [ForeignKey("Users")]
+        public int UserId { get; set; }
+        public Users Users { get; set; }
 
     }
 }

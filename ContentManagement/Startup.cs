@@ -84,7 +84,7 @@ namespace ContetManagement
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Content}");
+                    pattern: "{controller=Content}/{action=Content}");
                 endpoints.MapRazorPages();
             }); 
         }

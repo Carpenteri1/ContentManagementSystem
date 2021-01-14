@@ -18,8 +18,7 @@ namespace ContentManagement.Data
 
         public DbSet<TitleModel> TitleModel { get; set; }
         public DbSet<TextContentModel> TextContent { get; set; }
-        public DbSet<ImgModel> ImgModel { get; set; }
-        public DbSet<MergedContent>  MergedContent { get; set; }
+        public DbSet<ImgModel> ImgModel {get;set;}
         public DbSet<PageModel> PageModel { get; set; }
         public DbSet<Users> Users { get; set; }
     }
