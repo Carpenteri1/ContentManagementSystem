@@ -25,45 +25,13 @@ namespace ContentManagement.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var model = new List<TitleModel>();
-               
-                foreach (var s in context.TitleModel)
-                {
-                    s.TypeOfTitle = "h1";
-                    model.Add(s);
-                }
-
-                return View(model);
+                return View();
             }
             else
             {
                 return Redirect(Url.Content("~/Login")); 
             }
           
-        }
-
-        [Route("NewPage")]
-        [HttpGet]
-        public ActionResult NewPage()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                return View();
-            }
-            else
-            {
-                return Redirect(Url.Content("~/Login"));
-            }
-        }
-
-
-        [Route("NewPage")]
-        [HttpPost]
-        public ActionResult NewPage(PageModel newPage)
-        {
-            
-
-            return View();
         }
 
         [Route("Startpage")]
@@ -92,20 +60,7 @@ namespace ContentManagement.Controllers
                 return Redirect(Url.Content("~/Login"));
             }
         }
-        
-        [Route("Editpage")]
-        [HttpPost]
-        public ActionResult EditPage(PageModel page)
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                return View();
-            }
-            else
-            {
-                return Redirect(Url.Content("~/Login"));
-            }
-        }
+       
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

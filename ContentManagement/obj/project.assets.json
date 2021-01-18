@@ -2954,6 +2954,16 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
+      },
+      "GolfModelLibrary/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/GolfModelLibrary.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/GolfModelLibrary.dll": {}
+        }
       }
     }
   },
@@ -9467,10 +9477,16 @@
         "system.xml.xpath.xmldocument.4.0.1.nupkg.sha512",
         "system.xml.xpath.xmldocument.nuspec"
       ]
+    },
+    "GolfModelLibrary/1.0.0": {
+      "type": "project",
+      "path": "../../GolfModelLibrary/GolfModelLibrary.csproj",
+      "msbuildProject": "../../GolfModelLibrary/GolfModelLibrary.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
+      "GolfModelLibrary >= 1.0.0",
       "Microsoft.AspNetCore.CookiePolicy >= 2.2.8",
       "Microsoft.EntityFrameworkCore >= 3.1.10",
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.1.10",
@@ -9487,11 +9503,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\nicla\\source\\repos\\ContentManagement\\ContentManagement\\ContentManagement.csproj",
+      "projectUniqueName": "C:\\Users\\nicla\\source\\repos\\AMV\\Golf\\ContentManagement\\ContentManagement\\ContentManagement.csproj",
       "projectName": "ContentManagement",
-      "projectPath": "C:\\Users\\nicla\\source\\repos\\ContentManagement\\ContentManagement\\ContentManagement.csproj",
+      "projectPath": "C:\\Users\\nicla\\source\\repos\\AMV\\Golf\\ContentManagement\\ContentManagement\\ContentManagement.csproj",
       "packagesPath": "C:\\Users\\nicla\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\nicla\\source\\repos\\ContentManagement\\ContentManagement\\obj\\",
+      "outputPath": "C:\\Users\\nicla\\source\\repos\\AMV\\Golf\\ContentManagement\\ContentManagement\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -9511,7 +9527,11 @@
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\nicla\\source\\repos\\AMV\\Golf\\GolfModelLibrary\\GolfModelLibrary.csproj": {
+              "projectPath": "C:\\Users\\nicla\\source\\repos\\AMV\\Golf\\GolfModelLibrary\\GolfModelLibrary.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

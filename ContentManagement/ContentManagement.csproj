@@ -43,6 +43,10 @@
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.22" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\GolfModelLibrary\GolfModelLibrary.csproj" />
+  </ItemGroup>
+
   <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="https://json.schemastore.org/netlify.json" /></VisualStudio></ProjectExtensions>
 
 </Project>

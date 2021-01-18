@@ -1,5 +1,4 @@
-﻿@model List<TitleModel>
-@{
+﻿@{
     ViewData["Text"] = "Start".ToString();
 }
 <div class="container">
@@ -32,7 +31,7 @@
     <!--List-->
     <table class="table" style="line-height:0.2vw;">
         <tbody>
-            @if (Model.Equals(null))
+            @*@if (Model.Equals(null))
             {
                 <tr style="background-color:#f4f4f4;">
                     <td>
@@ -62,7 +61,7 @@
                         </tr>
                     }
                 }
-            }
+            }*@
         </tbody>
     </table>
 </div>

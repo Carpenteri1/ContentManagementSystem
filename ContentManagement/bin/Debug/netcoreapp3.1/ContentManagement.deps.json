@@ -24,6 +24,7 @@
     ".NETCoreApp,Version=v3.1": {
       "ContentManagement/1.0.0": {
         "dependencies": {
+          "GolfModelLibrary": "1.0.0",
           "Microsoft.AspNetCore.CookiePolicy": "2.2.8",
           "Microsoft.EntityFrameworkCore": "3.1.10",
           "Microsoft.EntityFrameworkCore.SqlServer": "3.1.10",
@@ -2479,6 +2480,14 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
+        }
+      },
+      "GolfModelLibrary/1.0.0": {
+        "runtime": {
+          "GolfModelLibrary.dll": {}
+        },
+        "compile": {
+          "GolfModelLibrary.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery/3.1.0.0": {
@@ -5383,6 +5392,11 @@
       "sha512": "sha512-Zm2BdeanuncYs3NhCj4c9e1x3EXFzFBVv2wPEc/Dj4ZbI9R8ecLSR5frAsx4zJCPBtKQreQ7Q/KxJEohJZbfzA==",
       "path": "system.xml.xpath.xmldocument/4.0.1",
       "hashPath": "system.xml.xpath.xmldocument.4.0.1.nupkg.sha512"
+    },
+    "GolfModelLibrary/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "Microsoft.AspNetCore.Antiforgery/3.1.0.0": {
       "type": "referenceassembly",

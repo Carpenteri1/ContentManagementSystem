@@ -17,7 +17,7 @@ namespace ContentManagement.Models.Account
 
         [DataType(DataType.Text)]
         [Display(Name = "Användarnamn")]
-        [Required(ErrorMessage =("Användarnamn krävs"))]
+        [Required(ErrorMessage = ("Användarnamn krävs"))]
         public string UserName { get; set; }
 
         [Required(ErrorMessage = ("Lösenord krävs"))]
@@ -37,25 +37,27 @@ namespace ContentManagement.Models.Account
         public DateTime UserCreated { get; set; }
         [DataType(DataType.DateTime)]
         public DateTime LastLoggedIn { get; set; }
-        
+
         [DataType(DataType.Text)]
         [Display(Name = "Kontotyp")]
         [Required(ErrorMessage = ("Role krävs"))]
-        public string UserRole {get;set; } 
+        public string UserRole { get; set; }
 
         [DataType(DataType.Text)]
         [Display(Name = "Förnamn")]
         [Required(ErrorMessage = ("Användarnamn krävs"))]
-        public string Name {get;set;}
+        public string Name { get; set; }
         [DataType(DataType.Text)]
         [Display(Name = "Efternamn")]
         [Required(ErrorMessage = ("Användarnamn krävs"))]
-        public string Surname {get;set;}
+        public string Surname { get; set; }
 
-        public ICollection<TitleModel> Titles { get; set; }
-        public ICollection<TextContentModel> TextContent { get; set; }
-        public ICollection<ImgModel> ImgContent { get; set; }
+        public DateTime? UserEdited { get; set; }
 
+        public ICollection<StartPage_ImgContent> StartPage_ImgContents { get; set; }
+        public ICollection<StartPage_TextContent> StartPage_TextContents { get; set; }
+        public ICollection<StartPage_TitleContent> StartPage_Titles { get; set; }
+        public ICollection<HeaderTitle> HeaderTitles { get; set; }
 
     }
 }

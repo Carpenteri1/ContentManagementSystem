@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "tnpR6AIGjQ62loeh+B9F7A4CaBRi7o3ZQqTebAft9R21IA+91vxCsDqFi+3JwnyYp6IpfX5l/SVhgMtlvvYN7w==",
+  "dgSpecHash": "B3PncKM1tStNFqiNg7+geGJpUT2aDdS3OU5EJZ7kO+nFnscbD6aX03QEzx17WLL/lHRrglcrAjv4JFSY0C/p4g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\nicla\\source\\repos\\ContentManagement\\ContentManagement\\ContentManagement.csproj",
+  "projectFilePath": "C:\\Users\\nicla\\source\\repos\\AMV\\Golf\\ContentManagement\\ContentManagement\\ContentManagement.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nicla\\.nuget\\packages\\bouncycastle.netcore\\1.8.3\\bouncycastle.netcore.1.8.3.nupkg.sha512",
     "C:\\Users\\nicla\\.nuget\\packages\\google.protobuf\\3.11.4\\google.protobuf.3.11.4.nupkg.sha512",

@@ -85,8 +85,9 @@ namespace ContentManagement.Controllers
 
             if (grabUser != null)
             {
-
+                editPass.UserEdited = DateTime.Now;
                 TempData["User_Pass"] = editPass.Password;
+                TempData["Edited"] = editPass.UserEdited;
                 return Redirect("ConfirmPass");
             }
             return Redirect("UserAccount");
@@ -127,7 +128,10 @@ namespace ContentManagement.Controllers
 
             if (grabUser != null)
             {
+                string dateTime = TempData["Edited"].ToString();
                 grabUser.Password = TempData["User_Pass"].ToString();
+                grabUser.UserEdited = DateTime.Parse(dateTime);
+                TempData.Remove("Edited");
                 TempData.Remove("User_Pass");
 
                 grabUser.Password = PasswordHandler.HashPassword(grabUser.Password);
@@ -176,7 +180,7 @@ namespace ContentManagement.Controllers
 
             if (grabUser != null)
             {
-
+                TempData["Edited"] = DateTime.Now;
                 TempData["User_NewName"] = newName.UserName;
                 return Redirect("ConfirmName");
 
@@ -228,7 +232,10 @@ namespace ContentManagement.Controllers
                 var claimsIdentity = new ClaimsIdentity(claims, claimsKey);
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
+                string dateTime = TempData["Edited"].ToString();
+                grabUser.UserEdited = DateTime.Parse(dateTime);
 
+                TempData.Remove("Edited");
                 TempData.Remove("User_NewName");
                 context.Update(grabUser);
                 context.SaveChanges();

@@ -1,11 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ContentManagement.Models.Account;
 using ContentManagement.Models.Content;
-using System.Security.Claims;
+
 
 namespace ContentManagement.Data
 {
@@ -16,10 +12,13 @@ namespace ContentManagement.Data
         {
         }
 
-        public DbSet<TitleModel> TitleModel { get; set; }
-        public DbSet<TextContentModel> TextContent { get; set; }
-        public DbSet<ImgModel> ImgModel {get;set;}
-        public DbSet<PageModel> PageModel { get; set; }
+        public DbSet<StartPage> StartPages { get; set; }
+        public DbSet<StartPage_ImgContent> StartPage_ImgContents { get; set; }
+        public DbSet<StartPage_TextContent> StartPage_TextContents {get;set;}
+        public DbSet<StartPage_TitleContent> StartPage_TitleContents { get; set; }
+        public DbSet<HeaderMenu> HeaderMenus { get; set; }
+        public DbSet<HeaderTitle> HeaderTitles { get; set; }
+
         public DbSet<Users> Users { get; set; }
     }
 }
