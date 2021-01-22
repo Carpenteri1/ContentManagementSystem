@@ -16,7 +16,6 @@ namespace ContentManagement.Security
             this.context = context;
         }
 
-        
         public static string HashPassword(string password)
         {
             byte[] salt;

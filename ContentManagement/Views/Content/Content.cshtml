@@ -31,37 +31,46 @@
     <!--List-->
     <table class="table" style="line-height:0.2vw;">
         <tbody>
-            @*@if (Model.Equals(null))
-            {
-                <tr style="background-color:#f4f4f4;">
-                    <td>
-                        <a style="text-align: left;width:10vw;display:inline-block; font-size: 0.5vw; color: #515151;"><b>Inga sidor tillgängliga</b></a>
-                    </td>
-                    <td>
-                        <a href=""><b style="text-align: right; width:100%; display: inline-block;font-size:0.5vw;">Lägg till sida</b></a>
-                    </td>
-                </tr>
-            }
-            else
-            {
-                @for (int i = 0; i < Model.Count; i++)
-                {
+            <tr style="background-color:#f4f4f4;">
+                <td>
+                    <a style="text-align: left;width:10vw;display:inline-block; font-size: 0.5vw; color: #515151;"><b>Inga sidor tillgängliga</b></a>
+                </td>
+                <td>
+                    <a href=""><b style="text-align: right; width:100%; display: inline-block;font-size:0.5vw;">Lägg till sida</b></a>
+                </td>
+            </tr>
 
-                    if (Model[i].TypeOfTitle.ToLower().ToString() == "h1")
-                    {
-                        <tr class="@(i % 2 == 0 ? "d0" : "d1")" style="line-height:0.2vw;">
-                            <td>
-                                <a style="text-align:left;width:10vw;display:inline-block; font-size: 0.5vw; color: #515151;"><b>@Model[i].Content.ToString()</b></a>
-                            </td>
-                            <td>
-                                <a asp-area="" asp-controller="Content" asp-action="EditPage">
-                                    <b style="text-align: right; width:100%;  display: inline-block;font-size:0.5vw;">Ändra</b>
-                                </a>
-                            </td>
-                        </tr>
-                    }
+            @* @if (Model.Equals(null))
+        {
+            <tr style="background-color:#f4f4f4;">
+                <td>
+                    <a style="text-align: left;width:10vw;display:inline-block; font-size: 0.5vw; color: #515151;"><b>Inga sidor tillgängliga</b></a>
+                </td>
+                <td>
+                    <a href=""><b style="text-align: right; width:100%; display: inline-block;font-size:0.5vw;">Lägg till sida</b></a>
+                </td>
+            </tr>
+        }
+        else
+        {
+            @for (int i = 0; i < Model.Count; i++)
+            {
+
+                if (Model[i].TypeOfTitle.ToLower().ToString() == "h1")
+                {
+                    <tr class="@(i % 2 == 0 ? "d0" : "d1")" style="line-height:0.2vw;">
+                        <td>
+                            <a style="text-align:left;width:10vw;display:inline-block; font-size: 0.5vw; color: #515151;"><b>@Model[i].Content.ToString()</b></a>
+                        </td>
+                        <td>
+                            <a asp-area="" asp-controller="Content" asp-action="EditPage">
+                                <b style="text-align: right; width:100%;  display: inline-block;font-size:0.5vw;">Ändra</b>
+                            </a>
+                        </td>
+                    </tr>
                 }
-            }*@
+            }
+        }*@
         </tbody>
     </table>
 </div>

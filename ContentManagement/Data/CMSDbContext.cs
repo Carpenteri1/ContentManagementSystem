@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ContentManagement.Models.Account;
-using ContentManagement.Models.Content;
+using ContentManagement.Models.StartPage;
+using ContentManagement.Models.Header;
 
 
 namespace ContentManagement.Data
@@ -11,6 +12,7 @@ namespace ContentManagement.Data
      : base(options)
         {
         }
+
 
         public DbSet<StartPage> StartPages { get; set; }
         public DbSet<StartPage_ImgContent> StartPage_ImgContents { get; set; }

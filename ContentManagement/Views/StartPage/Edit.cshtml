@@ -1,0 +1,150 @@
+﻿@model StartPage
+
+@{
+
+}
+@for (int i = 0; i < Model.StartPage_TextContents.Count; i++)
+{
+    @Html.HiddenFor(model => Model.StartPage_TextContents[i].TextContent)
+}
+@Html.HiddenFor(model => model.Id)
+<div class="container">
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10">
+            <div class="container text-center align-content-center">
+                <form method="post" asp-action="Edit">
+                    <p style="font-size:2.5vw;" class="text-left"><b>Redigera startsida</b></p>
+                    <hr style="color:red; " />
+                    <div style="height:1.5vw;"></div>
+                    <div class="form-group p-0">
+                        <label style="display:block;text-align:left;font-size:0.7vw;"><b>Jumbotron Titel:</b></label>
+                        <input class="shader" asp-for="StartPage_TitleContents[0].TextContent" style="font-size:0.6vw;height:1.2vw;width:8.5vw;background-color:lightgray;display:block;border:1px solid black;">
+                        <span asp-validation-for="StartPage_TitleContents[0].TextContent" class="text-danger"></span>
+                    </div>
+                    <div style="height:1.2vw;"></div>
+                    <div class="shader" style="background-color:gray;border:1px solid black;">
+                        <div class="form-group p-2">
+                            <label style="display:block;text-align:left;font-size:0.7vw;"><b>Jumbotron brödtext: </b></label>
+                            <textarea asp-for="StartPage_TextContents[0].TextContent" style="height:6vw;width:100%;resize:none;background-color:lightgray;border:none;"></textarea>
+                            <span asp-validation-for="StartPage_TextContents[0].TextContent" class="text-danger"></span>
+                        </div>
+                        <div class="form-group text-left p-2">
+                            <label style="display:block;text-align:left;font-size:0.7vw;"><b>Länkar till:</b></label>
+                        </div>
+                        <div class="form-group text-left p-2">
+                            <label style="display:block;text-align:left;font-size:0.7vw;"><b>Jumbotron knapp titeln: </b></label>
+                            <input asp-for="StartPage_TextContents[1].TextContent" class="form-control " style="font-size:0.6vw;width:8.5vw;height:1.2vw;text-align:center;">
+                            <span asp-validation-for="StartPage_TextContents[1].TextContent" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div style="height:2.5vw;"></div>
+                    <div class="form-group">
+                        <div class="row p-2" style="margin-right:4vw;">
+                            <div class="col-4">
+                                <h4>Kort ett</h4>
+                                <hr />
+                                <div class="card-body">
+                                    <div class="card shader" style="width:8.5vw;height:20vw;">
+                                        <div class="card-img">
+                                            <img alt="Bild kunde ej laddas" style="font-size:0.5vw;" />
+                                        </div>
+                                        <div class="card-title">
+                                            <input asp-for="StartPage_TitleContents[1].TextContent" class="form-control " style="font-size:0.6vw;height:1.5vw;text-align:center;">
+                                            <span asp-validation-for="StartPage_TitleContents[1].TextContent" class="text-danger"></span>
+                                        </div>
+                                        <div class="card-text">
+                                            <textarea asp-for="StartPage_TextContents[2].TextContent" style="height: 14vw;border:none;resize:none;" class="p-0"></textarea>
+                                            <span asp-validation-for="StartPage_TextContents[2].TextContent" class="text-danger"></span>
+                                            <input asp-for="StartPage_TextContents[3].TextContent" class="form-control " style="font-size:0.6vw;height:1.5vw;text-align:center;">
+                                            <span asp-validation-for="StartPage_TextContents[3].TextContent" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <h4>Kort två</h4>
+                                <hr />
+                                <div class="card-body">
+                                    <div class="card shader " style="width:8.5vw;height:20vw;">
+                                        <div class="card-img">
+                                            <img alt="Bild kunde ej laddas" style="font-size:0.5vw;" />
+                                        </div>
+                                        <div class="card-title">
+                                            <input asp-for="StartPage_TitleContents[2].TextContent" class="form-control " style="font-size:0.6vw;height:1.5vw;text-align:center;">
+                                            <span asp-validation-for="StartPage_TitleContents[2].TextContent" class="text-danger"></span>
+                                        </div>
+                                        <div class="card-text">
+                                            <textarea asp-for="StartPage_TextContents[4].TextContent" style="height:14vw;border:none;resize:none;" class="p-0"></textarea>
+                                            <span asp-validation-for="StartPage_TextContents[4].TextContent" class="text-danger"></span>
+                                            <input asp-for="StartPage_TextContents[5].TextContent" class="form-control " style="font-size:0.6vw;height:1.5vw;text-align:center;">
+                                            <span asp-validation-for="StartPage_TextContents[5].TextContent" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <h4>Kort tre</h4>
+                                <hr />
+                                <div class="card-body">
+                                    <div class="card shader" style="width:8.5vw;height:20vw;">
+                                        <div class="card-img">
+                                            <img alt="Bild kunde ej laddas" style="font-size:0.5vw;height:20vw;" />
+                                        </div>
+                                        <div class="card-title">
+                                            <input asp-for="StartPage_TitleContents[3].TextContent" class="form-control " style="font-size:0.6vw;height:1.5vw;text-align:center;">
+                                            <span asp-validation-for="StartPage_TitleContents[3].TextContent" class="text-danger"></span>
+                                        </div>
+                                        <div class="card-text">
+                                            <textarea asp-for="StartPage_TextContents[6].TextContent" style="height:14vw;border:none;resize:none;" class="p-0"></textarea>
+                                            <span asp-validation-for="StartPage_TextContents[6].TextContent" class="text-danger"></span>
+                                            <input asp-for="StartPage_TextContents[7].TextContent" class="form-control " style="font-size:0.6vw;height:1.5vw;text-align:center;">
+                                            <span asp-validation-for="StartPage_TextContents[7].TextContent" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row p-2">
+                        <div class="form-group p-2">
+                            <label style="display:block;text-align:left;font-size:0.7vw;"><b>Titel:</b></label>
+                            <input class="shader" asp-for="StartPage_TitleContents[4].TextContent" style="font-size:0.6vw;height:1.2vw;width:8.5vw;background-color:lightgray;display:block;border:1px solid black;">
+                            <span asp-validation-for="StartPage_TitleContents[4].TextContent" class="text-danger"></span>
+                        </div>
+
+                    </div>
+                    <div class="shader" style="background-color:lightgray;border:1px solid black;">
+                        <div class="form-group p-2">
+                            <label style="display:block;text-align:left;font-size:0.7vw;"><b>Undre Jumbotron första bröd-text stycket: </b></label>
+                            <textarea  id="editor1" asp-for="StartPage_TextContents[8].TextContent" style="height:5.5vw;width:100%;resize:none;"></textarea>
+                            <script>
+                                CKEDITOR.replace('editor1')
+                                {
+                                
+                                };
+                            </script>
+                            <span asp-validation-for="StartPage_TextContents[8].TextContent" class="text-danger"></span>
+                        </div>
+                        <div class="form-group text-left p-2">
+                            <label style="display:block;text-align:left;font-size:0.7vw;"><b>Länkar till:</b></label>
+                        </div>
+                        <div class="form-group text-left p-2">
+                            <label style="display:block;text-align:left;font-size:0.7vw;"><b>Knapp titel</b></label>
+                            <input asp-for="StartPage_TextContents[9].TextContent" style="font-size:0.6vw;width:12vw;height:2vw;text-align:center;">
+                            <span asp-validation-for="StartPage_TitleContents[9].TextContent" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div style="height:1.5vw;"></div>
+                    <hr />
+                    <div class="form-group text-right">
+                        <a type="button" class="btn text-white text-center" asp-action="Edit" asp-controller="StartPage" style="font-size: 0.4vw;width:3.8vw;height:1.2vw;background-color:#0293fc;">Avbryt</a>
+                        <button type="submit" class="btn text-white p-0 text-center" style="font-size: 0.4vw;width:3.8vw;height:1.2vw;background-color:#0293fc;">Bekräfta</button>
+                    </div>
+                </form>
+        </div>
+
+            </div>
+        </div>
+        <div class="col-1"></div>
+    </div>

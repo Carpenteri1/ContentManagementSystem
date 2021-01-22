@@ -10,13 +10,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ContentManagement.Data;
-using ContentManagement.Models.Content;
+using ContentManagement.Models;
+using ContentManagement.Models.StartPage;
+using ContentManagement.Models.Header;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using ContentManagement.Models.Account;
 using Microsoft.AspNetCore.Authentication.Cookies;
-
 namespace ContetManagement
 {
     public class Startup
@@ -42,17 +43,15 @@ namespace ContetManagement
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options =>
             {
-                options.Cookie.Name = ".Cookies.DontEatThem";
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                options.Cookie.Name = ".Cookie.DontEatMe";
+                //options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
                 options.SlidingExpiration = true;
             });
 
-
-
-
-           services.AddDbContext<CMSDbContext>(options =>
-          options.UseMySQL(
-              Configuration.GetConnectionString("AmvGolfConnection")));
+            services.AddDbContext<CMSDbContext>(options =>
+            options.UseMySQL(
+               Configuration.GetConnectionString("AmvGolfConnection")));
+               
             services.AddControllersWithViews();
             services.AddRazorPages();
         }

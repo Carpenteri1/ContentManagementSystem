@@ -1,5 +1,6 @@
 ﻿using ContentManagement.Data;
-using ContentManagement.Models.Content;
+using ContentManagement.Models.StartPage;
+using ContentManagement.Models.Header;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

@@ -26,8 +26,6 @@ namespace ContentManagement.Controllers
             this.context = context;
            
         }
-
-
         [Route("EditUser")]
         [HttpGet]
         public IActionResult EditUser()
@@ -224,24 +222,25 @@ namespace ContentManagement.Controllers
 
             if (grabUser != null)
             {
-                grabUser.UserName = TempData["User_NewName"].ToString();
+                user.UserName = TempData["User_NewName"].ToString();
                 var existingClaim = claims.Find(item => item.Value == claimsKey);//find excisting user.identity using claims
                 claims.Remove(existingClaim);
-                claims.Add(new Claim(ClaimTypes.Name, grabUser.UserName));//<-- adds the new username to claims
+                claims.Add(new Claim(ClaimTypes.Name, user.UserName));//<-- adds the new username to claims
 
                 var claimsIdentity = new ClaimsIdentity(claims, claimsKey);
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
                 string dateTime = TempData["Edited"].ToString();
-                grabUser.UserEdited = DateTime.Parse(dateTime);
+                user.UserEdited = DateTime.Parse(dateTime);
 
                 TempData.Remove("Edited");
                 TempData.Remove("User_NewName");
-                context.Update(grabUser);
+                context.Update(user);
                 context.SaveChanges();
 
                 return Redirect("/UserAccount");
             }
+            TempData.Remove("Edited");
             TempData.Remove("User_NewName");
             return Redirect("/UserAccount");
         }
@@ -279,16 +278,31 @@ namespace ContentManagement.Controllers
 
             if (verifyUser != null)
             {
-                if (newLogin.UserName != verifyUser.UserName)
+                if (!newLogin.UserName.Equals(verifyUser.UserName))
                 {
-                    //TODO Message text
+                    return Redirect("/Login"); 
                 }  
                 if(!PasswordHandler.VerifyHashedPassword(verifyUser.Password,newLogin.Password))
                 {
-                    //TODO Message text
+                    return Redirect("/Login");
                 }
                 else
                 {
+
+                    verifyUser.StartPage_ImgContents = context.StartPage_ImgContents
+                        .Where(item => item.UserId_FK == verifyUser.Id)
+                        .ToList();
+
+                    verifyUser.StartPage_TextContents = context.StartPage_TextContents
+                        .Where(item => item.UserId_FK == verifyUser.Id)
+                        .ToList();
+
+                    verifyUser.StartPage_Titles = context.StartPage_TitleContents
+                        .Where(item => item.UserId_FK == verifyUser.Id)
+                        .ToList();
+
+
+
                     if (verifyUser.UserRole.Equals(UserRoles.Admin.ToString()))
                     {
                         verifyUser.UserRole = UserRoles.Admin.ToString();
@@ -312,7 +326,7 @@ namespace ContentManagement.Controllers
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
                     verifyUser.LastLoggedIn = DateTime.Now;
-                    context.Update(verifyUser);
+                    context.Users.Update(verifyUser);
                     context.SaveChanges();
                     return Redirect("~/");
                 }
@@ -321,8 +335,6 @@ namespace ContentManagement.Controllers
             {
                 return Redirect("/Login");
             }
-
-            return Redirect("/Login");
         }
 
         [Route("Logout")]
