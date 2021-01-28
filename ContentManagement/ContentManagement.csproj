@@ -7,27 +7,25 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="css\site.css" />
-    <None Remove="css\sitestyle.css" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="css\sitestyle.css">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="css\site.css">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="Views\Shared\Error.cshtml" />
     <None Include="Views\Shared\_Layout.cshtml" />
     <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
     <None Include="Views\_ViewImports.cshtml" />
     <None Include="Views\_ViewStart.cshtml" />
+    <None Include="wwwroot\Image\annons-wellify.jpg" />
+    <None Include="wwwroot\Image\jumbo-underpage.jpg" />
+    <None Include="wwwroot\Image\langas.jpg" />
+    <None Include="wwwroot\Image\start-box-1-company.jpg" />
+    <None Include="wwwroot\Image\start-box-1-golfclub.jpg" />
+    <None Include="wwwroot\Image\start-box-3-golfplayers.jpg" />
+    <None Include="wwwroot\Image\start-splash-background.jpg" />
+    <None Include="wwwroot\Image\start-stripe-challenge-background.jpg" />
+    <None Include="wwwroot\Image\start-stripe-challenge-big.jpg" />
+    <None Include="wwwroot\Image\start-stripe-challenge-small-1.jpg" />
+    <None Include="wwwroot\Image\start-stripe-challenge-small-2.jpg" />
+    <None Include="wwwroot\Image\wellify.jpg" />
+    <None Include="wwwroot\Image\xlbyggcenter.jpg" />
+    <None Include="wwwroot\Upload\StartPage\kitten-510651.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,6 +44,18 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\GolfModelLibrary\GolfModelLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\css\site.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\Upload\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="https://json.schemastore.org/netlify.json" /></VisualStudio></ProjectExtensions>

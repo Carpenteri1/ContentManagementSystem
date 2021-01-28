@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ContentManagement.Migrations
 {
     [DbContext(typeof(CMSDbContext))]
-    [Migration("20210115150712_Initlize")]
-    partial class Initlize
+    [Migration("20210126131444_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -59,7 +59,7 @@ namespace ContentManagement.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("ContentManagement.Models.Content.HeaderMenu", b =>
+            modelBuilder.Entity("ContentManagement.Models.HeaderModels.HeaderMenus", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -78,7 +78,7 @@ namespace ContentManagement.Migrations
                     b.ToTable("HeaderMenus");
                 });
 
-            modelBuilder.Entity("ContentManagement.Models.Content.HeaderTitle", b =>
+            modelBuilder.Entity("ContentManagement.Models.HeaderModels.HeaderTitels", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -93,28 +93,22 @@ namespace ContentManagement.Migrations
                     b.Property<int?>("HeaderMenuId")
                         .HasColumnType("int");
 
-                    b.Property<int>("HeaderMenuId_FK")
-                        .HasColumnType("int");
-
                     b.Property<string>("TextContent")
                         .HasColumnType("text");
 
-                    b.Property<int>("UserId_FK")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UsersId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("HeaderMenuId");
 
-                    b.HasIndex("UsersId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("HeaderTitles");
                 });
 
-            modelBuilder.Entity("ContentManagement.Models.Content.StartPage", b =>
+            modelBuilder.Entity("ContentManagement.Models.StartPageModels.StartPage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -125,7 +119,7 @@ namespace ContentManagement.Migrations
                     b.ToTable("StartPages");
                 });
 
-            modelBuilder.Entity("ContentManagement.Models.Content.StartPage_ImgContent", b =>
+            modelBuilder.Entity("ContentManagement.Models.StartPageModels.StartPage_ImgContents", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -137,28 +131,22 @@ namespace ContentManagement.Migrations
                     b.Property<int?>("StartPageId")
                         .HasColumnType("int");
 
-                    b.Property<int>("StartPageId_FK")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("Uploaded")
                         .HasColumnType("datetime");
 
-                    b.Property<int>("UserId_FK")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UsersId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("StartPageId");
 
-                    b.HasIndex("UsersId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("StartPage_ImgContents");
                 });
 
-            modelBuilder.Entity("ContentManagement.Models.Content.StartPage_TextContent", b =>
+            modelBuilder.Entity("ContentManagement.Models.StartPageModels.StartPage_TextContents", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -173,28 +161,22 @@ namespace ContentManagement.Migrations
                     b.Property<int?>("StartPageId")
                         .HasColumnType("int");
 
-                    b.Property<int>("StartPageId_FK")
-                        .HasColumnType("int");
-
                     b.Property<string>("TextContent")
                         .HasColumnType("text");
 
-                    b.Property<int>("UserId_FK")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UsersId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("StartPageId");
 
-                    b.HasIndex("UsersId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("StartPage_TextContents");
                 });
 
-            modelBuilder.Entity("ContentManagement.Models.Content.StartPage_TitleContent", b =>
+            modelBuilder.Entity("ContentManagement.Models.StartPageModels.StartPage_TitleContents", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -209,76 +191,70 @@ namespace ContentManagement.Migrations
                     b.Property<int?>("StartPageId")
                         .HasColumnType("int");
 
-                    b.Property<int>("StartPageId_FK")
-                        .HasColumnType("int");
-
                     b.Property<string>("TextContent")
                         .HasColumnType("text");
 
-                    b.Property<int>("UserId_FK")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UsersId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("StartPageId");
 
-                    b.HasIndex("UsersId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("StartPage_TitleContents");
                 });
 
-            modelBuilder.Entity("ContentManagement.Models.Content.HeaderMenu", b =>
+            modelBuilder.Entity("ContentManagement.Models.HeaderModels.HeaderMenus", b =>
                 {
-                    b.HasOne("ContentManagement.Models.Content.StartPage", "StartPage")
+                    b.HasOne("ContentManagement.Models.StartPageModels.StartPage", "StartPage")
                         .WithMany()
                         .HasForeignKey("StartPageId");
                 });
 
-            modelBuilder.Entity("ContentManagement.Models.Content.HeaderTitle", b =>
+            modelBuilder.Entity("ContentManagement.Models.HeaderModels.HeaderTitels", b =>
                 {
-                    b.HasOne("ContentManagement.Models.Content.HeaderMenu", "HeaderMenu")
+                    b.HasOne("ContentManagement.Models.HeaderModels.HeaderMenus", "HeaderMenu")
                         .WithMany("HeaderTitles")
                         .HasForeignKey("HeaderMenuId");
 
-                    b.HasOne("ContentManagement.Models.Account.Users", "Users")
+                    b.HasOne("ContentManagement.Models.Account.Users", "User")
                         .WithMany("HeaderTitles")
-                        .HasForeignKey("UsersId");
+                        .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("ContentManagement.Models.Content.StartPage_ImgContent", b =>
+            modelBuilder.Entity("ContentManagement.Models.StartPageModels.StartPage_ImgContents", b =>
                 {
-                    b.HasOne("ContentManagement.Models.Content.StartPage", "StartPage")
+                    b.HasOne("ContentManagement.Models.StartPageModels.StartPage", "StartPage")
                         .WithMany("StartPage_ImgContents")
                         .HasForeignKey("StartPageId");
 
-                    b.HasOne("ContentManagement.Models.Account.Users", "Users")
+                    b.HasOne("ContentManagement.Models.Account.Users", "User")
                         .WithMany("StartPage_ImgContents")
-                        .HasForeignKey("UsersId");
+                        .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("ContentManagement.Models.Content.StartPage_TextContent", b =>
+            modelBuilder.Entity("ContentManagement.Models.StartPageModels.StartPage_TextContents", b =>
                 {
-                    b.HasOne("ContentManagement.Models.Content.StartPage", "StartPage")
+                    b.HasOne("ContentManagement.Models.StartPageModels.StartPage", "StartPage")
                         .WithMany("StartPage_TextContents")
                         .HasForeignKey("StartPageId");
 
-                    b.HasOne("ContentManagement.Models.Account.Users", "Users")
+                    b.HasOne("ContentManagement.Models.Account.Users", "User")
                         .WithMany("StartPage_TextContents")
-                        .HasForeignKey("UsersId");
+                        .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("ContentManagement.Models.Content.StartPage_TitleContent", b =>
+            modelBuilder.Entity("ContentManagement.Models.StartPageModels.StartPage_TitleContents", b =>
                 {
-                    b.HasOne("ContentManagement.Models.Content.StartPage", "StartPage")
+                    b.HasOne("ContentManagement.Models.StartPageModels.StartPage", "StartPage")
                         .WithMany("StartPage_TitleContents")
                         .HasForeignKey("StartPageId");
 
-                    b.HasOne("ContentManagement.Models.Account.Users", "Users")
+                    b.HasOne("ContentManagement.Models.Account.Users", "User")
                         .WithMany("StartPage_Titles")
-                        .HasForeignKey("UsersId");
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

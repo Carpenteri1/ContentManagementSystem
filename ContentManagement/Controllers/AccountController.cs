@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ContentManagement.Models.Account;
-using System.Security.Claims;
 using ContentManagement.Data;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using MySqlX.XDevAPI;
@@ -19,7 +19,7 @@ namespace ContentManagement.Controllers
     {
         private readonly CMSDbContext context;
         private const string claimsKey = "KeyOne";
-        private List<Claim> claims = new List<Claim>();
+        private readonly List<Claim> claims = new List<Claim>();
 
         public AccountController(CMSDbContext context)
         {
@@ -103,12 +103,17 @@ namespace ContentManagement.Controllers
                 }
                 else
                 {
+                    TempData.Remove("Edited");
+                    TempData.Remove("User_Pass");
                     return Redirect("/UserAccount");
                 }
 
             }
             else
             {
+
+                TempData.Remove("Edited");
+                TempData.Remove("User_Pass");
                 return Redirect("/Login");
             }
         }
@@ -199,12 +204,16 @@ namespace ContentManagement.Controllers
                 }
                 else
                 {
+                    TempData.Remove("Edited");
+                    TempData.Remove("User_NewName");
                     return Redirect("/UserAccount");
                 }
 
             }
             else
             {
+                TempData.Remove("Edited");
+                TempData.Remove("User_NewName");
                 return Redirect("/Login");
             }
         }
@@ -225,8 +234,7 @@ namespace ContentManagement.Controllers
                 user.UserName = TempData["User_NewName"].ToString();
                 var existingClaim = claims.Find(item => item.Value == claimsKey);//find excisting user.identity using claims
                 claims.Remove(existingClaim);
-                claims.Add(new Claim(ClaimTypes.Name, user.UserName));//<-- adds the new username to claims
-
+                claims.Add(new Claim(ClaimTypes.Name, user.UserName));//<-- adds the new username to claim
                 var claimsIdentity = new ClaimsIdentity(claims, claimsKey);
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
@@ -290,15 +298,15 @@ namespace ContentManagement.Controllers
                 {
 
                     verifyUser.StartPage_ImgContents = context.StartPage_ImgContents
-                        .Where(item => item.UserId_FK == verifyUser.Id)
+                        .Where(item => item.User.Id == verifyUser.Id)
                         .ToList();
 
                     verifyUser.StartPage_TextContents = context.StartPage_TextContents
-                        .Where(item => item.UserId_FK == verifyUser.Id)
+                        .Where(item => item.User.Id == verifyUser.Id)
                         .ToList();
 
                     verifyUser.StartPage_Titles = context.StartPage_TitleContents
-                        .Where(item => item.UserId_FK == verifyUser.Id)
+                        .Where(item => item.User.Id == verifyUser.Id)
                         .ToList();
 
 
@@ -440,11 +448,25 @@ namespace ContentManagement.Controllers
                 }
                 else
                 {
+                    TempData.Remove("NewUser_UserName");
+                    TempData.Remove("NewUser_Pass");
+                    TempData.Remove("NewUser_ConPass");
+                    TempData.Remove("NewUser_Name");
+                    TempData.Remove("NewUser_Surname");
+                    TempData.Remove("NewUser_Role");
+
                     return Redirect("/UserAccount");
                 }
             }
             else
             {
+                TempData.Remove("NewUser_UserName");
+                TempData.Remove("NewUser_Pass");
+                TempData.Remove("NewUser_ConPass");
+                TempData.Remove("NewUser_Name");
+                TempData.Remove("NewUser_Surname");
+                TempData.Remove("NewUser_Role");
+
                 return Redirect("/Login");
             }
         }

@@ -3,10 +3,10 @@ using System.Diagnostics;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using ContentManagement.Models.StartPage;
-using ContentManagement.Models.Header;
-using ContentManagement.Models;
+using ContentManagement.Models.StartPageModels;
+using ContentManagement.Models.HeaderModels;
 using ContentManagement.Data;
+using ContentManagement.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Collections.Generic;
 

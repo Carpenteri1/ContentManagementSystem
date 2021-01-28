@@ -1,23 +1,15 @@
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ContentManagement.Data;
-using ContentManagement.Models;
-using ContentManagement.Models.StartPage;
-using ContentManagement.Models.Header;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
-using ContentManagement.Models.Account;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using ContentManagement.Data;
 namespace ContetManagement
 {
     public class Startup
@@ -50,7 +42,7 @@ namespace ContetManagement
 
             services.AddDbContext<CMSDbContext>(options =>
             options.UseMySQL(
-               Configuration.GetConnectionString("AmvGolfConnection")));
+               Configuration.GetConnectionString("LocalDb")));
                
             services.AddControllersWithViews();
             services.AddRazorPages();

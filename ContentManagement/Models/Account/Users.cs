@@ -1,17 +1,17 @@
-﻿using ContentManagement.Data;
-using ContentManagement.Models.StartPage;
-using ContentManagement.Models.Header;
+﻿
+using ContentManagement.Models.StartPageModels;
+using ContentManagement.Models.HeaderModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
-using ContentManagement.Security;
+
 
 namespace ContentManagement.Models.Account
 {
-    public class Users 
+    public class Users
     {
         [Key]
         public int? Id { get; set; }
@@ -55,10 +55,10 @@ namespace ContentManagement.Models.Account
 
         public DateTime? UserEdited { get; set; }
 
-        public ICollection<StartPage_ImgContent> StartPage_ImgContents { get; set; }
-        public ICollection<StartPage_TextContent> StartPage_TextContents { get; set; }
-        public ICollection<StartPage_TitleContent> StartPage_Titles { get; set; }
-        public ICollection<HeaderTitle> HeaderTitles { get; set; }
+        public List<StartPage_ImgContents> StartPage_ImgContents { get; set; }
+        public List<StartPage_TextContents> StartPage_TextContents { get; set; }
+        public List<StartPage_TitleContents> StartPage_Titles { get; set; }
+        public List<HeaderTitels> HeaderTitles { get; set; }
 
     }
 }

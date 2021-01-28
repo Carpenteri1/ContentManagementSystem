@@ -188,7 +188,6 @@ C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Deb
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\ContentManagement.TagHelpers.input.cache
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\ContentManagement.TagHelpers.output.cache
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\ContentManagement.RazorCoreGenerate.cache
-C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ViewStart.cshtml.g.cs
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Account\ConfirmName.cshtml.g.cs
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Account\ConfirmPass.cshtml.g.cs
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Account\ConfirmRegister.cshtml.g.cs

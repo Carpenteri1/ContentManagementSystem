@@ -1,6 +1,6 @@
 using System;
 
-namespace AMV.Models
+namespace ContentManagement.Models
 {
     public class ErrorViewModel
     {

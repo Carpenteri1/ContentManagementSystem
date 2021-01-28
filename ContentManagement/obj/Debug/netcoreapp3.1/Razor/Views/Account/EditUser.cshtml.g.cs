@@ -28,7 +28,7 @@ using ContentManagement.Models;
 #nullable disable
 #nullable restore
 #line 3 "C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\Views\_ViewImports.cshtml"
-using ContentManagement.Models.StartPage;
+using ContentManagement.Models.StartPageModels;
 
 #line default
 #line hidden
@@ -42,7 +42,7 @@ using ContentManagement.Models.Account;
 #nullable disable
 #nullable restore
 #line 5 "C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\Views\_ViewImports.cshtml"
-using ContentManagement.Models.Header;
+using ContentManagement.Models.HeaderModels;
 
 #line default
 #line hidden
@@ -62,7 +62,7 @@ using ContentManagement.Security;
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"bf90aae53127f40bd38c788bbfa1c5264106c8e1", @"/Views/Account/EditUser.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"cb8e76749115fa78f1b949fb51ff08e5f92c615a", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"fdff3368da8214a527e930183284fd91d838d5d4", @"/Views/_ViewImports.cshtml")]
     public class Views_Account_EditUser : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("id", new global::Microsoft.AspNetCore.Html.HtmlString("login-form"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -102,7 +102,7 @@ using ContentManagement.Security;
             <div id=""login-column"" class=""col-auto"" style=""background-color:#3f4044;border:2px solid #cab290;"">
                 <div id=""login-box"" class=""col-md-12"">
                     ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "bf90aae53127f40bd38c788bbfa1c5264106c8e16100", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "bf90aae53127f40bd38c788bbfa1c5264106c8e16112", async() => {
                 WriteLiteral(@"
                         <div style=""height:0.5vw;""></div>
                         <div class=""row"">

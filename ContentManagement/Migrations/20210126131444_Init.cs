@@ -4,7 +4,7 @@ using MySql.Data.EntityFrameworkCore.Metadata;
 
 namespace ContentManagement.Migrations
 {
-    public partial class Initlize : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -68,9 +68,7 @@ namespace ContentManagement.Migrations
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     Uploaded = table.Column<DateTime>(nullable: false),
                     ImgSrc = table.Column<string>(nullable: true),
-                    UserId_FK = table.Column<int>(nullable: false),
-                    UsersId = table.Column<int>(nullable: true),
-                    StartPageId_FK = table.Column<int>(nullable: false),
+                    UserId = table.Column<int>(nullable: true),
                     StartPageId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -83,8 +81,8 @@ namespace ContentManagement.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_StartPage_ImgContents_Users_UsersId",
-                        column: x => x.UsersId,
+                        name: "FK_StartPage_ImgContents_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -99,9 +97,7 @@ namespace ContentManagement.Migrations
                     Created = table.Column<DateTime>(nullable: false),
                     TextContent = table.Column<string>(nullable: true),
                     Edited = table.Column<DateTime>(nullable: true),
-                    UserId_FK = table.Column<int>(nullable: false),
-                    UsersId = table.Column<int>(nullable: true),
-                    StartPageId_FK = table.Column<int>(nullable: false),
+                    UserId = table.Column<int>(nullable: true),
                     StartPageId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -114,8 +110,8 @@ namespace ContentManagement.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_StartPage_TextContents_Users_UsersId",
-                        column: x => x.UsersId,
+                        name: "FK_StartPage_TextContents_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -130,9 +126,7 @@ namespace ContentManagement.Migrations
                     Created = table.Column<DateTime>(nullable: false),
                     TextContent = table.Column<string>(nullable: true),
                     Edited = table.Column<DateTime>(nullable: true),
-                    UserId_FK = table.Column<int>(nullable: false),
-                    UsersId = table.Column<int>(nullable: true),
-                    StartPageId_FK = table.Column<int>(nullable: false),
+                    UserId = table.Column<int>(nullable: true),
                     StartPageId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -145,8 +139,8 @@ namespace ContentManagement.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_StartPage_TitleContents_Users_UsersId",
-                        column: x => x.UsersId,
+                        name: "FK_StartPage_TitleContents_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -161,10 +155,8 @@ namespace ContentManagement.Migrations
                     Created = table.Column<DateTime>(nullable: false),
                     TextContent = table.Column<string>(nullable: true),
                     Edited = table.Column<DateTime>(nullable: true),
-                    HeaderMenuId_FK = table.Column<int>(nullable: false),
-                    HeaderMenuId = table.Column<int>(nullable: true),
-                    UserId_FK = table.Column<int>(nullable: false),
-                    UsersId = table.Column<int>(nullable: true)
+                    UserId = table.Column<int>(nullable: true),
+                    HeaderMenuId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -176,8 +168,8 @@ namespace ContentManagement.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_HeaderTitles_Users_UsersId",
-                        column: x => x.UsersId,
+                        name: "FK_HeaderTitles_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -194,9 +186,9 @@ namespace ContentManagement.Migrations
                 column: "HeaderMenuId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_HeaderTitles_UsersId",
+                name: "IX_HeaderTitles_UserId",
                 table: "HeaderTitles",
-                column: "UsersId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StartPage_ImgContents_StartPageId",
@@ -204,9 +196,9 @@ namespace ContentManagement.Migrations
                 column: "StartPageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StartPage_ImgContents_UsersId",
+                name: "IX_StartPage_ImgContents_UserId",
                 table: "StartPage_ImgContents",
-                column: "UsersId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StartPage_TextContents_StartPageId",
@@ -214,9 +206,9 @@ namespace ContentManagement.Migrations
                 column: "StartPageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StartPage_TextContents_UsersId",
+                name: "IX_StartPage_TextContents_UserId",
                 table: "StartPage_TextContents",
-                column: "UsersId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StartPage_TitleContents_StartPageId",
@@ -224,9 +216,9 @@ namespace ContentManagement.Migrations
                 column: "StartPageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StartPage_TitleContents_UsersId",
+                name: "IX_StartPage_TitleContents_UserId",
                 table: "StartPage_TitleContents",
-                column: "UsersId");
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
