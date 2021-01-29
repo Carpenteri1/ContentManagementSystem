@@ -42,7 +42,7 @@ namespace ContetManagement
 
             services.AddDbContext<CMSDbContext>(options =>
             options.UseMySQL(
-               Configuration.GetConnectionString("LocalDb")));
+               Configuration.GetConnectionString("AmvGolfConnection")));
                
             services.AddControllersWithViews();
             services.AddRazorPages();

@@ -3,12 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ContentManagement.Models.StartPageModels;
-using ContentManagement.Models.HeaderModels;
+using ContentManagement.StartPageModels.HeaderModels;
+using ContentManagement.StartPageModels.PageModel;
 using ContentManagement.Models.Account;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using Microsoft.AspNetCore.Http;
+
 
 namespace ContentManagement.ControllerHelperClasses
 {
@@ -23,60 +24,76 @@ namespace ContentManagement.ControllerHelperClasses
             this.host = host;
         }
 
-        public bool DoesAllContentMatch(StartPage Page, List<StartPage_TextContents> text,Users users)
+        public bool DoesAllTextsMatch(StartPage Page,Users users)
         {
+            List<StartPage_TextContents> DbTexts = context.StartPage_TextContents.ToList();
 
             for (int i = 0; i < Page.StartPage_TextContents.Count(); i++)
             {
-                if (!text[i].TextContent.Equals(Page.StartPage_TextContents[i].TextContent))//if they dont match, save new content
+                if (!DbTexts[i].TextContent.Equals(Page.StartPage_TextContents[i].TextContent))//if they dont match, save new content
                 {
-                        text[i].TextContent = Page.StartPage_TextContents[i].TextContent.ToString();
-                        text[i].Edited = DateTime.Now;
-                        text[i].User = users;
-                        context.Update(text[i]);
-                        return false;
+                    DbTexts[i].TextContent = Page.StartPage_TextContents[i].TextContent.ToString();
+                    DbTexts[i].Edited = DateTime.Now;
+                    DbTexts[i].User = users;
+                        context.Update(DbTexts[i]);
                 }
             }
-            return true;
+            return false;
         }
 
-        public bool DoesAllContentMatch(StartPage Page,List<StartPage_TitleContents> titles,Users user)
+        public bool DoesAllTitlesMatch(StartPage Page,Users user)
         {
+            List<StartPage_TitleContents> DbTitles = context.StartPage_TitleContents.ToList();
 
             for (int i = 0; i < Page.StartPage_TitleContents.Count(); i++)
             {
-                if (!titles[i].TextContent.Equals(Page.StartPage_TitleContents[i].TextContent))//if they dont match, save new content
+                if (!DbTitles[i].TextContent.Equals(Page.StartPage_TitleContents[i].TextContent))//if they dont match, save new content
                 {
-                        titles[i].TextContent = Page.StartPage_TitleContents[i].TextContent.ToString();
-                        titles[i].Edited = DateTime.Now;
-                        titles[i].User = user;
-                        context.Update(titles[i]);
-                        return false;
+                    DbTitles[i].TextContent = Page.StartPage_TitleContents[i].TextContent.ToString();
+                    DbTitles[i].Edited = DateTime.Now;
+                    DbTitles[i].User = user;
+                        context.Update(DbTitles[i]);
                 }
             }
 
-            return true;
+            return false;
         }
 
-        public bool DoesAllContentMatch(StartPage Page, List<StartPage_ImgContents> imges,Users user)
+        public bool DoesAllLinksContentMatch(StartPage Page, Users user)
         {
+            List<StartPage_Links> DbLinkContent = context.StartPage_Links.ToList();
+
+            for (int i = 0; i < Page.StartPage_TitleContents.Count(); i++)
+            {
+                if (!DbLinkContent[i].Url.Equals(Page.StartPage_Links[i].Url))//if they dont match, save new content
+                {
+                    DbLinkContent[i].Url = Page.StartPage_Links[i].Url.ToString();
+                    DbLinkContent[i].Edited = DateTime.Now;
+                    DbLinkContent[i].User = user;
+                    context.Update(DbLinkContent[i]);
+                }
+            }
+
+            return false;
+        }
+
+
+        public bool DoesAllImagesMatch(StartPage Page,Users user)
+        {
+            List<StartPage_ImgContents> DbImages = context.StartPage_ImgContents.ToList();
 
             for (int i = 0; i < Page.StartPage_ImgContents.Count(); i++)
             {
                 if (Page.StartPage_ImgContents[i].File != null)
                 {
-                    Page = CopyToRootFolder(Page);
+                    Page.StartPage_ImgContents[i] = CopyToRootFolder(Page.StartPage_ImgContents[i]);
 
-                    if (!Page.StartPage_ImgContents[i].ImgSrc.Equals(imges[i].ImgSrc))//if they dont match, save new content
+                    if (!Page.StartPage_ImgContents[i].ImgSrc.Equals(DbImages[i].ImgSrc))//if they dont match, save new content
                     {
-                        imges[i].ImgSrc = Page.StartPage_ImgContents[i].ImgSrc;
-                        imges[i].User = user;
-                        imges[i].Uploaded = DateTime.Now;
-                        context.Update(imges[i]);
-                    }
-                    else
-                    {
-                        DoesAllContentMatch(Page, imges, user);
+                        DbImages[i].ImgSrc = Page.StartPage_ImgContents[i].ImgSrc;
+                        DbImages[i].User = user;
+                        DbImages[i].Uploaded = DateTime.Now;
+                        context.Update(DbImages[i]);
                     }
                 }
 
@@ -86,27 +103,31 @@ namespace ContentManagement.ControllerHelperClasses
         }
 
 
-        private StartPage CopyToRootFolder(StartPage Page)
+        private StartPage_ImgContents CopyToRootFolder(StartPage_ImgContents imgContents)
         {
-            for(int i = 0; i < Page.StartPage_ImgContents.Count(); i++)
+            if (imgContents.File != null)
             {
-                if (Page.StartPage_ImgContents[i].File != null)
-                {
-     
-                    string rootPath = host.WebRootPath;
-                    string fileName = Path.GetFileNameWithoutExtension(Page.StartPage_ImgContents[i].File.FileName);
-                    string extension = Path.GetExtension(Page.StartPage_ImgContents[i].File.FileName);
-                    string path = Path.Combine(rootPath + "/Upload/StartPage/" + fileName + extension);
-                    string imgUrl = "/Upload/StartPage/" + fileName + extension;
 
+                string rootPath = host.WebRootPath;
+                string fileName = Path.GetFileNameWithoutExtension(imgContents.File.FileName);
+                string extension = Path.GetExtension(imgContents.File.FileName);
+                string path = Path.Combine(rootPath + "/Upload/StartPage/Images/" + fileName + extension);
+                string imgUrl = "/Upload/StartPage/Images/" + fileName + extension;
+
+                if (!File.Exists(path))
+                {
                     using (var fileStream = new FileStream(path, FileMode.Create))
                     {
-                        Page.StartPage_ImgContents[i].File.CopyTo(fileStream);
+                        imgContents.File.CopyTo(fileStream);
                     }
-                    Page.StartPage_ImgContents[i].ImgSrc = imgUrl;
+            
                 }
+
+                imgContents.ImgSrc = imgUrl;
+                return imgContents;
             }
-            return Page;
+            return imgContents;
+
         }
 
         public StartPage FetchStartPageFromDB()
@@ -135,7 +156,12 @@ namespace ContentManagement.ControllerHelperClasses
                     .StartPage_ImgContents
                     .ToList();
         }
-
+        public List<StartPage_Links> FetchAllLinksContentFromDB(StartPage startPage)
+        {
+            return startPage.StartPage_Links = context
+                    .StartPage_Links
+                    .ToList();
+        }
         public void SaveToDb()
         {
             context.SaveChanges();

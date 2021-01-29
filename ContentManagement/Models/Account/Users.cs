@@ -1,6 +1,6 @@
 ﻿
-using ContentManagement.Models.StartPageModels;
-using ContentManagement.Models.HeaderModels;
+using ContentManagement.StartPageModels.HeaderModels;
+using ContentManagement.StartPageModels.PageModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -58,7 +58,7 @@ namespace ContentManagement.Models.Account
         public List<StartPage_ImgContents> StartPage_ImgContents { get; set; }
         public List<StartPage_TextContents> StartPage_TextContents { get; set; }
         public List<StartPage_TitleContents> StartPage_Titles { get; set; }
-        public List<HeaderTitels> HeaderTitles { get; set; }
+        public List<StartPage_HeaderTitels> HeaderTitles { get; set; }
 
     }
 }

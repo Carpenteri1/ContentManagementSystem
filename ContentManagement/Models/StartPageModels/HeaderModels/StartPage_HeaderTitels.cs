@@ -2,19 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ContentManagement.Models.Account;
 
-namespace ContentManagement.Models.StartPageModels
+
+namespace ContentManagement.StartPageModels.HeaderModels
 {
-    public class StartPage_TextContents 
+    public class StartPage_HeaderTitels 
     {
         public int Id { get; set; }
-
         public DateTime Created { get; set; }
         public string TextContent { get; set; }
         public DateTime? Edited { get; set; }
 
-        public Users User { get; set; }
-        public StartPage StartPage { get; set; }
+        public StartPage_HeaderMenus HeaderMenu { get; set; }
+
     }
 }

@@ -337,7 +337,6 @@ C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Rel
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\ContentManagement.TagHelpers.input.cache
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\ContentManagement.TagHelpers.output.cache
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\ContentManagement.RazorCoreGenerate.cache
-C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\Razor\Areas\Identity\Pages\_ViewStart.cshtml.g.cs
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\Razor\Views\Account\ConfirmName.cshtml.g.cs
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\Razor\Views\Account\ConfirmPass.cshtml.g.cs
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\Razor\Views\Account\ConfirmRegister.cshtml.g.cs
@@ -363,3 +362,4 @@ C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Rel
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\ContentManagement.dll
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\ContentManagement.pdb
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\ContentManagement.genruntimeconfig.cache
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\Razor\Views\UnderPage\Edit.cshtml.g.cs

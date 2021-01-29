@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ContentManagement.Data;
-using ContentManagement.Models.StartPageModels;
+using ContentManagement.StartPageModels.PageModel;
 using ContentManagement.ControllerHelperClasses;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -34,11 +34,13 @@ namespace ContentManagement.Controllers
                 startPage.StartPage_TitleContents = controllerHelper.FetchAllTitleContentFromDB(startPage);
                 startPage.StartPage_TextContents = controllerHelper.FetchAllTextContentFromDB(startPage);
                 startPage.StartPage_ImgContents = controllerHelper.FetchAllImgeContentFromDB(startPage);
+                startPage.StartPage_Links = controllerHelper.FetchAllLinksContentFromDB(startPage);
 
                 if (startPage == null ||
                     startPage.StartPage_TextContents == null ||
                     startPage.StartPage_TitleContents == null ||
-                    startPage.StartPage_ImgContents == null)
+                    startPage.StartPage_ImgContents == null ||
+                    startPage.StartPage_Links == null)
                 {
                     return NotFound();
                 }
@@ -62,24 +64,21 @@ namespace ContentManagement.Controllers
             {
                 if (Page != null)
                 {
+                    StartPageHelper controllerHelper = new StartPageHelper(context, host);
                     Page.Id = context.StartPages.FirstOrDefault().Id;
-                    var titles = context.StartPage_TitleContents.ToList();
-                    var text = context.StartPage_TextContents.ToList();
-                    var imges = context.StartPage_ImgContents.ToList();
-                    StartPageHelper controllerHelper = new StartPageHelper(context,host);
-                    var user = context.Users.ToList().Where(item =>item.UserName == User.Identity.Name).FirstOrDefault();
+                    var user = context.Users.Where(item =>item.UserName == User.Identity.Name).FirstOrDefault();
 
                     try
                     {
-                        if (!controllerHelper.DoesAllContentMatch(Page,imges,user) ||
-                            !controllerHelper.DoesAllContentMatch(Page, text,user) ||
-                            !controllerHelper.DoesAllContentMatch(Page, titles,user))
+                        if (!controllerHelper.DoesAllImagesMatch(Page,user) &&
+                            !controllerHelper.DoesAllTextsMatch(Page,user) &&
+                            !controllerHelper.DoesAllTitlesMatch(Page,user) &&
+                            !controllerHelper.DoesAllLinksContentMatch(Page,user))
                             controllerHelper.SaveToDb();      
                         else
                             return RedirectToAction("Edit");
 
                     }
-
                     catch (DbUpdateConcurrencyException)
                     {
                         if (!StartPageExists(Page.Id))
@@ -100,7 +99,6 @@ namespace ContentManagement.Controllers
                     }
 
                     return RedirectToAction("Edit");
-
                 }
                 else
                 {

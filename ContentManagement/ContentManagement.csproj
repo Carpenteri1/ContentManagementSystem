@@ -12,20 +12,6 @@
     <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
     <None Include="Views\_ViewImports.cshtml" />
     <None Include="Views\_ViewStart.cshtml" />
-    <None Include="wwwroot\Image\annons-wellify.jpg" />
-    <None Include="wwwroot\Image\jumbo-underpage.jpg" />
-    <None Include="wwwroot\Image\langas.jpg" />
-    <None Include="wwwroot\Image\start-box-1-company.jpg" />
-    <None Include="wwwroot\Image\start-box-1-golfclub.jpg" />
-    <None Include="wwwroot\Image\start-box-3-golfplayers.jpg" />
-    <None Include="wwwroot\Image\start-splash-background.jpg" />
-    <None Include="wwwroot\Image\start-stripe-challenge-background.jpg" />
-    <None Include="wwwroot\Image\start-stripe-challenge-big.jpg" />
-    <None Include="wwwroot\Image\start-stripe-challenge-small-1.jpg" />
-    <None Include="wwwroot\Image\start-stripe-challenge-small-2.jpg" />
-    <None Include="wwwroot\Image\wellify.jpg" />
-    <None Include="wwwroot\Image\xlbyggcenter.jpg" />
-    <None Include="wwwroot\Upload\StartPage\kitten-510651.jpg" />
   </ItemGroup>
 
   <ItemGroup>

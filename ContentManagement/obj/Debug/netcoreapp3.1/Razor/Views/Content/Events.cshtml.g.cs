@@ -28,7 +28,7 @@ using ContentManagement.Models;
 #nullable disable
 #nullable restore
 #line 3 "C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\Views\_ViewImports.cshtml"
-using ContentManagement.Models.StartPageModels;
+using ContentManagement.StartPageModels.PageModel;
 
 #line default
 #line hidden
@@ -42,27 +42,41 @@ using ContentManagement.Models.Account;
 #nullable disable
 #nullable restore
 #line 5 "C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\Views\_ViewImports.cshtml"
-using ContentManagement.Models.HeaderModels;
+using ContentManagement.StartPageModels.HeaderModels;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 6 "C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\Views\_ViewImports.cshtml"
-using ContentManagement.Data;
+using ContentManagement.UnderPageModels.PageModel;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 7 "C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\Views\_ViewImports.cshtml"
+using ContentManagement.UnderPageModels.HeaderModels;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 8 "C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\Views\_ViewImports.cshtml"
+using ContentManagement.Data;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 9 "C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\Views\_ViewImports.cshtml"
 using ContentManagement.Security;
 
 #line default
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"0ba97b4f19fe055c35fcd5abfc7fb6fc12860bb7", @"/Views/Content/Events.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"fdff3368da8214a527e930183284fd91d838d5d4", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"d8d8a994c2fe173dfac43a0c700d951647cc861d", @"/Views/_ViewImports.cshtml")]
     public class Views_Content_Events : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #line hidden
@@ -126,7 +140,7 @@ WriteAttributeValue("", 637, Url.Action("NewPage"), 637, 22, false);
                             <b style=""font-size:0.5vw;margin-top:0.2vw;"">Välj huvudmeny:</b>
                             <select data-live-search=""true"" class=""selectpicker show-menu-arrow float-right;border:2px solid red;"" style=""font-size:0.5vw;width:10vw;margin-top:0.2vw"">
                                 ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0ba97b4f19fe055c35fcd5abfc7fb6fc12860bb76219", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0ba97b4f19fe055c35fcd5abfc7fb6fc12860bb76696", async() => {
                 WriteLiteral("Start");
             }
             );
@@ -140,7 +154,7 @@ WriteAttributeValue("", 637, Url.Action("NewPage"), 637, 22, false);
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n                                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0ba97b4f19fe055c35fcd5abfc7fb6fc12860bb77208", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0ba97b4f19fe055c35fcd5abfc7fb6fc12860bb77685", async() => {
                 WriteLiteral("Två");
             }
             );
@@ -154,7 +168,7 @@ WriteAttributeValue("", 637, Url.Action("NewPage"), 637, 22, false);
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n                                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0ba97b4f19fe055c35fcd5abfc7fb6fc12860bb78195", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0ba97b4f19fe055c35fcd5abfc7fb6fc12860bb78672", async() => {
                 WriteLiteral("Tree");
             }
             );

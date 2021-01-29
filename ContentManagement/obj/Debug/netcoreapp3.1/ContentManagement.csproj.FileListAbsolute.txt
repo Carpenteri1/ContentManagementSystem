@@ -366,3 +366,4 @@ C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\bin\Deb
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\e_sqlite3.dll
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\e_sqlite3.dll
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\StartPage\Edit.cshtml.g.cs
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\UnderPage\Edit.cshtml.g.cs

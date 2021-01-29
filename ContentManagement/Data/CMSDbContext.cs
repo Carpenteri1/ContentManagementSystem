@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ContentManagement.Models.StartPageModels;
-using ContentManagement.Models.HeaderModels;
+using ContentManagement.StartPageModels.PageModel;
 using ContentManagement.Models.Account;
+using ContentManagement.UnderPageModels.PageModel;
+using ContentManagement.UnderPageModels.HeaderModels;
+using ContentManagement.StartPageModels.HeaderModels;
 
 namespace ContentManagement.Data
 {
@@ -13,12 +15,23 @@ namespace ContentManagement.Data
         }
 
 
+        public DbSet<UnderPage> UnderPages { get; set; }
+        public DbSet<UnderPage_TitleContents> UnderPages_titlecontents { get; set; }
+        public DbSet<UnderPage_ImgContents> UnderPages_imgcontents { get; set; }
+        public DbSet<UnderPage_TextContents> UnderPages_TextContents { get; set; }
+        public DbSet<UnderPage_Links> UnderPage_Links { get; set; }
+
+        public DbSet<UnderPage_HeaderMenus> UnderPage_HeaderMenus { get; set; }
+        public DbSet<UnderPage_HeaderTitels> UnderPage_HeaderTitels { get; set; }
+
         public DbSet<StartPage> StartPages { get; set; }
+        public DbSet<StartPage_TitleContents> StartPage_TitleContents { get; set; }
         public DbSet<StartPage_ImgContents> StartPage_ImgContents { get; set; }
         public DbSet<StartPage_TextContents> StartPage_TextContents { get; set; }
-        public DbSet<StartPage_TitleContents> StartPage_TitleContents { get; set; }
-        public DbSet<HeaderMenus> HeaderMenus { get; set; }
-        public DbSet<HeaderTitels> HeaderTitles { get; set; }
+        public DbSet<StartPage_Links> StartPage_Links { get; set; }
+
+        public DbSet<StartPage_HeaderMenus> StartPage_HeaderMenus { get; set; }
+        public DbSet<StartPage_HeaderTitels> StartPage_HeaderTitels { get; set; }
 
         public DbSet<Users> Users { get; set; }
     }
