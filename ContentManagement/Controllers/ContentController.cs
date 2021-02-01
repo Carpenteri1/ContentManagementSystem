@@ -25,17 +25,12 @@ namespace ContentManagement.Controllers
         public IActionResult Content()
         {
             if (User.Identity.IsAuthenticated)
-            {      /*
+            {      
                 List<UnderPage> underPages = context.UnderPages.ToList();
                 List<UnderPage_TitleContents> titles = context.UnderPages_titlecontents.ToList();
                 List<UnderPage_TextContents> textContents = context.UnderPages_TextContents.ToList();
                 List<UnderPage_ImgContents> Imges = context.UnderPages_imgcontents.ToList();
-          
-                for (int i = 0; i < underPages.Count(); i++)
-                {
-                    underPages[i].UnderPage_TextContents == titles.Find(item => item.UnderPage.Id == underPages[i].Id).FirstOrDefault();
-                }
-
+        
                 foreach (var s in underPages)
                 {
                     for (int i = 0; i < titles.Count(); i++)
@@ -62,9 +57,9 @@ namespace ContentManagement.Controllers
 
                     }
        
-                }*/
+                }
 
-                return View();
+                return View(underPages);
             }
             else
             {

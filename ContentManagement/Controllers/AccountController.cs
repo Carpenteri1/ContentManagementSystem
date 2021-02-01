@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authentication;
 using MySqlX.XDevAPI;
 using Microsoft.AspNetCore.Server.HttpSys;
 using ContentManagement.Security;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace ContentManagement.Controllers
 {
@@ -74,76 +75,30 @@ namespace ContentManagement.Controllers
         [HttpPost]
         public ActionResult EditPass(Users editPass)
         {
-            var grabUser = context
+             var grabUser = context
             .Users
             .ToList()
-            .Where(item =>
-            item.UserName == User.Identity.Name)
+            .Where(item => PasswordHandler.Verify(editPass.Password, item.Password) == true)
             .FirstOrDefault();
 
             if (grabUser != null)
             {
-                editPass.UserEdited = DateTime.Now;
-                TempData["User_Pass"] = editPass.Password;
-                TempData["Edited"] = editPass.UserEdited;
-                return Redirect("ConfirmPass");
-            }
-            return Redirect("UserAccount");
-        }
+                grabUser.Password = PasswordHandler.HashPassword(editPass.TempPassword);
+                grabUser.UserEdited = DateTime.Now;
+ 
+                context.Update(grabUser);
+                context.SaveChanges();
 
-        [Route("ConfirmPass")]
-        [HttpGet]
-        public ActionResult ConfirmPass()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                if (User.IsInRole(UserRoles.Admin.ToString()))
-                {
-                    return View();
-                }
-                else
-                {
-                    TempData.Remove("Edited");
-                    TempData.Remove("User_Pass");
-                    return Redirect("/UserAccount");
-                }
 
+                return Redirect("/UserAccount");
             }
             else
             {
-
-                TempData.Remove("Edited");
-                TempData.Remove("User_Pass");
-                return Redirect("/Login");
+                ViewData["error"] = "lösenorden matcha inte";
+                return Redirect("/EditPass");
             }
-        }
-
-        [Route("ConfirmPass")]
-        [HttpPost]
-        public ActionResult ConfirmPass(Users user)
-        {
-            var grabUser = context
-            .Users
-            .ToList()
-            .Where(item =>
-            item.Password == user.Password)
-            .FirstOrDefault();
-
-            if (grabUser != null)
-            {
-                string dateTime = TempData["Edited"].ToString();
-                grabUser.Password = TempData["User_Pass"].ToString();
-                grabUser.UserEdited = DateTime.Parse(dateTime);
-                TempData.Remove("Edited");
-                TempData.Remove("User_Pass");
-
-                grabUser.Password = PasswordHandler.HashPassword(grabUser.Password);
-                context.Update(grabUser);
-                context.SaveChanges();
-                return Redirect("/UserAccount");
-            }
-            TempData.Remove("User_Pass");
-            return Redirect("/UserAccount");
+            
+           return Redirect("UserAccount");
         }
 
 
@@ -188,7 +143,6 @@ namespace ContentManagement.Controllers
                 return Redirect("ConfirmName");
 
             }
-
                 return View();
         }
 
@@ -277,51 +231,51 @@ namespace ContentManagement.Controllers
         public async Task<IActionResult> Login(Users newLogin)
         {
 
-            var verifyUser = context
+            var dbUser = context
                 .Users
                 .ToList()
                 .Where(item =>
                 item.UserName == newLogin.UserName)
                 .FirstOrDefault();
 
-            if (verifyUser != null)
+                if (dbUser != null)
             {
-                if (!newLogin.UserName.Equals(verifyUser.UserName))
+                if (!newLogin.UserName.Equals(dbUser.UserName))
                 {
                     return Redirect("/Login"); 
                 }  
-                if(!PasswordHandler.VerifyHashedPassword(verifyUser.Password,newLogin.Password))
+                if(!PasswordHandler.Verify(newLogin.Password,dbUser.Password))
                 {
                     return Redirect("/Login");
                 }
                 else
                 {
 
-                    verifyUser.StartPage_ImgContents = context.StartPage_ImgContents
-                        .Where(item => item.User.Id == verifyUser.Id)
+                    dbUser.StartPage_ImgContents = context.StartPage_ImgContents
+                        .Where(item => item.User.Id == dbUser.Id)
                         .ToList();
 
-                    verifyUser.StartPage_TextContents = context.StartPage_TextContents
-                        .Where(item => item.User.Id == verifyUser.Id)
+                    dbUser.StartPage_TextContents = context.StartPage_TextContents
+                        .Where(item => item.User.Id == dbUser.Id)
                         .ToList();
 
-                    verifyUser.StartPage_Titles = context.StartPage_TitleContents
-                        .Where(item => item.User.Id == verifyUser.Id)
+                    dbUser.StartPage_Titles = context.StartPage_TitleContents
+                        .Where(item => item.User.Id == dbUser.Id)
                         .ToList();
 
 
 
-                    if (verifyUser.UserRole.Equals(UserRoles.Admin.ToString()))
+                    if (dbUser.UserRole.Equals(UserRoles.Admin.ToString()))
                     {
-                        verifyUser.UserRole = UserRoles.Admin.ToString();
+                        dbUser.UserRole = UserRoles.Admin.ToString();
                         User.IsInRole(UserRoles.Admin.ToString());
-                        claims.Add(new Claim(ClaimTypes.Role, verifyUser.UserRole));
+                        claims.Add(new Claim(ClaimTypes.Role, dbUser.UserRole));
                     }
-                    else if(verifyUser.UserRole.Equals(UserRoles.User.ToString()))
+                    else if(dbUser.UserRole.Equals(UserRoles.User.ToString()))
                     {
-                        verifyUser.UserRole = UserRoles.User.ToString();
+                        dbUser.UserRole = UserRoles.User.ToString();
                         User.IsInRole(UserRoles.User.ToString());
-                        claims.Add(new Claim(ClaimTypes.Role, verifyUser.UserRole));
+                        claims.Add(new Claim(ClaimTypes.Role, dbUser.UserRole));
                     }
                     else
                     {
@@ -329,12 +283,12 @@ namespace ContentManagement.Controllers
                     }
 
         
-                    claims.Add(new Claim(ClaimTypes.Name, verifyUser.UserName));
+                    claims.Add(new Claim(ClaimTypes.Name, dbUser.UserName));
                     var claimsIdentity = new ClaimsIdentity(claims, claimsKey);
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
-                    verifyUser.LastLoggedIn = DateTime.Now;
-                    context.Users.Update(verifyUser);
+                    dbUser.LastLoggedIn = DateTime.Now;
+                    context.Users.Update(dbUser);
                     context.SaveChanges();
                     return Redirect("~/");
                 }
@@ -484,7 +438,7 @@ namespace ContentManagement.Controllers
 
                 if (verifyedUser != null)
                 {
-                    if (!PasswordHandler.VerifyHashedPassword(verifyedUser.Password, newUser.Password))
+                    if (!PasswordHandler.Verify(verifyedUser.Password, newUser.Password))
                     {
 
                         TempData.Remove("NewUser_UserName");

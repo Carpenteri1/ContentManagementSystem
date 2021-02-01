@@ -3,13 +3,26 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>@ViewData["Title"] - ContetManagementSystem</title>
+    <title>ContentManagementSystem</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/sitestyle.css" />
 
-    <script src="https://cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script>
+    <script src="https://cdn.tiny.cloud/1/3upkwo2x4ld645z7kh2cg6qeloaygttrcdt04dq7ld7vp6f0/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#editor1',
+            toolbar: 'code link image imagetools format font paragraph',
+            plugins: 'image imagetools code link format font',
+            menubar: 'format',
+            images_upload_url: '~/Upload/StartPage/img.jpg',
+            images_upload_base_path: '~/Upload/StartPage/img.jpg',
+            
+            automatic_uploads: false    
+        });
+    </script>
 </head>
+
 <body style="height:100%;">
     <header>
         <div class="navbar navbar-expand-sm" style="background-color:#292a2c;">
@@ -60,12 +73,11 @@
                     </div>
                 </div>
             </div>
-            <div class="col-8">
-                <div class="container">
+            <div class="col-10">
+                <div class="main">
                     @RenderBody()
                 </div>
             </div>
-            <div class="col-2" style="width:100%;"></div>
         </div>
     }
     else

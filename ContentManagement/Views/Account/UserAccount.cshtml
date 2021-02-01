@@ -1,82 +1,92 @@
 ﻿@model List<Users>
 
-    <div class="container">
-        <div style="height:1.5vw;"></div>
-        <div class="centered-div mw-100 mh-100" style="border-bottom:2px solid black;">
-            <div class="row">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-6">
-                            <label style=" width: 100%; text-align: left; display: inline-block;">
-                                <b style="color:#555555;font-size:0.8vw;">Kontouppgifter:</b>
-                                @if (User.IsInRole(UserRoles.Admin.ToString()))
-                                {
-                                    <button type="button" class="btn text-white p-0 text-center" onclick="location.href='@Url.Action("EditUser")'" style="font-size: 0.6vw;width:5vw;height:1.2vw;background-color:#0293fc;">Ändra uppgifter</button>
-                                }
-                            </label>
-                        </div>
-                        <div class="col-6">
-                            <label style=" width: 100%; text-align: right; display: inline-block;">
-                                @if (User.IsInRole(UserRoles.Admin.ToString()))
-                                {
-                                    <button type="button" class="btn text-white p-0 text-center " onclick="location.href='@Url.Action("Register")'" style="font-size: 0.6vw;width:5vw;height:1.2vw;background-color:#0293fc;">Ny användare +</button>
-                                }
-                            </label>
-                            </div>
+<div class="container">
+    <div style="height:1.5vw;"></div>
+    <div class="centered-div mw-100 mh-100" style="border-bottom:2px solid black;">
+        <div class="row">
+            <div class="container">
+                <div class="row">
+                    <div class="col-6">
+                        <label style=" width: 100%; text-align: left; display: inline-block;">
+                            <b style="color:#555555;font-size:0.8vw;">Kontouppgifter:</b>
+                        </label>
                     </div>
-
+                    <div class="col-6">
+                        @if(ViewData["error"] != null)
+                        {
+                            <p>@ViewData["error"];</p>
+                        }
+                        <label style=" width: 100%; text-align: right; display: inline-block;">
+                            @if (User.IsInRole(UserRoles.Admin.ToString()))
+                            {
+                                <button type="button" class="btn text-white p-0 text-center " onclick="location.href='@Url.Action("Register")'" style="font-size: 0.6vw;width:5vw;height:1.2vw;background-color:#0293fc;">Ny användare +</button>
+                            }
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>
-            <!--List-->
-            <table class="table">
-                <tbody>
-                    @foreach (var s in Model)
+    </div>
+    <!--List-->
+    <table class="table">
+        <tbody>
+            @foreach (var s in Model)
+            {
+                @if (s.UserName.Equals(User.Identity.Name))
+                {
+                    <tr style="background-color:#f4f4f4;line-height:0.2vw;">
+                        <td>
+                            <b style="text-align: left;width:10vw;display: inline-block; font-size: 0.5vw; color: #515151;">Användarnamn: </b>
+                        </td>
+                        <td>
+                            <b style="text-align: right; width:100%;  display: inline-block;font-size:0.5vw;">@s.UserName</b>
+                        </td>
+                    </tr>
+                    <tr style="background-color:white;line-height:0.2vw;">
+                        <td>
+                            <b style="text-align: left;width:10vw;display: inline-block; font-size: 0.5vw; color: #515151;">Kontotyp: </b>
+                        </td>
+                        <td>
+                            <b style="text-align: right; width:100%;  display: inline-block;font-size:0.5vw;">@s.UserRole</b>
+                        </td>
+                    </tr>
+                    <tr style="background-color:#f4f4f4;line-height:0.2vw;">
+                        <td>
+                            <b style="text-align: left;width:10vw;display: inline-block; font-size: 0.5vw; color: #515151;">Namn: </b>
+                        </td>
+                        <td>
+                            <b style="text-align: right; width:100%;  display: inline-block;font-size:0.5vw;">@s.Name &nbsp; @s.Surname</b>
+                        </td>
+                    </tr>
+                    <tr style="background-color:white;line-height:0.2vw;">
+                        <td>
+                            <b style="text-align: left;width:10vw;display: inline-block; font-size: 0.5vw; color: #515151;">Skapad: </b>
+                        </td>
+                        <td>
+                            <b style="text-align: right; width:100%;  display: inline-block;font-size:0.5vw;">@s.UserCreated</b>
+                        </td>
+                    </tr>
+                    <tr style="background-color:#f4f4f4;line-height:0.2vw;">
+                        <td>
+                            <b style="text-align: left;width:10vw;display: inline-block; font-size: 0.5vw; color: #515151;">Senast inloggad: </b>
+                        </td>
+                        <td>
+                            <b style="text-align: right; width:100%;  display: inline-block;font-size:0.5vw;">@s.LastLoggedIn</b>
+                        </td>
+                    </tr>
+
+                    @if (User.IsInRole(UserRoles.Admin.ToString()))
                     {
-                        @if (s.UserName.Equals(User.Identity.Name))
-                        {
-                            <tr style="background-color:#f4f4f4;line-height:0.2vw;">
-                                <td>
-                                    <b style="text-align: left;width:10vw;display: inline-block; font-size: 0.5vw; color: #515151;">Användarnamn: </b>
-                                </td>
-                                <td>
-                                    <b style="text-align: right; width:100%;  display: inline-block;font-size:0.5vw;">@s.UserName</b>
-                                </td>
-                            </tr>
-                            <tr style="background-color:white;line-height:0.2vw;">
-                                <td>
-                                    <b style="text-align: left;width:10vw;display: inline-block; font-size: 0.5vw; color: #515151;">Kontotyp: </b>
-                                </td>
-                                <td>
-                                    <b style="text-align: right; width:100%;  display: inline-block;font-size:0.5vw;">@s.UserRole</b>
-                                </td>
-                            </tr>
-                            <tr style="background-color:#f4f4f4;line-height:0.2vw;">
-                                <td>
-                                    <b style="text-align: left;width:10vw;display: inline-block; font-size: 0.5vw; color: #515151;">Namn: </b>
-                                </td>
-                                <td>
-                                    <b style="text-align: right; width:100%;  display: inline-block;font-size:0.5vw;">@s.Name &nbsp; @s.Surname</b>
-                                </td>
-                            </tr>
-                            <tr style="background-color:white;line-height:0.2vw;">
-                                <td>
-                                    <b style="text-align: left;width:10vw;display: inline-block; font-size: 0.5vw; color: #515151;">Skapad: </b>
-                                </td>
-                                <td>
-                                    <b style="text-align: right; width:100%;  display: inline-block;font-size:0.5vw;">@s.UserCreated</b>
-                                </td>
-                            </tr>
-                            <tr style="background-color:#f4f4f4;line-height:0.2vw;">
-                                <td>
-                                    <b style="text-align: left;width:10vw;display: inline-block; font-size: 0.5vw; color: #515151;">Senast inloggad: </b>
-                                </td>
-                                <td>
-                                    <b style="text-align: right; width:100%;  display: inline-block;font-size:0.5vw;">@s.LastLoggedIn</b>
-                                </td>
-                            </tr>
-                        }
+                        <tr style="background-color:white;line-height:0.2vw;">
+                            <td>
+                            </td>
+                            <td style="text-align:right;">
+                                <a class="text-right" asp-controller="Account" asp-action="EditUser" style="font-size: 0.5vw;width:5vw;height:1.2vw;"><b>Ändra uppgifter</b></a>
+                            </td>
+                        </tr>
                     }
-                </tbody>
-            </table>
-        </div>
+                }
+            }
+        </tbody>
+    </table>
+</div>

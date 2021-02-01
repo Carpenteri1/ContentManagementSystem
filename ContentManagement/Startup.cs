@@ -35,10 +35,13 @@ namespace ContetManagement
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options =>
             {
+
                 options.Cookie.Name = ".Cookie.DontEatMe";
                 //options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
                 options.SlidingExpiration = true;
+
             });
+            
 
             services.AddDbContext<CMSDbContext>(options =>
             options.UseMySQL(

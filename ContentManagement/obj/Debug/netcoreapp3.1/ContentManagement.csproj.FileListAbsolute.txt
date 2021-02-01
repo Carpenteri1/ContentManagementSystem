@@ -366,4 +366,10 @@ C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\bin\Deb
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\e_sqlite3.dll
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\e_sqlite3.dll
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\StartPage\Edit.cshtml.g.cs
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\UnderPage\Create.cshtml.g.cs
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\UnderPage\Edit.cshtml.g.cs
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\bin\Debug\netcoreapp3.1\Microsoft.Azure.Documents.ServiceInterop.dll
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\bin\Debug\netcoreapp3.1\Cosmos.CRTCompat.dll
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\bin\Debug\netcoreapp3.1\Microsoft.Azure.DocumentDB.Core.dll
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\bin\Debug\netcoreapp3.1\runtimes\win7-x64\native\Cosmos.CRTCompat.dll
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\bin\Debug\netcoreapp3.1\runtimes\win7-x64\native\Microsoft.Azure.Documents.ServiceInterop.dll

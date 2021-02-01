@@ -26,13 +26,20 @@ namespace ContentManagement.Models.Account
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-
+        
         [DataType(DataType.Password)]
         [NotMapped]// Does not effect with your database
-        [Display(Name = "Confirm Password")]
+        [Display(Name = "Bekräfta lösenord")]
         [Required(ErrorMessage = "Bekräfta lösenordet")]
         [Compare("Password", ErrorMessage = "Lösenorden matchar inte")]
         public string ConfirmPassword { get; set; }
+
+
+        [DataType(DataType.Password)]
+        [NotMapped]
+        [Display(Name = "Gamla lösenordet")]
+        [Required(ErrorMessage = "Lösenord krävs")]
+        public string TempPassword { get; set; }//when creating a new password
 
         [DataType(DataType.DateTime)]
         public DateTime UserCreated { get; set; }
