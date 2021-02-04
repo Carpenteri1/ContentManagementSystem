@@ -23,7 +23,7 @@ namespace ContentManagement.HelperClasses
 
         private UnderPage PopulateImageContent(UnderPage newPage,Users user)
         {
-            if (newPage.UnderPage_ImgContent[0].ImgSrc == null)
+            if (newPage.UnderPage_ImgContent[0].File == null)
             {
                 newPage.UnderPage_ImgContent[0] = new UnderPage_ImgContents
                 {
@@ -37,13 +37,9 @@ namespace ContentManagement.HelperClasses
             }
             else
             {
-                newPage.UnderPage_ImgContent[0] = new UnderPage_ImgContents
-                {
-                    ImgSrc = newPage.UnderPage_ImgContent[0].ImgSrc,
-                    UnderPage = newPage,
-                    Uploaded = DateTime.Now,
-                    User = user
-                };
+                newPage.UnderPage_ImgContent[0] = CopyToRootFolder(newPage.UnderPage_ImgContent[0]);
+                newPage.UnderPage_ImgContent[0].User = user;
+                newPage.UnderPage_ImgContent[0].Uploaded = DateTime.Now;
 
                 return newPage;
             }
@@ -141,14 +137,17 @@ namespace ContentManagement.HelperClasses
                 DbTexts.UnderPage = Page;
                 if (DbTexts.UnderPage.Id == Page.Id )
                 {
-                    if (!DbTexts.TextContent.Equals(Page.UnderPage_TextContents[0].TextContent))//if they dont match, save new content
+                    if (DbTexts.TextContent != Page.UnderPage_TextContents[0].TextContent)//if they dont match, save new content
                     {
-                        DbTexts.TextContent = Page.UnderPage_TextContents[0].TextContent.ToString();
-                        DbTexts.Edited = DateTime.Now;
-                        DbTexts.User = users;
-                        DbTexts.UnderPage = Page;
-                        context.Update(DbTexts);
-                        return true;
+                        if(Page.UnderPage_TextContents[0].TextContent != null)
+                        {
+                            DbTexts.TextContent = Page.UnderPage_TextContents[0].TextContent.ToString();
+                            DbTexts.Edited = DateTime.Now;
+                            DbTexts.User = users;
+                            DbTexts.UnderPage = Page;
+                            context.Update(DbTexts);
+                            return true;
+                        }
                     }
                 }
                 
@@ -159,9 +158,11 @@ namespace ContentManagement.HelperClasses
         public bool DoesAllUnderPageLinkTitleMatch(UnderPage Page, Users users)
         {
             var DbLinkTile = context.UnderPages.Where(underpage => underpage.Id == Page.Id).FirstOrDefault();
-                if (DbLinkTile != null)//if they dont match, save new content
+            if (DbLinkTile != null)//if they dont match, save new content
+            {
+                if (DbLinkTile.LinkTitle != Page.LinkTitle)
                 {
-                    if (DbLinkTile.LinkTitle != Page.LinkTitle)
+                    if (DbLinkTile.LinkTitle != null)
                     {
                         DbLinkTile.LinkTitle = Page.LinkTitle.ToString();
                         DbLinkTile.User = users;
@@ -169,25 +170,32 @@ namespace ContentManagement.HelperClasses
                         context.Update(DbLinkTile);
                         return true;
                     }
+
                 }
+            }
             return false;
         }
 
         public bool DoesAllTitlesMatch(UnderPage Page, Users user)
         {
             var DbTitle = context.UnderPages_titlecontents.Where(underpage => underpage.Id == Page.Id).FirstOrDefault();
-   
-            if(DbTitle != null)//if they dont match, save new content
+
+            if (DbTitle != null)//if they dont match, save new content
             {
                 DbTitle.UnderPage = Page;
-                if (!DbTitle.TextContent.Equals(Page.UnderPage_TitleContents[0].TextContent))//if they dont match, save new content
+                if (DbTitle.TextContent != Page.UnderPage_TitleContents[0].TextContent)//if they dont match, save new content
                 {
-                    DbTitle.TextContent = Page.UnderPage_TitleContents[0].TextContent.ToString();
-                    DbTitle.Edited = DateTime.Now;
-                    DbTitle.User = user;
-                    DbTitle.UnderPage = Page;
-                    context.Update(DbTitle);
-                    return true;
+                    if (Page.UnderPage_TitleContents[0].TextContent != null)
+                    {
+                        DbTitle.TextContent = Page.UnderPage_TitleContents[0].TextContent.ToString();
+                        DbTitle.Edited = DateTime.Now;
+                        DbTitle.User = user;
+                        DbTitle.UnderPage = Page;
+                        context.Update(DbTitle);
+                        return true;
+                    }
+
+
                 }
             }
 
@@ -205,13 +213,14 @@ namespace ContentManagement.HelperClasses
                 {
                     Page.UnderPage_ImgContent[0] = CopyToRootFolder(Page.UnderPage_ImgContent[0]);
 
-                    if (!Page.UnderPage_ImgContent[0].ImgSrc.Equals(DbImages.ImgSrc))//if they dont match, save new content
-
-                    DbImages.ImgSrc = Page.UnderPage_ImgContent[0].ImgSrc;
-                    DbImages.User = user;
-                    DbImages.Uploaded = DateTime.Now;
-                    context.Update(DbImages);
-                    return true;
+                    if (!Page.UnderPage_ImgContent[0].ImgSrc.Equals(DbImages.ImgSrc))
+                    {
+                        DbImages.ImgSrc = Page.UnderPage_ImgContent[0].ImgSrc;
+                        DbImages.User = user;
+                        DbImages.Uploaded = DateTime.Now;
+                        context.Update(DbImages);
+                        return true;
+                    }
                 }
             }
             return false;
