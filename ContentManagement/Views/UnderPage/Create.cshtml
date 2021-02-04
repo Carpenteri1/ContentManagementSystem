@@ -1,64 +1,73 @@
-﻿@model ContentManagement.UnderPageModels.PageModel.UnderPage
+﻿@model UnderPage
 
 @{
-    ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+
 <div class="container">
     <div class="row">
-        <div class="col-10">
+        <div class="col-6">
             <div class="container text-center align-content-center">
                 @using (Html.BeginForm("Create", "UnderPage", FormMethod.Post,
-        new { enctype = "multipart/form-data" }))
+                new { enctype = "multipart/form-data" }))
                 {
-                    <p style="font-size:0.6vw;" class="text-left"><b>Skapa ny sida</b></p>
-                    <hr style="color:red; " />
-                    <div style="height:1.5vw;"></div>
-                    <div class="p-2 shader">
-                        <p style="font-size:0.6vw;" class="text-left"><b>Stripe</b></p>
-                        <hr />
-                        <div class="form-group" style="text-align:left;font-size:0.5vw;">
-                            <label class="d-block" style="font-size:0.5vw;"><b>Splice-bild</b></label>
-                            @* @Html.HiddenFor(model => model.StartPage_ImgContents[5].ImgSrc)
-                                <img class="d-block" style="border:1px solid lightgray;" src=@(Model.StartPage_ImgContents[5].ImgSrc) height="140" width="180" asp-append-version="true" />
-                                @Html.EditorFor(model => model.StartPage_ImgContents[5].File) *@
-                        </div>
-                        <div class="form-group" style="text-align:left;font-size:0.5vw;">
-                            @*<label class="d-block" style="font-size:0.5vw;"><b>Splash Bild</b></label>
-                                @Html.HiddenFor(model => model.StartPage_ImgContents[4].ImgSrc)
-                                <img class="d-block" style="border:1px solid lightgray;" src=@(Model.StartPage_ImgContents[4].ImgSrc) height="140" width="180" asp-append-version="true" />
-                                @Html.EditorFor(model => model.StartPage_ImgContents[4].File)*@
-                        </div>
-                        <div class="row mw-100 mh-100">
-                            <div class="col-6 center">
-                                <div class="form-group text-left">
-                                    @*<label class="d-block" style="text-align:left;font-size:0.5vw;"><b>Länk Text: </b></label>
-                                        <input asp-for="StartPage_TextContents[9].TextContent" class="form-control" style="font-size:0.6vw;width:10vw;height:1.2vw;text-align:center;border:1px solid lightgray;">
-                                        <span asp-validation-for="StartPage_TextContents[9].TextContent" class="text-danger"></span>*@
-                                </div>
-                            </div>
-                            <div class="col-6 center">
-                                <div class="form-group text-left;">
-                                    @*<label class="d-block" style="text-align:left;font-size:0.5vw;"><b>Länkar till: </b></label>
-                                        <input asp-for="StartPage_Links[4].Url" class="form-control" style="font-size:0.6vw;width:10vw;height:1.2vw;text-align:center;border:1px solid lightgray;">
-                                        <span asp-validation-for="StartPage_Links[4].Url" class="text-danger"></span>*@
-                                </div>
-                            </div>
-                        </div>
+                    <div style="height:0.8vw;"></div>
+                    <div class="row p-0">
+                        <p>Skapa ny undersida</p>
                     </div>
-                    <div style="height:1.5vw;"></div>
-                    <hr />
-                    <div class="form-group text-right">
-                        <a type="button" class="btn text-white text-center" asp-action="Edit" asp-controller="StartPage" style="font-size: 0.4vw;width:3.8vw;height:1.2vw;background-color:#0293fc;">Avbryt</a>
-                        <button type="submit" class="btn text-white p-0 text-center" style="font-size: 0.4vw;width:3.8vw;height:1.2vw;background-color:#0293fc;">Bekräfta</button>
-                    </div>
-                }
+                       <hr />
+                       <div class="p-2 mw-100 mh-100">
+                           <div class="form-group p-0 text-left" style="font-size:0.4vw;">
+                               <div class="row">
+                                   <div class="col-6">
+                                       <label class="d-block" style="font-size:0.5vw;"><b>Rubrik:</b></label>
+                                       <input asp-for="@Model.UnderPage_TitleContents[0].TextContent" class="form-control" style="font-size:0.5vw;height:1.2vw;width:10.5vw;background-color:white;border:1px solid lightgray;">
+                                       <span asp-validation-for="@Model.UnderPage_TitleContents[0].TextContent" class="text-danger"></span>
+                                   </div>
+                                   <div class="col-6">
+                                       @Html.HiddenFor(model => model.Id)
+                                       <label class="d-block" style="font-size:0.5vw;"><b>Länk titel:</b></label>
+                                       <input asp-for="LinkTitle" class="form-control" style="font-size:0.5vw;width:10.5vw;height:1.2vw;">
+                                       <span asp-validation-for="LinkTitle" class="text-danger"></span>
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="form-group">
+                               <div class="row mh-100 mw-100">
+                                   <div class="col-6">
+                                       @Html.HiddenFor(model => model.UnderPage_ImgContent[0].ImgSrc)
+                                       @Html.HiddenFor(model => model.UnderPage_ImgContent[0].File)
+                                       @Html.EditorFor(model => model.UnderPage_ImgContent[0].File,new { style = "width:2vw;height:2vw;"})
+                                   </div>
+                                   <div class="col-6">
+                                       @Html.HiddenFor(model => model.HeaderContent)
+                                       <label style=" width: 100%; text-align: right;">
+                                           <b style="font-size:0.5vw;margin-top:0.2vw;">Välj tema:</b>
+                                           @Html.DropDownList("selecterDropDownValue", (SelectList)ViewData["HeaderTheme"], new { style = "width:3.8vw;height:1vw;font-size:0.5vw;", @onchange = "submitform();" })
+                                       </label>
+                                   </div>
+                               </div>
+                           </div>
+                           <div style="height:3vw;"></div>
+                           <div class="form-group p-0 mw-100 mh-100" style="font-size:0.5vw;">
+                               @Html.HiddenFor(text => text.UnderPage_TextContents[0])
+                               @Html.TextAreaFor(model => model.UnderPage_TextContents[0].TextContent, new { id = "editor1", style = "text-align:left;font-size:0.5vw;height:35vw;" })
+                           </div>
+                       </div>       
+                  <div style="height:8vw;"></div>
+                <hr />
+                <div class="form-group text-right">
+                    <a type="button" class="btn text-white text-center" asp-action="Index" asp-controller="UnderPage" style="font-size: 0.4vw;width:3.8vw;height:1.2vw;background-color:#0293fc;">Avbryt</a>
+                    <button type="submit" class="btn text-white p-0 text-center" style="font-size: 0.4vw;width:3.8vw;height:1.2vw;background-color:#0293fc;">Bekräfta</button>
+                </div>
+                  }
+      
             </div>
-            <div class="col-2"></div>
-
         </div>
+        <div class="col-auto"></div>
     </div>
+</div>
+<div>
 
 </div>
-
-
