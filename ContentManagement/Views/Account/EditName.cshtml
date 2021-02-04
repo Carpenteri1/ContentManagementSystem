@@ -12,16 +12,20 @@
                         <div style="height:0.5vw;"></div>
                         <div class="row d-inline-block">
                             <label style=" width: 100%;color:white; text-align: left; display: inline-block;">
-                                <img style="height:1vw;width:1vw;margin-top:-0.2vw;" src="~/Content/Icons/amv-symbol.png" />
-                                Nytt namn för @User.Identity.Name 
+                                <img style="height:1vw;width:1vw;margin-top:-0.2vw;" src="~/Icons/amv-symbol.png" />
+                                Nytt namn för @User.Identity.Name
                             </label>
                         </div>
                         <div style="height:0.5vw;"></div>
-
                         <div class="form-group text-white" style="font-size:0.8vw;">
                             <label asp-for="UserName" style="font-size:0.6vw;">Nytt användarnamn</label><br>
                             <input asp-for="UserName" class="form-control " style="font-size:0.6vw;width:10vw;height:1.5vw;">
                             <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group text-white" style="font-size:0.8vw;">
+                            <label asp-for="Password" style="font-size:0.6vw;">Lösenord för @User.Identity.Name</label><br>
+                            <input asp-for="Password" class="form-control " style="font-size:0.6vw;width:10vw;height:1.5vw;">
+                            <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <button type="button" class="btn text-white p-0 text-center" onclick="location.href='@Url.Action("UserAccount")'" style="font-size: 0.4vw;width:3.8vw;height:1.2vw;background-color:#0293fc;">Avbryt</button>

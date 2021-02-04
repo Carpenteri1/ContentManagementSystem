@@ -75,30 +75,33 @@ namespace ContentManagement.Controllers
         [HttpPost]
         public ActionResult EditPass(Users editPass)
         {
-             var grabUser = context
-            .Users
-            .ToList()
-            .Where(item => PasswordHandler.Verify(editPass.Password, item.Password) == true)
-            .FirstOrDefault();
+
+            var grabUser = context
+           .Users
+           .ToList()
+           .Where(item => item.UserName == User.Identity.Name)
+           .FirstOrDefault();
 
             if (grabUser != null)
             {
-                grabUser.Password = PasswordHandler.HashPassword(editPass.TempPassword);
-                grabUser.UserEdited = DateTime.Now;
- 
-                context.Update(grabUser);
-                context.SaveChanges();
+                if (PasswordHandler.Verify(editPass.Password, grabUser.Password))
+                {
+                    grabUser.Password = PasswordHandler.HashPassword(editPass.TempPassword);
+                    grabUser.UserEdited = DateTime.Now;
 
+                    context.Update(grabUser);
+                    context.SaveChanges();
 
-                return Redirect("/UserAccount");
+                    return Redirect("/UserAccount");
+                }
             }
             else
             {
                 ViewData["error"] = "lösenorden matcha inte";
                 return Redirect("/EditPass");
             }
-            
-           return Redirect("UserAccount");
+
+            return Redirect("UserAccount");
         }
 
 
@@ -127,86 +130,41 @@ namespace ContentManagement.Controllers
         
         [Route("EditName")]
         [HttpPost]
-        public ActionResult EditName(Users newName)
+        public async Task <ActionResult> EditName(Users user)
         {
 
             var grabUser = context
                 .Users
-                .First
-                (item =>
-                item.UserName == User.Identity.Name);
+                .Where(item => item.UserName == User.Identity.Name)
+                .FirstOrDefault();
 
             if (grabUser != null)
             {
-                TempData["Edited"] = DateTime.Now;
-                TempData["User_NewName"] = newName.UserName;
-                return Redirect("ConfirmName");
-
-            }
-                return View();
-        }
-
-        [Route("ConfirmName")]
-        [HttpGet]
-        public ActionResult ConfirmName()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                if (User.IsInRole(UserRoles.Admin.ToString()))
+                if (PasswordHandler.Verify(user.Password, grabUser.Password))
                 {
-                    return View();
+                    grabUser.UserName = user.UserName;
+                    var existingClaim = claims.Find(item => item.Value == claimsKey);//find excisting user.identity using claims
+                    claims.Remove(existingClaim);
+                    claims.Add(new Claim(ClaimTypes.Name, user.UserName));//<-- adds the new username to claim
+                    claims.Add(new Claim(ClaimTypes.Role, grabUser.UserRole));
+                    var claimsIdentity = new ClaimsIdentity(claims, claimsKey);
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+                    grabUser.UserEdited = DateTime.Now;
+                    context.Update(grabUser);
+                    context.SaveChanges();
+                    ViewData["error"] = "användarnamn bytt";
+                    return Redirect("/UserAccount");
                 }
                 else
                 {
-                    TempData.Remove("Edited");
-                    TempData.Remove("User_NewName");
-                    return Redirect("/UserAccount");
+                    ViewData["error"] = "Lösenordet matchar inte";
+                    return View();
                 }
-
+                
             }
-            else
-            {
-                TempData.Remove("Edited");
-                TempData.Remove("User_NewName");
-                return Redirect("/Login");
-            }
+            ViewData["error"] = "användarnamnet har ej bytts";
+            return View();
         }
-
-        [Route("ConfirmName")]
-        [HttpPost]
-        public async Task<ActionResult> ConfirmName(Users user)
-        {
-            var grabUser = context
-            .Users
-            .ToList()
-            .Where(item =>
-            item.UserName == User.Identity.Name)
-            .FirstOrDefault();
-
-            if (grabUser != null)
-            {
-                user.UserName = TempData["User_NewName"].ToString();
-                var existingClaim = claims.Find(item => item.Value == claimsKey);//find excisting user.identity using claims
-                claims.Remove(existingClaim);
-                claims.Add(new Claim(ClaimTypes.Name, user.UserName));//<-- adds the new username to claim
-                var claimsIdentity = new ClaimsIdentity(claims, claimsKey);
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-
-                string dateTime = TempData["Edited"].ToString();
-                user.UserEdited = DateTime.Parse(dateTime);
-
-                TempData.Remove("Edited");
-                TempData.Remove("User_NewName");
-                context.Update(user);
-                context.SaveChanges();
-
-                return Redirect("/UserAccount");
-            }
-            TempData.Remove("Edited");
-            TempData.Remove("User_NewName");
-            return Redirect("/UserAccount");
-        }
-
 
         [Route("login")]
         [HttpGet]
@@ -243,7 +201,7 @@ namespace ContentManagement.Controllers
                 if (!newLogin.UserName.Equals(dbUser.UserName))
                 {
                     return Redirect("/Login"); 
-                }  
+                } 
                 if(!PasswordHandler.Verify(newLogin.Password,dbUser.Password))
                 {
                     return Redirect("/Login");

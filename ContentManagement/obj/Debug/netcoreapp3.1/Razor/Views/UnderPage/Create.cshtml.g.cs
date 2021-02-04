@@ -42,41 +42,34 @@ using ContentManagement.Models.Account;
 #nullable disable
 #nullable restore
 #line 5 "C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\Views\_ViewImports.cshtml"
-using ContentManagement.StartPageModels.HeaderModels;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 6 "C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\Views\_ViewImports.cshtml"
 using ContentManagement.UnderPageModels.PageModel;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\Views\_ViewImports.cshtml"
-using ContentManagement.UnderPageModels.HeaderModels;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 8 "C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\Views\_ViewImports.cshtml"
+#line 6 "C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\Views\_ViewImports.cshtml"
 using ContentManagement.Data;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\Views\_ViewImports.cshtml"
+#line 7 "C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\Views\_ViewImports.cshtml"
 using ContentManagement.Security;
 
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 8 "C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\Views\_ViewImports.cshtml"
+using ContentManagement.HeaderModel;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"77800b30b9f4b17b7693a999ea3c5da598bad8a2", @"/Views/UnderPage/Create.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"d8d8a994c2fe173dfac43a0c700d951647cc861d", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"3e508241e1999e8d30be0ec97c08706346a5d077", @"/Views/_ViewImports.cshtml")]
     public class Views_UnderPage_Create : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<ContentManagement.UnderPageModels.PageModel.UnderPage>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("type", new global::Microsoft.AspNetCore.Html.HtmlString("button"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -148,7 +141,7 @@ using ContentManagement.Security;
                     <hr />
                     <div class=""form-group text-right"">
                         ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "77800b30b9f4b17b7693a999ea3c5da598bad8a28916", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "77800b30b9f4b17b7693a999ea3c5da598bad8a28665", async() => {
                 WriteLiteral("Avbryt");
             }
             );

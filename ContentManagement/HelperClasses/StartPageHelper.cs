@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ContentManagement.StartPageModels.HeaderModels;
 using ContentManagement.StartPageModels.PageModel;
 using ContentManagement.Models.Account;
 using Microsoft.AspNetCore.Hosting;

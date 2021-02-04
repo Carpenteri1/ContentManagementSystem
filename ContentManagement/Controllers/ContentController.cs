@@ -4,12 +4,13 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ContentManagement.StartPageModels.PageModel;
-using ContentManagement.StartPageModels.HeaderModels;
 using ContentManagement.Data;
 using ContentManagement.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Collections.Generic;
 using ContentManagement.UnderPageModels.PageModel;
+using ContentManagement.HeaderModel;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ContentManagement.Controllers
 {
@@ -26,40 +27,9 @@ namespace ContentManagement.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {      
-                List<UnderPage> underPages = context.UnderPages.ToList();
-                List<UnderPage_TitleContents> titles = context.UnderPages_titlecontents.ToList();
-                List<UnderPage_TextContents> textContents = context.UnderPages_TextContents.ToList();
-                List<UnderPage_ImgContents> Imges = context.UnderPages_imgcontents.ToList();
-        
-                foreach (var s in underPages)
-                {
-                    for (int i = 0; i < titles.Count(); i++)
-                    {
-                        if (s.Id.Equals(titles[i].UnderPage.Id))
-                        {
-                            s.UnderPage_TitleContents.Add(titles[i]);
-                        }
-                    }
-                    for(int i = 0; i < textContents.Count(); i++)
-                    {
-                        if (s.Id.Equals(textContents[i].UnderPage.Id))
-                        {
-                            s.UnderPage_TextContents.Add(textContents[i]);
-                        }
-                    }
-                    for(int i = 0; i < Imges.Count(); i++)
-                    {
-                        if (s.Id.Equals(Imges[i].UnderPage.Id))
-                        {
-                            s.UnderPage_ImgContents.Add(Imges[i]);
-                            //s.UnderPage_ImgContents[i] = Imges.Where(item => item.UnderPage.Id == i).FirstOrDefault();
-                        }
-
-                    }
-       
-                }
-
-                return View(underPages);
+                List<HeaderContent> headerContent = context.HeaderContent.ToList();
+                ViewData["HeaderTheme"] = new SelectList(headerContent, "Id", "HeaderTheme");
+                return View();
             }
             else
             {
@@ -106,7 +76,5 @@ namespace ContentManagement.Controllers
             }
               
         }
-
-
     }
 }

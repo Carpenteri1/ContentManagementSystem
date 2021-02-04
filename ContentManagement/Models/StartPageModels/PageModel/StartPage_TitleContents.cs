@@ -9,7 +9,6 @@ namespace ContentManagement.StartPageModels.PageModel
     public class StartPage_TitleContents 
     {
         public int Id { get; set; }
-
         public DateTime Created { get; set; }
         public string TextContent { get; set; }
         public DateTime? Edited { get; set; }

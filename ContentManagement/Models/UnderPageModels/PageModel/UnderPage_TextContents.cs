@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ContentManagement.Models.Account;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,5 +17,7 @@ namespace ContentManagement.UnderPageModels.PageModel
         public DateTime? Edited { get; set; }
 
         public UnderPage UnderPage { get; set; }
+
+        public Users User { get; set; }
     }
 }

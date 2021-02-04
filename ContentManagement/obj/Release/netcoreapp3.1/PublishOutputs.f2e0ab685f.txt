@@ -1,4 +1,6 @@
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\ContentManagement.exe
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.Azure.Documents.ServiceInterop.dll
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\Cosmos.CRTCompat.dll
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\css\site.css
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\css\sitestyle.css
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\favicon.ico
@@ -40,6 +42,7 @@ C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Rel
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\lib\jquery\dist\jquery.min.js
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\lib\jquery\dist\jquery.min.map
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\lib\jquery\LICENSE.txt
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\tinymce_5.6.2.zip
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\StartPage\Extra\langas.jpg
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\StartPage\Extra\wellify.jpg
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\StartPage\Extra\xlbyggcenter.jpg
@@ -67,6 +70,7 @@ C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Rel
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\K4os.Compression.LZ4.Streams.dll
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\K4os.Hash.xxHash.dll
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.AspNetCore.Razor.Language.dll
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.Azure.DocumentDB.Core.dll
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.Bcl.HashCode.dll
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.CodeAnalysis.dll
@@ -185,6 +189,8 @@ C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Rel
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\runtimes\win7-x64\native\Cosmos.CRTCompat.dll
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\runtimes\win7-x64\native\Microsoft.Azure.Documents.ServiceInterop.dll
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\runtimes\unix\lib\netcoreapp2.1\Microsoft.Data.SqlClient.dll
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\runtimes\win\lib\netcoreapp2.1\Microsoft.Data.SqlClient.dll
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\runtimes\win-arm64\native\sni.dll

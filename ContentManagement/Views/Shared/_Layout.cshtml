@@ -9,18 +9,7 @@
     <link rel="stylesheet" href="~/css/sitestyle.css" />
 
     <script src="https://cdn.tiny.cloud/1/3upkwo2x4ld645z7kh2cg6qeloaygttrcdt04dq7ld7vp6f0/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>
-        tinymce.init({
-            selector: '#editor1',
-            toolbar: 'code link image imagetools format font paragraph',
-            plugins: 'image imagetools code link format font',
-            menubar: 'format',
-            images_upload_url: '~/Upload/StartPage/img.jpg',
-            images_upload_base_path: '~/Upload/StartPage/img.jpg',
-            
-            automatic_uploads: false    
-        });
-    </script>
+
 </head>
 
 <body style="height:100%;">
@@ -42,7 +31,7 @@
             <div class="col-auto" style="background-color:#3f4044;">
                 <div class="row" style="height:2vw;border-bottom:1px solid #5b5c60;">
                     <div class="col" style="padding-left: 1.2vw;">
-                        <a class="nav-link text-white" style="font-size:0.6vw;" asp-area="" asp-controller="Content" asp-action="Content">Innehåll</a>
+                        <a class="nav-link text-white" style="font-size:0.6vw;" asp-area="" asp-controller="UnderPage" asp-action="Index">Innehåll</a>
                     </div>
                 </div>
                 <div class="row" style="height:2vw;border-bottom:1px solid #5b5c60;">
@@ -93,5 +82,21 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
+
+    <script>
+        tinymce.init({
+            /*selector: '#editor1',
+            toolbar: 'code link image imagetools format font paragraph',
+            plugins: 'image imagetools code link format font',
+            menubar: 'format',
+            images_upload_url: '~/Upload/StartPage/img.jpg',
+            images_upload_base_path: '~/Upload/StartPage/img.jpg',
+
+            automatic_uploads: false*/
+            selector: '#editor1',
+            plugins: 'lists advlist'
+
+        });
+    </script>
 </body>
 </html>

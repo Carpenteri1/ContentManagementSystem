@@ -45,7 +45,7 @@ namespace ContetManagement
 
             services.AddDbContext<CMSDbContext>(options =>
             options.UseMySQL(
-               Configuration.GetConnectionString("AmvGolfConnection")));
+            Configuration.GetConnectionString("LocalDB")));
                
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -78,7 +78,7 @@ namespace ContetManagement
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Content}/{action=Content}");
+                    pattern: "{controller=UnderPage}/{action=Index}");
                 endpoints.MapRazorPages();
             }); 
         }
