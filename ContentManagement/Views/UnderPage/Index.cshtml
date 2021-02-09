@@ -14,7 +14,7 @@
                     <div class="col-6">
                         <label style=" width: 100%; text-align: left; display: inline-block;">
                             <b style="color:#555555;font-size:0.8vw;">Sidor arkiv</b>
-                            <a type="button" class="btn text-white p-0 text-center shader form-control" asp-controller="UnderPage" asp-action="Create" style="font-size: 0.6vw;width:3vw;height:1vw;background-color:#0293fc;">Ny sida +</a>
+                            <button type="button" class="btn text-white p-0 text-center form-control" onclick="location.href='@Url.Action("Create", "UnderPage")'"  style="font-size: 0.6vw;width:3vw;height:1vw;background-color:#0293fc;">Ny sida +</button>
                         </label>
                     </div>
 
@@ -53,28 +53,20 @@
                     <tr style="line-height:0.2vw;">
                         @if (i % 2 == 0)
                         {
-                            <td style="font-size:0.5vw;background-color:#d0c8c8;font-weight:bold;">
+                            <td style="font-size:0.5vw;background-color:#bfbfbf;font-weight:bold;" class="p-2">
                                 @Html.DisplayFor(modelItem => Model[i].LinkTitle)
                             </td>
-                            <td style="background-color:#d0c8c8;">
-                                <a>
-                                    <b style="text-align: right; width:100%;  display: inline-block;font-size:0.5vw;">
-                                        @Html.ActionLink("Ändra", "Edit", new { id = Model[i].Id })
-                                    </b>
-                                </a>
+                            <td style="background-color: #bfbfbf;text-align: right; width:100%; display: inline-block;font-size:0.5vw;font-weight:bold;" class="p-2">
+                                <a>@Html.ActionLink("Ändra", "Edit", new { id = Model[i].Id })</a>
                             </td>
                         }
                         else
                         {
-                            <td style="font-size:0.5vw;background-color:white;font-weight:bold;">
+                        <td style="font-size:0.5vw;background-color:white;font-weight:bold;" class="p-2">
                                 @Html.DisplayFor(modelItem => Model[i].LinkTitle)
                             </td>
-                            <td style="background-color:white">
-                                <a>
-                                    <b style="text-align: right; width:100%;  display: inline-block;font-size:0.5vw;">
-                                        @Html.ActionLink("Ändra", "Edit", new { id = Model[i].Id })
-                                    </b>
-                                </a>
+                            <td style="background-color: white;text-align: right; width:100%; display: inline-block;font-size:0.5vw;font-weight:bold;" class="p-2">
+                                <a>@Html.ActionLink("Ändra", "Edit", new { id = Model[i].Id })</a>
                             </td>
                         }
 

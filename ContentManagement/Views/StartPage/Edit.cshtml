@@ -9,7 +9,7 @@ new { enctype = "multipart/form-data" }))
                 {
                     @Html.HiddenFor(model => model.Id)
                     <div style="height:1.5vw;"></div>
-                    <p style="font-size:0.6vw;" class="text-left"><b>Redigera startsida</b></p>
+                    <h4 class="text-left"><b>Redigera startsida</b></h4>
                     <hr />
                     <div style="height:1.5vw;"></div>
                     <div class="p-2">
@@ -24,14 +24,14 @@ new { enctype = "multipart/form-data" }))
                         </div>
                         <div class="form-group text-center">
                             <label class="d-block text-left" style="font-size:0.5vw;"><b>Rubrik:</b></label>
-                             @Html.HiddenFor(model => model.StartPage_TitleContents[0])
-                             @Html.EditorFor(model => model.StartPage_TitleContents[0].TextContent, new { HtmlAttributes = new { @class = "form-control", style = "font-size:0.5vw;height:1.2vw;width:10vw;background-color:white;border:1px solid lightgray;" } })
+                            @Html.HiddenFor(model => model.StartPage_TitleContents[0])
+                            @Html.EditorFor(model => model.StartPage_TitleContents[0].TextContent, new { HtmlAttributes = new { @class = "form-control", style = "font-size:0.5vw;height:1.2vw;width:10vw;background-color:white;border:1px solid lightgray;" } })
                         </div>
                         <hr />
                         <div class="form-group text-center">
                             <label style="display:block;text-align:left;font-size:0.5vw;"><b>Text: </b></label>
                             @Html.HiddenFor(model => model.StartPage_TextContents[0].TextContent)
-                            @Html.TextAreaFor(model => model.StartPage_TextContents[0].TextContent, new { @class = "form-control", style = "width:100%;height:6vw;resize:none;" })
+                            @Html.TextAreaFor(model => model.StartPage_TextContents[0].TextContent, new { @class = "form-control", style = "width:100%;height:6vw;resize:none;font-size:0.6vw;" })
                         </div>
                         <div style="height:0.5vw;"></div>
                         <div class="row mw-100 mh-100">
@@ -66,19 +66,19 @@ new { enctype = "multipart/form-data" }))
                         <div class="form-group text-center">
                             <label class="d-block text-left" style="font-size:0.5vw;"><b>Rubrik:</b></label>
                             @Html.HiddenFor(model => model.StartPage_TitleContents[1].TextContent)
-                            @Html.EditorFor(model => model.StartPage_TitleContents[1].TextContent, new { HtmlAttributes = new { @class = "form-control", style = "font-size:0.5vw;height:1.2vw;width:10vw;background-color:white;border:1px solid lightgray;" } })   
+                            @Html.EditorFor(model => model.StartPage_TitleContents[1].TextContent, new { HtmlAttributes = new { @class = "form-control", style = "font-size:0.5vw;height:1.2vw;width:10vw;background-color:white;border:1px solid lightgray;" } })
                         </div>
                         <label style="display:block;text-align:left;font-size:0.5vw;"><b>Text: </b></label>
-                       @* <textarea asp-for="StartPage_TextContents[2].TextContent" class="form-control p-2 " style="border: 1px solid lightgray; height: 4vw; width: 100%; resize:none; background-color: white; font-size: 0.6vw; "></textarea>*@
+                        @* <textarea asp-for="StartPage_TextContents[2].TextContent" class="form-control p-2 " style="border: 1px solid lightgray; height: 4vw; width: 100%; resize:none; background-color: white; font-size: 0.6vw; "></textarea>*@
                         @Html.HiddenFor(model => model.StartPage_TextContents[2].TextContent)
-                        @Html.TextAreaFor(model => model.StartPage_TextContents[2].TextContent, new { @class="form-control" , style = "width:100%;height:6vw;resize:none;" })
+                        @Html.TextAreaFor(model => model.StartPage_TextContents[2].TextContent, new { @class = "form-control", style = "width:100%;height:6vw;resize:none;font-size:0.6vw;" })
                         <div style="height:0.5vw;"></div>
                         <div class="form-group text-left">
                             <div class="row mw-100 mh-100">
                                 <div class="col-6 center">
                                     <div class="form-group text-center">
                                         <label class="d-block" style="text-align:left;font-size:0.5vw;"><b>Länk Text: </b></label>
-                                       @Html.HiddenFor(model => model.StartPage_TextContents[3].TextContent)
+                                        @Html.HiddenFor(model => model.StartPage_TextContents[3].TextContent)
                                         @Html.EditorFor(model => model.StartPage_TextContents[3].TextContent, new { HtmlAttributes = new { @class = "form-control", style = "font-size:0.5vw;height:1.2vw;width:10vw;background-color:white;border:1px solid lightgray;" } })
                                     </div>
                                 </div>
@@ -106,12 +106,12 @@ new { enctype = "multipart/form-data" }))
                         </div>
                         <div class="form-group text-left">
                             <label class="d-block text-left" style="font-size:0.5vw;"><b>Rubrik:</b></label>
-                               @Html.HiddenFor(model => model.StartPage_TitleContents[2].TextContent)
-                               @Html.EditorFor(model => model.StartPage_TitleContents[2].TextContent, new { HtmlAttributes = new { @class = "form-control", style = "font-size:0.5vw;height:1.2vw;width:10vw;background-color:white;border:1px solid lightgray;" } })
+                            @Html.HiddenFor(model => model.StartPage_TitleContents[2].TextContent)
+                            @Html.EditorFor(model => model.StartPage_TitleContents[2].TextContent, new { HtmlAttributes = new { @class = "form-control", style = "font-size:0.5vw;height:1.2vw;width:10vw;background-color:white;border:1px solid lightgray;" } })
                         </div>
                         <label style="display:block;text-align:left;font-size:0.5vw;"><b>Text: </b></label>
-                           @Html.HiddenFor(model => model.StartPage_TextContents[4].TextContent)
-                           @Html.TextAreaFor(model => model.StartPage_TextContents[4].TextContent, new { @class = "form-control", style = "width:100%;height:6vw;resize:none;" })
+                        @Html.HiddenFor(model => model.StartPage_TextContents[4].TextContent)
+                        @Html.TextAreaFor(model => model.StartPage_TextContents[4].TextContent, new { @class = "form-control", style = "width:100%;height:6vw;resize:none;font-size:0.6vw;" })
                         <div style="height:0.5vw;"></div>
                         <div class="form-group text-center">
                             <div class="row mw-100 mh-100">
@@ -151,7 +151,7 @@ new { enctype = "multipart/form-data" }))
                         </div>
                         <label style="display:block;text-align:left;font-size:0.5vw;"><b>Text: </b></label>
                         @Html.HiddenFor(model => model.StartPage_TextContents[6].TextContent)
-                        @Html.TextAreaFor(model => model.StartPage_TextContents[6].TextContent, new {@class = "form-control", style = "width:100%;height:6vw;resize:none;" })
+                        @Html.TextAreaFor(model => model.StartPage_TextContents[6].TextContent, new { @class = "form-control", style = "width:100%;height:6vw;resize:none;font-size:0.6vw;" })
                         <div style="height:0.5vw;"></div>
                         <div class="form-group text-center">
                             <div class="row mw-100 mh-100">
@@ -184,13 +184,13 @@ new { enctype = "multipart/form-data" }))
                         </div>
                         <div class="form-group p-0 ">
                             <label style="display:block;text-align:left;font-size:0.6vw;"><b>Text: </b></label>
-                               @Html.HiddenFor(model => model.StartPage_TextContents[8].TextContent)
-                               @Html.TextAreaFor(model => model.StartPage_TextContents[8].TextContent, new { id = "editor1", style = "width:100%;height:20vw;" })
+                            @Html.HiddenFor(model => model.StartPage_TextContents[8].TextContent)
+                            @Html.TextAreaFor(model => model.StartPage_TextContents[8].TextContent, new { id = "editor1", style = "width:100%;height:20vw;font-size.0.6vw;" })
                         </div>
                         <div class="form-group text-left">
                             <label class="d-block" style="font-size:0.5vw;"><b>Text-bild</b></label>
                             @Html.HiddenFor(model => model.StartPage_ImgContents[5].ImgSrc)
-                            <img class="d-block" style="border:1px solid lightgray;" src=@Html.DisplayTextFor(model => model.StartPage_ImgContents[5].ImgSrc) height="140" width="240" asp-append-version="true" />
+                            <img class="d-block" style="border:1px solid lightgray;" src=@Html.DisplayTextFor(model => model.StartPage_ImgContents[5].ImgSrc) height="140" width="180" asp-append-version="true" />
                             @Html.HiddenFor(model => model.StartPage_ImgContents[5].File)
                             @Html.EditorFor(model => model.StartPage_ImgContents[5].File, new { HtmlAttributes = new { style = "font-size:0.5vw;height:1.2vw;width:10vw;" } })
                         </div>
@@ -199,7 +199,7 @@ new { enctype = "multipart/form-data" }))
                             @Html.HiddenFor(model => model.StartPage_ImgContents[4].ImgSrc)
                             <img class="d-block" style="border:1px solid lightgray;" src=@Html.DisplayTextFor(model => model.StartPage_ImgContents[4].ImgSrc) height="140" width="240" asp-append-version="true" />
                             @Html.HiddenFor(model => model.StartPage_ImgContents[4].File)
-                            @Html.EditorFor(model => model.StartPage_ImgContents[4].File, new { HtmlAttributes = new { style = "font-size:0.5vw;height:1.2vw;width:10vw;"} })
+                            @Html.EditorFor(model => model.StartPage_ImgContents[4].File, new { HtmlAttributes = new { style = "font-size:0.5vw;height:1.2vw;width:10vw;" } })
                         </div>
                         <div class="row mw-100 mh-100">
                             <div class="col-6 center">
@@ -213,22 +213,26 @@ new { enctype = "multipart/form-data" }))
                                 <div class="form-group text-left;">
                                     <label class="d-block" style="text-align:left;font-size:0.5vw;"><b>Länkar till: </b></label>
                                     @Html.HiddenFor(model => model.StartPage_Links[4].Url)
-                                    @Html.EditorFor(model => model.StartPage_Links[4].Url, new { HtmlAttributes = new { @class = "form-control" , style = "font-size:0.5vw;width:11.5vw;height:1.2vw;border:1px solid lightgray;" } })
+                                    @Html.EditorFor(model => model.StartPage_Links[4].Url, new { HtmlAttributes = new { @class = "form-control", style = "font-size:0.5vw;width:11.5vw;height:1.2vw;border:1px solid lightgray;" } })
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div style="height:1.5vw;"></div>
                     <hr />
-                    <div class="form-group text-right">
-                        <a type="button" class="btn text-white text-center" asp-action="Edit" asp-controller="StartPage" style="font-size: 0.4vw;width:3.8vw;height:1.2vw;background-color:#0293fc;">Avbryt</a>
-                        <button type="submit" class="btn text-white p-0 text-center" style="font-size: 0.4vw;width:3.8vw;height:1.2vw;background-color:#0293fc;">Bekräfta</button>
+                    <div class="row">
+                        <div class="col-6 text-left">
+                            <button type="button" class="btn text-white p-0 text-center" onclick="location.href='@Url.Action("Index", "UnderPage")'" style="font-size: 0.4vw;width:3.8vw;height:1.2vw;background-color:#8c8c8c;">Avbryt</button>
+                        </div>
+                        <div class="col-6 text-right">
+                            <button type="submit" class="btn text-white p-0 text-center" style="font-size: 0.4vw;width:3.8vw;height:1.2vw;background-color:#0293fc;">Bekräfta</button>
+                        </div>
                     </div>
+                    <div style="height:2.5vw;"></div>
+
                 }
             </div>
-            <div class="col-5"></div>
-
         </div>
+        <div class="col-auto"></div>
     </div>
-
-    </div>
+</div>

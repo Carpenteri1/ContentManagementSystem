@@ -375,3 +375,4 @@ C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Deb
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Events\Index.cshtml.g.cs
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Events\Edit.cshtml.g.cs
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Events\Create.cshtml.g.cs
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Adverts\Index.cshtml.g.cs
