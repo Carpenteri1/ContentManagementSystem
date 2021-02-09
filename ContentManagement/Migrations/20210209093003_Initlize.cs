@@ -4,7 +4,7 @@ using MySql.Data.EntityFrameworkCore.Metadata;
 
 namespace ContentManagement.Migrations
 {
-    public partial class Initilize : Migration
+    public partial class Initlize : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -51,6 +51,30 @@ namespace ContentManagement.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Events",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    EventTitle = table.Column<string>(nullable: true),
+                    EventTextContent = table.Column<string>(nullable: true),
+                    UserId = table.Column<int>(nullable: true),
+                    Edited = table.Column<DateTime>(nullable: true),
+                    EventStart = table.Column<DateTime>(nullable: false),
+                    EventEnds = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Events", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Events_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -176,7 +200,8 @@ namespace ContentManagement.Migrations
                     LinkTitle = table.Column<string>(nullable: true),
                     Edited = table.Column<DateTime>(nullable: true),
                     UserId = table.Column<int>(nullable: true),
-                    HeaderContentId = table.Column<int>(nullable: true)
+                    HeaderContentId = table.Column<int>(nullable: true),
+                    StartPageId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -188,9 +213,36 @@ namespace ContentManagement.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
+                        name: "FK_UnderPages_StartPages_StartPageId",
+                        column: x => x.StartPageId,
+                        principalTable: "StartPages",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_UnderPages_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Events_Links",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    LinkTitle = table.Column<string>(nullable: true),
+                    Url = table.Column<string>(nullable: true),
+                    EventModelId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Events_Links", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Events_Links_Events_EventModelId",
+                        column: x => x.EventModelId,
+                        principalTable: "Events",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -282,6 +334,16 @@ namespace ContentManagement.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Events_UserId",
+                table: "Events",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Events_Links_EventModelId",
+                table: "Events_Links",
+                column: "EventModelId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_StartPage_ImgContents_StartPageId",
                 table: "StartPage_ImgContents",
                 column: "StartPageId");
@@ -327,6 +389,11 @@ namespace ContentManagement.Migrations
                 column: "HeaderContentId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_UnderPages_StartPageId",
+                table: "UnderPages",
+                column: "StartPageId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UnderPages_UserId",
                 table: "UnderPages",
                 column: "UserId");
@@ -365,6 +432,9 @@ namespace ContentManagement.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Events_Links");
+
+            migrationBuilder.DropTable(
                 name: "StartPage_ImgContents");
 
             migrationBuilder.DropTable(
@@ -386,13 +456,16 @@ namespace ContentManagement.Migrations
                 name: "UnderPages_titlecontents");
 
             migrationBuilder.DropTable(
-                name: "StartPages");
+                name: "Events");
 
             migrationBuilder.DropTable(
                 name: "UnderPages");
 
             migrationBuilder.DropTable(
                 name: "HeaderContent");
+
+            migrationBuilder.DropTable(
+                name: "StartPages");
 
             migrationBuilder.DropTable(
                 name: "Users");

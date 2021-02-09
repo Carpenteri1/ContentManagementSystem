@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ContentManagement.Migrations
 {
     [DbContext(typeof(CMSDbContext))]
-    [Migration("20210204130423_Initilize")]
-    partial class Initilize
+    [Migration("20210209130129_LinksAndEvntsAddedToUser")]
+    partial class LinksAndEvntsAddedToUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -71,6 +71,68 @@ namespace ContentManagement.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("ContentManagement.Models.EventsModel.EventLinkModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EventModelId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LinkTitle")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventModelId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Events_Links");
+                });
+
+            modelBuilder.Entity("ContentManagement.Models.EventsModel.EventModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("Edited")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime>("EventEnds")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime>("EventStart")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("EventTextContent")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("EventTitle")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Events");
                 });
 
             modelBuilder.Entity("ContentManagement.StartPageModels.PageModel.StartPage", b =>
@@ -213,12 +275,17 @@ namespace ContentManagement.Migrations
                     b.Property<string>("LinkTitle")
                         .HasColumnType("text");
 
+                    b.Property<int?>("StartPageId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("HeaderContentId");
+
+                    b.HasIndex("StartPageId");
 
                     b.HasIndex("UserId");
 
@@ -312,6 +379,24 @@ namespace ContentManagement.Migrations
                     b.ToTable("UnderPages_titlecontents");
                 });
 
+            modelBuilder.Entity("ContentManagement.Models.EventsModel.EventLinkModel", b =>
+                {
+                    b.HasOne("ContentManagement.Models.EventsModel.EventModel", "EventModel")
+                        .WithMany("Links")
+                        .HasForeignKey("EventModelId");
+
+                    b.HasOne("ContentManagement.Models.Account.Users", "User")
+                        .WithMany("EventLinks")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("ContentManagement.Models.EventsModel.EventModel", b =>
+                {
+                    b.HasOne("ContentManagement.Models.Account.Users", "User")
+                        .WithMany("Events")
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("ContentManagement.StartPageModels.PageModel.StartPage_ImgContents", b =>
                 {
                     b.HasOne("ContentManagement.StartPageModels.PageModel.StartPage", "StartPage")
@@ -361,6 +446,10 @@ namespace ContentManagement.Migrations
                     b.HasOne("ContentManagement.HeaderModel.HeaderContent", "HeaderContent")
                         .WithMany("UnderPages")
                         .HasForeignKey("HeaderContentId");
+
+                    b.HasOne("ContentManagement.StartPageModels.PageModel.StartPage", "StartPage")
+                        .WithMany("UnderPages")
+                        .HasForeignKey("StartPageId");
 
                     b.HasOne("ContentManagement.Models.Account.Users", "User")
                         .WithMany("UnderPages")

@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
-
+using ContentManagement.Models.EventsModel;
 
 namespace ContentManagement.Models.Account
 {
@@ -71,5 +71,8 @@ namespace ContentManagement.Models.Account
         public List<UnderPage_ImgContents> UnderPage_ImgContents { get; set; }
         public List<UnderPage_TextContents> UnderPage_TextContents { get; set; }
         public List<UnderPage_TitleContents> UnderPage_Titles { get; set; }
+
+        public List<EventModel> Events { get; set; }
+        public List<EventLinkModel> EventLinks { get; set; }
      }
 }
