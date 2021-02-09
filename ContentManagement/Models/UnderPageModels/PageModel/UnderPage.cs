@@ -7,6 +7,7 @@ using ContentManagement.HeaderModel;
 using ContentManagement.Models.Account;
 using Microsoft.AspNetCore.Http;
 using ContentManagement.StartPageModels.PageModel;
+using ContentManagement.Models.Adverts;
 
 namespace ContentManagement.UnderPageModels.PageModel
 {
@@ -18,6 +19,7 @@ namespace ContentManagement.UnderPageModels.PageModel
         public List<UnderPage_ImgContents> UnderPage_ImgContent { get; set; }
         public List<UnderPage_TextContents> UnderPage_TextContents { get; set; }
         public List<UnderPage_TitleContents> UnderPage_TitleContents { get; set; }
+        public List<AdvertsModel> Adverts { get; set; }
         public Users User { get; set; }
         public HeaderContent HeaderContent { get; set; }
         public StartPage StartPage { get; set; }

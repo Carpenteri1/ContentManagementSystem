@@ -4,6 +4,8 @@ using ContentManagement.Models.Account;
 using ContentManagement.UnderPageModels.PageModel;
 using ContentManagement.HeaderModel;
 using ContentManagement.Models.EventsModel;
+using ContentManagement.Models.Adverts;
+
 namespace ContentManagement.Data
 {
     public class CMSDbContext : DbContext
@@ -26,5 +28,6 @@ namespace ContentManagement.Data
         public DbSet<Users> Users { get; set; }
         public DbSet<EventModel> Events { get; set; }
         public DbSet<EventLinkModel> Events_Links { get; set; }
+        public DbSet<AdvertsModel> Adverts { get; set; }
     }
 }

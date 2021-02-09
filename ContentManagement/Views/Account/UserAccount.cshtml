@@ -16,12 +16,13 @@
                         {
                             <p>@ViewData["error"];</p>
                         }
-                        <label style=" width: 100%; text-align: right; display: inline-block;">
-                            @if (User.IsInRole(UserRoles.Admin.ToString()))
-                            {
-                                <button type="button" class="btn text-white p-0 text-center " onclick="location.href='@Url.Action("Register")'" style="font-size: 0.6vw;width:5vw;height:1.2vw;background-color:#0293fc;">Ny användare +</button>
-                            }
-                        </label>
+                    <label style=" width: 100%; text-align: right; display: inline-block;">
+                        @if (User.IsInRole(UserRoles.Admin.ToString()))
+                        {
+                            <button type="button" class="btn text-white p-0 text-center form-control" onclick="location.href='@Url.Action("Register")'" style="font-size: 0.4vw;width:3.2vw;height:1vw;background-color:#0293fc;">Ny användare +</button>
+
+                        }
+                    </label>
                     </div>
                 </div>
             </div>

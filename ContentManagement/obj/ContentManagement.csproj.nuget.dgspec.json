@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\nicla\\source\\repos\\AMV\\Golf\\ContentManagement\\ContentManagement\\ContentManagement.csproj": {}
+    "C:\\Users\\nicla\\source\\repos\\AMV\\Golf\\ContentManagementSystem\\ContentManagement\\ContentManagement.csproj": {}
   },
   "projects": {
-    "C:\\Users\\nicla\\source\\repos\\AMV\\Golf\\ContentManagement\\ContentManagement\\ContentManagement.csproj": {
+    "C:\\Users\\nicla\\source\\repos\\AMV\\Golf\\ContentManagementSystem\\ContentManagement\\ContentManagement.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nicla\\source\\repos\\AMV\\Golf\\ContentManagement\\ContentManagement\\ContentManagement.csproj",
+        "projectUniqueName": "C:\\Users\\nicla\\source\\repos\\AMV\\Golf\\ContentManagementSystem\\ContentManagement\\ContentManagement.csproj",
         "projectName": "ContentManagement",
-        "projectPath": "C:\\Users\\nicla\\source\\repos\\AMV\\Golf\\ContentManagement\\ContentManagement\\ContentManagement.csproj",
+        "projectPath": "C:\\Users\\nicla\\source\\repos\\AMV\\Golf\\ContentManagementSystem\\ContentManagement\\ContentManagement.csproj",
         "packagesPath": "C:\\Users\\nicla\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nicla\\source\\repos\\AMV\\Golf\\ContentManagement\\ContentManagement\\obj\\",
+        "outputPath": "C:\\Users\\nicla\\source\\repos\\AMV\\Golf\\ContentManagementSystem\\ContentManagement\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
