@@ -3,7 +3,7 @@ using ContentManagement.StartPageModels.PageModel;
 using ContentManagement.Models.Account;
 using ContentManagement.UnderPageModels.PageModel;
 using ContentManagement.HeaderModel;
-
+using ContentManagement.Models.EventsModel;
 namespace ContentManagement.Data
 {
     public class CMSDbContext : DbContext
@@ -12,7 +12,6 @@ namespace ContentManagement.Data
       : base(options)
         {
         }
-
 
         public DbSet<UnderPage> UnderPages { get; set; }
         public DbSet<UnderPage_TitleContents> UnderPages_titlecontents { get; set; }
@@ -25,5 +24,7 @@ namespace ContentManagement.Data
         public DbSet<StartPage_Links> StartPage_Links { get; set; }
         public DbSet<HeaderContent> HeaderContent { get; set; }
         public DbSet<Users> Users { get; set; }
+        public DbSet<EventModel> Events { get; set; }
+        public DbSet<EventLinkModel> Events_Links { get; set; }
     }
 }

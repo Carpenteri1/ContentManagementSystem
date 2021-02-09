@@ -1,77 +1,56 @@
-﻿@{
-    Layout = "~/Views/Shared/_DropDownlayout.cshtml";
+﻿@model List<UnderPage>
+@{
+    Layout = "~/Views/Shared/_DropDownLayout.cshtml";
 }
+<div class="centered-div mw-100 mh-100">
+    <table class="table" style="line-height:0.2vw;">
+        <tbody>
 
-
-
-@*
-        <div style="height:1.5vw;"></div>
-        <div class="centered-div mw-100 mh-100" style="border-bottom:2px solid black;">
-            <div class="row">
-                <div class="container">
-                    @using (Html.BeginForm("Edit", "UnderPage", FormMethod.Post))
-                    {
-
-                        <div class="row">
-                            <div class="col-6">
-                                <label style=" width: 100%; text-align: left; display: inline-block;">
-                                    <b style="color:#555555;font-size:0.8vw;">Sidor arkiv</b>
-                                    <a type="button" class="btn text-white p-0 text-center shader form-control" asp-controller="UnderPage" asp-action="Create" style="font-size: 0.6vw;width:3vw;height:1vw;background-color:#0293fc;">Ny sida +</a>
-                                </label>
-                            </div>
-
-                            <div class="col-6">
-                                <label style=" width: 100%; text-align: right; display: inline-block;">
-                                    <b style="font-size:0.5vw;margin-top:0.2vw;">Välj huvudmeny:</b>
-                                    @Html.DropDownList("dropdownlistReturnValue", (SelectList)ViewData["Content"], new { style = "width:3.8vw;height:1vw;font-size:0.5vw;", @onchange = "submitform();" })
-                                </label>
-                            </div>
-                        </div>
-                    }
-                </div>
-            </div>
-        </div>
-
-        <div class="centered-div mw-100 mh-100">
-            <!--List-->
-            <table class="table" style="line-height:0.2vw;">
-                <tbody>
-                    @*
-                        @if (Model.HeaderContents.Count() <= 0 ||
-                                Model == null)
-                            {*
-    <tr style="background-color:#f4f4f4;">
-        <td>
-            <a style="text-align: left;width:10vw;display:inline-block; font-size: 0.5vw; color: #515151;"><b>Inga sidor tillgängliga</b></a>
-        </td>
-    </tr>
-    }
-        else
-        {
-            @foreach (var s in Model.HeaderContents)
+            @if (Model.Count() <= 0 ||
+               Model == null)
             {
-                @for (int i = 0; i < s.UnderPages.Count(); i++)
+                <tr style="background-color:#f4f4f4;">
+                    <td>
+                        <a style="text-align: left;width:10vw;display:inline-block; font-size: 0.5vw; color: #515151;"><b> Inga sidor tillgängliga</b></a>
+                    </td>
+                </tr>
+            }
+            else
+            {
+                @for (int i = 0; i < Model.Count(); i++)
                 {
 
-                    if (s.UnderPages[i].Id == s.UnderPages[i].UnderPage_TextContents[i].UnderPage.Id)
-                    {
-                        <tr style="line-height:0.2vw;">
-                            <td>
-                                <a style="text-align:left;width:10vw;display:inline-block;font-size: 0.5vw; color: #515151;"><b>@s.UnderPages[i].UnderPage_TitleContents[i].TextContent</b></a>
+                    <tr style="line-height:0.2vw;">
+                        @if (i % 2 == 0)
+                        {
+                            <td style="font-size:0.5vw;background-color:#d0c8c8;font-weight:bold;">
+                                @Html.DisplayFor(modelItem => Model[i].LinkTitle)
                             </td>
-                            <td>
-                                <a asp-area="" asp-controller="Content" asp-action="EditPage">
-                                    <b style="text-align: right; width:100%;  display: inline-block;font-size:0.5vw;" href="/Edit/@s.Id">Ändra</b>
+                            <td style="background-color:#d0c8c8;">
+                                <a>
+                                    <b style="text-align: right; width:100%;  display: inline-block;font-size:0.5vw;">
+                                        @Html.ActionLink("Ändra", "Edit", new { id = Model[i].Id })
+                                    </b>
                                 </a>
                             </td>
-                        </tr>
-                    }
+                        }
+                        else
+                        {
+                            <td style="font-size:0.5vw;background-color:white;font-weight:bold;">
+                                @Html.DisplayFor(modelItem => Model[i].LinkTitle)
+                            </td>
+                            <td style="background-color:white">
+                                <a>
+                                    <b style="text-align: right; width:100%;  display: inline-block;font-size:0.5vw;">
+                                        @Html.ActionLink("Ändra", "Edit", new { id = Model[i].Id })
+                                    </b>
+                                </a>
+                            </td>
+                        }
+
+                    </tr>
                 }
             }
-        }
-
-            </tbody>
-        </table>
-    </div>
-
-*@
+        </tbody>
+    </table>
+</div>

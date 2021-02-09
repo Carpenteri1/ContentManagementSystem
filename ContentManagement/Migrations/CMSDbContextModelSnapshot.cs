@@ -71,6 +71,59 @@ namespace ContentManagement.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("ContentManagement.Models.EventsModel.EventLinkModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EventModelId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LinkTitle")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventModelId");
+
+                    b.ToTable("Events_Links");
+                });
+
+            modelBuilder.Entity("ContentManagement.Models.EventsModel.EventModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("Edited")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime>("EventEnds")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime>("EventStart")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("EventTextContent")
+                        .HasColumnType("text");
+
+                    b.Property<string>("EventTitle")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Events");
+                });
+
             modelBuilder.Entity("ContentManagement.StartPageModels.PageModel.StartPage", b =>
                 {
                     b.Property<int>("Id")
@@ -313,6 +366,20 @@ namespace ContentManagement.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UnderPages_titlecontents");
+                });
+
+            modelBuilder.Entity("ContentManagement.Models.EventsModel.EventLinkModel", b =>
+                {
+                    b.HasOne("ContentManagement.Models.EventsModel.EventModel", "EventModel")
+                        .WithMany("Links")
+                        .HasForeignKey("EventModelId");
+                });
+
+            modelBuilder.Entity("ContentManagement.Models.EventsModel.EventModel", b =>
+                {
+                    b.HasOne("ContentManagement.Models.Account.Users", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("ContentManagement.StartPageModels.PageModel.StartPage_ImgContents", b =>

@@ -1,43 +1,34 @@
-﻿@model List<UnderPage>
+﻿@model List<EventModel>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+
 
 <div style="height:1.5vw;"></div>
 <div class="centered-div mw-100 mh-100" style="border-bottom:2px solid black;">
     <div class="row">
         <div class="container">
-            @using (Html.BeginForm("Index", "UnderPage", FormMethod.Post))
-            {
 
-                <div class="row">
-                    <div class="col-6">
-                        <label style=" width: 100%; text-align: left; display: inline-block;">
-                            <b style="color:#555555;font-size:0.8vw;">Sidor arkiv</b>
-                            <a type="button" class="btn text-white p-0 text-center shader form-control" asp-controller="UnderPage" asp-action="Create" style="font-size: 0.6vw;width:3vw;height:1vw;background-color:#0293fc;">Ny sida +</a>
-                        </label>
-                    </div>
-
-                    <div class="col-6">
-                        <label style=" width: 100%; text-align: right; display: inline-block;">
-                            <b style="font-size:0.5vw;margin-top:0.2vw;">Välj huvudmeny:</b>
-                            @Html.DropDownList("selecterDropDownValue", (SelectList)ViewData["HeaderTheme"], new { style = "width:3.8vw;height:1vw;font-size:0.5vw;", @onchange = "submitform();" })
-                        </label>
-                    </div>
+            <div class="row">
+                <div class="col-6">
+                    <label style=" width: 100%; text-align: left; display: inline-block;">
+                        <b style="color:#555555;font-size:0.8vw;">Event arkiv</b>
+                        <a type="button" class="btn text-white p-0 text-center shader form-control center" asp-controller="Events" asp-action="Create" style="font-size: 0.4vw;width:3vw;height:1vw;background-color:#0293fc;">Nytt Event +</a>
+                    </label>
                 </div>
-            }
+                <div class="col-6">
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
-
-
 <div class="centered-div mw-100 mh-100">
     <table class="table" style="line-height:0.2vw;">
         <tbody>
 
             @if (Model.Count() <= 0 ||
-              Model == null)
+             Model == null)
             {
                 <tr style="background-color:#f4f4f4;">
                     <td>
@@ -54,7 +45,7 @@
                         @if (i % 2 == 0)
                         {
                             <td style="font-size:0.5vw;background-color:#d0c8c8;font-weight:bold;">
-                                @Html.DisplayFor(modelItem => Model[i].LinkTitle)
+                                @Html.DisplayFor(modelItem => Model[i].EventTitle)
                             </td>
                             <td style="background-color:#d0c8c8;">
                                 <a>
@@ -67,7 +58,7 @@
                         else
                         {
                             <td style="font-size:0.5vw;background-color:white;font-weight:bold;">
-                                @Html.DisplayFor(modelItem => Model[i].LinkTitle)
+                                @Html.DisplayFor(modelItem => Model[i].EventTitle)
                             </td>
                             <td style="background-color:white">
                                 <a>
@@ -84,8 +75,3 @@
         </tbody>
     </table>
 </div>
-<script>
-        function submitform() {
-            $('form').submit();
-        }
-</script>
