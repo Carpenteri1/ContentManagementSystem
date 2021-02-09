@@ -19,7 +19,6 @@ namespace ContentManagement.Controllers
         private readonly CMSDbContext context;
         private const string DefaultDropDownValue = "1";
         private readonly IWebHostEnvironment host;
-        private int Id;
         public UnderPageController(CMSDbContext context, IWebHostEnvironment host)
         {
             this.context = context;
@@ -46,6 +45,8 @@ namespace ContentManagement.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
+                List<HeaderContent> headerContent = context.HeaderContent.ToList();
+                ViewData["HeaderTheme"] = new SelectList(headerContent, "Id", "HeaderTheme");
                 return View(new UnderPage());
             }
             else
@@ -58,16 +59,32 @@ namespace ContentManagement.Controllers
         // POST: UnderPageController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(UnderPage newPage,string selecterDropDownValue)
         {
-            try
+            if (ModelState.IsValid && 
+                newPage.LinkTitle != null)
             {
-                return View();
+                UnderPageHelper controllerHelper = new UnderPageHelper(context,host);
+                var user = context.Users.Where(user => user.UserName == User.Identity.Name).FirstOrDefault();
+                try
+                {
+                    newPage = controllerHelper.CreateNewPageData(newPage, user, int.Parse(selecterDropDownValue));
+                    if (newPage != null)
+                    {
+                        controllerHelper.SaveToDb();
+                    }
+                    return Redirect(nameof(Index));
+                }
+                catch
+                {
+                    return Redirect(nameof(Index));
+                }
             }
-            catch
+            else
             {
-                return View();
+                return Redirect(nameof(Index));
             }
+
         }
 
     
@@ -168,7 +185,7 @@ namespace ContentManagement.Controllers
                     {
                         controllerHelper.SaveToDb();
                     }
-                    return RedirectToAction("Edit", new { id = underPage.Id }); ;
+                    return RedirectToAction("Edit", new { id = underPage.Id }); 
                 }
                 catch
                 {

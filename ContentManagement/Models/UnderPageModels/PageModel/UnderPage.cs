@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ContentManagement.HeaderModel;
 using ContentManagement.Models.Account;
 using Microsoft.AspNetCore.Http;
+using ContentManagement.StartPageModels.PageModel;
 
 namespace ContentManagement.UnderPageModels.PageModel
 {
@@ -19,5 +20,6 @@ namespace ContentManagement.UnderPageModels.PageModel
         public List<UnderPage_TitleContents> UnderPage_TitleContents { get; set; }
         public Users User { get; set; }
         public HeaderContent HeaderContent { get; set; }
+        public StartPage StartPage { get; set; }
     }
 }

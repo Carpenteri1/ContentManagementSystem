@@ -15,7 +15,7 @@
                 {
                     <div style="height:0.8vw;"></div>
                     <div class="row p-0">
-                        <p>Redigera @ViewData["Title"]</p>
+                        <p>Redigera undersida @ViewData["Title"]</p>
                     </div>
                        <hr />
                        <div class="p-2 mw-100 mh-100">
@@ -27,28 +27,29 @@
                                        <span asp-validation-for="@Model.UnderPage_TitleContents[0].TextContent" class="text-danger"></span>
                                    </div>
                                    <div class="col-6">
-                                       @Html.HiddenFor(model => model.Id)
                                        <label class="d-block" style="font-size:0.5vw;"><b>Länk titel:</b></label>
-                                       <input asp-for="LinkTitle" class="form-control" style="font-size:0.5vw;width:10.5vw;height:1.2vw;">
-                                       <span asp-validation-for="LinkTitle" class="text-danger"></span>
+                                       @Html.HiddenFor(model => model.Id)
+                                       @Html.EditorFor(model => model.LinkTitle, new { HtmlAttributes = new { @class = "form-control", style = "font-size:0.5vw;height:1.2vw;width:10vw;background-color:white;border:1px solid lightgray;" } })
                                    </div>
                                </div>
 
                            </div>
-                           <div style="height:4vw;"></div>
+                           <div style="height:1.5vw;"></div>
                            <div class="form-group" style="text-align:left;font-size:0.5vw;">
+                               <label class="d-block" style="font-size:0.5vw;"><b>Splash bild</b></label>
                                @Html.HiddenFor(model => model.UnderPage_ImgContent[0].ImgSrc)
-                               <img class="d-block" style="border:1px solid lightgray;" src=@(Model.UnderPage_ImgContent[0].ImgSrc) height="140" width="240" asp-append-version="true" />
+                               <img class="d-block" style="border:1px solid lightgray;" src=@Html.DisplayTextFor(model => model.UnderPage_ImgContent[0].ImgSrc) height="140" width="240" asp-append-version="true" />
+                               @Html.HiddenFor(model => model.UnderPage_ImgContent[0].File)
                                @Html.EditorFor(model => model.UnderPage_ImgContent[0].File)
 
                            </div>
                            <div style="height:3vw;"></div>
                            <div class="form-group p-0 mw-100 mh-100" style="font-size:0.5vw;">
                                @Html.HiddenFor(text => text.UnderPage_TextContents[0])
-                               @Html.TextAreaFor(model => model.UnderPage_TextContents[0].TextContent, new { id = "editor1", style = "text-align:left;font-size:0.5vw;height:35vw;" })
+                               @Html.TextAreaFor(model => model.UnderPage_TextContents[0].TextContent, new { id = "editor1", style = "text-align:left;font-size:0.5vw;height:30vw;" })
                            </div>
                        </div>       
-                  <div style="height:8vw;"></div>
+                  <div style="height:2.5vw;"></div>
                 <hr />
                 <div class="form-group text-right">
                     <a type="button" class="btn text-white text-center" asp-action="Index" asp-controller="UnderPage" style="font-size: 0.4vw;width:3.8vw;height:1.2vw;background-color:#0293fc;">Avbryt</a>

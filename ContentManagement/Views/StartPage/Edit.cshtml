@@ -1,12 +1,13 @@
 ﻿@model StartPage
-@Html.HiddenFor(model => model.Id)
+
 <div class="container">
     <div class="row">
         <div class="col-7">
             <div class="container text-center align-content-center">
                 @using (Html.BeginForm("Edit", "StartPage", FormMethod.Post,
-           new { enctype = "multipart/form-data" }))
+new { enctype = "multipart/form-data" }))
                 {
+                    @Html.HiddenFor(model => model.Id)
                     <div style="height:1.5vw;"></div>
                     <p style="font-size:0.6vw;" class="text-left"><b>Redigera startsida</b></p>
                     <hr />
@@ -14,37 +15,38 @@
                     <div class="p-2">
                         <p style="font-size:0.6vw;" class="text-left"><b>Stripe</b></p>
                         <hr />
-                        <div class="form-group" style="text-align:left;font-size:0.5vw;">
+                        <div class="form-group text-left">
                             <label class="d-block" style="font-size:0.5vw;"><b>Splash Bild</b></label>
                             @Html.HiddenFor(model => model.StartPage_ImgContents[0].ImgSrc)
-                            <img class="d-block" style="border:1px solid lightgray;" src=@(Model.StartPage_ImgContents[0].ImgSrc) height="140" width="240" asp-append-version="true" />
-                            @Html.EditorFor(model => model.StartPage_ImgContents[0].File)
+                            <img class="d-block" style="border:1px solid lightgray;" src=@Html.DisplayTextFor(model => model.StartPage_ImgContents[0].ImgSrc) height="140" width="240" asp-append-version="true" />
+                            @Html.HiddenFor(model => model.StartPage_ImgContents[0].File)
+                            @Html.EditorFor(model => model.StartPage_ImgContents[0].File, new { HtmlAttributes = new { style = "font-size:0.5vw;height:1.2vw;width:10vw;" } })
                         </div>
-                        <div class="form-group text-left">
-                            <label class="d-block" style="font-size:0.5vw;"><b>Rubrik:</b></label>
-                            <input asp-for="@Model.StartPage_TitleContents[0].TextContent" class="form-control" style="font-size:0.6vw;height:1.2vw;width:10vw;background-color:white;border:1px solid lightgray;">
-                            <span asp-validation-for="@Model.StartPage_TitleContents[0].TextContent" class="text-danger"></span>
+                        <div class="form-group text-center">
+                            <label class="d-block text-left" style="font-size:0.5vw;"><b>Rubrik:</b></label>
+                             @Html.HiddenFor(model => model.StartPage_TitleContents[0])
+                             @Html.EditorFor(model => model.StartPage_TitleContents[0].TextContent, new { HtmlAttributes = new { @class = "form-control", style = "font-size:0.5vw;height:1.2vw;width:10vw;background-color:white;border:1px solid lightgray;" } })
                         </div>
                         <hr />
-                        <div class="form-group">
+                        <div class="form-group text-center">
                             <label style="display:block;text-align:left;font-size:0.5vw;"><b>Text: </b></label>
-                            <textarea asp-for="StartPage_TextContents[0].TextContent" class="form-control p-2 " style="border: 1px solid lightgray; height: 4vw; width: 100%; resize: none; background-color: white; font-size: 0.6vw; "></textarea>
-                            <span asp-validation-for="StartPage_TextContents[0].TextContent" class="text-danger"></span>
+                            @Html.HiddenFor(model => model.StartPage_TextContents[0].TextContent)
+                            @Html.TextAreaFor(model => model.StartPage_TextContents[0].TextContent, new { @class = "form-control", style = "width:100%;height:6vw;resize:none;" })
                         </div>
                         <div style="height:0.5vw;"></div>
                         <div class="row mw-100 mh-100">
                             <div class="col-6 center">
-                                <div class="form-group text-left">
+                                <div class="form-group text-center">
                                     <label class="d-block" style="text-align:left;font-size:0.5vw;"><b>Länk Text: </b></label>
-                                    <input asp-for="StartPage_TextContents[1].TextContent" class="form-control" style="font-size:0.6vw;width:10vw;height:1.2vw;text-align:center;border:1px solid lightgray;">
-                                    <span asp-validation-for="StartPage_TextContents[1].TextContent" class="text-danger"></span>
+                                    @Html.HiddenFor(model => model.StartPage_TextContents[1].TextContent)
+                                    @Html.EditorFor(model => model.StartPage_TextContents[1].TextContent, new { HtmlAttributes = new { @class = "form-control", style = "font-size:0.5vw;height:1.2vw;width:10vw;background-color:white;border:1px solid lightgray;" } })
                                 </div>
                             </div>
                             <div class="col-6 center">
-                                <div class="form-group text-left;">
+                                <div class="form-group text-center">
                                     <label class="d-block" style="text-align:left;font-size:0.5vw;"><b>Länkar till: </b></label>
-                                    <input asp-for="StartPage_Links[0].Url" class="form-control" style="font-size:0.6vw;width:10vw;height:1.2vw;text-align:center;border:1px solid lightgray;">
-                                    <span asp-validation-for="StartPage_Links[0].Url" class="text-danger"></span>
+                                    @Html.HiddenFor(model => model.StartPage_Links[0].Url)
+                                    @Html.EditorFor(model => model.StartPage_Links[0].Url, new { HtmlAttributes = new { @class = "form-control", style = "font-size:0.5vw;height:1.2vw;width:10vw;background-color:white;border:1px solid lightgray;" } })
                                 </div>
                             </div>
                         </div>
@@ -54,37 +56,37 @@
                         <p style="font-size:0.6vw;" class="text-left"><b>Box 1</b></p>
                         <hr />
                         <div style="height:0.5vw;"></div>
-                        <div class="form-group" style="text-align:left;font-size:0.5vw;">
+                        <div class="form-group text-left">
                             <label class="d-block" style="font-size:0.5vw;"><b>Splash Bild</b></label>
                             @Html.HiddenFor(model => model.StartPage_ImgContents[1].ImgSrc)
-                            <img class="d-block" style="border:1px solid lightgray;" src=@(Model.StartPage_ImgContents[1].ImgSrc) height="140" width="240" asp-append-version="true" />
-                            @Html.EditorFor(model => model.StartPage_ImgContents[1].File)
+                            <img class="d-block" style="border:1px solid lightgray;" src=@Html.DisplayTextFor(model => model.StartPage_ImgContents[1].ImgSrc) height="140" width="240" asp-append-version="true" />
+                            @Html.HiddenFor(model => model.StartPage_ImgContents[1].File)
+                            @Html.EditorFor(model => model.StartPage_ImgContents[1].File, new { HtmlAttributes = new { style = "font-size:0.5vw;height:1.2vw;width:10vw;" } })
                         </div>
-                        <div class="form-group text-left">
-                            <label class="d-block" style="font-size:0.5vw;"><b>Rubrik:</b></label>
-                            <input asp-for="@Model.StartPage_TitleContents[1].TextContent" class="form-control" style="font-size:0.6vw;height:1.2vw;width:10vw;background-color:white;border:1px solid lightgray;">
-                            <span asp-validation-for="@Model.StartPage_TitleContents[1].TextContent" class="text-danger"></span>
+                        <div class="form-group text-center">
+                            <label class="d-block text-left" style="font-size:0.5vw;"><b>Rubrik:</b></label>
+                            @Html.HiddenFor(model => model.StartPage_TitleContents[1].TextContent)
+                            @Html.EditorFor(model => model.StartPage_TitleContents[1].TextContent, new { HtmlAttributes = new { @class = "form-control", style = "font-size:0.5vw;height:1.2vw;width:10vw;background-color:white;border:1px solid lightgray;" } })   
                         </div>
-
                         <label style="display:block;text-align:left;font-size:0.5vw;"><b>Text: </b></label>
-                        <textarea asp-for="StartPage_TextContents[2].TextContent" class="form-control p-2 " style="border: 1px solid lightgray; height: 4vw; width: 100%; resize:none; background-color: white; font-size: 0.6vw; "></textarea>
-                        <span asp-validation-for="StartPage_TextContents[2].TextContent" class="text-danger"></span>
-
+                       @* <textarea asp-for="StartPage_TextContents[2].TextContent" class="form-control p-2 " style="border: 1px solid lightgray; height: 4vw; width: 100%; resize:none; background-color: white; font-size: 0.6vw; "></textarea>*@
+                        @Html.HiddenFor(model => model.StartPage_TextContents[2].TextContent)
+                        @Html.TextAreaFor(model => model.StartPage_TextContents[2].TextContent, new { @class="form-control" , style = "width:100%;height:6vw;resize:none;" })
                         <div style="height:0.5vw;"></div>
                         <div class="form-group text-left">
                             <div class="row mw-100 mh-100">
                                 <div class="col-6 center">
-                                    <div class="form-group text-left">
+                                    <div class="form-group text-center">
                                         <label class="d-block" style="text-align:left;font-size:0.5vw;"><b>Länk Text: </b></label>
-                                        <input asp-for="StartPage_TextContents[3].TextContent" class="form-control" style="font-size:0.6vw;width:10vw;height:1.2vw;text-align:center;border:1px solid lightgray;">
-                                        <span asp-validation-for="StartPage_TextContents[3].TextContent" class="text-danger"></span>
+                                       @Html.HiddenFor(model => model.StartPage_TextContents[3].TextContent)
+                                        @Html.EditorFor(model => model.StartPage_TextContents[3].TextContent, new { HtmlAttributes = new { @class = "form-control", style = "font-size:0.5vw;height:1.2vw;width:10vw;background-color:white;border:1px solid lightgray;" } })
                                     </div>
                                 </div>
                                 <div class="col-6 center">
-                                    <div class="form-group text-left;">
+                                    <div class="form-group text-center">
                                         <label class="d-block" style="text-align:left;font-size:0.5vw;"><b>Länkar till: </b></label>
-                                        <input asp-for="StartPage_Links[1].Url" class="form-control" style="font-size:0.6vw;width:10vw;height:1.2vw;text-align:center;border:1px solid lightgray;">
-                                        <span asp-validation-for="StartPage_Links[1].Url" class="text-danger"></span>
+                                        @Html.HiddenFor(model => model.StartPage_Links[1].Url)
+                                        @Html.EditorFor(model => model.StartPage_Links[1].Url, new { HtmlAttributes = new { @class = "form-control", style = "font-size:0.5vw;height:1.2vw;width:10vw;background-color:white;border:1px solid lightgray;" } })
                                     </div>
                                 </div>
                             </div>
@@ -95,35 +97,36 @@
                         <p style="font-size:0.6vw;" class="text-left"><b>Box 2</b></p>
                         <hr />
                         <div style="height:0.5vw;"></div>
-                        <div class="form-group" style="text-align:left;font-size:0.5vw;">
+                        <div class="form-group text-left">
                             <label class="d-block" style="font-size:0.5vw;"><b>Splash Bild</b></label>
                             @Html.HiddenFor(model => model.StartPage_ImgContents[2].ImgSrc)
-                            <img class="d-block" style="border:1px solid lightgray;" src=@(Model.StartPage_ImgContents[2].ImgSrc) height="140" width="240" asp-append-version="true" />
-                            @Html.EditorFor(model => model.StartPage_ImgContents[2].File)
+                            <img class="d-block" style="border:1px solid lightgray;" src=@Html.DisplayTextFor(model => model.StartPage_ImgContents[2].ImgSrc) height="140" width="240" asp-append-version="true" />
+                            @Html.HiddenFor(model => model.StartPage_ImgContents[2].File)
+                            @Html.EditorFor(model => model.StartPage_ImgContents[2].File, new { HtmlAttributes = new { style = "font-size:0.5vw;height:1.2vw;width:10vw;" } })
                         </div>
                         <div class="form-group text-left">
-                            <label class="d-block" style="font-size:0.5vw;"><b>Rubrik:</b></label>
-                            <input asp-for="@Model.StartPage_TitleContents[2].TextContent" class="form-control" style="font-size:0.6vw;height:1.2vw;width:10vw;background-color:white;border:1px solid lightgray;">
-                            <span asp-validation-for="@Model.StartPage_TitleContents[2].TextContent" class="text-danger"></span>
+                            <label class="d-block text-left" style="font-size:0.5vw;"><b>Rubrik:</b></label>
+                               @Html.HiddenFor(model => model.StartPage_TitleContents[2].TextContent)
+                               @Html.EditorFor(model => model.StartPage_TitleContents[2].TextContent, new { HtmlAttributes = new { @class = "form-control", style = "font-size:0.5vw;height:1.2vw;width:10vw;background-color:white;border:1px solid lightgray;" } })
                         </div>
                         <label style="display:block;text-align:left;font-size:0.5vw;"><b>Text: </b></label>
-                        <textarea asp-for="StartPage_TextContents[4].TextContent" class="form-control p-2 " style="border: 1px solid lightgray; height: 4vw; width: 100%; resize: none; background-color: white; font-size: 0.6vw; "></textarea>
-                        <span asp-validation-for="StartPage_TextContents[4].TextContent" class="text-danger"></span>
+                           @Html.HiddenFor(model => model.StartPage_TextContents[4].TextContent)
+                           @Html.TextAreaFor(model => model.StartPage_TextContents[4].TextContent, new { @class = "form-control", style = "width:100%;height:6vw;resize:none;" })
                         <div style="height:0.5vw;"></div>
-                        <div class="form-group text-left">
+                        <div class="form-group text-center">
                             <div class="row mw-100 mh-100">
                                 <div class="col-6 center">
-                                    <div class="form-group text-left">
+                                    <div class="form-group text-center">
                                         <label class="d-block" style="text-align:left;font-size:0.5vw;"><b>Länk Text: </b></label>
-                                        <input asp-for="StartPage_TextContents[5].TextContent" class="form-control" style="font-size:0.6vw;width:10vw;height:1.2vw;text-align:center;border:1px solid lightgray;">
-                                        <span asp-validation-for="StartPage_TextContents[5].TextContent" class="text-danger"></span>
+                                        @Html.HiddenFor(model => model.StartPage_TextContents[5].TextContent)
+                                        @Html.EditorFor(model => model.StartPage_TextContents[5].TextContent, new { HtmlAttributes = new { @class = "form-control", style = "font-size:0.5vw;height:1.2vw;width:10vw;background-color:white;border:1px solid lightgray;" } })
                                     </div>
                                 </div>
                                 <div class="col-6 center">
-                                    <div class="form-group text-left;">
+                                    <div class="form-group text-center">
                                         <label class="d-block" style="text-align:left;font-size:0.5vw;"><b>Länkar till: </b></label>
-                                        <input asp-for="StartPage_Links[2].Url" class="form-control" style="font-size:0.6vw;width:10vw;height:1.2vw;text-align:center;border:1px solid lightgray;">
-                                        <span asp-validation-for="StartPage_Links[2].Url" class="text-danger"></span>
+                                        @Html.HiddenFor(model => model.StartPage_Links[2].Url)
+                                        @Html.EditorFor(model => model.StartPage_Links[2].Url, new { HtmlAttributes = new { @class = "form-control", style = "font-size:0.5vw;height:1.2vw;width:10vw;background-color:white;border:1px solid lightgray;" } })
                                     </div>
                                 </div>
                             </div>
@@ -134,37 +137,36 @@
                         <p style="font-size:0.6vw;" class="text-left"><b>Box 3</b></p>
                         <hr />
                         <div style="height:0.5vw;"></div>
-                        <div class="form-group" style="text-align:left;font-size:0.5vw;">
+                        <div class="form-group text-left">
                             <label class="d-block" style="font-size:0.5vw;"><b>Splash Bild</b></label>
                             @Html.HiddenFor(model => model.StartPage_ImgContents[3].ImgSrc)
-                            <img class="d-block" style="border:1px solid lightgray;" src=@(Model.StartPage_ImgContents[3].ImgSrc) height="140" width="240" asp-append-version="true" />
-                            @Html.EditorFor(model => model.StartPage_ImgContents[3].File)
+                            <img class="d-block" style="border:1px solid lightgray;" src=@Html.DisplayTextFor(model => model.StartPage_ImgContents[3].ImgSrc) height="140" width="240" asp-append-version="true" />
+                            @Html.HiddenFor(model => model.StartPage_ImgContents[3].File)
+                            @Html.EditorFor(model => model.StartPage_ImgContents[3].File, new { HtmlAttributes = new { style = "font-size:0.5vw;height:1.2vw;width:10vw;" } })
                         </div>
-                        <div class="form-group text-left">
-                            <label class="d-block" style="font-size:0.5vw;"><b>Rubrik:</b></label>
-                            <input asp-for="@Model.StartPage_TitleContents[3].TextContent" class="form-control" style="font-size:0.6vw;height:1.2vw;width:10vw;background-color:white;border:1px solid lightgray;">
-                            <span asp-validation-for="@Model.StartPage_TitleContents[3].TextContent" class="text-danger"></span>
+                        <div class="form-group text-center">
+                            <label class="d-block text-left" style="font-size:0.5vw;"><b>Rubrik:</b></label>
+                            @Html.HiddenFor(model => model.StartPage_TitleContents[3].TextContent)
+                            @Html.EditorFor(model => model.StartPage_TitleContents[3].TextContent, new { HtmlAttributes = new { @class = "form-control", style = "font-size:0.5vw;height:1.2vw;width:10vw;background-color:white;border:1px solid lightgray;" } })
                         </div>
-
                         <label style="display:block;text-align:left;font-size:0.5vw;"><b>Text: </b></label>
-                        <textarea asp-for="StartPage_TextContents[6].TextContent" class="form-control p-2 " style="border: 1px solid lightgray; height: 4vw; width: 100%; resize: none; background-color: white; font-size: 0.6vw; "></textarea>
-                        <span asp-validation-for="StartPage_TextContents[6].TextContent" class="text-danger"></span>
-
+                        @Html.HiddenFor(model => model.StartPage_TextContents[6].TextContent)
+                        @Html.TextAreaFor(model => model.StartPage_TextContents[6].TextContent, new {@class = "form-control", style = "width:100%;height:6vw;resize:none;" })
                         <div style="height:0.5vw;"></div>
-                        <div class="form-group text-left">
+                        <div class="form-group text-center">
                             <div class="row mw-100 mh-100">
                                 <div class="col-6 center">
-                                    <div class="form-group text-left">
+                                    <div class="form-group text-center">
                                         <label class="d-block" style="text-align:left;font-size:0.5vw;"><b>Länk Text: </b></label>
-                                        <input asp-for="StartPage_TextContents[7].TextContent" class="form-control" style="font-size:0.6vw;width:10vw;height:1.2vw;text-align:center;border:1px solid lightgray;">
-                                        <span asp-validation-for="StartPage_TextContents[7].TextContent" class="text-danger"></span>
+                                        @Html.HiddenFor(model => model.StartPage_TextContents[7].TextContent)
+                                        @Html.EditorFor(model => model.StartPage_TextContents[7].TextContent, new { HtmlAttributes = new { @class = "form-control", style = "font-size:0.5vw;height:1.2vw;width:10vw;background-color:white;border:1px solid lightgray;" } })
                                     </div>
                                 </div>
                                 <div class="col-6 center">
-                                    <div class="form-group text-left;">
+                                    <div class="form-group text-center">
                                         <label class="d-block" style="text-align:left;font-size:0.5vw;"><b>Länkar till: </b></label>
-                                        <input asp-for="StartPage_Links[3].Url" class="form-control" style="font-size:0.6vw;width:10vw;height:1.2vw;text-align:center;border:1px solid lightgray;">
-                                        <span asp-validation-for="StartPage_Links[3].Url" class="text-danger"></span>
+                                        @Html.HiddenFor(model => model.StartPage_Links[3].Url)
+                                        @Html.EditorFor(model => model.StartPage_Links[3].Url, new { HtmlAttributes = new { @class = "form-control", style = "font-size:0.5vw;height:1.2vw;width:10vw;background-color:white;border:1px solid lightgray;" } })
                                     </div>
                                 </div>
                             </div>
@@ -175,41 +177,43 @@
                         <p style="font-size:0.6vw;" class="text-left"><b>Stripe</b></p>
                         <hr />
                         <div style="height:0.5vw;"></div>
-                        <div class="form-group text-left">
-                            <label class="d-block" style="font-size:0.6vw;"><b>Rubrik:</b></label>
-                            <input asp-for="@Model.StartPage_TitleContents[4].TextContent" class="form-control" style="font-size:0.6vw;height:1.2vw;width:10vw;background-color:white;border:1px solid lightgray;">
-                            <span asp-validation-for="@Model.StartPage_TitleContents[4].TextContent" class="text-danger"></span>
+                        <div class="form-group text-center">
+                            <label class="d-block text-left" style="font-size:0.6vw;"><b>Rubrik:</b></label>
+                            @Html.HiddenFor(model => model.StartPage_TitleContents[4].TextContent)
+                            @Html.EditorFor(model => model.StartPage_TitleContents[4].TextContent, new { HtmlAttributes = new { @class = "form-control", style = "font-size:0.5vw;height:1.2vw;width:10vw;background-color:white;border:1px solid lightgray;" } })
                         </div>
                         <div class="form-group p-0 ">
                             <label style="display:block;text-align:left;font-size:0.6vw;"><b>Text: </b></label>
-                            <textarea id="editor1" asp-for="StartPage_TextContents[8].TextContent" style="width:100%; height:350px;resize:none;"></textarea>
-                            <span asp-validation-for="StartPage_TextContents[8].TextContent" class="text-danger"></span>
+                               @Html.HiddenFor(model => model.StartPage_TextContents[8].TextContent)
+                               @Html.TextAreaFor(model => model.StartPage_TextContents[8].TextContent, new { id = "editor1", style = "width:100%;height:20vw;" })
                         </div>
-                        <div class="form-group" style="text-align:left;font-size:0.5vw;">
+                        <div class="form-group text-left">
                             <label class="d-block" style="font-size:0.5vw;"><b>Text-bild</b></label>
                             @Html.HiddenFor(model => model.StartPage_ImgContents[5].ImgSrc)
-                            <img class="d-block" style="border:1px solid lightgray;" src=@(Model.StartPage_ImgContents[5].ImgSrc) height="140" width="180" asp-append-version="true" />
-                            @Html.EditorFor(model => model.StartPage_ImgContents[5].File)
+                            <img class="d-block" style="border:1px solid lightgray;" src=@Html.DisplayTextFor(model => model.StartPage_ImgContents[5].ImgSrc) height="140" width="240" asp-append-version="true" />
+                            @Html.HiddenFor(model => model.StartPage_ImgContents[5].File)
+                            @Html.EditorFor(model => model.StartPage_ImgContents[5].File, new { HtmlAttributes = new { style = "font-size:0.5vw;height:1.2vw;width:10vw;" } })
                         </div>
-                        <div class="form-group" style="text-align:left;font-size:0.5vw;">
+                        <div class="form-group text-left">
                             <label class="d-block" style="font-size:0.5vw;"><b>Splash Bild</b></label>
                             @Html.HiddenFor(model => model.StartPage_ImgContents[4].ImgSrc)
-                            <img class="d-block" style="border:1px solid lightgray;" src=@(Model.StartPage_ImgContents[4].ImgSrc) height="140" width="180" asp-append-version="true" />
-                            @Html.EditorFor(model => model.StartPage_ImgContents[4].File)
+                            <img class="d-block" style="border:1px solid lightgray;" src=@Html.DisplayTextFor(model => model.StartPage_ImgContents[4].ImgSrc) height="140" width="240" asp-append-version="true" />
+                            @Html.HiddenFor(model => model.StartPage_ImgContents[4].File)
+                            @Html.EditorFor(model => model.StartPage_ImgContents[4].File, new { HtmlAttributes = new { style = "font-size:0.5vw;height:1.2vw;width:10vw;"} })
                         </div>
                         <div class="row mw-100 mh-100">
                             <div class="col-6 center">
                                 <div class="form-group text-left">
                                     <label class="d-block" style="text-align:left;font-size:0.5vw;"><b>Länk Text: </b></label>
-                                    <input asp-for="StartPage_TextContents[9].TextContent" class="form-control" style="font-size:0.6vw;width:10vw;height:1.2vw;text-align:center;border:1px solid lightgray;">
-                                    <span asp-validation-for="StartPage_TextContents[9].TextContent" class="text-danger"></span>
+                                    @Html.HiddenFor(model => model.StartPage_TextContents[9].TextContent)
+                                    @Html.EditorFor(model => model.StartPage_TextContents[9].TextContent, new { HtmlAttributes = new { @class = "form-control", style = "font-size:0.5vw;width:11vw;height:1.2vw;border:1px solid lightgray;" } })
                                 </div>
                             </div>
                             <div class="col-6 center">
                                 <div class="form-group text-left;">
                                     <label class="d-block" style="text-align:left;font-size:0.5vw;"><b>Länkar till: </b></label>
-                                    <input asp-for="StartPage_Links[4].Url" class="form-control" style="font-size:0.6vw;width:10vw;height:1.2vw;text-align:center;border:1px solid lightgray;">
-                                    <span asp-validation-for="StartPage_Links[4].Url" class="text-danger"></span>
+                                    @Html.HiddenFor(model => model.StartPage_Links[4].Url)
+                                    @Html.EditorFor(model => model.StartPage_Links[4].Url, new { HtmlAttributes = new { @class = "form-control" , style = "font-size:0.5vw;width:11.5vw;height:1.2vw;border:1px solid lightgray;" } })
                                 </div>
                             </div>
                         </div>
