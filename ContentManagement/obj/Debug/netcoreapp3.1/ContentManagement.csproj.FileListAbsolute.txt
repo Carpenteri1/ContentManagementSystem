@@ -373,5 +373,5 @@ C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\bin\Deb
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\ContentManagement.csprojAssemblyReference.cache
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\UnderPage\Index.cshtml.g.cs
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Events\Index.cshtml.g.cs
-C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Events\Create.cshtml.g.cs
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Events\Edit.cshtml.g.cs
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagement\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Events\Create.cshtml.g.cs

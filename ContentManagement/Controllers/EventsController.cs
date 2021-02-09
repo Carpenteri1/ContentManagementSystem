@@ -1,4 +1,6 @@
 ﻿using ContentManagement.Data;
+using ContentManagement.HelperClasses;
+using ContentManagement.Models.EventsModel;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,6 +12,7 @@ namespace ContentManagement.Controllers
     public class EventsController : Controller
     {
         public readonly CMSDbContext context;
+        private const int IncreaseByOne = 1;
         public EventsController(CMSDbContext context)
         {
             this.context = context;
@@ -19,19 +22,6 @@ namespace ContentManagement.Controllers
             if(User.Identity.IsAuthenticated) 
             {
                 var events = context.Events.ToList();
-                var links = context.Events_Links.ToList();
-                foreach(var s in events)
-                {
-                    for(int i = 0; i < links.Count(); i++)
-                    {
-                        if (s.Id == links[i].EventModel.Id)
-                        {
-                            s.Links.Add(links[i]); 
-                        }
-                    }
-              
-                }
-
                 return View(events); 
             } 
             else
@@ -54,6 +44,36 @@ namespace ContentManagement.Controllers
 
         }
 
+        [HttpPost]
+        public IActionResult Create(EventModel postedEvent)
+        {
+            if (ModelState.IsValid)
+            {
+                var events = context.Events.ToList();
+                var links = context.Events_Links.ToList();
+
+                var user = context.Users.Where(item => item.UserName == User.Identity.Name).FirstOrDefault();
+
+                foreach (var s in postedEvent.Links)
+                {
+                    s.EventModel = postedEvent;
+                    s.User = user;
+                }
+                postedEvent.User = user;
+                context.Add(postedEvent);
+                context.SaveChanges();
+
+                return Redirect(nameof(Index));
+            }
+            else
+            {
+                return Redirect(nameof(Index));
+            }
+      
+
+        }
+
+
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -68,6 +88,19 @@ namespace ContentManagement.Controllers
             {
                 return Redirect("~/Login");
             }
+        }
+
+        public IActionResult Edit(EventModel eventModel)
+        {
+            var user = context.Users.Where(item => item.UserName == User.Identity.Name).FirstOrDefault();
+            EventPageHelper helper = new EventPageHelper(context);
+
+            if (helper.DoesAllEventsMatch(eventModel, user))
+            helper.Save();
+
+
+            return Redirect(nameof(Index));
+
         }
     }
 }
