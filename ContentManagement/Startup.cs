@@ -10,6 +10,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using ContentManagement.Data;
+using ContentManagement.UnderPageModels.PageModel;
+using ContentManagement.Models.Account;
+
 namespace ContetManagement
 {
     public class Startup

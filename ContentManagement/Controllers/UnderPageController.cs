@@ -10,6 +10,9 @@ using ContentManagement.Data;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ContentManagement.HelperClasses;
 using Microsoft.AspNetCore.Hosting;
+using System.Diagnostics;
+using ContentManagement.Models.Account;
+using Microsoft.EntityFrameworkCore;
 
 namespace ContentManagement.Controllers
 {
@@ -23,20 +26,6 @@ namespace ContentManagement.Controllers
         {
             this.context = context;
             this.host = host;
-        }
-
-        [HttpGet]
-        // GET: UnderPageController/Details/5
-        public ActionResult Details(int id)
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                return View();
-            }
-            else
-            {
-                return Redirect("~/Login");
-            }
         }
 
         [HttpGet]
@@ -125,7 +114,7 @@ namespace ContentManagement.Controllers
             }
             catch
             {
-                return View();
+                return Redirect(nameof(Index));
             }
         }
 
@@ -136,7 +125,7 @@ namespace ContentManagement.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 UnderPageHelper helper = new UnderPageHelper(context,host);
-                var page = helper.FetchUnderFromDB(new UnderPage(),id);
+                var page = helper.FetchUnderPageFromDB(new UnderPage(),id);
                 page.UnderPage_ImgContent = helper.FetchAllImgeContentFromDB(page,id);
                 page.UnderPage_TextContents = helper.FetchAllTextContentFromDB(page,id);
                 page.UnderPage_TitleContents = helper.FetchAllTitleContentFromDB(page,id);
@@ -189,12 +178,12 @@ namespace ContentManagement.Controllers
                 }
                 catch
                 {
-                    return View();
+                    return Redirect(nameof(Index));
                 }
             }
             else
             {
-                return View();
+                return Redirect(nameof(Index));
             }
          
         }
@@ -205,7 +194,22 @@ namespace ContentManagement.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return View();
+                UnderPageHelper controllerHelper = new UnderPageHelper(context, host);
+                var page = controllerHelper.FetchUnderPageFromDB(new UnderPage(),id);
+                page.UnderPage_ImgContent = controllerHelper.FetchAllImgeContentFromDB(page, id);
+                page.UnderPage_TextContents = controllerHelper.FetchAllTextContentFromDB(page, id);
+                page.UnderPage_TitleContents = controllerHelper.FetchAllTitleContentFromDB(page, id);
+
+                if (page == null ||
+                page.UnderPage_ImgContent == null ||
+                page.UnderPage_TitleContents == null ||
+                page.UnderPage_TextContents == null)
+                {
+                    return NotFound();
+                }
+
+
+                return View(page);
             }
             else
             {
@@ -216,15 +220,21 @@ namespace ContentManagement.Controllers
         // POST: UnderPageController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(UnderPage underPage)
         {
             try
             {
+                UnderPageHelper controllerHelper = new UnderPageHelper(context, host);
+                if (controllerHelper.Remove(underPage))
+                {
+                    controllerHelper.SaveToDb();
+                }
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                Debug.WriteLine(e.Message);
+                return RedirectToAction(nameof(Index));
             }
         }
     }

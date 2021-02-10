@@ -3,6 +3,7 @@ using ContentManagement.Models.Account;
 using ContentManagement.Models.EventsModel;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -35,6 +36,26 @@ namespace ContentManagement.HelperClasses
             }
             return false;
         }
+
+        public bool Remove(EventModel eventModel)
+        {
+            eventModel.Links = context.Events_Links.Where(item => item.EventModel.Id == eventModel.Id).ToList();
+
+            try
+            {
+                context.Attach(eventModel);
+                context.Attach(eventModel.Links[0]);
+                context.Remove(eventModel.Links[0]);
+                context.Remove(eventModel);
+            }
+            catch(Exception e)
+            {
+                Debug.WriteLine(e.Message);
+                return false;
+            }
+            return true;
+        }
+
         public void Save()
         {
             context.SaveChanges();

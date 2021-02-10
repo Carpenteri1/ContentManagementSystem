@@ -75,15 +75,8 @@ using ContentManagement.Models.EventsModel;
 #line default
 #line hidden
 #nullable disable
-#nullable restore
-#line 10 "C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\Views\_ViewImports.cshtml"
-using ContentManagement.Models.Adverts;
-
-#line default
-#line hidden
-#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"85e647396baa958816a3455d096b6b7c2a89c82d", @"/Views/Account/UserAccount.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"c49d5e46f1a0c571dceb20e95b298e66ca13a9e0", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"9acaf67ee4ce0b135a87aa9904fe83f3ab311542", @"/Views/_ViewImports.cshtml")]
     public class Views_Account_UserAccount : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<List<Users>>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("text-right"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -295,7 +288,7 @@ WriteAttributeValue("", 1086, Url.Action("Register"), 1086, 23, false);
 #line hidden
 #nullable disable
             WriteLiteral("                        <tr style=\"background-color:white;line-height:0.2vw;\">\r\n                            <td>\r\n                            </td>\r\n                            <td style=\"text-align:right;\">\r\n                                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "85e647396baa958816a3455d096b6b7c2a89c82d15194", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "85e647396baa958816a3455d096b6b7c2a89c82d14967", async() => {
                 WriteLiteral("<b>Ändra uppgifter</b>");
             }
             );

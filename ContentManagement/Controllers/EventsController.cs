@@ -4,6 +4,7 @@ using ContentManagement.Models.EventsModel;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -47,7 +48,7 @@ namespace ContentManagement.Controllers
         [HttpPost]
         public IActionResult Create(EventModel postedEvent)
         {
-            if (ModelState.IsValid)
+            try
             {
                 var events = context.Events.ToList();
                 var links = context.Events_Links.ToList();
@@ -62,14 +63,14 @@ namespace ContentManagement.Controllers
                 postedEvent.User = user;
                 context.Add(postedEvent);
                 context.SaveChanges();
-
-                return Redirect(nameof(Index));
             }
-            else
+            catch
             {
                 return Redirect(nameof(Index));
             }
-      
+                
+
+                return Redirect(nameof(Index));
 
         }
 
@@ -101,6 +102,40 @@ namespace ContentManagement.Controllers
 
             return Redirect(nameof(Index));
 
+        }
+
+        public IActionResult Delete(int id)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var events = context.Events.Where(item => item.Id == id).FirstOrDefault();
+                events.Links = context.Events_Links.Where(item => item.EventModel.Id == id).ToList();
+                return View(events);
+            }
+            else
+            {
+                return Redirect("~/Login");
+            }
+
+        }
+        [HttpPost]
+        public IActionResult Delete(EventModel eventModel)
+        {
+            EventPageHelper eventHelper = new EventPageHelper(context);
+            try
+            {
+                if (eventHelper.Remove(eventModel))
+                {
+                    eventHelper.Save();
+                }
+                
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+                return Redirect(nameof(Index));
+            }
+            return Redirect(nameof(Index));
         }
     }
 }

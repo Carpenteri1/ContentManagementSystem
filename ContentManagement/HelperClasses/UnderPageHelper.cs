@@ -1,9 +1,11 @@
 ﻿using ContentManagement.Data;
 using ContentManagement.Models.Account;
+using ContentManagement.StartPageModels.PageModel;
 using ContentManagement.UnderPageModels.PageModel;
 using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -104,6 +106,12 @@ namespace ContentManagement.HelperClasses
             }
         }
 
+        private UnderPage AddStartPageFk(UnderPage newPage)
+        {
+            newPage.StartPage = context.StartPages.FirstOrDefault();
+            return newPage;
+        }
+
         public UnderPage CreateNewPageData(UnderPage newPage, Users user, int dropdownValue)
         {
             var headercontent = context.HeaderContent.Where(header => header.Id == dropdownValue).First();
@@ -112,6 +120,7 @@ namespace ContentManagement.HelperClasses
             newPage = PopulateImageContent(newPage,user);
             newPage = PopulateTextContent(newPage,user);
             newPage = PopulateTitleContent(newPage,user);
+            newPage = AddStartPageFk(newPage);
 
 
              if (headercontent != null &&
@@ -251,7 +260,7 @@ namespace ContentManagement.HelperClasses
         }
 
 
-        public UnderPage FetchUnderFromDB(UnderPage page,int id)
+        public UnderPage FetchUnderPageFromDB(UnderPage page,int id)
         {
             return page = context
                 .UnderPages
@@ -284,7 +293,42 @@ namespace ContentManagement.HelperClasses
         }
         public void SaveToDb()
         {
+           
             context.SaveChanges();
+        }
+
+
+        public bool Remove(UnderPage item)
+        {
+            item.UnderPage_ImgContent[0] = context.UnderPages_imgcontents.Where(s => s.Id == item.UnderPage_ImgContent[0].Id).FirstOrDefault();
+            item.UnderPage_TextContents[0] = context.UnderPages_TextContents.Where(s => s.Id == item.UnderPage_TextContents[0].Id).FirstOrDefault();
+            item.UnderPage_TitleContents[0] = context.UnderPages_titlecontents.Where(s => s.Id == item.UnderPage_TitleContents[0].Id).FirstOrDefault();
+
+            item.UnderPage_TitleContents[0].UnderPage = item;
+            item.UnderPage_TextContents[0].UnderPage = item;
+            item.UnderPage_ImgContent[0].UnderPage = item;
+
+
+            try
+            {
+                context.Attach(item);
+                context.Attach(item.UnderPage_ImgContent[0]);
+                context.Attach(item.UnderPage_TextContents[0]);
+                context.Attach(item.UnderPage_TitleContents[0]);
+
+
+                context.Remove(item.UnderPage_ImgContent[0]);
+                context.Remove(item.UnderPage_TextContents[0]);
+                context.Remove(item.UnderPage_TitleContents[0]);
+                context.Remove(item);
+            }
+            catch(Exception e)
+            {
+                Debug.WriteLine(e.Message);
+                return false;;
+            }
+            return true;
+         
         }
 
     }

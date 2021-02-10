@@ -9,7 +9,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using ContentManagement.Models.EventsModel;
-using ContentManagement.Models.Adverts;
 
 namespace ContentManagement.Models.Account
 {
@@ -73,7 +72,6 @@ namespace ContentManagement.Models.Account
         public List<UnderPage_TextContents> UnderPage_TextContents { get; set; }
         public List<UnderPage_TitleContents> UnderPage_Titles { get; set; }
 
-        public List<AdvertsModel> Adverts { get; set; }
         public List<EventModel> Events { get; set; }
         public List<EventLinkModel> EventLinks { get; set; }
      }
