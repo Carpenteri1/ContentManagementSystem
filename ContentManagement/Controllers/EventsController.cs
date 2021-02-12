@@ -59,8 +59,11 @@ namespace ContentManagement.Controllers
                 {
                     s.EventModel = postedEvent;
                     s.User = user;
+                    s.EventModel = s.EventModel;
                 }
                 postedEvent.User = user;
+                
+
                 context.Add(postedEvent);
                 context.SaveChanges();
             }
@@ -82,7 +85,9 @@ namespace ContentManagement.Controllers
             {
                 var Event = context.Events.Where(item => item.Id == id).FirstOrDefault();
                 var links = context.Events_Links.Where(item => item.EventModel.Id == id).ToList();
-                    Event.Links = links;
+                    Event.Links = links;    
+
+
                 return View(Event);
             }
             else
@@ -91,13 +96,18 @@ namespace ContentManagement.Controllers
             }
         }
 
+        [HttpPost]
         public IActionResult Edit(EventModel eventModel)
         {
-            var user = context.Users.Where(item => item.UserName == User.Identity.Name).FirstOrDefault();
-            EventPageHelper helper = new EventPageHelper(context);
+         
+            EventControllerHelper eventControllerHelper = new EventControllerHelper(context);
+            var user = eventControllerHelper.GetUserByName(User.Identity.Name);
 
-            if (helper.DoesAllEventsMatch(eventModel, user))
-            helper.Save();
+            if (!eventControllerHelper.DoesAllEventsMatch(eventModel, user))
+                eventControllerHelper.Save();
+
+            if (!eventControllerHelper.DoesAllEventsLinksMatch(eventModel, user))
+                eventControllerHelper.Save();
 
 
             return Redirect(nameof(Index));
@@ -121,7 +131,7 @@ namespace ContentManagement.Controllers
         [HttpPost]
         public IActionResult Delete(EventModel eventModel)
         {
-            EventPageHelper eventHelper = new EventPageHelper(context);
+            EventControllerHelper eventHelper = new EventControllerHelper(context);
             try
             {
                 if (eventHelper.Remove(eventModel))

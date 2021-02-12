@@ -15,6 +15,8 @@ namespace ContentManagement.UnderPageModels.PageModel
         public int Id { get; set; }
         public string LinkTitle { get; set; }
         public DateTime? Edited { get; set; }
+
+        public bool ShowEventModul { get; set; }
         public List<UnderPage_ImgContents> UnderPage_ImgContent { get; set; }
         public List<UnderPage_TextContents> UnderPage_TextContents { get; set; }
         public List<UnderPage_TitleContents> UnderPage_TitleContents { get; set; }

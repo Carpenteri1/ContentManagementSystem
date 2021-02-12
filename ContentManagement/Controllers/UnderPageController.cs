@@ -50,10 +50,9 @@ namespace ContentManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(UnderPage newPage,string selecterDropDownValue)
         {
-            if (ModelState.IsValid && 
-                newPage.LinkTitle != null)
+            if (newPage.LinkTitle != null)
             {
-                UnderPageHelper controllerHelper = new UnderPageHelper(context,host);
+                UnderPageControllerHelper controllerHelper = new UnderPageControllerHelper(context,host);
                 var user = context.Users.Where(user => user.UserName == User.Identity.Name).FirstOrDefault();
                 try
                 {
@@ -101,7 +100,6 @@ namespace ContentManagement.Controllers
         {
             try
             {
-
                 List<HeaderContent> headerContent = context.HeaderContent.ToList();
                 ViewData["HeaderTheme"] = new SelectList(headerContent, "Id", "HeaderTheme");
 
@@ -124,7 +122,8 @@ namespace ContentManagement.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                UnderPageHelper helper = new UnderPageHelper(context,host);
+
+                UnderPageControllerHelper helper = new UnderPageControllerHelper(context,host);
                 var page = helper.FetchUnderPageFromDB(new UnderPage(),id);
                 page.UnderPage_ImgContent = helper.FetchAllImgeContentFromDB(page,id);
                 page.UnderPage_TextContents = helper.FetchAllTextContentFromDB(page,id);
@@ -154,30 +153,25 @@ namespace ContentManagement.Controllers
         {
             if (ModelState.IsValid)
             {
-                UnderPageHelper controllerHelper = new UnderPageHelper(context, host);
+                UnderPageControllerHelper controllerHelper = new UnderPageControllerHelper(context, host);
                 var user = context.Users.Where(item => item.UserName == User.Identity.Name).FirstOrDefault();
                 try
                 {
-                    if (controllerHelper.DoesAllImagesMatch(underPage, user))
-                    {
+
+                    if (!controllerHelper.DoesAllImagesMatch(underPage, user))
                         controllerHelper.SaveToDb();
-                    }
-                    if (controllerHelper.DoesAllTextsMatch(underPage, user))
-                    {
+                    if(!controllerHelper.DoesAllTextsMatch(underPage,user))
                         controllerHelper.SaveToDb();
-                    }
-                    if (controllerHelper.DoesAllTitlesMatch(underPage, user))
-                    {
+                    if (!controllerHelper.DoesAllTitlesMatch(underPage, user))
                         controllerHelper.SaveToDb();
-                    }
-                    if (controllerHelper.DoesAllUnderPageLinkTitleMatch(underPage, user))
-                    {
+                    if(!controllerHelper.DoesAllUnderPageLinkTitleMatch(underPage,user))
                         controllerHelper.SaveToDb();
-                    }
+
                     return RedirectToAction("Edit", new { id = underPage.Id }); 
                 }
-                catch
+                catch(Exception e)
                 {
+                    Debug.WriteLine(e.Message);
                     return Redirect(nameof(Index));
                 }
             }
@@ -194,7 +188,8 @@ namespace ContentManagement.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                UnderPageHelper controllerHelper = new UnderPageHelper(context, host);
+
+                UnderPageControllerHelper controllerHelper = new UnderPageControllerHelper(context, host);
                 var page = controllerHelper.FetchUnderPageFromDB(new UnderPage(),id);
                 page.UnderPage_ImgContent = controllerHelper.FetchAllImgeContentFromDB(page, id);
                 page.UnderPage_TextContents = controllerHelper.FetchAllTextContentFromDB(page, id);
@@ -224,7 +219,7 @@ namespace ContentManagement.Controllers
         {
             try
             {
-                UnderPageHelper controllerHelper = new UnderPageHelper(context, host);
+                UnderPageControllerHelper controllerHelper = new UnderPageControllerHelper(context, host);
                 if (controllerHelper.Remove(underPage))
                 {
                     controllerHelper.SaveToDb();

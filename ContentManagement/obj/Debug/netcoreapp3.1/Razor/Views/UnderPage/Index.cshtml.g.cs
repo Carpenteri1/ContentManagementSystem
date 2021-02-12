@@ -75,8 +75,15 @@ using ContentManagement.Models.EventsModel;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 10 "C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\Views\_ViewImports.cshtml"
+using ContentManagement.Models.Adverts;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"29a9c6f636c35e9a6a9b805f2a0acf6c2728a16e", @"/Views/UnderPage/Index.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"9acaf67ee4ce0b135a87aa9904fe83f3ab311542", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"2035810ca1a686db96ecd322e943ae5313eb8479", @"/Views/_ViewImports.cshtml")]
     public class Views_UnderPage_Index : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<List<UnderPage>>
     {
         #pragma warning disable 1998

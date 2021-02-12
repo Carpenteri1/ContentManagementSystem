@@ -9,6 +9,19 @@ namespace ContentManagement.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "AdvertTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    TypeOfAd = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AdvertTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "HeaderContent",
                 columns: table => new
                 {
@@ -54,13 +67,44 @@ namespace ContentManagement.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Adverts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    LinkTitle = table.Column<string>(nullable: true),
+                    LinkTo = table.Column<string>(nullable: true),
+                    ImgUrl = table.Column<string>(nullable: true),
+                    UserId = table.Column<int>(nullable: true),
+                    TypeOfAddId = table.Column<int>(nullable: true),
+                    Uploaded = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Adverts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Adverts_AdvertTypes_TypeOfAddId",
+                        column: x => x.TypeOfAddId,
+                        principalTable: "AdvertTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Adverts_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Events",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    EventTitle = table.Column<string>(nullable: true),
-                    EventTextContent = table.Column<string>(nullable: true),
+                    EventTitle = table.Column<string>(nullable: false),
+                    EventTextContent = table.Column<string>(nullable: false),
+                    BodyText = table.Column<string>(nullable: false),
                     UserId = table.Column<int>(nullable: true),
                     Edited = table.Column<DateTime>(nullable: true),
                     EventStart = table.Column<DateTime>(nullable: false),
@@ -199,6 +243,7 @@ namespace ContentManagement.Migrations
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     LinkTitle = table.Column<string>(nullable: true),
                     Edited = table.Column<DateTime>(nullable: true),
+                    ShowEventModul = table.Column<bool>(nullable: false),
                     UserId = table.Column<int>(nullable: true),
                     HeaderContentId = table.Column<int>(nullable: true),
                     StartPageId = table.Column<int>(nullable: true)
@@ -232,8 +277,9 @@ namespace ContentManagement.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    LinkTitle = table.Column<string>(nullable: true),
-                    Url = table.Column<string>(nullable: true),
+                    LinkTitle = table.Column<string>(nullable: false),
+                    Url = table.Column<string>(nullable: false),
+                    UserId = table.Column<int>(nullable: true),
                     EventModelId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -243,6 +289,12 @@ namespace ContentManagement.Migrations
                         name: "FK_Events_Links_Events_EventModelId",
                         column: x => x.EventModelId,
                         principalTable: "Events",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Events_Links_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -334,6 +386,16 @@ namespace ContentManagement.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Adverts_TypeOfAddId",
+                table: "Adverts",
+                column: "TypeOfAddId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Adverts_UserId",
+                table: "Adverts",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Events_UserId",
                 table: "Events",
                 column: "UserId");
@@ -342,6 +404,11 @@ namespace ContentManagement.Migrations
                 name: "IX_Events_Links_EventModelId",
                 table: "Events_Links",
                 column: "EventModelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Events_Links_UserId",
+                table: "Events_Links",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StartPage_ImgContents_StartPageId",
@@ -432,6 +499,9 @@ namespace ContentManagement.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Adverts");
+
+            migrationBuilder.DropTable(
                 name: "Events_Links");
 
             migrationBuilder.DropTable(
@@ -454,6 +524,9 @@ namespace ContentManagement.Migrations
 
             migrationBuilder.DropTable(
                 name: "UnderPages_titlecontents");
+
+            migrationBuilder.DropTable(
+                name: "AdvertTypes");
 
             migrationBuilder.DropTable(
                 name: "Events");

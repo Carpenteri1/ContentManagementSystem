@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ContentManagement.Migrations
 {
     [DbContext(typeof(CMSDbContext))]
-    [Migration("20210209093003_Initlize")]
+    [Migration("20210211151641_Initlize")]
     partial class Initlize
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -73,6 +73,53 @@ namespace ContentManagement.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("ContentManagement.Models.Adverts.AdvertType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("TypeOfAd")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AdvertTypes");
+                });
+
+            modelBuilder.Entity("ContentManagement.Models.Adverts.AdvertsModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImgUrl")
+                        .HasColumnType("text");
+
+                    b.Property<string>("LinkTitle")
+                        .HasColumnType("text");
+
+                    b.Property<string>("LinkTo")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("TypeOfAddId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Uploaded")
+                        .HasColumnType("datetime");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TypeOfAddId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Adverts");
+                });
+
             modelBuilder.Entity("ContentManagement.Models.EventsModel.EventLinkModel", b =>
                 {
                     b.Property<int>("Id")
@@ -83,14 +130,21 @@ namespace ContentManagement.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("LinkTitle")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Url")
+                        .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("EventModelId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Events_Links");
                 });
@@ -100,6 +154,10 @@ namespace ContentManagement.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<string>("BodyText")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("Edited")
                         .HasColumnType("datetime");
@@ -111,9 +169,11 @@ namespace ContentManagement.Migrations
                         .HasColumnType("datetime");
 
                     b.Property<string>("EventTextContent")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("EventTitle")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int?>("UserId")
@@ -266,6 +326,9 @@ namespace ContentManagement.Migrations
                     b.Property<string>("LinkTitle")
                         .HasColumnType("text");
 
+                    b.Property<bool>("ShowEventModul")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<int?>("StartPageId")
                         .HasColumnType("int");
 
@@ -370,17 +433,32 @@ namespace ContentManagement.Migrations
                     b.ToTable("UnderPages_titlecontents");
                 });
 
+            modelBuilder.Entity("ContentManagement.Models.Adverts.AdvertsModel", b =>
+                {
+                    b.HasOne("ContentManagement.Models.Adverts.AdvertType", "TypeOfAdd")
+                        .WithMany("AdvertsModel")
+                        .HasForeignKey("TypeOfAddId");
+
+                    b.HasOne("ContentManagement.Models.Account.Users", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("ContentManagement.Models.EventsModel.EventLinkModel", b =>
                 {
                     b.HasOne("ContentManagement.Models.EventsModel.EventModel", "EventModel")
                         .WithMany("Links")
                         .HasForeignKey("EventModelId");
+
+                    b.HasOne("ContentManagement.Models.Account.Users", "User")
+                        .WithMany("EventLinks")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("ContentManagement.Models.EventsModel.EventModel", b =>
                 {
                     b.HasOne("ContentManagement.Models.Account.Users", "User")
-                        .WithMany()
+                        .WithMany("Events")
                         .HasForeignKey("UserId");
                 });
 

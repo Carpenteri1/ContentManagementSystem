@@ -1,4 +1,5 @@
 ﻿using ContentManagement.Data;
+using ContentManagement.Data.Services;
 using ContentManagement.Models.Account;
 using ContentManagement.StartPageModels.PageModel;
 using ContentManagement.UnderPageModels.PageModel;
@@ -12,12 +13,13 @@ using System.Threading.Tasks;
 
 namespace ContentManagement.HelperClasses
 {
-    public class UnderPageHelper
+    public class UnderPageControllerHelper
     {
         private readonly CMSDbContext context;
         private readonly IWebHostEnvironment host;
         private const int PlusOne = 1;
-        public UnderPageHelper(CMSDbContext context,IWebHostEnvironment host)
+        private const string ToFolder = "/Upload/UnderPages/Images/";
+        public UnderPageControllerHelper(CMSDbContext context,IWebHostEnvironment host)
         {
             this.context = context;
             this.host = host;
@@ -25,26 +27,13 @@ namespace ContentManagement.HelperClasses
 
         private UnderPage PopulateImageContent(UnderPage newPage,Users user)
         {
-            if (newPage.UnderPage_ImgContent[0].File == null)
-            {
-                newPage.UnderPage_ImgContent[0] = new UnderPage_ImgContents
-                {
-                    ImgSrc = string.Empty,
-                    UnderPage = newPage,
-                    Uploaded = DateTime.Now,
-                    User = user
-                };
+            FileManager manager = new FileManager(context,host);
+            newPage.UnderPage_ImgContent[0].ImgSrc = manager.CopyToRootFolder(newPage.UnderPage_ImgContent[0].File, ToFolder);
+            newPage.UnderPage_ImgContent[0].UnderPage = newPage;
+            newPage.UnderPage_ImgContent[0].Uploaded = DateTime.Now;
+            newPage.UnderPage_ImgContent[0].User = user;
 
-                return newPage;
-            }
-            else
-            {
-                newPage.UnderPage_ImgContent[0] = CopyToRootFolder(newPage.UnderPage_ImgContent[0]);
-                newPage.UnderPage_ImgContent[0].User = user;
-                newPage.UnderPage_ImgContent[0].Uploaded = DateTime.Now;
-
-                return newPage;
-            }
+            return newPage;
         }
 
         private UnderPage PopulateTextContent(UnderPage newPage, Users user)
@@ -140,28 +129,23 @@ namespace ContentManagement.HelperClasses
 
         public bool DoesAllTextsMatch(UnderPage Page, Users users)
         {
-            var DbTexts = context.UnderPages_TextContents.Where(underpage => underpage.Id == Page.Id).FirstOrDefault();
+            var DbTexts = context.UnderPages_TextContents.Where(item  => item.UnderPage.Id  == Page.Id).FirstOrDefault();
             if (DbTexts != null)
             {
-                DbTexts.UnderPage = Page;
-                if (DbTexts.UnderPage.Id == Page.Id )
+                if (Page.UnderPage_TextContents[0].TextContent != null)
                 {
                     if (DbTexts.TextContent != Page.UnderPage_TextContents[0].TextContent)//if they dont match, save new content
                     {
-                        if(Page.UnderPage_TextContents[0].TextContent != null)
-                        {
-                            DbTexts.TextContent = Page.UnderPage_TextContents[0].TextContent.ToString();
+                     
+                            DbTexts.TextContent = Page.UnderPage_TextContents[0].TextContent;
                             DbTexts.Edited = DateTime.Now;
-                            DbTexts.User = users;
-                            DbTexts.UnderPage = Page;
                             context.Update(DbTexts);
-                            return true;
+                            return false;
                         }
                     }
-                }
-                
+              
             }
-            return false;
+            return true;
         }
 
         public bool DoesAllUnderPageLinkTitleMatch(UnderPage Page, Users users)
@@ -169,58 +153,59 @@ namespace ContentManagement.HelperClasses
             var DbLinkTile = context.UnderPages.Where(underpage => underpage.Id == Page.Id).FirstOrDefault();
             if (DbLinkTile != null)//if they dont match, save new content
             {
-                if (DbLinkTile.LinkTitle != Page.LinkTitle)
+                if (DbLinkTile.LinkTitle != null)
                 {
-                    if (DbLinkTile.LinkTitle != null)
+                    if (DbLinkTile.LinkTitle != Page.LinkTitle)
                     {
+                   
                         DbLinkTile.LinkTitle = Page.LinkTitle.ToString();
-                        DbLinkTile.User = users;
                         DbLinkTile.Edited = DateTime.Now;
                         context.Update(DbLinkTile);
-                        return true;
+                        return false;
                     }
 
                 }
             }
-            return false;
+            return true;
         }
 
         public bool DoesAllTitlesMatch(UnderPage Page, Users user)
         {
-            var DbTitle = context.UnderPages_titlecontents.Where(underpage => underpage.Id == Page.Id).FirstOrDefault();
+            var DbTitle = context.UnderPages_titlecontents.Where(item => item.UnderPage.Id == Page.Id).FirstOrDefault();
 
             if (DbTitle != null)//if they dont match, save new content
             {
-                DbTitle.UnderPage = Page;
                 if (DbTitle.TextContent != Page.UnderPage_TitleContents[0].TextContent)//if they dont match, save new content
                 {
                     if (Page.UnderPage_TitleContents[0].TextContent != null)
                     {
                         DbTitle.TextContent = Page.UnderPage_TitleContents[0].TextContent.ToString();
                         DbTitle.Edited = DateTime.Now;
-                        DbTitle.User = user;
-                        DbTitle.UnderPage = Page;
                         context.Update(DbTitle);
-                        return true;
+                        return false;
                     }
 
 
                 }
             }
 
-            return false;
+            return true;
         }
 
         public bool DoesAllImagesMatch(UnderPage Page, Users user)
         {
-            var DbImages = context.UnderPages_imgcontents.Where(underpage => underpage.Id == Page.Id).FirstOrDefault();
-       
+
+            var DbImages = context
+                .UnderPages_imgcontents
+                .Where(item => item.UnderPage.Id == Page.Id)
+                .FirstOrDefault();
+        
             if (DbImages != null)
             {
-                DbImages.UnderPage = Page;
                 if (Page.UnderPage_ImgContent[0].File != null)
                 {
-                    Page.UnderPage_ImgContent[0] = CopyToRootFolder(Page.UnderPage_ImgContent[0]);
+                    FileManager manages = new FileManager(context,host);
+                    Page.UnderPage_ImgContent[0].ImgSrc = manages.CopyToRootFolder(Page.UnderPage_ImgContent[0].File,ToFolder);
 
                     if (!Page.UnderPage_ImgContent[0].ImgSrc.Equals(DbImages.ImgSrc))
                     {
@@ -228,38 +213,14 @@ namespace ContentManagement.HelperClasses
                         DbImages.User = user;
                         DbImages.Uploaded = DateTime.Now;
                         context.Update(DbImages);
-                        return true;
+                        return false;
                     }
                 }
             }
-            return false;
-        }
-        private UnderPage_ImgContents CopyToRootFolder(UnderPage_ImgContents imgContents)
-        {
-            if (imgContents.File != null)
-            {
-
-                string rootPath = host.WebRootPath;
-                string fileName = Path.GetFileNameWithoutExtension(imgContents.File.FileName);
-                string extension = Path.GetExtension(imgContents.File.FileName);
-                string path = Path.Combine(rootPath + "/Upload/UnderPages/Images/" + fileName + extension);
-                string imgUrl = "/Upload/UnderPages/Images/" + fileName + extension;
-
-                if (!File.Exists(path))
-                {
-                    using (var fileStream = new FileStream(path, FileMode.Create))
-                    {
-                        imgContents.File.CopyTo(fileStream);
-                    }
-                }
-                imgContents.ImgSrc = imgUrl;
-                return imgContents;
-            }
-            return imgContents;
-
+            return true;
         }
 
-
+ 
         public UnderPage FetchUnderPageFromDB(UnderPage page,int id)
         {
             return page = context

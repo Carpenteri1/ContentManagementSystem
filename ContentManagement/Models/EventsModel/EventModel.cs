@@ -15,7 +15,12 @@ namespace ContentManagement.Models.EventsModel
         public string EventTitle { get; set; }
         [Display(Name = "Text: ")]
         [Required(ErrorMessage = "Måste innehålla informations text")]
-        public string EventTextContent { get; set; }        
+        public string EventTextContent { get; set; }
+
+        [Display(Name = "Bröd Text: ")]
+        [Required(ErrorMessage = "Måste innehålla bröd text")]
+        public string BodyText { get; set; }
+
         public Users User { get; set; }
         public DateTime? Edited { get; set; }
         [DataType(DataType.Date)]

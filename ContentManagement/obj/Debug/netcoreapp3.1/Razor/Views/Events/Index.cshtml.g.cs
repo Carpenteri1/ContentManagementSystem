@@ -75,8 +75,15 @@ using ContentManagement.Models.EventsModel;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 10 "C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\Views\_ViewImports.cshtml"
+using ContentManagement.Models.Adverts;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"d02dc1207e7c74e6ec00bc12f162f631c1b13c57", @"/Views/Events/Index.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"9acaf67ee4ce0b135a87aa9904fe83f3ab311542", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"2035810ca1a686db96ecd322e943ae5313eb8479", @"/Views/_ViewImports.cshtml")]
     public class Views_Events_Index : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<List<EventModel>>
     {
         #pragma warning disable 1998
