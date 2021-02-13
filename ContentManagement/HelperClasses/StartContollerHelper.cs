@@ -12,12 +12,12 @@ using Microsoft.AspNetCore.Http;
 
 namespace ContentManagement.ControllerHelperClasses
 {
-    public class StartPageHelper
+    public class StartContollerHelper
     {
         private readonly CMSDbContext context;
         private readonly IWebHostEnvironment host;
 
-        public StartPageHelper(CMSDbContext context,IWebHostEnvironment host)
+        public StartContollerHelper(CMSDbContext context,IWebHostEnvironment host)
         {
             this.context = context;
             this.host = host;

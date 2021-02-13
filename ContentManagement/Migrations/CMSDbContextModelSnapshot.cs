@@ -71,6 +71,59 @@ namespace ContentManagement.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("ContentManagement.Models.Adverts.AdvertType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("TypeOfAd")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AdvertTypes");
+                });
+
+            modelBuilder.Entity("ContentManagement.Models.Adverts.AdvertsModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImgUrl")
+                        .HasColumnType("text");
+
+                    b.Property<string>("LinkTitle")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("LinkTo")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int?>("TypeOfAddId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Uploaded")
+                        .HasColumnType("datetime");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("isActive")
+                        .HasColumnType("tinyint(1)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TypeOfAddId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Adverts");
+                });
+
             modelBuilder.Entity("ContentManagement.Models.EventsModel.EventLinkModel", b =>
                 {
                     b.Property<int>("Id")
@@ -105,6 +158,10 @@ namespace ContentManagement.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<string>("BodyText")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("Edited")
                         .HasColumnType("datetime");
@@ -273,6 +330,9 @@ namespace ContentManagement.Migrations
                     b.Property<string>("LinkTitle")
                         .HasColumnType("text");
 
+                    b.Property<bool>("ShowEventModul")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<int?>("StartPageId")
                         .HasColumnType("int");
 
@@ -375,6 +435,17 @@ namespace ContentManagement.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UnderPages_titlecontents");
+                });
+
+            modelBuilder.Entity("ContentManagement.Models.Adverts.AdvertsModel", b =>
+                {
+                    b.HasOne("ContentManagement.Models.Adverts.AdvertType", "TypeOfAdd")
+                        .WithMany("AdvertsModel")
+                        .HasForeignKey("TypeOfAddId");
+
+                    b.HasOne("ContentManagement.Models.Account.Users", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("ContentManagement.Models.EventsModel.EventLinkModel", b =>

@@ -29,7 +29,7 @@ namespace ContentManagement.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                StartPageHelper controllerHelper = new StartPageHelper(context,host);
+                StartContollerHelper controllerHelper = new StartContollerHelper(context,host);
                 var startPage = controllerHelper.FetchStartPageFromDB();
                 startPage.StartPage_TitleContents = controllerHelper.FetchAllTitleContentFromDB(startPage);
                 startPage.StartPage_TextContents = controllerHelper.FetchAllTextContentFromDB(startPage);
@@ -64,7 +64,7 @@ namespace ContentManagement.Controllers
             {
                 if (Page != null)
                 {
-                    StartPageHelper controllerHelper = new StartPageHelper(context, host);
+                    StartContollerHelper controllerHelper = new StartContollerHelper(context, host);
                     Page.Id = context.StartPages.FirstOrDefault().Id;
                     var user = context.Users.Where(item =>item.UserName == User.Identity.Name).FirstOrDefault();
 

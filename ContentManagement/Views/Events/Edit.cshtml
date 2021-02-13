@@ -23,6 +23,11 @@
                     <textarea asp-for="EventTextContent" class="form-control" style="width:18vw;height:2.8vw;resize:none;font-size:0.5vw;"></textarea>
                     <span asp-validation-for="EventTextContent" class="text-danger"></span>
                 </div>
+                <div class="form-group p-0">
+                    <label asp-for="BodyText" class="control-label" style="font-size: 0.5vw; width: 11vw; height: 1.2vw;"></label>
+                    <textarea asp-for="BodyText" class="form-control" style="width:18vw;height:2.8vw;resize:none;font-size:0.5vw;" id="editor1"></textarea>
+                    <span asp-validation-for="BodyText" class="text-danger"></span>
+                </div>
                 <div class="row mw-100 mh-100 p-0">
                     <div class="col-6 center">
                         <div class="form-group text-left">
@@ -30,7 +35,6 @@
                             @Html.HiddenFor(model => model.Links[0])
                             @Html.EditorFor(model => model.Links[0].LinkTitle, new { HtmlAttributes = new { @class = "form-control", style = "font-size:0.5vw;width:11vw;height:1.2vw;border:1px solid lightgray;" } })
                             <span asp-validation-for="Links[0].LinkTitle" class="text-danger"></span>
-
                         </div>
                     </div>
                     <div class="col-6 center">
