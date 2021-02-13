@@ -158,22 +158,48 @@ namespace ContentManagement.Controllers
         // GET: AdvertsController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                AdvertControllerHelper advertControllerHelper = new AdvertControllerHelper(context,host);
+                var advert = advertControllerHelper.GetAdvertById(id);
+          
+                if (advert != null)
+                {
+                    return View(advert);
+                }
+                else
+                {
+                    return Redirect(nameof(Index));
+                }
+           
+            }
+            else
+            {
+                return Redirect("~/login");
+            }
+ 
         }
 
         // POST: AdvertsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(AdvertsModel advert)
         {
+            AdvertControllerHelper advertControllerHelper = new AdvertControllerHelper(context,host);
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (advertControllerHelper.Remove(advert))
+                {
+                    advertControllerHelper.SaveToDb();
+                }
+                return Redirect(nameof(Index));
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                Debug.WriteLine(e.Message);
+                return Redirect(nameof(Index));
             }
+            return Redirect(nameof(Index));
         }
     }
 }

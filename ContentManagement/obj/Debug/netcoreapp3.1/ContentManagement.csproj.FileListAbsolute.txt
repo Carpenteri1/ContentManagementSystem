@@ -580,3 +580,4 @@ C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\o
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Adverts\Index.cshtml.g.cs
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Adverts\Create.cshtml.g.cs
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Adverts\Edit.cshtml.g.cs
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Adverts\Delete.cshtml.g.cs

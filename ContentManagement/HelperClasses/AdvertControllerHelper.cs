@@ -5,6 +5,7 @@ using ContentManagement.Models.Adverts;
 using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -75,6 +76,11 @@ namespace ContentManagement.HelperClasses
         public List<AdvertsModel> GetAllAdverts()
         {
             return context.Adverts.ToList();
+        }
+
+        public AdvertType GetAdvertTypeById(int id)
+        {
+            return context.AdvertTypes.Where(item => item.AdvertsModel[0].Id == id).FirstOrDefault();
         }
 
 
@@ -186,6 +192,20 @@ namespace ContentManagement.HelperClasses
                 }
             }
             return match;
+        }
+
+        public bool Remove(AdvertsModel advert)
+        {
+            try
+            {
+                context.Remove(advert);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+                return false;
+            }
+            return true;
         }
     }
 }

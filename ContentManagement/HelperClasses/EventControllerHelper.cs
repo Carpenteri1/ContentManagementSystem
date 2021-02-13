@@ -137,9 +137,17 @@ namespace ContentManagement.HelperClasses
             return true;
         }
 
-        public void Save()
+        public bool SaveToDb()
         {
-            context.SaveChanges();
+            try
+            {
+                context.SaveChanges();
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

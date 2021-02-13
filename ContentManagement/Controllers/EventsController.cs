@@ -104,10 +104,10 @@ namespace ContentManagement.Controllers
             var user = eventControllerHelper.GetUserByName(User.Identity.Name);
 
             if (!eventControllerHelper.DoesAllEventsMatch(eventModel, user))
-                eventControllerHelper.Save();
+                eventControllerHelper.SaveToDb();
 
             if (!eventControllerHelper.DoesAllEventsLinksMatch(eventModel, user))
-                eventControllerHelper.Save();
+                eventControllerHelper.SaveToDb();
 
 
             return Redirect(nameof(Index));
@@ -120,6 +120,7 @@ namespace ContentManagement.Controllers
             {
                 var events = context.Events.Where(item => item.Id == id).FirstOrDefault();
                 events.Links = context.Events_Links.Where(item => item.EventModel.Id == id).ToList();
+
                 return View(events);
             }
             else
@@ -136,7 +137,7 @@ namespace ContentManagement.Controllers
             {
                 if (eventHelper.Remove(eventModel))
                 {
-                    eventHelper.Save();
+                    eventHelper.SaveToDb();
                 }
                 
             }
