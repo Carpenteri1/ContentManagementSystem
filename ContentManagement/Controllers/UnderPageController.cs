@@ -34,7 +34,8 @@ namespace ContentManagement.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                List<HeaderContent> headerContent = context.HeaderContent.ToList();
+                UnderPageControllerHelper controllerHelper = new UnderPageControllerHelper(context, host);
+                List<HeaderContent> headerContent = controllerHelper.GetAllHeadContent();
                 ViewData["HeaderTheme"] = new SelectList(headerContent, "Id", "HeaderTheme");
                 return View(new UnderPage());
             }
@@ -53,7 +54,7 @@ namespace ContentManagement.Controllers
             if (newPage.LinkTitle != null)
             {
                 UnderPageControllerHelper controllerHelper = new UnderPageControllerHelper(context,host);
-                var user = context.Users.Where(user => user.UserName == User.Identity.Name).FirstOrDefault();
+                var user = controllerHelper.GetUserByName(User.Identity.Name);
                 try
                 {
                     newPage = controllerHelper.CreateNewPageData(newPage, user, int.Parse(selecterDropDownValue));
@@ -81,10 +82,11 @@ namespace ContentManagement.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                List<HeaderContent> headerContent = context.HeaderContent.ToList();
+                UnderPageControllerHelper underPageControllerHelper = new UnderPageControllerHelper(context,host);
+                List<HeaderContent> headerContent = underPageControllerHelper.GetAllHeadContent();
                 ViewData["HeaderTheme"] = new SelectList(headerContent, "Id", "HeaderTheme");
+                var underPage = underPageControllerHelper.GetUnderPageByDropDownValue(int.Parse(DefaultDropDownValue));
 
-                var underPage = context.UnderPages.Where(s => s.HeaderContent.Id == int.Parse(DefaultDropDownValue)).ToList();
                 return View(underPage);
             }
             else
@@ -100,14 +102,10 @@ namespace ContentManagement.Controllers
         {
             try
             {
-                List<HeaderContent> headerContent = context.HeaderContent.ToList();
+                UnderPageControllerHelper underPageControllerHelper = new UnderPageControllerHelper(context, host);
+                List<HeaderContent> headerContent = underPageControllerHelper.GetAllHeadContent();
                 ViewData["HeaderTheme"] = new SelectList(headerContent, "Id", "HeaderTheme");
-
-                if (selecterDropDownValue == null)
-                {
-                    selecterDropDownValue = DefaultDropDownValue;
-                }
-                var underPage = context.UnderPages.Where(s => s.HeaderContent.Id == int.Parse(selecterDropDownValue)).ToList();
+                var underPage = underPageControllerHelper.GetUnderPageByDropDownValue(int.Parse(underPageControllerHelper.CheckDropDownValue(selecterDropDownValue)));
                 return View(underPage);
             }
             catch
@@ -123,19 +121,14 @@ namespace ContentManagement.Controllers
             if (User.Identity.IsAuthenticated)
             {
 
-                UnderPageControllerHelper helper = new UnderPageControllerHelper(context,host);
-                var page = helper.FetchUnderPageFromDB(new UnderPage(),id);
-                page.UnderPage_ImgContent = helper.FetchAllImgeContentFromDB(page,id);
-                page.UnderPage_TextContents = helper.FetchAllTextContentFromDB(page,id);
-                page.UnderPage_TitleContents = helper.FetchAllTitleContentFromDB(page,id);
+                UnderPageControllerHelper underPageControllerHelper = new UnderPageControllerHelper(context, host);
+                List<HeaderContent> headerContent = underPageControllerHelper.GetAllHeadContent();
+                ViewData["HeaderTheme"] = new SelectList(headerContent, "Id", "HeaderTheme");
 
-                if (page == null ||
-                   page.UnderPage_ImgContent == null ||
-                   page.UnderPage_TitleContents == null ||
-                   page.UnderPage_TextContents == null)
-                {
-                    return NotFound();
-                }
+                var page = underPageControllerHelper.GetUnderPageById(id);
+                page.UnderPage_ImgContent = underPageControllerHelper.GetImgeContentById(page.Id);
+                page.UnderPage_TextContents = underPageControllerHelper.GetTextContentById(page.Id);
+                page.UnderPage_TitleContents = underPageControllerHelper.GetTitleContentById(page.Id);
 
                 return View(page);
             }
@@ -149,37 +142,27 @@ namespace ContentManagement.Controllers
         // POST: UnderPageController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(UnderPage underPage)
+        public ActionResult Edit(UnderPage underPage, string selecterDropDownValue)
         {
-            if (ModelState.IsValid)
-            {
                 UnderPageControllerHelper controllerHelper = new UnderPageControllerHelper(context, host);
-                var user = context.Users.Where(item => item.UserName == User.Identity.Name).FirstOrDefault();
+                var user = controllerHelper.GetUserByName(User.Identity.Name);
+                List<HeaderContent> headerContent = controllerHelper.GetAllHeadContent();
+                ViewData["HeaderTheme"] = new SelectList(headerContent, "Id", "HeaderTheme");
+                underPage.HeaderContent = controllerHelper.GetHeaderContentByDropDownValue(int.Parse(controllerHelper.CheckDropDownValue(selecterDropDownValue)));
+
                 try
                 {
-
-                    if (!controllerHelper.DoesAllImagesMatch(underPage, user))
+                    if (!controllerHelper.DoesAllContentMatch(underPage, user))
+                    {
                         controllerHelper.SaveToDb();
-                    if(!controllerHelper.DoesAllTextsMatch(underPage,user))
-                        controllerHelper.SaveToDb();
-                    if (!controllerHelper.DoesAllTitlesMatch(underPage, user))
-                        controllerHelper.SaveToDb();
-                    if(!controllerHelper.DoesAllUnderPageLinkTitleMatch(underPage,user))
-                        controllerHelper.SaveToDb();
-
+                    }
                     return RedirectToAction("Edit", new { id = underPage.Id }); 
                 }
                 catch(Exception e)
                 {
                     Debug.WriteLine(e.Message);
                     return Redirect(nameof(Index));
-                }
-            }
-            else
-            {
-                return Redirect(nameof(Index));
-            }
-         
+                }        
         }
 
         [HttpGet]
@@ -190,19 +173,10 @@ namespace ContentManagement.Controllers
             {
 
                 UnderPageControllerHelper controllerHelper = new UnderPageControllerHelper(context, host);
-                var page = controllerHelper.FetchUnderPageFromDB(new UnderPage(),id);
-                page.UnderPage_ImgContent = controllerHelper.FetchAllImgeContentFromDB(page, id);
-                page.UnderPage_TextContents = controllerHelper.FetchAllTextContentFromDB(page, id);
-                page.UnderPage_TitleContents = controllerHelper.FetchAllTitleContentFromDB(page, id);
-
-                if (page == null ||
-                page.UnderPage_ImgContent == null ||
-                page.UnderPage_TitleContents == null ||
-                page.UnderPage_TextContents == null)
-                {
-                    return NotFound();
-                }
-
+                var page = controllerHelper.GetUnderPageById(id);
+                page.UnderPage_ImgContent = controllerHelper.GetImgeContentById(page.Id);
+                page.UnderPage_TextContents = controllerHelper.GetTextContentById(page.Id);
+                page.UnderPage_TitleContents = controllerHelper.GetTitleContentById(page.Id);
 
                 return View(page);
             }

@@ -1,7 +1,6 @@
-﻿@model ContentManagement.Models.Adverts.AdvertsModel
-
+﻿@model AdvertsModel
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = Model.LinkTitle;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="container">
@@ -9,9 +8,8 @@
         <div class="col-7">
             <div class="container text-center align-content-center">
                 @using (Html.BeginForm("Edit", "Adverts", FormMethod.Post,
-            new { enctype = "multipart/form-data" }))
+             new { enctype = "multipart/form-data" }))
                 {
-                    @Html.HiddenFor(model => model.Id)
                     <div style="height:0.8vw;"></div>
                     <div class="row p-0">
                         <h4>Redigera annons @Model.LinkTitle</h4>
@@ -21,34 +19,39 @@
                         <div class="form-group p-0 text-left" style="font-size:0.4vw;">
                             <div class="row">
                                 <div class="col-6">
-                                    <label class="d-block" style="font-size:0.5vw;"><b>Rubrik:</b></label>
-                                    <input asp-for="LinkTitle" class="control-label"/>
-                                    <span asp-validation-for="LinkTitle" class="text-danger"></span>
+                                    <label class="d-block" style="font-size:0.5vw;font-weight:bold;">Rubrik</label>
+                                    @Html.HiddenFor(model => model.Id)
+                                    @Html.EditorFor(model => model.LinkTitle, new { HtmlAttributes = new { @class = "form-control", style = "font-size:0.5vw;height:1.2vw;width:10vw;background-color:white;border:1px solid lightgray;" } })
                                 </div>
                                 <div class="col-6">
-                                    <label asp-for="LinkTo" class="control-label"></label>
-                                    <input asp-for="LinkTo" class="form-control" />
+                                    <label class="d-block" style="font-size:0.5vw;font-weight:bold;">Länkar till: </label>
+                                    <input asp-for="LinkTo" class="form-control" style="font-size:0.5vw;height:1.2vw;width:10.5vw;background-color:white;border:1px solid lightgray;">
+                                    <span asp-validation-for="LinkTo" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label asp-for="File" class="control-label"></label>
-                            <img class="d-block" src=@Html.DisplayTextFor(model => model.ImgUrl) alt="bilden kunde ej laddas" width="240" height="140" />
-                            <input asp-for="File"/>
+                        <div class="form-group p-0 ">
+                            <div class="row text-left">
+                                <div class="col-6 ">
+                                    <label>
+                                        <b style="font-size: 0.5vw;" class="d-block">Annonsen aktiv:</b>  @Html.CheckBoxFor(m => m.isActive)
+                                    </label>
+                                </div>
+                                <div class="col-6">
+                                    <label style=" width: 100%;">
+                                        <b class="d-block" style="font-size:0.5vw;margin-top:0.2vw;">Välj reklam typ:</b>
+                                        @Html.DropDownList("selecterDropDownValue", (SelectList)ViewData["TypeOfAd"], new { style = "width:3.8vw;height:1vw;font-size:0.5vw;", @onchange = "submitform();" })
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                         <div style="height:1.5vw;"></div>
-                        <div class="form-group form-check">
-                            <label class="form-check-label">
-                                <input class="form-check-input" asp-for="isActive" /> @Html.DisplayNameFor(model => model.isActive)
-                            </label>
-                        </div>
-                        <div style="height:3vw;"></div>
-                        <div class="form-group p-0 mw-100 mh-100" style="font-size:0.5vw;">
-                            @Html.HiddenFor(model => model.TypeOfAdd)
-                            <label style=" width: 100%; text-align: right;">
-                                <b class="d-block" style="font-size:0.5vw;margin-top:0.2vw;">Välj undermeny:</b>
-                                @Html.DropDownList("selecterDropDownValue", (SelectList)ViewData["TypeOfAd"], new { style = "width:3.8vw;height:1vw;font-size:0.5vw;", @onchange = "submitform();" })
-                            </label>
+                        <div class="form-group" style="text-align:left;font-size:0.5vw;">
+                            <label class="d-block" style="font-size:0.5vw;"><b>Splash bild</b></label>
+                            @Html.HiddenFor(model => model.ImgUrl)
+                            <img class="d-block" src=@Html.DisplayTextFor(model => model.ImgUrl) alt="bilden kunde ej laddas" width="140" height="80" />
+                            @Html.HiddenFor(model => model.File)
+                            @Html.EditorFor(model => model.File)
                         </div>
                     </div>
                     <div style="height:2.5vw;"></div>

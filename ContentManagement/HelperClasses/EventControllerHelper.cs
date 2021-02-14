@@ -69,6 +69,12 @@ namespace ContentManagement.HelperClasses
                         match = false;
                     }
                 }
+                if(DbEvent.IsPrivate != eventItem.IsPrivate)
+                {
+                    DbEvent.IsPrivate = eventItem.IsPrivate;
+                    context.Update(DbEvent);
+                    match = false;
+                }
                 if (!match)
                 {
                     DbEvent.Edited = DateTime.Now;

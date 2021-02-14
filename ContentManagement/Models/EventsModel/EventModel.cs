@@ -31,6 +31,7 @@ namespace ContentManagement.Models.EventsModel
         [Display(Name = "Eventet slutar: ")]
         [Required(ErrorMessage = "Eventet måste ha ett slut datum")]
         public DateTime EventEnds { get; set; }
+        public bool IsPrivate { get; set; }
 
     }
 }

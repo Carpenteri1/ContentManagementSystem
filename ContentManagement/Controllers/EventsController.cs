@@ -110,7 +110,7 @@ namespace ContentManagement.Controllers
                 eventControllerHelper.SaveToDb();
 
 
-            return Redirect(nameof(Index));
+            return RedirectToAction("Edit", new { id = eventModel.Id });
 
         }
 

@@ -108,6 +108,7 @@ namespace ContentManagement.Controllers
          
         }
 
+        [HttpGet]
         // GET: AdvertsController/Edit/5
         public ActionResult Edit(int id)
         {
@@ -128,7 +129,6 @@ namespace ContentManagement.Controllers
 
         // POST: AdvertsController/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Edit(AdvertsModel adverts, string selecterDropDownValue)
         {
             AdvertControllerHelper advertHelper = new AdvertControllerHelper(context, host);
@@ -144,9 +144,9 @@ namespace ContentManagement.Controllers
                     adverts.User = advertHelper.GetUser(User.Identity.Name);
                     advertHelper.SaveToDb();
                 }
-                   
-     
-                return RedirectToAction(nameof(Index));
+
+
+                return RedirectToAction("Edit", new { id = adverts.Id });
             }
             catch(Exception e )
             {

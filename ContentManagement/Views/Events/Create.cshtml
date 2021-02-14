@@ -8,56 +8,65 @@
 <div class="container">
     <div class="row">
         <div class="col-7">
-            <div style="height:1.5vw;"></div>
-            <h4>Skapa nytt event</h4>
-            <hr />
+
             @using (Html.BeginForm("Create", "Events", FormMethod.Post,
-     new { enctype = "multipart/form-data" }))
-            {
+  new { enctype = "multipart/form-data" }))
+            {<div style="height:1.5vw;"></div>
+                <h4>Skapa nytt event</h4>
+                <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label>
+                        <b style="font-size: 0.5vw;" class="d-block">Privat event:</b>  @Html.CheckBoxFor(m => m.IsPrivate)
+                    </label>
+                    <span asp-validation-for="IsPrivate" class="text-danger"></span>
+                </div>
                 <div class="form-group p-0">
                     <label asp-for="EventTitle" class="control-label" style="font-size: 0.5vw; width: 11vw; height: 1.2vw;"></label>
                     <input asp-for="EventTitle" class="form-control" style="font-size: 0.5vw; width: 16vw; height: 1.2vw; border: 1px solid lightgray;" />
                     <span asp-validation-for="EventTitle" class="text-danger"></span>
                 </div>
                 <div class="form-group p-0">
-                    <label asp-for="EventTextContent" class="control-label" style="font-size: 0.5vw; width: 11vw; height: 1.2vw;"></label>
+                    <label asp-for="EventTextContent" class="control-label" style="font-size: 0.5vw; width: 11vw; height: 1.2vw;font-weight:bold;"></label>
                     <textarea asp-for="EventTextContent" class="form-control" style="width:18vw;height:2.8vw;resize:none;font-size:0.5vw;"></textarea>
                     <span asp-validation-for="EventTextContent" class="text-danger"></span>
                 </div>
                 <div class="form-group p-0">
-                    <label asp-for="BodyText" class="control-label" style="font-size: 0.5vw; width: 11vw; height: 1.2vw;"></label>
-                    <textarea asp-for="BodyText" class="form-control" style="width:18vw;height:2.8vw;resize:none;font-size:0.5vw;" id="editor1"></textarea>
+                    <label asp-for="BodyText" class="control-label" style="font-size: 0.5vw; width: 11vw; height: 1.2vw;font-weight:bold;"></label>
+                    @Html.TextAreaFor(model => model.BodyText, new { id = "editor1", style = "text-align:left;font-size:0.5vw;height:25vw;" })
                     <span asp-validation-for="BodyText" class="text-danger"></span>
                 </div>
-                <div class="row mw-100 mh-100 p-0">
-                    <div class="col-6 center">
-                        <div class="form-group text-left">
-                            <label class="d-block" style="text-align:left;font-size:0.5vw;">Länk text: </label>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="control-label" style="font-size:0.5vw;font-weight:bold;">Länk text: </label>
                             @Html.HiddenFor(model => model.Links[0])
                             @Html.EditorFor(model => model.Links[0].LinkTitle, new { HtmlAttributes = new { @class = "form-control", style = "font-size:0.5vw;width:11vw;height:1.2vw;border:1px solid lightgray;" } })
                             <span asp-validation-for="Links[0].LinkTitle" class="text-danger"></span>
                         </div>
-                    </div>
-                    <div class="col-6 center">
-                        <div class="form-group text-left;">
-                            <label class="d-block" style="text-align:left;font-size:0.5vw;">Länkar till: </label>
+                        <div class="col-6 text-left align-content-start">
+                            <label class="control-label" style="font-size:0.5vw;font-weight:bold;">Länkar till: </label>
                             @Html.HiddenFor(model => model.Links[0])
-                            @Html.EditorFor(model => model.Links[0].Url, new { HtmlAttributes = new { @class = "form-control", style = "font-size:0.5vw;width:11.5vw;height:1.2vw;border:1px solid lightgray;" } })
+                            @Html.EditorFor(model => model.Links[0].Url, new { HtmlAttributes = new { @class = "form-control", style = "font-size:0.5vw;width:11vw;height:1.2vw;border:1px solid lightgray;" } })
                             <span asp-validation-for="Links[0].Url" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
-                <div class="form-group text-left p-0">
-                    <label asp-for="EventStart" class="control-label" style="font-size: 0.5vw; width: 11vw; height: 1.2vw;"></label>
-                    <input asp-for="EventStart" class="form-control" style="font-size: 0.5vw; width: 11vw; height: 1.2vw; border: 1px solid lightgray;" />
-                    <span asp-validation-for="EventStart" class="text-danger"></span>
-                </div>
-                <div class="form-group text-left p-0">
-                    <label asp-for="EventEnds" class="control-label" style="font-size: 0.5vw; width: 11vw; height: 1.2vw;"></label>
-                    <input asp-for="EventEnds" class="form-control" style="font-size: 0.5vw; width: 11vw; height: 1.2vw; border: 1px solid lightgray;" />
-                    <span asp-validation-for="EventEnds" class="text-danger"></span>
+                <div style="height:1vw;"></div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-6">
+                            <label asp-for="EventStart" class="control-label" style="font-size: 0.5vw; width: 11vw; height: 1.2vw;font-weight:bold;"></label>
+                            <input asp-for="EventStart" class="form-control" style="font-size: 0.5vw; width: 11vw; height: 1.2vw; border: 1px solid lightgray;" />
+                            <span asp-validation-for="EventStart" class="text-danger"></span>
+                        </div>
+                        <div class="col-6">
+                            <label asp-for="EventEnds" class="control-label" style="font-size: 0.5vw; width: 11vw; height: 1.2vw;font-weight:bold;"></label>
+                            <input asp-for="EventEnds" class="form-control" style="font-size: 0.5vw; width: 11vw; height: 1.2vw; border: 1px solid lightgray;" />
+                            <span asp-validation-for="EventEnds" class="text-danger"></span>
+                        </div>
+                    </div>
                 </div>
                 <div style="height:1.5vw;"></div>
                 <hr />
@@ -72,7 +81,7 @@
                     </div>
                 </div>
             }
-            </div>
+        </div>
         <div class="col-auto"></div>
     </div>
 </div>

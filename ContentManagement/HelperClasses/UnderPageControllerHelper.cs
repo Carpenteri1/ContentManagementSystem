@@ -1,5 +1,6 @@
 ﻿using ContentManagement.Data;
 using ContentManagement.Data.Services;
+using ContentManagement.HeaderModel;
 using ContentManagement.Models.Account;
 using ContentManagement.StartPageModels.PageModel;
 using ContentManagement.UnderPageModels.PageModel;
@@ -19,6 +20,7 @@ namespace ContentManagement.HelperClasses
         private readonly IWebHostEnvironment host;
         private const int PlusOne = 1;
         private const string ToFolder = "/Upload/UnderPages/Images/";
+        private const string DefaultDropDownValue = "1";
         public UnderPageControllerHelper(CMSDbContext context,IWebHostEnvironment host)
         {
             this.context = context;
@@ -127,7 +129,7 @@ namespace ContentManagement.HelperClasses
         }
 
 
-        public bool DoesAllTextsMatch(UnderPage Page, Users users)
+        private bool DoesAllTextsMatch(UnderPage Page)
         {
             var DbTexts = context.UnderPages_TextContents.Where(item  => item.UnderPage.Id  == Page.Id).FirstOrDefault();
             if (DbTexts != null)
@@ -148,7 +150,7 @@ namespace ContentManagement.HelperClasses
             return true;
         }
 
-        public bool DoesAllUnderPageLinkTitleMatch(UnderPage Page, Users users)
+        private bool DoesAllUnderPageLinkTitleMatch(UnderPage Page)
         {
             var DbLinkTile = context.UnderPages.Where(underpage => underpage.Id == Page.Id).FirstOrDefault();
             if (DbLinkTile != null)//if they dont match, save new content
@@ -169,7 +171,7 @@ namespace ContentManagement.HelperClasses
             return true;
         }
 
-        public bool DoesAllTitlesMatch(UnderPage Page, Users user)
+        private bool DoesAllTitlesMatch(UnderPage Page)
         {
             var DbTitle = context.UnderPages_titlecontents.Where(item => item.UnderPage.Id == Page.Id).FirstOrDefault();
 
@@ -192,7 +194,7 @@ namespace ContentManagement.HelperClasses
             return true;
         }
 
-        public bool DoesAllImagesMatch(UnderPage Page, Users user)
+        private bool DoesAllImagesMatch(UnderPage Page, Users user)
         {
 
             var DbImages = context
@@ -219,43 +221,117 @@ namespace ContentManagement.HelperClasses
             }
             return true;
         }
-
- 
-        public UnderPage FetchUnderPageFromDB(UnderPage page,int id)
+        private bool DoesAllHeaderMatch(UnderPage Page)
         {
-            return page = context
+            var underPageDb = GetUnderPageById(Page.Id);
+
+            if(underPageDb.HeaderContent != null)
+            {
+                    if (Page.HeaderContent.HeaderTheme != underPageDb.HeaderContent.HeaderTheme)
+                    {
+                        underPageDb.HeaderContent = Page.HeaderContent;
+                        context.Update(underPageDb);
+                        return false;
+                    }
+            }
+            return true;
+        }
+
+        public HeaderContent GetHeaderContentById(int Id)
+        {
+            return context.HeaderContent.Where(item => item.Id == Id).FirstOrDefault();
+        }
+
+        public bool DoesAllContentMatch(UnderPage underPage,Users user)
+        {
+            bool match = true;
+
+            if (!DoesAllImagesMatch(underPage, user))
+                match = false;
+            if (!DoesAllTextsMatch(underPage))
+                match = false;
+            if (!DoesAllTitlesMatch(underPage))
+                match = false;
+            if (!DoesAllUnderPageLinkTitleMatch(underPage))
+                match = false;
+            if(!DoesAllHeaderMatch(underPage))
+                match = false;
+
+            return match;
+        }
+
+
+        public string CheckDropDownValue(string selecterDropDownValue)
+        {
+            if (selecterDropDownValue == null)
+            {
+                selecterDropDownValue = DefaultDropDownValue;
+            }
+            return selecterDropDownValue;
+        }
+        public HeaderContent GetHeaderContentByDropDownValue(int selecterDropDownValue)
+        {
+           return context.HeaderContent.Where(s => s.Id == selecterDropDownValue).FirstOrDefault();
+        }
+ 
+        public UnderPage GetUnderPageById(int id)
+        {
+            return context
                 .UnderPages
                 .Where(page => page.Id == id)
                 .FirstOrDefault();
         }
 
-        public List<UnderPage_TitleContents> FetchAllTitleContentFromDB(UnderPage page,int id)
+        public List<UnderPage_TitleContents> GetTitleContentById(int Id)
         {
             return context
                 .UnderPages_titlecontents
-                .Where(underpage => underpage.UnderPage.Id == page.Id)
+                .Where(underpage => underpage.UnderPage.Id == Id)
                 .ToList();
         }
 
-        public List<UnderPage_TextContents> FetchAllTextContentFromDB(UnderPage page,int id)
+        public List<UnderPage_TextContents> GetTextContentById(int Id)
         {
             return context
                 .UnderPages_TextContents
-                .Where(underpage => underpage.UnderPage.Id == page.Id)
+                .Where(underpage => underpage.UnderPage.Id == Id)
                 .ToList();
         }
 
-        public List<UnderPage_ImgContents> FetchAllImgeContentFromDB(UnderPage page,int id)
+        public List<UnderPage_ImgContents> GetImgeContentById(int Id)
         {
             return context
                 .UnderPages_imgcontents
-                .Where(underpage => underpage.UnderPage.Id == page.Id)
+                .Where(underpage => underpage.UnderPage.Id == Id)
                 .ToList();
         }
-        public void SaveToDb()
+
+        public List<HeaderContent> GetAllHeadContent()
         {
-           
-            context.SaveChanges();
+            return context.HeaderContent.ToList();
+        }
+
+        public Users GetUserByName(string nameof)
+        {
+           return context.Users.Where(item => item.UserName == nameof).FirstOrDefault();
+        }
+
+        public List<UnderPage> GetUnderPageByDropDownValue(int selectedDropDownValue)
+        {
+            return context.UnderPages.Where(s => s.HeaderContent.Id == selectedDropDownValue).ToList();
+        }
+
+        public bool SaveToDb()
+        {
+            try
+            {
+                context.SaveChanges();
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
         }
 
 

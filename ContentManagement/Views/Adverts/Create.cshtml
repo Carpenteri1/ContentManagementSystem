@@ -38,7 +38,7 @@ new { enctype = "multipart/form-data" }))
                     <div class="row">
                         <div class="col-4">
                             <label>
-                                <b style="font-size: 0.5vw;" class="d-block">Annonsen aktiv:</b>  @Html.CheckBoxFor(m => m.isActive, false)
+                                <b style="font-size: 0.5vw;" class="d-block">Annonsen aktiv:</b>  @Html.CheckBoxFor(m => m.isActive)
                             </label>
                         </div>
                         <div class="col-8">
@@ -54,7 +54,7 @@ new { enctype = "multipart/form-data" }))
                 <div class="form-group">
                     <div class="row">
                         <div class="col-6">
-                            <button type="button" class="btn text-white p-0 text-center" onclick="location.href='@Url.Action("Index", "Events")'" style="font-size: 0.4vw;width:3.8vw;height:1.2vw;background-color:#8c8c8c;">Avbryt</button>
+                            <button type="button" class="btn text-white p-0 text-center" onclick="location.href='@Url.Action("Index", "Adverts")'" style="font-size: 0.4vw;width:3.8vw;height:1.2vw;background-color:#8c8c8c;">Avbryt</button>
                         </div>
                         <div class="col-6 text-right">
                             <button type="submit" class="btn text-white p-0 text-center" style="font-size: 0.4vw;width:3.8vw;height:1.2vw;background-color:#0293fc;">Bekräfta</button>
