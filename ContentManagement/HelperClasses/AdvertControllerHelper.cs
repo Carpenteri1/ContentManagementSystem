@@ -20,7 +20,7 @@ namespace ContentManagement.HelperClasses
         private const string ToFolder = "/Upload/Extra/";
 
 
-        public AdvertControllerHelper(CMSDbContext context, IWebHostEnvironment host)
+        public AdvertControllerHelper(CMSDbContext context, IWebHostEnvironment host) 
         {
             this.context = context;
             this.host = host;
@@ -111,34 +111,9 @@ namespace ContentManagement.HelperClasses
             return true;
         }
 
-        public bool DoesAllImageContentMatch(AdvertsModel advert)
-        {
-            var DbAdvert = context
-             .Adverts
-             .Where(item => item.Id == advert.Id)
-             .FirstOrDefault();
-
-            if (DbAdvert != null)
-            {
-                if (advert.File != null)
-                {
-                    FileManager manages = new FileManager(context, host);
-                    advert.ImgUrl = manages.CopyToRootFolder(advert.File, ToFolder);
-
-                    if (!advert.ImgUrl.Equals(DbAdvert.ImgUrl))
-                    {
-                        DbAdvert.ImgUrl = advert.ImgUrl;
-                        DbAdvert.Uploaded = DateTime.Now;
-                        context.Update(DbAdvert);
-                        return false;
-                    }
-                }
-            }
-            return true;
-        }
 
 
-        public bool DoesAllContentMatch(AdvertsModel advert)
+        public bool DoesAllContentMatch(AdvertsModel advert,Users user)
         {
             var Dbadverts = GetAdvertById(advert.Id);
             bool match = true;
@@ -190,6 +165,15 @@ namespace ContentManagement.HelperClasses
                         match = false;
                     }
                 }
+                if(Dbadverts.User != null)
+                {
+                    if (Dbadverts.User.UserName != user.UserName)
+                    {
+                        Dbadverts.User = user;
+                        context.Update(Dbadverts);
+                    }
+                }
+           
             }
             return match;
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using ContentManagement.Models.Account;
@@ -32,6 +33,8 @@ namespace ContentManagement.Models.EventsModel
         [Required(ErrorMessage = "Eventet måste ha ett slut datum")]
         public DateTime EventEnds { get; set; }
         public bool IsPrivate { get; set; }
+       
+        public  EventPageModel EventPageModel { get; set; }
 
     }
 }

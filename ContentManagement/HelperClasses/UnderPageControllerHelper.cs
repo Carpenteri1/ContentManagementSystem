@@ -212,7 +212,10 @@ namespace ContentManagement.HelperClasses
                     if (!Page.UnderPage_ImgContent[0].ImgSrc.Equals(DbImages.ImgSrc))
                     {
                         DbImages.ImgSrc = Page.UnderPage_ImgContent[0].ImgSrc;
-                        DbImages.User = user;
+                        if(DbImages.User.UserName != user.UserName)
+                        {
+                            DbImages.User = user;
+                        }
                         DbImages.Uploaded = DateTime.Now;
                         context.Update(DbImages);
                         return false;

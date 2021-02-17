@@ -62,13 +62,14 @@ namespace ContentManagement.Controllers
                     s.EventModel = s.EventModel;
                 }
                 postedEvent.User = user;
-                
+
 
                 context.Add(postedEvent);
                 context.SaveChanges();
             }
-            catch
+            catch(Exception e)
             {
+                Debug.WriteLine(e.Message);
                 return Redirect(nameof(Index));
             }
                 

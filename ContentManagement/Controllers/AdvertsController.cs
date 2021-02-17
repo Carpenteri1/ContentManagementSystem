@@ -139,9 +139,8 @@ namespace ContentManagement.Controllers
                 adverts.TypeOfAdd = advertHelper.GetAdvertTypeByDropDownValue(advertHelper.CheckDropDownValue(selecterDropDownValue));
 
 
-                if (!advertHelper.DoesAllContentMatch(adverts))
+                if (!advertHelper.DoesAllContentMatch(adverts,advertHelper.GetUser(User.Identity.Name)))
                 {
-                    adverts.User = advertHelper.GetUser(User.Identity.Name);
                     advertHelper.SaveToDb();
                 }
 

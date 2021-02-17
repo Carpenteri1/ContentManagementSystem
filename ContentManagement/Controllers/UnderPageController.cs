@@ -154,7 +154,7 @@ namespace ContentManagement.Controllers
                 {
                     if (!controllerHelper.DoesAllContentMatch(underPage, user))
                     {
-                        controllerHelper.SaveToDb();
+                            controllerHelper.SaveToDb();
                     }
                     return RedirectToAction("Edit", new { id = underPage.Id }); 
                 }

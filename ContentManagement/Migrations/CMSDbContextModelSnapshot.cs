@@ -169,6 +169,9 @@ namespace ContentManagement.Migrations
                     b.Property<DateTime>("EventEnds")
                         .HasColumnType("datetime");
 
+                    b.Property<int?>("EventPageModelId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("EventStart")
                         .HasColumnType("datetime");
 
@@ -188,9 +191,22 @@ namespace ContentManagement.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EventPageModelId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Events");
+                });
+
+            modelBuilder.Entity("ContentManagement.Models.EventsModel.EventPageModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EventPages");
                 });
 
             modelBuilder.Entity("ContentManagement.StartPageModels.PageModel.StartPage", b =>
@@ -464,6 +480,10 @@ namespace ContentManagement.Migrations
 
             modelBuilder.Entity("ContentManagement.Models.EventsModel.EventModel", b =>
                 {
+                    b.HasOne("ContentManagement.Models.EventsModel.EventPageModel", "EventPageModel")
+                        .WithMany("EventModel")
+                        .HasForeignKey("EventPageModelId");
+
                     b.HasOne("ContentManagement.Models.Account.Users", "User")
                         .WithMany("Events")
                         .HasForeignKey("UserId");

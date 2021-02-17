@@ -75,6 +75,16 @@ namespace ContentManagement.HelperClasses
                     context.Update(DbEvent);
                     match = false;
                 }
+                if(DbEvent.User != null)
+                {
+                    if (DbEvent.User.UserName != user.UserName)
+                    {
+                        DbEvent.User = user;
+                        context.Update(DbEvent);
+                        match = false;
+                    }
+                }
+    
                 if (!match)
                 {
                     DbEvent.Edited = DateTime.Now;
@@ -103,6 +113,15 @@ namespace ContentManagement.HelperClasses
                     DbeventItem.Url = eventItem.Links[0].Url;
                     context.Update(DbeventItem);
                     match = false;
+                }
+                if(DbeventItem.User != null)
+                {
+                    if(DbeventItem.User.UserName != user.UserName)
+                    {
+                        DbeventItem.User = user;
+                        context.Update(DbeventItem);
+                        match = false;
+                    }
                 }
             }
 

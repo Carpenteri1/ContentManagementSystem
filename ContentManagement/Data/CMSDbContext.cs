@@ -5,6 +5,7 @@ using ContentManagement.UnderPageModels.PageModel;
 using ContentManagement.HeaderModel;
 using ContentManagement.Models.EventsModel;
 using ContentManagement.Models.Adverts;
+using ContentManagement.Data.Services;
 
 namespace ContentManagement.Data
 {
@@ -35,6 +36,7 @@ namespace ContentManagement.Data
         #region Event region
         public DbSet<EventModel> Events { get; set; }
         public DbSet<EventLinkModel> Events_Links { get; set; }
+        public DbSet<EventPageModel> EventPages { get; set; }
         #endregion
 
         #region Adverts

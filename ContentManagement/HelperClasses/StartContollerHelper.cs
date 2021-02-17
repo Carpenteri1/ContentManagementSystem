@@ -23,7 +23,7 @@ namespace ContentManagement.ControllerHelperClasses
             this.host = host;
         }
 
-        public bool DoesAllTextsMatch(StartPage Page,Users users)
+        public bool DoesAllTextsMatch(StartPage Page,Users user)
         {
             List<StartPage_TextContents> DbTexts = context.StartPage_TextContents.ToList();
 
@@ -33,7 +33,11 @@ namespace ContentManagement.ControllerHelperClasses
                 {
                     DbTexts[i].TextContent = Page.StartPage_TextContents[i].TextContent.ToString();
                     DbTexts[i].Edited = DateTime.Now;
-                    DbTexts[i].User = users;
+                    if(DbTexts[i].User.UserName != user.UserName)
+                    {
+                        DbTexts[i].User = user;
+                    }
+                   
                         context.Update(DbTexts[i]);
                 }
             }
@@ -50,8 +54,11 @@ namespace ContentManagement.ControllerHelperClasses
                 {
                     DbTitles[i].TextContent = Page.StartPage_TitleContents[i].TextContent.ToString();
                     DbTitles[i].Edited = DateTime.Now;
-                    DbTitles[i].User = user;
-                        context.Update(DbTitles[i]);
+                    if (DbTitles[i].User.UserName != user.UserName)
+                    {
+                        DbTitles[i].User = user;
+                    }
+                    context.Update(DbTitles[i]);
                 }
             }
 
@@ -69,6 +76,10 @@ namespace ContentManagement.ControllerHelperClasses
                     DbLinkContent[i].Url = Page.StartPage_Links[i].Url.ToString();
                     DbLinkContent[i].Edited = DateTime.Now;
                     DbLinkContent[i].User = user;
+                    if (DbLinkContent[i].User.UserName != user.UserName)
+                    {
+                        DbLinkContent[i].User = user;
+                    }
                     context.Update(DbLinkContent[i]);
                 }
             }
@@ -90,7 +101,10 @@ namespace ContentManagement.ControllerHelperClasses
                     if (!Page.StartPage_ImgContents[i].ImgSrc.Equals(DbImages[i].ImgSrc))//if they dont match, save new content
                     {
                         DbImages[i].ImgSrc = Page.StartPage_ImgContents[i].ImgSrc;
-                        DbImages[i].User = user;
+                        if (DbImages[i].User.UserName != user.UserName)
+                        {
+                            DbImages[i].User = user;
+                        }
                         DbImages[i].Uploaded = DateTime.Now;
                         context.Update(DbImages[i]);
                     }
