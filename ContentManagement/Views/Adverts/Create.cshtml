@@ -19,14 +19,24 @@ new { enctype = "multipart/form-data" }))
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="Id" />
                 <div class="form-group p-0">
-                    <label asp-for="LinkTitle" class="control-label" style="font-size: 0.5vw; width: 11vw; height: 1.2vw;font-weight:bold;"></label>
+                    <label asp-for="LinkTitle" class="control-label" style="font-size: 0.5vw; width: 11vw; height: 1.2vw;font-weight:bold;">Länktext i meny: </label>
                     <input asp-for="LinkTitle" class="form-control" style="font-size: 0.5vw; width: 16vw; height: 1.2vw; border: 1px solid lightgray;" />
                     <span asp-validation-for="LinkTitle" class="text-danger"></span>
                 </div>
-                <div class="form-group p-0">
-                    <label asp-for="LinkTo" class="control-label" style="font-size: 0.5vw; width: 6vw; height: 1.2vw;font-weight:bold;"></label>
-                    <input asp-for="LinkTo" class="form-control" style="width:6vw;height:1vw;resize:none;font-size:0.5vw;" />
-                    <span asp-validation-for="LinkTo" class="text-danger"></span>
+                <div class="form-group p-0 text-left" style="font-size:0.4vw;">
+                    <div class="row">
+                        <div class="col-6">
+                            <label asp-for="LinkTo" class="control-label" style="font-size: 0.5vw; width: 6vw; height: 1.2vw;font-weight:bold;">Sökväg till sidan: </label>
+                            <input asp-for="LinkTo" class="form-control" style="width:6vw;height:1vw;resize:none;font-size:0.5vw;" />
+                            <span asp-validation-for="LinkTo" class="text-danger"></span>
+                        </div>
+                        <div class="col-6">
+                            <label style=" width: 100%;">
+                                <b class="d-block" style="font-size:0.5vw;margin-top:0.2vw;">Välj reklam typ:</b>
+                                @Html.DropDownList("selecterDropDownValue", (SelectList)ViewData["TypeOfAd"], new { style = "width:3.8vw;height:1vw;font-size:0.5vw;", @onchange = "submitform();" })
+                            </label>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group p-0">
                     <label asp-for="File" class="control-label" style="font-size: 0.5vw; width: 11vw; height: 1.2vw;font-weight:bold;"></label>
@@ -35,21 +45,19 @@ new { enctype = "multipart/form-data" }))
                     <span asp-validation-for="File" class="text-danger"></span>
                 </div>
                 <div class="form-group p-0 text-left">
-                    <div class="row">
-                        <div class="col-4">
-                            <label>
-                                <b style="font-size: 0.5vw;" class="d-block">Annonsen aktiv:</b>  @Html.CheckBoxFor(m => m.isActive)
-                            </label>
-                        </div>
-                        <div class="col-8">
-                            <label style=" width: 100%;">
-                                <b class="d-block" style="font-size:0.5vw;margin-top:0.2vw;">Välj reklam typ:</b>
-                                @Html.DropDownList("selecterDropDownValue", (SelectList)ViewData["TypeOfAd"], new { style = "width:3.8vw;height:1vw;font-size:0.5vw;", @onchange = "submitform();" })
-                            </label>
-                        </div>
-                    </div>
+
                 </div>
                 <div style="height:1.5vw;"></div>
+                <h6 class="text-left">Metainformation</h6>
+                <hr />
+                <div class="row">
+                    <div class="col-4">
+                        <label>
+                            <b style="font-size: 0.5vw;" class="d-block">Annonsen aktiv:</b>  @Html.CheckBoxFor(m => m.isActive)
+                        </label>
+                    </div>
+                    <div class="col-8"></div>
+                </div>
                 <hr />
                 <div class="form-group">
                     <div class="row">

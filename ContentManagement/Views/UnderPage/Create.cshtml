@@ -8,7 +8,7 @@
         <div class="col-7">
             <div class="container text-center align-content-center">
                 @using (Html.BeginForm("Create", "UnderPage", FormMethod.Post,
-               new { enctype = "multipart/form-data" }))
+             new { enctype = "multipart/form-data" }))
                 {
                     <div style="height:0.8vw;"></div>
                     <div class="row p-0">
@@ -25,16 +25,11 @@
                                 </div>
                                 <div class="col-6">
                                     @Html.HiddenFor(model => model.Id)
-                                    <label class="d-block" style="font-size:0.5vw;"><b>Länk titel:</b></label>
+                                    <label class="d-block" style="font-size:0.5vw;"><b>Länktext i meny:</b></label>
                                     <input asp-for="LinkTitle" class="form-control" style="font-size:0.5vw;width:10.5vw;height:1.2vw;">
                                     <span asp-validation-for="LinkTitle" class="text-danger"></span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group p-0 text-left">
-                            <label>
-                                <b style="font-size: 0.5vw;" class="d-block">Visa event modul:</b>  @Html.CheckBoxFor(m => m.ShowEventModul, false)
-                            </label>
                         </div>
                         <div class="form-group">
                             <div class="row mh-100 mw-100">
@@ -59,13 +54,28 @@
                             </div>
                         </div>
                         <div style="height:3vw;"></div>
-                        <div class="form-group p-0 mw-100 mh-100" style="font-size:0.5vw;">
+                        <div class="form-group text-left" style="font-size:0.5vw;">
+                            <label class="control-label text-left" style="font-weight:bold;">Brödtext: </label>
                             @Html.HiddenFor(text => text.UnderPage_TextContents[0])
                             @Html.TextAreaFor(model => model.UnderPage_TextContents[0].TextContent, new { id = "editor1", style = "text-align:left;font-size:0.5vw;height:35vw;" })
                         </div>
 
                     </div>
-                    <div style="height:8vw;"></div>
+                    <h6 class="text-left">Metainformation</h6>
+                    <hr />
+                    <div class="form-group p-0 text-left">
+                        <div class="row">
+                            <div style="height:4vw;"></div>
+                            <div class="col-4">
+                                <b style="font-size: 0.5vw;" class="d-block">Publik:</b>  @Html.CheckBoxFor(m => m.IsPublic)
+                            </div>
+                            <div class="col-4">
+                                <b style="font-size: 0.5vw;" class="d-block">Visa event modul:</b>  @Html.CheckBoxFor(m => m.ShowEventModul)
+                            </div>
+                            <div class="col-4">
+                            </div>
+                        </div>
+                    </div>
                     <hr />
                     <div class="row">
                         <div class="col-6 text-left">

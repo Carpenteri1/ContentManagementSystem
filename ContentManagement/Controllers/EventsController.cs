@@ -62,7 +62,7 @@ namespace ContentManagement.Controllers
                     s.EventModel = s.EventModel;
                 }
                 postedEvent.User = user;
-
+                postedEvent.Created = DateTime.Now;
 
                 context.Add(postedEvent);
                 context.SaveChanges();

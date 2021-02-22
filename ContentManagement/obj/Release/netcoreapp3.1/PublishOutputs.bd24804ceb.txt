@@ -63,15 +63,7 @@ C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\o
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\StartPage\Images\start-stripe-challenge-big.jpg
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\StartPage\Images\start-stripe-challenge-small-1.jpg
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\StartPage\Images\start-stripe-challenge-small-2.jpg
-C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\UnderPages\Imageslangas.jpg
-C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\UnderPages\ImagesSkiss-Admin-Andre-Åkfors-2020-12-08.jpg
-C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\UnderPages\Imagesstart-box-1-golfclub.jpg
-C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\UnderPages\Imagesstart-box-3-golfplayers.jpg
-C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\UnderPages\Imagesstart-splash-background.jpg
-C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\UnderPages\Imagesstart-stripe-challenge-background.jpg
-C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\UnderPages\Imagesstart-stripe-challenge-big.jpg
-C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\UnderPages\Imagesstart-stripe-challenge-small-1.jpg
-C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\UnderPages\Imagesstart-stripe-challenge-small-2.jpg
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\StaticImages\jumbotron-underpage.jpg
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\UnderPages\Images\annons-wellify.jpg
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\UnderPages\Images\header-logo.png
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\UnderPages\Images\jumbotron-underpage.jpg

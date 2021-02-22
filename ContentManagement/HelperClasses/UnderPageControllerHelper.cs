@@ -240,6 +240,36 @@ namespace ContentManagement.HelperClasses
             return true;
         }
 
+        private bool ShowEventModul(UnderPage Page)
+        {
+            var underPageDb = GetUnderPageById(Page.Id);
+                if (Page.ShowEventModul != underPageDb.ShowEventModul)
+                {
+                    underPageDb.ShowEventModul = Page.ShowEventModul;
+                    context.Update(underPageDb);
+                    return false;
+                }
+            
+            return true;
+        }
+
+
+        private bool ArePagePublic(UnderPage Page)
+        {
+            var underPageDb = GetUnderPageById(Page.Id);
+                if (Page.IsPublic != underPageDb.IsPublic)
+                {
+                    underPageDb.IsPublic = Page.IsPublic;
+                    context.Update(underPageDb);
+                    return false;
+                }
+            return true;
+        }
+
+
+
+
+
         public HeaderContent GetHeaderContentById(int Id)
         {
             return context.HeaderContent.Where(item => item.Id == Id).FirstOrDefault();
@@ -258,6 +288,10 @@ namespace ContentManagement.HelperClasses
             if (!DoesAllUnderPageLinkTitleMatch(underPage))
                 match = false;
             if(!DoesAllHeaderMatch(underPage))
+                match = false;
+            if (!ShowEventModul(underPage))
+                match = false;
+            if (!ArePagePublic(underPage))
                 match = false;
 
             return match;

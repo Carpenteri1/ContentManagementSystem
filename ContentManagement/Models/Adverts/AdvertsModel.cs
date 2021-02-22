@@ -22,6 +22,9 @@ namespace ContentManagement.Models.Adverts
         [Required(ErrorMessage = ("Måste finnas en länk"))]
         public string LinkTo { get; set; }
         public string ImgUrl { get; set; }
+
+        [Display(Name = "Annons beskrivning: ")]
+        public string? Description { get; set; }
         [Display(Name = "Annons aktiv: ")]
         public bool isActive { get; set; }
         public Users User { get; set; }

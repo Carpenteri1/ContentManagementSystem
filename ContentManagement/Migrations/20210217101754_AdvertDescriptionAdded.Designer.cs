@@ -3,14 +3,16 @@ using System;
 using ContentManagement.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ContentManagement.Migrations
 {
     [DbContext(typeof(CMSDbContext))]
-    partial class CMSDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210217101754_AdvertDescriptionAdded")]
+    partial class AdvertDescriptionAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -166,14 +168,14 @@ namespace ContentManagement.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime");
-
                     b.Property<DateTime?>("Edited")
                         .HasColumnType("datetime");
 
                     b.Property<DateTime>("EventEnds")
                         .HasColumnType("datetime");
+
+                    b.Property<int?>("EventPageModelId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("EventStart")
                         .HasColumnType("datetime");
@@ -186,7 +188,7 @@ namespace ContentManagement.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<bool>("IsPublic")
+                    b.Property<bool>("IsPrivate")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<int?>("UserId")
@@ -194,9 +196,22 @@ namespace ContentManagement.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EventPageModelId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Events");
+                });
+
+            modelBuilder.Entity("ContentManagement.Models.EventsModel.EventPageModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EventPages");
                 });
 
             modelBuilder.Entity("ContentManagement.StartPageModels.PageModel.StartPage", b =>
@@ -336,9 +351,6 @@ namespace ContentManagement.Migrations
                     b.Property<int?>("HeaderContentId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsPublic")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<string>("LinkTitle")
                         .HasColumnType("text");
 
@@ -473,6 +485,10 @@ namespace ContentManagement.Migrations
 
             modelBuilder.Entity("ContentManagement.Models.EventsModel.EventModel", b =>
                 {
+                    b.HasOne("ContentManagement.Models.EventsModel.EventPageModel", "EventPageModel")
+                        .WithMany("EventModel")
+                        .HasForeignKey("EventPageModelId");
+
                     b.HasOne("ContentManagement.Models.Account.Users", "User")
                         .WithMany("Events")
                         .HasForeignKey("UserId");

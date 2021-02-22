@@ -23,6 +23,9 @@ namespace ContentManagement.Models.EventsModel
         public string BodyText { get; set; }
 
         public Users User { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime Created { get; set; }
+
         public DateTime? Edited { get; set; }
         [DataType(DataType.Date)]
         [Display(Name = "Eventet börjar: ")]
@@ -32,9 +35,7 @@ namespace ContentManagement.Models.EventsModel
         [Display(Name = "Eventet slutar: ")]
         [Required(ErrorMessage = "Eventet måste ha ett slut datum")]
         public DateTime EventEnds { get; set; }
-        public bool IsPrivate { get; set; }
-       
-        public  EventPageModel EventPageModel { get; set; }
+        public bool IsPublic { get; set; }
 
     }
 }

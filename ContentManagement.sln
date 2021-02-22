@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContentManagement", "ContentManagement\ContentManagement.csproj", "{61FCC4E9-AACA-434A-AB04-D91FE8219A50}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AMV", "..\AMV-Project\AMV\AMV.csproj", "{7DEE71E9-6966-4E19-9C49-7C9EADD96C0A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContentManagement", "ContentManagement\ContentManagement.csproj", "{247D7D7C-CC35-415E-9BE7-50B5699EE2CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{61FCC4E9-AACA-434A-AB04-D91FE8219A50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{61FCC4E9-AACA-434A-AB04-D91FE8219A50}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{61FCC4E9-AACA-434A-AB04-D91FE8219A50}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{61FCC4E9-AACA-434A-AB04-D91FE8219A50}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7DEE71E9-6966-4E19-9C49-7C9EADD96C0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7DEE71E9-6966-4E19-9C49-7C9EADD96C0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DEE71E9-6966-4E19-9C49-7C9EADD96C0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DEE71E9-6966-4E19-9C49-7C9EADD96C0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{247D7D7C-CC35-415E-9BE7-50B5699EE2CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{247D7D7C-CC35-415E-9BE7-50B5699EE2CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{247D7D7C-CC35-415E-9BE7-50B5699EE2CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{247D7D7C-CC35-415E-9BE7-50B5699EE2CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

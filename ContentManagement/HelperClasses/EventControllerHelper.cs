@@ -69,9 +69,9 @@ namespace ContentManagement.HelperClasses
                         match = false;
                     }
                 }
-                if(DbEvent.IsPrivate != eventItem.IsPrivate)
+                if(DbEvent.IsPublic != eventItem.IsPublic)
                 {
-                    DbEvent.IsPrivate = eventItem.IsPrivate;
+                    DbEvent.IsPublic = eventItem.IsPublic;
                     context.Update(DbEvent);
                     match = false;
                 }

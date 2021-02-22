@@ -36,7 +36,6 @@ namespace ContentManagement.Data
         #region Event region
         public DbSet<EventModel> Events { get; set; }
         public DbSet<EventLinkModel> Events_Links { get; set; }
-        public DbSet<EventPageModel> EventPages { get; set; }
         #endregion
 
         #region Adverts

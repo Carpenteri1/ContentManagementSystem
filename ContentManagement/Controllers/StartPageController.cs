@@ -60,21 +60,20 @@ namespace ContentManagement.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(StartPage Page)
         {
-            if (ModelState.IsValid)
-            {
+ 
                 if (Page != null)
                 {
                     StartContollerHelper controllerHelper = new StartContollerHelper(context, host);
-                    Page.Id = context.StartPages.FirstOrDefault().Id;
-                    var user = context.Users.Where(item =>item.UserName == User.Identity.Name).FirstOrDefault();
+                    var user = controllerHelper.GetUserByName(User.Identity.Name);  
+                    //Page.Id = context.StartPages.FirstOrDefault().Id;
 
                     try
                     {
-                        if (!controllerHelper.DoesAllImagesMatch(Page,user) &&
-                            !controllerHelper.DoesAllTextsMatch(Page,user) &&
-                            !controllerHelper.DoesAllTitlesMatch(Page,user) &&
-                            !controllerHelper.DoesAllLinksContentMatch(Page,user))
-                            controllerHelper.SaveToDb();      
+                        if (!controllerHelper.DoesAllContentMatch(Page,user))
+                        {
+                            controllerHelper.SaveToDb();
+                        }
+                               
                         else
                             return RedirectToAction("Edit");
 
@@ -102,10 +101,9 @@ namespace ContentManagement.Controllers
                 }
                 else
                 {
-                    return NotFound();
+                    return Redirect("~/Content");
                 }
-            }
-            return Redirect("~/Content");
+        
         }
 
         private bool StartPageExists(int id)
