@@ -44,6 +44,8 @@ C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\o
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\lib\jquery\LICENSE.txt
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\tinymce_5.6.2.zip
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\Extra\annons-wellify.jpg
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\Extra\bild3.jfif
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\Extra\download (1).jfif
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\Extra\header-logo.png
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\Extra\langas.jpg
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\Extra\Skiss-Admin-Andre-Åkfors-2020-12-08.jpg

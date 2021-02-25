@@ -120,7 +120,7 @@ namespace ContentManagement.HelperClasses
                  newPage.HeaderContent = headercontent;
                  newPage.Id = underpages.Last().Id + PlusOne;
                  newPage.User = user;
-
+                 newPage.pageRoute = CreateRouteData(newPage.LinkTitle);
                  context.Add(newPage);
 
              }
@@ -162,6 +162,7 @@ namespace ContentManagement.HelperClasses
                    
                         DbLinkTile.LinkTitle = Page.LinkTitle.ToString();
                         DbLinkTile.Edited = DateTime.Now;
+                        DbLinkTile.pageRoute = CreateRouteData(DbLinkTile.LinkTitle);
                         context.Update(DbLinkTile);
                         return false;
                     }
@@ -171,6 +172,19 @@ namespace ContentManagement.HelperClasses
             return true;
         }
 
+        private string CreateRouteData(string LinkTitle)
+        {
+                return LinkTitle.Replace(" ", "_")
+                .Replace("ö", "o")
+                .Replace("å", "a")
+                .Replace("ä", "a")
+                .Replace(";","")
+                .Replace(":","")
+                .Replace("!","")
+                .Replace("?","");
+
+            
+        }
         private bool DoesAllTitlesMatch(UnderPage Page)
         {
             var DbTitle = context.UnderPages_titlecontents.Where(item => item.UnderPage.Id == Page.Id).FirstOrDefault();

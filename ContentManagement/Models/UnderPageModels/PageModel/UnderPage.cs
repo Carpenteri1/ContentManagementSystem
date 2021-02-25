@@ -7,7 +7,7 @@ using ContentManagement.HeaderModel;
 using ContentManagement.Models.Account;
 using Microsoft.AspNetCore.Http;
 using ContentManagement.StartPageModels.PageModel;
-
+using ContentManagement.Models.Adverts;
 namespace ContentManagement.UnderPageModels.PageModel
 {
     public class UnderPage
@@ -23,5 +23,7 @@ namespace ContentManagement.UnderPageModels.PageModel
         public Users User { get; set; }
         public HeaderContent HeaderContent { get; set; }
         public StartPage StartPage { get; set; }
+        public string pageRoute { get; set; }   
+        public int AmmountOfAdverts { get; set; }
     }
 }

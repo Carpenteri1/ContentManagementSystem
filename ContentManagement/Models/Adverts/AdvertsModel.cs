@@ -1,5 +1,6 @@
 ﻿
 using ContentManagement.Models.Account;
+using ContentManagement.UnderPageModels.PageModel;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -35,7 +36,6 @@ namespace ContentManagement.Models.Adverts
         [Display(Name = "Annons bild")]
         [Required(ErrorMessage = ("Måste finnas en bild"))]
         public IFormFile? File { get; set; }
-
 
     }
 }

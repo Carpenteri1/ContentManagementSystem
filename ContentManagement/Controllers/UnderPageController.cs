@@ -36,7 +36,9 @@ namespace ContentManagement.Controllers
             {
                 UnderPageControllerHelper controllerHelper = new UnderPageControllerHelper(context, host);
                 List<HeaderContent> headerContent = controllerHelper.GetAllHeadContent();
+                var newPage = new UnderPage();
                 ViewData["HeaderTheme"] = new SelectList(headerContent, "Id", "HeaderTheme");
+                ViewData["AmmountOfAdds"] = new SelectList("10", "AmmountOfAdverts"); 
                 return View(new UnderPage());
             }
             else
@@ -57,6 +59,7 @@ namespace ContentManagement.Controllers
                 var user = controllerHelper.GetUserByName(User.Identity.Name);
                 try
                 {
+                    newPage.AmmountOfAdverts = 3;
                     newPage = controllerHelper.CreateNewPageData(newPage, user, int.Parse(selecterDropDownValue));
                     if (newPage != null)
                     {
