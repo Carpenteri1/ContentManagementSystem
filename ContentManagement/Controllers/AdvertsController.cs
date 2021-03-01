@@ -153,7 +153,7 @@ namespace ContentManagement.Controllers
                 return Redirect(nameof(Index));
             }
         }
-
+        /*
         // GET: AdvertsController/Delete/5
         public ActionResult Delete(int id)
         {
@@ -177,7 +177,7 @@ namespace ContentManagement.Controllers
                 return Redirect("~/login");
             }
  
-        }
+        }*/
 
         // POST: AdvertsController/Delete/5
         [HttpPost]

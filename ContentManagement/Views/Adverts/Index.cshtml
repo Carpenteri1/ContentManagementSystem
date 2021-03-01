@@ -6,7 +6,7 @@
 <div class="centered-div mw-100 mh-100" style="border-bottom:2px solid black;">
     <div class="row">
         <div class="container">
-            @using (Html.BeginForm("Index", "Adverts", FormMethod.Post))
+            @using (Html.BeginForm("Index", "Adverts", FormMethod.Post, new { name = "AdvertHeader", id = "AdvertHeader" }))
             {
 
                 <div class="row">
@@ -47,7 +47,12 @@
                             <td style="background-color: #f4f4f4;text-align: right; width:100%; display: inline-block;font-size:0.5vw;font-weight:bold;" class="p-2">
 
                                 <a class="d-block">@Html.ActionLink("Ändra", "Edit", new { id = Model[i].Id })&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                                <a> - &nbsp;&nbsp;&nbsp;&nbsp;@Html.ActionLink("Tabort", "Delete", new { id = Model[i].Id }, new { style = "color:#cc0000" })</a>
+                                <a href="#@Html.DisplayTextFor(model => model[i].LinkTitle)" role="button" id="ShowPopup" data-toggle="modal" class="text-decoration-none" style="color:#cc0000;"> <span style="color:black;">-</span> &nbsp;&nbsp;&nbsp;&nbsp;Ta bort</a>
+                                <div id="@Html.DisplayTextFor(model => model[i].LinkTitle)" class="modal fade " role="dialog">
+                                    <div class="modal-dialog text-center" style="width:35%;margin-top:10%;">
+                                        @await Component.InvokeAsync("DeleteAdvert", new { Id = Model[i].Id })
+                                    </div>
+                                </div>
                             </td>
                         }
                         else
@@ -57,7 +62,12 @@
                             </td>
                             <td style="background-color: white;text-align: right; width:100%; display: inline-block;font-size:0.5vw;font-weight:bold;" class="p-2">
                                 <a class="d-block">@Html.ActionLink("Ändra", "Edit", new { id = Model[i].Id })&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                                <a> - &nbsp;&nbsp;&nbsp;&nbsp;@Html.ActionLink("Tabort", "Delete", new { id = Model[i].Id }, new { style = "color:#cc0000" })</a>
+                                <a href="#@Html.DisplayTextFor(model => model[i].LinkTitle)" role="button" id="ShowPopup" data-toggle="modal" class="text-decoration-none" style="color:#cc0000;"> <span style="color:black;">-</span> &nbsp;&nbsp;&nbsp;&nbsp;Ta bort</a>
+                                <div id="@Html.DisplayTextFor(model => model[i].LinkTitle)" class="modal fade " role="dialog">
+                                    <div class="modal-dialog text-center" style="width:35%;margin-top:10%;">
+                                        @await Component.InvokeAsync("DeleteAdvert", new { Id = Model[i].Id })
+                                    </div>
+                                </div>
 
                             </td>
                         }
@@ -76,8 +86,22 @@
         </tbody>
     </table>
 </div>
+<script type="text/javascript">
+    $(function () {
+        $('.modal').click(function () {
+            $('<div/>').appendTo('body').dialog({
+                close: function (event, ui) {
+                    dialog.remove();
+                },
+                modal: true
+            }).load(this.href, {});
+
+            return false;
+        });
+    });
+</script>
 <script>
     function submitform() {
-        $('form').submit();
+        $('#AdvertHeader').submit();
     }
 </script>
