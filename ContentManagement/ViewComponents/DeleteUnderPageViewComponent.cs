@@ -15,7 +15,7 @@ namespace ContentManagement.ViewComponents
             this.context = context;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(int Id)
+        public IViewComponentResult InvokeAsync(int Id)
         {
             var underpage = context.UnderPages.Where(item => item.Id == Id).FirstOrDefault();
             return View(underpage);
