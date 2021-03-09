@@ -114,22 +114,6 @@ namespace ContentManagement.Controllers
             return RedirectToAction("Edit", new { id = eventModel.Id });
 
         }
-
-        public IActionResult Delete(int id)
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                var events = context.Events.Where(item => item.Id == id).FirstOrDefault();
-                events.Links = context.Events_Links.Where(item => item.EventModel.Id == id).ToList();
-
-                return View(events);
-            }
-            else
-            {
-                return Redirect("~/Login");
-            }
-
-        }
         [HttpPost]
         public IActionResult Delete(EventModel eventModel)
         {

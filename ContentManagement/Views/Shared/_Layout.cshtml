@@ -9,6 +9,35 @@
     <link rel="stylesheet" href="~/css/sitestyle.css" />
     <title>Mer än bara golf - Adminstration</title>
     <script src="https://cdn.tiny.cloud/1/3upkwo2x4ld645z7kh2cg6qeloaygttrcdt04dq7ld7vp6f0/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/26.0.0/classic/ckeditor.js"></script>
+    <style>
+        /*Textbox*/
+        .ck-editor__editable {
+            min-height: 400px;
+            max-height: 400px;
+            min-width: 460px;
+        }
+        /*Toolbar*/
+        .ck-editor__top {
+            min-width: 460px;
+        }
+
+        .ck-content .text-tiny {
+            font-size: 1em;
+        }
+
+        .ck-content .text-small {
+            font-size: 1em;
+        }
+
+        .ck-content .text-big {
+            font-size: 1.4em;
+        }
+
+        .ck-content .text-huge {
+            font-size: 1.8em;
+        }
+    </style>
 </head>
 <body style="height:100%;">
     <header>
@@ -77,14 +106,14 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
     @RenderSection("Scripts", required: false)
-
     <script>
-        tinymce.init({
-            selector: '#editor1',
-            plugins: 'lists advlist'
-
-        });
+        ClassicEditor
+            .create(document.querySelector('#editor2'))
+            .catch(error => {
+                console.error(error);
+            });
     </script>
 </body>
 </html>

@@ -92,9 +92,6 @@ namespace ContentManagement.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("AdvertsPageId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
@@ -123,24 +120,11 @@ namespace ContentManagement.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AdvertsPageId");
-
                     b.HasIndex("TypeOfAddId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Adverts");
-                });
-
-            modelBuilder.Entity("ContentManagement.Models.Adverts.AdvertsPage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AdvertsPage");
                 });
 
             modelBuilder.Entity("ContentManagement.Models.EventsModel.EventLinkModel", b =>
@@ -346,9 +330,6 @@ namespace ContentManagement.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("AdvertsId")
-                        .HasColumnType("int");
-
                     b.Property<int>("AmmountOfAdverts")
                         .HasColumnType("int");
 
@@ -367,6 +348,9 @@ namespace ContentManagement.Migrations
                     b.Property<bool>("ShowEventModul")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<bool>("ShowFormModul")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<int?>("StartPageId")
                         .HasColumnType("int");
 
@@ -377,8 +361,6 @@ namespace ContentManagement.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AdvertsId");
 
                     b.HasIndex("HeaderContentId");
 
@@ -478,10 +460,6 @@ namespace ContentManagement.Migrations
 
             modelBuilder.Entity("ContentManagement.Models.Adverts.AdvertsModel", b =>
                 {
-                    b.HasOne("ContentManagement.Models.Adverts.AdvertsPage", "AdvertsPage")
-                        .WithMany("advertsModel")
-                        .HasForeignKey("AdvertsPageId");
-
                     b.HasOne("ContentManagement.Models.Adverts.AdvertType", "TypeOfAdd")
                         .WithMany("AdvertsModel")
                         .HasForeignKey("TypeOfAddId");
@@ -555,10 +533,6 @@ namespace ContentManagement.Migrations
 
             modelBuilder.Entity("ContentManagement.UnderPageModels.PageModel.UnderPage", b =>
                 {
-                    b.HasOne("ContentManagement.Models.Adverts.AdvertsPage", "Adverts")
-                        .WithMany("underPage")
-                        .HasForeignKey("AdvertsId");
-
                     b.HasOne("ContentManagement.HeaderModel.HeaderContent", "HeaderContent")
                         .WithMany("UnderPages")
                         .HasForeignKey("HeaderContentId");

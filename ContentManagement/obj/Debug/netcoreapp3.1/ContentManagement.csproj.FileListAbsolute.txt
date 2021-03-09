@@ -541,7 +541,6 @@ C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\o
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Debug\netcoreapp3.1\ContentManagement.dll
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Debug\netcoreapp3.1\ContentManagement.pdb
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Debug\netcoreapp3.1\ContentManagement.genruntimeconfig.cache
-C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\UnderPage\Delete.cshtml.g.cs
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Events\Delete.cshtml.g.cs
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Adverts\Index.cshtml.g.cs
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Adverts\Create.cshtml.g.cs
@@ -559,3 +558,6 @@ C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\b
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\DeleteUnderPage\Default.cshtml.g.cs
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\DeleteEvent\Default.cshtml.g.cs
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\DeleteAdvert\Default.cshtml.g.cs

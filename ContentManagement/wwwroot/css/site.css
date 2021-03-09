@@ -18,7 +18,6 @@ a {
     padding: 10px;
 }
 
-
 .btn-primary {
   color: #fff;
   background-color: #1b6ec2;
@@ -30,6 +29,11 @@ a {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+.btn:hover {
+    text-decoration:none;
+}
+
 
 /* Sticky footer styles
 -------------------------------------------------- */

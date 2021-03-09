@@ -168,27 +168,6 @@ namespace ContentManagement.Controllers
                 }        
         }
 
-        [HttpGet]
-        // GET: UnderPageController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-
-                UnderPageControllerHelper controllerHelper = new UnderPageControllerHelper(context, host);
-                var page = controllerHelper.GetUnderPageById(id);
-                page.UnderPage_ImgContent = controllerHelper.GetImgeContentById(page.Id);
-                page.UnderPage_TextContents = controllerHelper.GetTextContentById(page.Id);
-                page.UnderPage_TitleContents = controllerHelper.GetTitleContentById(page.Id);
-
-                return View(page);
-            }
-            else
-            {
-                return Redirect(Url.Content("~/Login"));
-            }
-        }
-
         // POST: UnderPageController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -197,7 +176,13 @@ namespace ContentManagement.Controllers
             try
             {
                 UnderPageControllerHelper controllerHelper = new UnderPageControllerHelper(context, host);
-                if (controllerHelper.Remove(underPage))
+                var page = controllerHelper.GetUnderPageById(underPage.Id);
+                page.UnderPage_ImgContent = controllerHelper.GetImgeContentById(page.Id);
+                page.UnderPage_TextContents = controllerHelper.GetTextContentById(page.Id);
+                page.UnderPage_TitleContents = controllerHelper.GetTitleContentById(page.Id);
+
+    
+                if (controllerHelper.Remove(page))
                 {
                     controllerHelper.SaveToDb();
                 }

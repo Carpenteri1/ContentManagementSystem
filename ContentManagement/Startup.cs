@@ -77,6 +77,8 @@ namespace ContetManagement
             app.UseAuthorization();
             app.UseAuthentication();
             app.UseSession();
+
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
