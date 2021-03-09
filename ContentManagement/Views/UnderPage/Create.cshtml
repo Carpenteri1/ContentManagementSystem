@@ -8,7 +8,7 @@
         <div class="col-7">
             <div class="container text-center align-content-center">
                 @using (Html.BeginForm("Create", "UnderPage", FormMethod.Post,
-            new { enctype = "multipart/form-data" }))
+           new { enctype = "multipart/form-data" }))
                 {
                     <div style="height:0.8vw;"></div>
                     <div class="row p-0">
@@ -63,9 +63,8 @@
                         <div class="text-left p-2" style="font-size:0.5vw;">
                             <label class="control-label text-left" style="font-weight:bold;">Brödtext: </label>
                             @Html.HiddenFor(text => text.UnderPage_TextContents[0])
-                            @Html.TextAreaFor(model => model.UnderPage_TextContents[0].TextContent, new { id = "editor1", style = "text-align:left;font-size:0.5vw;height:35vw;" })
+                            @Html.TextAreaFor(model => model.UnderPage_TextContents[0].TextContent, new { id = "editor2",style="font-size:2em;"})                        
                         </div>
-
                     </div>
                     <h6 class="text-left">Metainformation</h6>
                     <hr />
@@ -76,9 +75,10 @@
                                 <b style="font-size: 0.5vw;" class="d-block">Publik:</b>  @Html.CheckBoxFor(m => m.IsPublic)
                             </div>
                             <div class="col-4">
-                                <b style="font-size: 0.5vw;" class="d-block">Visa event modul:</b>  @Html.CheckBoxFor(m => m.ShowEventModul)
+                                <b style="font-size: 0.5vw;" class="d-block">Visa eventlista:</b>  @Html.CheckBoxFor(m => m.ShowEventModul)
                             </div>
                             <div class="col-4">
+                                <b style="font-size: 0.5vw;" class="d-block">Visa kontaktformulär:</b>  @Html.CheckBoxFor(m => m.ShowFormModul)
                             </div>
                         </div>
                     </div>

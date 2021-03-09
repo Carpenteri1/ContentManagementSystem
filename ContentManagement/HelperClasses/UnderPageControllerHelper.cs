@@ -266,6 +266,18 @@ namespace ContentManagement.HelperClasses
             
             return true;
         }
+        private bool ShowContactFormModul(UnderPage Page)
+        {
+            var underPageDb = GetUnderPageById(Page.Id);
+            if (Page.ShowFormModul != underPageDb.ShowFormModul)
+            {
+                underPageDb.ShowFormModul = Page.ShowFormModul;
+                context.Update(underPageDb);
+                return false;
+            }
+
+            return true;
+        }
 
 
         private bool ArePagePublic(UnderPage Page)
@@ -306,6 +318,8 @@ namespace ContentManagement.HelperClasses
             if (!ShowEventModul(underPage))
                 match = false;
             if (!ArePagePublic(underPage))
+                match = false;
+            if (!ShowContactFormModul(underPage))
                 match = false;
 
             return match;
