@@ -57,16 +57,11 @@
                     <hr />
                     <div class="form-group p-0 text-left">
                         <div class="row">
-                            <div style="height:4vw;"></div>
-                            <div class="col-4">
-                                <b style="font-size: 0.5vw;" class="d-block">Publik:</b>  @Html.CheckBoxFor(m => m.IsPublic)
-                            </div>
-                            <div class="col-4">
-                                <b style="font-size: 0.5vw;" class="d-block">Visa event modul:</b>  @Html.CheckBoxFor(m => m.ShowEventModul)
-                            </div>
-                            <div class="col-4">
-                                <b style="font-size: 0.5vw;" class="d-block">Visa kontaktformulär:</b>  @Html.CheckBoxFor(m => m.ShowFormModul)
-                            </div>
+                            <div style="height:1vw;"></div>
+                            <b style="font-size: 0.5vw;" class="pl-3 pr-1">Publik:</b>  @Html.CheckBoxFor(m => m.IsPublic)
+                            <b style="font-size: 0.5vw;" class="pl-3 pr-1">Visa eventlista:</b>  @Html.CheckBoxFor(m => m.ShowEventModul)
+                            <b style="font-size: 0.5vw;" class="pl-3 pr-1">Visa kontaktformulär:</b>  @Html.CheckBoxFor(m => m.ShowFormModul)
+                            <b style="font-size: 0.5vw;" class="pl-3 pr-1">Visa Anmälningsformulär:</b>  @Html.CheckBoxFor(m => m.ShowEmailFormModul)
                         </div>
                     </div>
                     <hr />

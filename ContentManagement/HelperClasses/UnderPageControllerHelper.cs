@@ -181,7 +181,8 @@ namespace ContentManagement.HelperClasses
                 .Replace(";","")
                 .Replace(":","")
                 .Replace("!","")
-                .Replace("?","");
+                .Replace("?","")
+                .Replace("-","");    
 
             
         }
@@ -278,6 +279,18 @@ namespace ContentManagement.HelperClasses
 
             return true;
         }
+        private bool ShowEmailFormModul(UnderPage Page)
+        {
+            var underPageDb = GetUnderPageById(Page.Id);
+            if (Page.ShowEmailFormModul != underPageDb.ShowEmailFormModul)
+            {
+                underPageDb.ShowEmailFormModul = Page.ShowEmailFormModul;
+                context.Update(underPageDb);
+                return false;
+            }
+
+            return true;
+        }
 
 
         private bool ArePagePublic(UnderPage Page)
@@ -320,6 +333,8 @@ namespace ContentManagement.HelperClasses
             if (!ArePagePublic(underPage))
                 match = false;
             if (!ShowContactFormModul(underPage))
+                match = false;
+            if (!ShowEmailFormModul(underPage))
                 match = false;
 
             return match;

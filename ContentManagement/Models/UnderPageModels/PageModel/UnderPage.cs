@@ -18,6 +18,7 @@ namespace ContentManagement.UnderPageModels.PageModel
         public bool IsPublic { get; set; }
         public bool ShowEventModul { get; set; }
         public bool ShowFormModul { get; set; }
+        public bool ShowEmailFormModul { get; set; }
         public List<UnderPage_ImgContents> UnderPage_ImgContent { get; set; }
         public List<UnderPage_TextContents> UnderPage_TextContents { get; set; }
         public List<UnderPage_TitleContents> UnderPage_TitleContents { get; set; }
