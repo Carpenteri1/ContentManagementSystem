@@ -345,6 +345,9 @@ namespace ContentManagement.Migrations
                     b.Property<string>("LinkTitle")
                         .HasColumnType("text");
 
+                    b.Property<int>("OrderPosition")
+                        .HasColumnType("int");
+
                     b.Property<bool>("ShowEmailFormModul")
                         .HasColumnType("tinyint(1)");
 

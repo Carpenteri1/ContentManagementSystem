@@ -22,6 +22,7 @@ namespace ContentManagement.Controllers
         private readonly CMSDbContext context;
         private const string DefaultDropDownValue = "1";
         private readonly IWebHostEnvironment host;
+        private string dropdownValue = string.Empty;
         public UnderPageController(CMSDbContext context, IWebHostEnvironment host)
         {
             this.context = context;
@@ -81,16 +82,29 @@ namespace ContentManagement.Controllers
 
     
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(string dropdownValue)
         {
             if (User.Identity.IsAuthenticated)
             {
+                
                 UnderPageControllerHelper underPageControllerHelper = new UnderPageControllerHelper(context,host);
                 List<HeaderContent> headerContent = underPageControllerHelper.GetAllHeadContent();
-                ViewData["HeaderTheme"] = new SelectList(headerContent, "Id", "HeaderTheme");
-                var underPage = underPageControllerHelper.GetUnderPageByDropDownValue(int.Parse(DefaultDropDownValue));
+              
+                if(dropdownValue != null)
+                {
+                    var underPage = underPageControllerHelper.GetUnderPageByDropDownValue(int.Parse(dropdownValue));
+                    ViewData["HeaderTheme"] = new SelectList(headerContent, "Id", "HeaderTheme", dropdownValue);
+                    return View(underPage);
+                }
+                else
+                {
+                    var underPage = underPageControllerHelper.GetUnderPageByDropDownValue(int.Parse(DefaultDropDownValue));
+                    ViewData["HeaderTheme"] = new SelectList(headerContent, "Id", "HeaderTheme", DefaultDropDownValue);
+                    return View(underPage);
+                }
+                    
+          
 
-                return View(underPage);
             }
             else
             {
@@ -98,16 +112,52 @@ namespace ContentManagement.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult MoveUp(int Id)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var currentPage = context.UnderPages.Where(item => item.Id == Id).FirstOrDefault(); 
+                UnderPageControllerHelper underPageControllerHelper = new UnderPageControllerHelper(context, host);
+                underPageControllerHelper.ChangeOrderPosition(currentPage,true);
+                return RedirectToAction("Index", new { dropdownValue = currentPage.HeaderContent.Id.ToString()});
+            }
+            else
+            {
+                return Redirect(Url.Content("~/Login"));
+            }
+
+        }
+        [HttpPost]
+        public ActionResult MoveDown(int Id)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var currentPage = context.UnderPages.Where(item => item.Id == Id).FirstOrDefault();
+                UnderPageControllerHelper underPageControllerHelper = new UnderPageControllerHelper(context, host);
+                underPageControllerHelper.ChangeOrderPosition(currentPage, false);
+                return RedirectToAction("Index", new { dropdownValue = currentPage.HeaderContent.Id.ToString() });
+
+            }
+            else
+            {
+                return Redirect(Url.Content("~/Login"));
+            }
+
+            return Redirect("/");
+        }
+
         // POST: UnderPageController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(string selecterDropDownValue)
+        public ActionResult Index(string selecterDropDownValue,int id)
         {
             try
             {
                 UnderPageControllerHelper underPageControllerHelper = new UnderPageControllerHelper(context, host);
                 List<HeaderContent> headerContent = underPageControllerHelper.GetAllHeadContent();
-                ViewData["HeaderTheme"] = new SelectList(headerContent, "Id", "HeaderTheme");
+                ViewData["HeaderTheme"] = new SelectList(headerContent, "Id", "HeaderTheme",selecterDropDownValue);
+                ViewData["DropDownValue"] = selecterDropDownValue;
                 var underPage = underPageControllerHelper.GetUnderPageByDropDownValue(int.Parse(underPageControllerHelper.CheckDropDownValue(selecterDropDownValue)));
                 return View(underPage);
             }

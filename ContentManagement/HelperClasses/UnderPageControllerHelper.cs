@@ -127,6 +127,76 @@ namespace ContentManagement.HelperClasses
 
              return newPage;  
         }
+        private bool MoveUp (UnderPage currentPage)
+        {
+            List<HeaderContent> header = context.HeaderContent.ToList();
+            if (currentPage.OrderPosition - 1 > 0)
+            {
+                List<UnderPage> DbUnderPage = context.UnderPages.Where(item => item.HeaderContent.HeaderTheme == currentPage.HeaderContent.HeaderTheme).ToList();
+                if (DbUnderPage != null)
+                {
+                    foreach (var s in DbUnderPage.OrderBy(item => item.OrderPosition))
+                    {
+                        if (currentPage.OrderPosition-1 == s.OrderPosition)
+                        {
+                            var oldSOrderPosition = s.OrderPosition;
+                            s.OrderPosition = currentPage.OrderPosition;
+                            currentPage.OrderPosition = oldSOrderPosition;
+                            context.Update(currentPage);
+                            context.SaveChanges();
+                            context.Update(s);
+                            context.SaveChanges();
+                            return true;
+                        }
+                     
+                    }
+                }
+            }
+            return false;
+        }
+
+
+
+        private bool MoveDown(UnderPage currentPage)
+        {
+            List<HeaderContent> header = context.HeaderContent.ToList();
+            if (currentPage.OrderPosition + 1 > 0)
+            {
+                List<UnderPage> DbUnderPage = context.UnderPages.Where(item => item.HeaderContent.HeaderTheme == currentPage.HeaderContent.HeaderTheme).ToList();
+                if (DbUnderPage != null)
+                {
+                    foreach (var s in DbUnderPage.OrderBy(item => item.OrderPosition))
+                    {
+                        if (currentPage.OrderPosition + 1 == s.OrderPosition)
+                        {
+                            var oldSOrderPosition = s.OrderPosition;
+                            s.OrderPosition = currentPage.OrderPosition;
+                            currentPage.OrderPosition = oldSOrderPosition;
+                            context.Update(currentPage);
+                            context.SaveChanges();
+                            context.Update(s);
+                            context.SaveChanges();
+                            return true;
+                        }
+
+                    }
+                }
+            }
+            return false;
+        }
+        public bool ChangeOrderPosition(UnderPage currentPage,bool moveUp)
+        {
+
+            if (moveUp)
+            {
+                return MoveUp(currentPage);
+            }
+            else
+            {
+                return MoveDown(currentPage);
+            }
+           
+        }
 
 
         private bool DoesAllTextsMatch(UnderPage Page)

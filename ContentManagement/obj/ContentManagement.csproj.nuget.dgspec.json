@@ -48,6 +48,10 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
+            "AspNetCore.Unobtrusive.Ajax": {
+              "target": "Package",
+              "version": "[1.1.2, )"
+            },
             "Microsoft.AspNetCore.CookiePolicy": {
               "target": "Package",
               "version": "[2.2.8, )"
@@ -79,6 +83,10 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[3.1.5, )"
+            },
+            "Microsoft.jQuery.Unobtrusive.Validation": {
+              "target": "Package",
+              "version": "[3.2.12, )"
             },
             "MySql.Data": {
               "target": "Package",
