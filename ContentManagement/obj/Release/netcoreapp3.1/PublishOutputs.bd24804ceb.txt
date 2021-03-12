@@ -41,6 +41,12 @@ C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\o
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\lib\jquery\dist\jquery.js
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\lib\jquery\dist\jquery.min.js
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\lib\jquery\dist\jquery.min.map
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\lib\jquery\jquery.js
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\lib\jquery\jquery.min.js
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\lib\jquery\jquery.min.map
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\lib\jquery\jquery.slim.js
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\lib\jquery\jquery.slim.min.js
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\lib\jquery\jquery.slim.min.map
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\lib\jquery\LICENSE.txt
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\Extra\annons-wellify.jpg
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\Extra\bild3.jfif
@@ -85,9 +91,11 @@ C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\o
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\UnderPages\Images\xlbyggcenter.jpg
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\appsettings.Development.json
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\appsettings.json
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\libman.json
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\ContentManagement.dll
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\ContentManagement.runtimeconfig.json
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\ContentManagement.pdb
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\AspNetCore.Unobtrusive.Ajax.dll
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\BouncyCastle.Crypto.dll
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\Google.Protobuf.dll
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\K4os.Compression.LZ4.dll
@@ -114,6 +122,8 @@ C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\o
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.Extensions.Configuration.Binder.dll
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.Extensions.DependencyInjection.dll
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.Extensions.FileProviders.Abstractions.dll
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.Extensions.FileProviders.Embedded.dll
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.Extensions.Logging.dll
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.Extensions.Logging.Abstractions.dll
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.Extensions.Options.dll

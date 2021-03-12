@@ -83,7 +83,7 @@ using ContentManagement.Models.Adverts;
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"d69c189c02cdf5454a61f2d67b17cafdc4048863", @"/Views/Shared/Components/DeleteAdvert/Default.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"2035810ca1a686db96ecd322e943ae5313eb8479", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"2a0e37cfb151450908938d0881486e9ee9e75475", @"/Views/_ViewImports.cshtml")]
     public class Views_Shared_Components_DeleteAdvert_Default : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<AdvertsModel>
     {
         #pragma warning disable 1998

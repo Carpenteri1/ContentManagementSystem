@@ -554,3 +554,9 @@ C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\o
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\Razor\Views\Shared\Components\DeleteAdvert\Default.cshtml.g.cs
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\Razor\Views\Shared\Components\DeleteEvent\Default.cshtml.g.cs
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\Razor\Views\Shared\Components\DeleteUnderPage\Default.cshtml.g.cs
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\bin\Release\netcoreapp3.1\libman.json
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\bin\Release\netcoreapp3.1\AspNetCore.Unobtrusive.Ajax.dll
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\bin\Release\netcoreapp3.1\Microsoft.Extensions.FileProviders.Abstractions.dll
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\bin\Release\netcoreapp3.1\Microsoft.Extensions.FileProviders.Embedded.dll
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\ContentManagement.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\Razor\Views\Shared\Components\MoveUp\Default.cshtml.g.cs

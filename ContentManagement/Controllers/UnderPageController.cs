@@ -31,7 +31,7 @@ namespace ContentManagement.Controllers
 
         [HttpGet]
         // GET: UnderPageController/Create
-        public ActionResult Create()
+        public ActionResult Create(string dropdownValue)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -66,11 +66,11 @@ namespace ContentManagement.Controllers
                     {
                         controllerHelper.SaveToDb();
                     }
-                    return Redirect(nameof(Index));
+                    return RedirectToAction("Index", new { dropdownValue = selecterDropDownValue });
                 }
                 catch
                 {
-                    return Redirect(nameof(Index));
+                    return RedirectToAction("Index", new { dropdownValue = selecterDropDownValue });
                 }
             }
             else
@@ -143,8 +143,6 @@ namespace ContentManagement.Controllers
             {
                 return Redirect(Url.Content("~/Login"));
             }
-
-            return Redirect("/");
         }
 
         // POST: UnderPageController/Edit/5
@@ -176,9 +174,11 @@ namespace ContentManagement.Controllers
 
                 UnderPageControllerHelper underPageControllerHelper = new UnderPageControllerHelper(context, host);
                 List<HeaderContent> headerContent = underPageControllerHelper.GetAllHeadContent();
-                ViewData["HeaderTheme"] = new SelectList(headerContent, "Id", "HeaderTheme");
+             
 
                 var page = underPageControllerHelper.GetUnderPageById(id);
+                ViewData["Headerid"] = page.HeaderContent.Id;
+                ViewData["HeaderTheme"] = new SelectList(headerContent, "Id", "HeaderTheme", page.HeaderContent.Id.ToString());
                 page.UnderPage_ImgContent = underPageControllerHelper.GetImgeContentById(page.Id);
                 page.UnderPage_TextContents = underPageControllerHelper.GetTextContentById(page.Id);
                 page.UnderPage_TitleContents = underPageControllerHelper.GetTitleContentById(page.Id);
@@ -200,21 +200,30 @@ namespace ContentManagement.Controllers
                 UnderPageControllerHelper controllerHelper = new UnderPageControllerHelper(context, host);
                 var user = controllerHelper.GetUserByName(User.Identity.Name);
                 List<HeaderContent> headerContent = controllerHelper.GetAllHeadContent();
+                var header = context.UnderPages.Where(item => item.Id == underPage.Id).FirstOrDefault().HeaderContent; 
                 ViewData["HeaderTheme"] = new SelectList(headerContent, "Id", "HeaderTheme");
                 underPage.HeaderContent = controllerHelper.GetHeaderContentByDropDownValue(int.Parse(controllerHelper.CheckDropDownValue(selecterDropDownValue)));
-
+                
                 try
                 {
                     if (!controllerHelper.DoesAllContentMatch(underPage, user))
                     {
                             controllerHelper.SaveToDb();
+                            var oldUnderPage = context
+                        .UnderPages
+                        .Where(item => item.HeaderContent.Id == header.Id)
+                        .FirstOrDefault();
+                        if (controllerHelper.ReMatchOrder(oldUnderPage))
+                        {
+                            controllerHelper.SaveToDb();
+                        }
                     }
-                    return RedirectToAction("Edit", new { id = underPage.Id }); 
+                    return RedirectToAction("Index", new { dropdownValue = selecterDropDownValue });
                 }
                 catch(Exception e)
                 {
                     Debug.WriteLine(e.Message);
-                    return Redirect(nameof(Index));
+                    return RedirectToAction("Index", new { dropdownValue = selecterDropDownValue });
                 }        
         }
 
@@ -225,6 +234,7 @@ namespace ContentManagement.Controllers
         {
             try
             {
+           
                 UnderPageControllerHelper controllerHelper = new UnderPageControllerHelper(context, host);
                 var page = controllerHelper.GetUnderPageById(underPage.Id);
                 page.UnderPage_ImgContent = controllerHelper.GetImgeContentById(page.Id);
@@ -236,12 +246,16 @@ namespace ContentManagement.Controllers
                 {
                     controllerHelper.SaveToDb();
                 }
-                return RedirectToAction(nameof(Index));
+                if (controllerHelper.ReMatchOrder(page))
+                {
+                    controllerHelper.SaveToDb();
+                }
+                return RedirectToAction("Index", new { dropdownValue = page.HeaderContent.Id.ToString() });
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e.Message);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
         }
     }

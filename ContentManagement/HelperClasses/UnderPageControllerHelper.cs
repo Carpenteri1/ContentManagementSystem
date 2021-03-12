@@ -106,7 +106,8 @@ namespace ContentManagement.HelperClasses
         public UnderPage CreateNewPageData(UnderPage newPage, Users user, int dropdownValue)
         {
             var headercontent = context.HeaderContent.Where(header => header.Id == dropdownValue).First();
-            var underpages = context.UnderPages.ToList();
+            var underpages = context.UnderPages.Where(item => item.HeaderContent.Id == headercontent.Id).ToList();
+
 
             newPage = PopulateImageContent(newPage,user);
             newPage = PopulateTextContent(newPage,user);
@@ -118,7 +119,7 @@ namespace ContentManagement.HelperClasses
                  user != null)
              {
                  newPage.HeaderContent = headercontent;
-                 newPage.Id = underpages.Last().Id + PlusOne;
+                 newPage.OrderPosition = underpages.Count() + PlusOne;
                  newPage.User = user;
                  newPage.pageRoute = CreateRouteData(newPage.LinkTitle);
                  context.Add(newPage);
@@ -309,7 +310,7 @@ namespace ContentManagement.HelperClasses
             }
             return true;
         }
-        private bool DoesAllHeaderMatch(UnderPage Page)
+        public bool DoesAllHeaderMatch(UnderPage Page)
         {
             var underPageDb = GetUnderPageById(Page.Id);
 
@@ -319,6 +320,7 @@ namespace ContentManagement.HelperClasses
                     {
                         underPageDb.HeaderContent = Page.HeaderContent;
                         context.Update(underPageDb);
+                        Edited(underPageDb);
                         return false;
                     }
             }
@@ -396,7 +398,7 @@ namespace ContentManagement.HelperClasses
                 match = false;
             if (!DoesAllUnderPageLinkTitleMatch(underPage))
                 match = false;
-            if(!DoesAllHeaderMatch(underPage))
+            if (!DoesAllHeaderMatch(underPage))
                 match = false;
             if (!ShowEventModul(underPage))
                 match = false;
@@ -484,18 +486,52 @@ namespace ContentManagement.HelperClasses
             return true;
         }
 
+        public bool Edited(UnderPage underPage)
+        {
+            try
+            {
+                underPage.OrderPosition = context.UnderPages.Where(item => item.HeaderContent.Id == underPage.HeaderContent.Id).Count() + PlusOne;
+                context.Attach(underPage);
+                context.Update(underPage);
+            }
+            catch
+            {
+                return false;
+            }
+            SaveToDb();
+            return true;
+        }
+
+
+        public bool ReMatchOrder(UnderPage underPage)
+        {
+            try
+            {
+                var underpages = context.UnderPages.Where(item => item.HeaderContent.Id == underPage.HeaderContent.Id).ToList();
+                int i = 1;
+                foreach (var s in underpages.OrderBy(item => item.OrderPosition))
+                {
+                    context.Attach(s);
+                    s.OrderPosition = i;
+                    context.Update(s);
+
+                    i++;
+                }
+
+            }catch(Exception e)
+            {
+                string messege = e.Message;
+                return false;
+            }
+       
+            return true;
+        }
+
 
         public bool Remove(UnderPage item)
         {
-            item.UnderPage_ImgContent[0] = context.UnderPages_imgcontents.Where(s => s.Id == item.UnderPage_ImgContent[0].Id).FirstOrDefault();
-            item.UnderPage_TextContents[0] = context.UnderPages_TextContents.Where(s => s.Id == item.UnderPage_TextContents[0].Id).FirstOrDefault();
-            item.UnderPage_TitleContents[0] = context.UnderPages_titlecontents.Where(s => s.Id == item.UnderPage_TitleContents[0].Id).FirstOrDefault();
-
-            item.UnderPage_TitleContents[0].UnderPage = item;
-            item.UnderPage_TextContents[0].UnderPage = item;
-            item.UnderPage_ImgContent[0].UnderPage = item;
-
-
+            var headercontent = context.HeaderContent.ToList();
+            var underpages = context.UnderPages.Where(page => page.HeaderContent.Id == item.HeaderContent.Id).ToList();
             try
             {
                 context.Attach(item);
@@ -509,11 +545,13 @@ namespace ContentManagement.HelperClasses
                 context.Remove(item.UnderPage_TitleContents[0]);
                 context.Remove(item);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Debug.WriteLine(e.Message);
-                return false;;
+                return false; ;
             }
+      
+
             return true;
          
         }
