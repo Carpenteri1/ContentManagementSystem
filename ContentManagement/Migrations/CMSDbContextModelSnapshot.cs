@@ -199,6 +199,34 @@ namespace ContentManagement.Migrations
                     b.ToTable("Events");
                 });
 
+            modelBuilder.Entity("ContentManagement.Models.ImageModels.AdvertImageGalleryModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImgUrl")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AdvertImageGallery");
+                });
+
+            modelBuilder.Entity("ContentManagement.Models.ImageModels.PagesImageGalleryModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImgUrl")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PagesImageGallery");
+                });
+
             modelBuilder.Entity("ContentManagement.StartPageModels.PageModel.StartPage", b =>
                 {
                     b.Property<int>("Id")
@@ -348,6 +376,9 @@ namespace ContentManagement.Migrations
                     b.Property<int>("OrderPosition")
                         .HasColumnType("int");
 
+                    b.Property<string>("PageTitle")
+                        .HasColumnType("text");
+
                     b.Property<bool>("ShowEmailFormModul")
                         .HasColumnType("tinyint(1)");
 
@@ -360,10 +391,16 @@ namespace ContentManagement.Migrations
                     b.Property<int?>("StartPageId")
                         .HasColumnType("int");
 
+                    b.Property<string>("TextContent")
+                        .HasColumnType("text");
+
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.Property<string>("pageRoute")
+                        .HasColumnType("text");
+
+                    b.Property<string>("underPageImgSource")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -375,93 +412,6 @@ namespace ContentManagement.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UnderPages");
-                });
-
-            modelBuilder.Entity("ContentManagement.UnderPageModels.PageModel.UnderPage_ImgContents", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("ImgSrc")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("UnderPageId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Uploaded")
-                        .HasColumnType("datetime");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UnderPageId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UnderPages_imgcontents");
-                });
-
-            modelBuilder.Entity("ContentManagement.UnderPageModels.PageModel.UnderPage_TextContents", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime");
-
-                    b.Property<DateTime?>("Edited")
-                        .HasColumnType("datetime");
-
-                    b.Property<string>("TextContent")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("UnderPageId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UnderPageId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UnderPages_TextContents");
-                });
-
-            modelBuilder.Entity("ContentManagement.UnderPageModels.PageModel.UnderPage_TitleContents", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime");
-
-                    b.Property<DateTime?>("Edited")
-                        .HasColumnType("datetime");
-
-                    b.Property<string>("TextContent")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("UnderPageId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UnderPageId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UnderPages_titlecontents");
                 });
 
             modelBuilder.Entity("ContentManagement.Models.Adverts.AdvertsModel", b =>
@@ -549,39 +499,6 @@ namespace ContentManagement.Migrations
 
                     b.HasOne("ContentManagement.Models.Account.Users", "User")
                         .WithMany("UnderPages")
-                        .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("ContentManagement.UnderPageModels.PageModel.UnderPage_ImgContents", b =>
-                {
-                    b.HasOne("ContentManagement.UnderPageModels.PageModel.UnderPage", "UnderPage")
-                        .WithMany("UnderPage_ImgContent")
-                        .HasForeignKey("UnderPageId");
-
-                    b.HasOne("ContentManagement.Models.Account.Users", "User")
-                        .WithMany("UnderPage_ImgContents")
-                        .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("ContentManagement.UnderPageModels.PageModel.UnderPage_TextContents", b =>
-                {
-                    b.HasOne("ContentManagement.UnderPageModels.PageModel.UnderPage", "UnderPage")
-                        .WithMany("UnderPage_TextContents")
-                        .HasForeignKey("UnderPageId");
-
-                    b.HasOne("ContentManagement.Models.Account.Users", "User")
-                        .WithMany("UnderPage_TextContents")
-                        .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("ContentManagement.UnderPageModels.PageModel.UnderPage_TitleContents", b =>
-                {
-                    b.HasOne("ContentManagement.UnderPageModels.PageModel.UnderPage", "UnderPage")
-                        .WithMany("UnderPage_TitleContents")
-                        .HasForeignKey("UnderPageId");
-
-                    b.HasOne("ContentManagement.Models.Account.Users", "User")
-                        .WithMany("UnderPage_Titles")
                         .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618

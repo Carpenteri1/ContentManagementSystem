@@ -7,14 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="wwwroot\Upload\StartPage\Editor\**" />
-    <Content Remove="wwwroot\Upload\StartPage\Editor\**" />
-    <EmbeddedResource Remove="wwwroot\Upload\StartPage\Editor\**" />
-    <None Remove="wwwroot\Upload\StartPage\Editor\**" />
-    <TypeScriptCompile Remove="wwwroot\Upload\StartPage\Editor\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="Views\Shared\Error.cshtml" />
     <None Include="Views\Shared\_Layout.cshtml" />
     <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
@@ -43,23 +35,47 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\GolfModelLibrary\GolfModelLibrary.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Update="wwwroot\css\site.css">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Update="wwwroot\Upload\Extra\langas.jpg">
+    <Content Update="wwwroot\Upload\AdvertsImages\langas.jpg">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Update="wwwroot\Upload\Extra\wellify.jpg">
+    <Content Update="wwwroot\Upload\AdvertsImages\wellify.jpg">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Update="wwwroot\Upload\Extra\xlbyggcenter.jpg">
+    <Content Update="wwwroot\Upload\PageImages\andre-akfors-start-splash-image-dec2020.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\Upload\PageImages\start-box-1-company.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\Upload\PageImages\start-box-1-golfclub.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\Upload\PageImages\start-box-3-golfplayers.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\Upload\PageImages\start-stripe-challenge-background.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\Upload\PageImages\start-stripe-challenge-big.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\Upload\PageImages\start-stripe-challenge-small-1.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\Upload\PageImages\start-stripe-challenge-small-2.jpg">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>

@@ -2,25 +2,28 @@
 
 
 
-@using (Html.BeginForm("Delete", "Adverts", FormMethod.Post,
-        new { name = "deleteAdvert", id = "deleteAdvert" }))
-{
+
 <div class="modal-content p-2">
-    @Html.HiddenFor(model => model.Id)
+
     <div class="modal-title"><h6>Tabort @Model.LinkTitle</h6></div>
         <br />
     <p style="font-size:1.2em;">Är du säker på att du vill ta bort sidan? Detta går inte att ångra.</p>
     <div class="modal-footer" style="border:none;">
         <div class="col-6">
-            <button type="button" class="btn text-white p-0 text-center" onclick="location.href='@Url.Action("Index", "Adverts")'" style="font-size: 0.4vw;width:3.8vw;height:1.2vw;background-color:#8c8c8c;">Avbryt</button>
+                <button type="button" class="btn text-white p-0 text-center" data-dismiss="modal" style="font-size: 0.4vw;width:3.8vw;height:1.2vw;background-color:#8c8c8c;">Avbryt</button>
         </div>
         <div class="col-6">
+            @using (Html.BeginForm("Delete", "Adverts", FormMethod.Post,
+           new { name = "deleteAdvert", id = "deleteAdvert" }))
+            {
+             @Html.HiddenFor(model => model.Id)
             <button type="submit" class="btn text-white p-0 text-center" style="font-size: 0.4vw;width:3.8vw;height:1.2vw;background-color:#cc0000;">Ta bort</button>
+            }
         </div>
     </div>
 </div>
 
-}
+
 
 <script>
     function submitform() {

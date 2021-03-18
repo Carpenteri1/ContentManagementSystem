@@ -8,7 +8,7 @@
         <div class="col-7">
             <div class="container text-center align-content-center">
                 @using (Html.BeginForm("Create", "UnderPage", FormMethod.Post,
-           new { enctype = "multipart/form-data" }))
+          new { enctype = "multipart/form-data" }))
                 {
                     <div style="height:0.8vw;"></div>
                     <div class="row p-0">
@@ -26,13 +26,13 @@
                             <div class="row">
                                 <div class="col-6">
                                     <label class="d-block" style="font-size:0.5vw;"><b>Rubrik:</b></label>
-                                    <input asp-for="@Model.UnderPage_TitleContents[0].TextContent" class="form-control" style="font-size:0.5vw;height:1.2vw;width:10.5vw;background-color:white;border:1px solid lightgray;">
-                                    <span asp-validation-for="@Model.UnderPage_TitleContents[0].TextContent" class="text-danger"></span>
+                                    <input asp-for="@Model.PageTitle" class="form-control" style="font-size:0.5vw;height:1.2vw;width:10.5vw;background-color:white;border:1px solid lightgray;">
+                                    <span asp-validation-for="@Model.PageTitle" class="text-danger"></span>
                                 </div>
                                 <div class="col-6">
                                     @Html.HiddenFor(model => model.Id)
                                     <label class="d-block" style="font-size:0.5vw;"><b>Länktext i meny:</b></label>
-                                    <input asp-for="LinkTitle" class="form-control" style="font-size:0.5vw;width:10.5vw;height:1.2vw;">
+                                    <input asp-for="LinkTitle" class="form-control" style="font-size:0.5vw;width:10.5vw;height:1.2vw;" required />
                                     <span asp-validation-for="LinkTitle" class="text-danger"></span>
                                 </div>
                             </div>
@@ -42,10 +42,13 @@
                                 <div class="col-6">
                                     <div class="form-group" style="text-align:left;font-size:0.5vw;">
                                         <label class="d-block" style="font-size:0.5vw;"><b>Splash bild</b></label>
-                                        @Html.HiddenFor(model => model.UnderPage_ImgContent[0].Id)
-                                        @Html.HiddenFor(model => model.UnderPage_ImgContent[0].ImgSrc)
-                                        @Html.HiddenFor(model => model.UnderPage_ImgContent[0].File)
-                                        @Html.EditorFor(model => model.UnderPage_ImgContent[0].File)
+                                        @Html.HiddenFor(model => model.underPageImgSource)
+                                        @Html.HiddenFor(model => model.underPageImgSource, new { HtmlAttributes = new { id = "imgsrc" } })
+                                        @if(ViewData["Message"] != null){
+                                            <p style="color:red;font-size:0.5em;">@ViewData["Message"].ToString()</p>
+                                        }
+                                        <img class="d-block" id="underpageId" src="@Model.underPageImgSource" width="240" height="140" style="border:1px solid gray;" />
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#PageGallery" style="font-size:0.7em;width:8em;height:3.5em;">välj bild</button>
                                     </div>
                                 </div>
                                 <div class="col-6">
@@ -62,8 +65,8 @@
                         <div style="height:3vw;"></div>
                         <div class="text-left p-2" style="font-size:0.5vw;">
                             <label class="control-label text-left" style="font-weight:bold;">Brödtext: </label>
-                            @Html.HiddenFor(text => text.UnderPage_TextContents[0])
-                            @Html.TextAreaFor(model => model.UnderPage_TextContents[0].TextContent, new { id = "editor2",style="font-size:2em;"})                        
+                            @Html.HiddenFor(text => text.Id)
+                            @Html.TextAreaFor(model => model.TextContent, new { id = "editor2", style = "font-size:2em;" })
                         </div>
                     </div>
                     <h6 class="text-left">Metainformation</h6>
@@ -88,12 +91,13 @@
                     </div>
                     <div style="height:2.5vw;"></div>
                 }
+            </div>
 
             </div>
         </div>
         <div class="col-auto"></div>
     </div>
-</div>
 <div>
 
 </div>
+@await Component.InvokeAsync("PageImageGallery")

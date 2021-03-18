@@ -42,8 +42,8 @@
                     <td style="background-color: #f4f4f4;text-align: right; width:100%; display: inline-block;font-size:0.5vw;font-weight:bold;" class="p-2">
 
                         <a class="d-block">@Html.ActionLink("Ändra", "Edit", new { id = Model[i].Id })&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                        <a href="#@Html.DisplayTextFor(model => model[i].EventTitle).Replace(" ","")" role="button" id="ShowPopup" data-toggle="modal" class="text-decoration-none" style="color:#cc0000;"> <span style="color:black;">-</span> &nbsp;&nbsp;&nbsp;&nbsp;Ta bort</a>
-                        <div id="@Html.DisplayTextFor(model => model[i].EventTitle).Replace(" ","")" class="modal fade " role="dialog">
+                        <a href="#event_@Html.DisplayTextFor(model => model[i].Id)" role="button" id="ShowPopup" data-toggle="modal" class="text-decoration-none" style="color:#cc0000;"> <span style="color:black;">-</span> &nbsp;&nbsp;&nbsp;&nbsp;Ta bort</a>
+                        <div id="event_@Html.DisplayTextFor(model => model[i].Id)" class="modal fade " role="dialog">
                             <div class="modal-dialog text-center" style="width:35%;margin-top:10%;">
                                 @await Component.InvokeAsync("DeleteEvent", new { Id = Model[i].Id })
                             </div>
@@ -57,8 +57,8 @@
                     </td>
                     <td style="background-color: white;text-align: right; width:100%; display: inline-block;font-size:0.5vw;font-weight:bold;" class="p-2">
                         <a class="d-block">@Html.ActionLink("Ändra", "Edit", new { id = Model[i].Id })&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                        <a href="#@Html.DisplayTextFor(model => model[i].EventTitle).Replace(" ","")" role="button" id="ShowPopup" data-toggle="modal" class="text-decoration-none" style="color:#cc0000;"> <span style="color:black;">-</span> &nbsp;&nbsp;&nbsp;&nbsp;Ta bort</a>
-                        <div id="@Html.DisplayTextFor(model => model[i].EventTitle).Replace(" ","")" class="modal fade " role="dialog">
+                        <a href="#event_@Html.DisplayTextFor(model => model[i].Id)" role="button" id="ShowPopup" data-toggle="modal" class="text-decoration-none" style="color:#cc0000;"> <span style="color:black;">-</span> &nbsp;&nbsp;&nbsp;&nbsp;Ta bort</a>
+                        <div id="event_@Html.DisplayTextFor(model => model[i].Id)" class="modal fade " role="dialog">
                             <div class="modal-dialog text-center" style="width:35%;margin-top:10%;">
                                 @await Component.InvokeAsync("DeleteEvent", new { Id = Model[i].Id })
                             </div>

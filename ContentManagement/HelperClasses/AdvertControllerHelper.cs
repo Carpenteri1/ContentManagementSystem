@@ -3,11 +3,13 @@ using ContentManagement.Data.Services;
 using ContentManagement.Models.Account;
 using ContentManagement.Models.Adverts;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using ContentManagement.Models.ImageModels;
 
 namespace ContentManagement.HelperClasses
 {
@@ -17,7 +19,7 @@ namespace ContentManagement.HelperClasses
         private readonly CMSDbContext context;
         private const int PlusOne = 1;
         private const string DefaultDropDownValue = "1";
-        private const string ToFolder = "/Upload/Extra/";
+        private const string ToFolder = "/Upload/AdvertsImages/";
 
 
         public AdvertControllerHelper(CMSDbContext context, IWebHostEnvironment host) 
@@ -27,26 +29,70 @@ namespace ContentManagement.HelperClasses
         }
         public AdvertsModel CreateNewAdvertData(AdvertsModel newAd, Users user, string selectDropDownValue)
         {
-            var advertType = GetAdvertTypeByDropDownValue(selectDropDownValue); 
-            var allAds = GetAllAdverts();
-            newAd = PopulateImg(newAd);
+                var advertType = GetAdvertTypeByDropDownValue(selectDropDownValue);
+                var allAds = GetAllAdverts();
+                newAd = PopulateImg(newAd);
 
-            if (advertType != null &&
-                user != null)
-            {
-                newAd.TypeOfAdd = advertType;
-                newAd.Id = allAds.Last().Id + PlusOne;
-                newAd.User = user;
-                context.Add(newAd);
-            }
-
+                if (advertType != null &&
+                    user != null)
+                {
+                    newAd.TypeOfAdd = advertType;
+                    newAd.Id = allAds.Last().Id + PlusOne;
+                    newAd.User = user;
+                    context.Add(newAd);
+                }
             return newAd;
         }
+
+
+        public bool DeleteImage(string imgsrc)
+        {
+
+            if (DeleteImageFromDb(imgsrc) &&
+                DeleteImageFromRoot(imgsrc))
+                return true;
+
+            return false;
+        }
+
+
+        private bool DeleteImageFromRoot(string imgsrc)
+        {
+            FileManager fileManager = new FileManager(context, host);
+            if (fileManager.RemoveFromRootFolder(imgsrc))
+                return true;
+
+            return false;
+        }
+
+        private bool DeleteImageFromDb(string imgsrc)
+        {
+            try
+            {
+                var gallery = context.AdvertImageGallery.ToList();
+                foreach (var s in gallery)
+                    if (s.ImgUrl.Contains(imgsrc))
+                    {
+                        context.Attach(s);
+                        context.Remove(s);
+                        return true;
+                    }
+            }
+            catch
+            {
+
+            }
+            return false;
+        }
+
+
+
+
 
         private AdvertsModel PopulateImg(AdvertsModel newAd)
         {
             FileManager manager = new FileManager(context, host);
-            newAd.ImgUrl = manager.CopyToRootFolder(newAd.File, ToFolder);
+           // newAd.ImgUrl = manager.CopyToPageAdvertsRootFolder(newAd.File, ToFolder);
             newAd.Uploaded = DateTime.Now;
             return newAd;
         }
@@ -111,6 +157,31 @@ namespace ContentManagement.HelperClasses
             return true;
         }
 
+        public bool FileManager(IFormFile file)
+        {
+            try
+            {
+                var gallery = context.AdvertImageGallery.ToList();
+                FileManager manages = new FileManager(context, host);
+                AdvertImageGalleryModel galleryModel = new AdvertImageGalleryModel();
+                galleryModel.ImgUrl = manages.CopyToRootFolder(file, ToFolder);
+                foreach (var s in gallery)
+                {
+                    if (s.ImgUrl.Contains(galleryModel.ImgUrl))//if image already excist
+                    {
+                        return false;
+                    }
+                }
+                context.Add(galleryModel);
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
+        }
+
 
 
         public bool DoesAllContentMatch(AdvertsModel advert,Users user)
@@ -143,19 +214,6 @@ namespace ContentManagement.HelperClasses
                     context.Update(Dbadverts);
                     match = false;
                 }
-                if (advert.File != null)
-                {
-                    FileManager manages = new FileManager(context, host);
-                    advert.ImgUrl = manages.CopyToRootFolder(advert.File, ToFolder);
-
-                    if (!advert.ImgUrl.Equals(Dbadverts.ImgUrl))
-                    {
-                        Dbadverts.ImgUrl = advert.ImgUrl;
-                        Dbadverts.Uploaded = DateTime.Now;
-                        context.Update(Dbadverts);
-                        match = false;
-                    }
-                }
                 if (Dbadverts.TypeOfAdd != null)
                 {
                     if (Dbadverts.TypeOfAdd != advert.TypeOfAdd)
@@ -171,6 +229,16 @@ namespace ContentManagement.HelperClasses
                     {
                         Dbadverts.User = user;
                         context.Update(Dbadverts);
+                        match = false;
+                    }
+                }
+                if(advert.ImgUrl != null)
+                {
+                    if(Dbadverts.ImgUrl != advert.ImgUrl)
+                    {
+                        Dbadverts.ImgUrl = advert.ImgUrl;
+                        context.Update(Dbadverts);
+                        match = false;
                     }
                 }
            

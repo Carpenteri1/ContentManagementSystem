@@ -5,6 +5,7 @@ using ContentManagement.UnderPageModels.PageModel;
 using ContentManagement.HeaderModel;
 using ContentManagement.Models.EventsModel;
 using ContentManagement.Models.Adverts;
+using ContentManagement.Models.ImageModels;
 using ContentManagement.Data.Services;
 
 namespace ContentManagement.Data
@@ -20,9 +21,6 @@ namespace ContentManagement.Data
 
         #region underPage
         public DbSet<UnderPage> UnderPages { get; set; }
-        public DbSet<UnderPage_TitleContents> UnderPages_titlecontents { get; set; }
-        public DbSet<UnderPage_ImgContents> UnderPages_imgcontents { get; set; }
-        public DbSet<UnderPage_TextContents> UnderPages_TextContents { get; set; }
         #endregion
 
         #region StartPage region
@@ -41,6 +39,11 @@ namespace ContentManagement.Data
         #region Adverts
         public DbSet<AdvertsModel> Adverts { get; set; }
         public DbSet<AdvertType> AdvertTypes { get; set; }
+        #endregion
+
+        #region ImageGallery
+        public DbSet<AdvertImageGalleryModel> AdvertImageGallery { get; set; }
+        public DbSet<PagesImageGalleryModel> PagesImageGallery { get; set; }
         #endregion
 
 

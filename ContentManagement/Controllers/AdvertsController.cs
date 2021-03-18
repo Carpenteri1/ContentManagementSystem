@@ -18,6 +18,9 @@ namespace ContentManagement.Controllers
     {
         private CMSDbContext context;
         private readonly IWebHostEnvironment host;
+        private string dropdownValue = string.Empty;
+        private const string LocalHostName = "https://localhost:44398";
+        private const string DevHostName = "https://golf.amvdev.se/";
 
         public AdvertsController(CMSDbContext context, IWebHostEnvironment host)
         {
@@ -32,9 +35,17 @@ namespace ContentManagement.Controllers
             {
                 AdvertControllerHelper advertControllerHelper = new AdvertControllerHelper(context, host);
                 var advertTypes = advertControllerHelper.GetAllAdvertTypes();
-                ViewData["TypeOfAd"] = new SelectList(advertTypes, "Id", "TypeOfAd");
-                var adverts = advertControllerHelper.GetAdsByDropDownValue(advertControllerHelper.CheckDropDownValue(null));
-
+                var adverts = new List<AdvertsModel>();
+                if (TempData["dropdownValue"] != null)
+                {
+                    ViewData["TypeOfAd"] = new SelectList(advertTypes, "Id", "TypeOfAd", TempData["dropdownValue"].ToString());
+                    adverts = advertControllerHelper.GetAdsByDropDownValue(advertControllerHelper.CheckDropDownValue(TempData["dropdownValue"].ToString()));
+                }
+                else
+                {
+                    ViewData["TypeOfAd"] = new SelectList(advertTypes, "Id", "TypeOfAd");
+                    adverts = advertControllerHelper.GetAdsByDropDownValue(advertControllerHelper.CheckDropDownValue(null));
+                }
                 return View(adverts);
             }
             else
@@ -45,13 +56,13 @@ namespace ContentManagement.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(string selecterDropDownValue)
+        public ActionResult Index(string selecterDropDownValue,int id)
         {
             try
             {
                 AdvertControllerHelper advertControllerHelper = new AdvertControllerHelper(context, host);
                 var advertTypes = advertControllerHelper.GetAllAdvertTypes();
-                ViewData["TypeOfAd"] = new SelectList(advertTypes, "Id", "TypeOfAd");
+                ViewData["TypeOfAd"] = new SelectList(advertTypes, "Id", "TypeOfAd", selecterDropDownValue);
                 var adverts = advertControllerHelper.GetAdsByDropDownValue(advertControllerHelper.CheckDropDownValue(selecterDropDownValue));
                 return View(adverts);
             }
@@ -88,11 +99,24 @@ namespace ContentManagement.Controllers
                 AdvertControllerHelper advertHelper = new AdvertControllerHelper(context,host);
                 try
                 {
-                    newAdvert = advertHelper.CreateNewAdvertData(newAdvert,advertHelper.GetUser(User.Identity.Name),advertHelper.CheckDropDownValue(selecterDropDownValue));
+                    var advertTypes = advertHelper.GetAllAdvertTypes();
+                    ViewData["TypeOfAd"] = new SelectList(advertTypes, "Id", "TypeOfAd",selecterDropDownValue);
+          
                     if (newAdvert != null)
-                        advertHelper.SaveToDb();
-                   
-                    return RedirectToAction(nameof(Index));
+                    {
+                       
+                        if (TempData["imgsrc"] != null)
+                        {
+                            newAdvert.ImgUrl = TempData["imgsrc"].ToString();
+                            newAdvert = advertHelper.CreateNewAdvertData(newAdvert, advertHelper.GetUser(User.Identity.Name), advertHelper.CheckDropDownValue(selecterDropDownValue));
+                            advertHelper.SaveToDb();
+                            TempData["dropdownValue"] = selecterDropDownValue;
+                            return Redirect(nameof(Index));
+                        } 
+                    }
+
+                    ViewData["ImageError"] = "Bild måste finnas";
+                    return Redirect(nameof(Create));
 
                 }
                 catch
@@ -110,15 +134,17 @@ namespace ContentManagement.Controllers
 
         [HttpGet]
         // GET: AdvertsController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(AdvertsModel adverts)
         {
             if (User.Identity.IsAuthenticated)
             {
                 AdvertControllerHelper advertHelper = new AdvertControllerHelper(context, host);
                 var advertTypes = advertHelper.GetAllAdvertTypes();
-                ViewData["TypeOfAd"] = new SelectList(advertTypes, "Id", "TypeOfAd");
-                var advert = advertHelper.GetAdvertById(id);
 
+            
+                var advert = advertHelper.GetAdvertById(adverts.Id);
+                ViewData["TypeOfAd"] = new SelectList(advertTypes, "Id", "TypeOfAd", advert.TypeOfAdd.Id.ToString());
+                adverts.TypeOfAdd = advertHelper.GetAdvertTypeByDropDownValue(advertHelper.CheckDropDownValue(advert.TypeOfAdd.Id.ToString()));
                 return View(advert);
             }
             else
@@ -129,15 +155,17 @@ namespace ContentManagement.Controllers
 
         // POST: AdvertsController/Edit/5
         [HttpPost]
-        public ActionResult Edit(AdvertsModel adverts, string selecterDropDownValue)
+        public ActionResult Edit(AdvertsModel adverts,string selecterDropDownValue)
         {
             AdvertControllerHelper advertHelper = new AdvertControllerHelper(context, host);
+
             try
             {
                 var advertTypes = advertHelper.GetAllAdvertTypes();
-                ViewData["TypeOfAd"] = new SelectList(advertTypes, "Id", "TypeOfAd");
-                adverts.TypeOfAdd = advertHelper.GetAdvertTypeByDropDownValue(advertHelper.CheckDropDownValue(selecterDropDownValue));
-
+                    ViewData["TypeOfAd"] = new SelectList(advertTypes, "Id", "TypeOfAd", selecterDropDownValue);
+                    adverts.TypeOfAdd = advertHelper.GetAdvertTypeByDropDownValue(advertHelper.CheckDropDownValue(selecterDropDownValue));
+                if (TempData["imgsrc"] != null)
+                    adverts.ImgUrl = TempData["imgsrc"].ToString();
 
                 if (!advertHelper.DoesAllContentMatch(adverts,advertHelper.GetUser(User.Identity.Name)))
                 {
@@ -145,7 +173,7 @@ namespace ContentManagement.Controllers
                 }
 
 
-                return RedirectToAction("Edit", new { id = adverts.Id });
+                return RedirectToAction("Index", new { dropdownValue = selecterDropDownValue });
             }
             catch(Exception e )
             {
@@ -153,31 +181,75 @@ namespace ContentManagement.Controllers
                 return Redirect(nameof(Index));
             }
         }
-        /*
-        // GET: AdvertsController/Delete/5
-        public ActionResult Delete(int id)
+
+        [HttpPost]
+        public ActionResult UploadImage(IFormFile file,string id)
         {
-            if (User.Identity.IsAuthenticated)
+            AdvertControllerHelper advertHelper = new AdvertControllerHelper(context, host);
+            if (advertHelper.FileManager(file))
             {
-                AdvertControllerHelper advertControllerHelper = new AdvertControllerHelper(context,host);
-                var advert = advertControllerHelper.GetAdvertById(id);
-          
-                if (advert != null)
-                {
-                    return View(advert);
-                }
-                else
-                {
-                    return Redirect(nameof(Index));
-                }
-           
+                advertHelper.SaveToDb();
+            }
+            if (id != null)//if page is created id is null
+            {
+                char[] charsToTrim = { '?', 'i', 'd', '=' };
+                return RedirectToAction(nameof(Edit), new { id = int.Parse(id.Trim(charsToTrim)) });
             }
             else
             {
-                return Redirect("~/login");
+
+                return RedirectToAction(nameof(Create));
             }
- 
-        }*/
+
+        }
+
+
+        [HttpPost]
+        public ActionResult SetImage(string imgsrc, string id)
+        {
+            AdvertControllerHelper advertControllerHelper = new AdvertControllerHelper(context, host);
+            if (imgsrc.Contains(LocalHostName))
+            {
+                TempData["imgsrc"] = imgsrc.Replace(LocalHostName, "");
+            }
+            if (imgsrc.Contains(DevHostName))
+            {
+                TempData["imgsrc"] = imgsrc.Replace(DevHostName, "");
+            }
+            if (id != null)//if page is created id is null
+            {
+                char[] charsToTrim = { '?', 'i', 'd', '=' };
+                var advertPage = advertControllerHelper.GetAdvertById(int.Parse(id.Trim(charsToTrim)));
+                return RedirectToAction(nameof(Edit), new { id = advertPage.Id});
+            }
+
+            return RedirectToAction(nameof(Create));
+        }
+
+        [HttpPost]
+        public ActionResult DeleteImage(string imgsrc, string id)
+        {
+            AdvertControllerHelper advertControllerHelper = new AdvertControllerHelper(context, host);
+
+            if (imgsrc.Contains(LocalHostName))
+                imgsrc = imgsrc.Replace(LocalHostName, "");
+
+            if (imgsrc.Contains(DevHostName))
+                imgsrc = imgsrc.Replace(DevHostName, "");
+
+            TempData["imgsrc"] = imgsrc;
+            if (advertControllerHelper.DeleteImage(imgsrc))
+                advertControllerHelper.SaveToDb();
+
+            if (id != null)//if page is created id is null
+            {
+                char[] charsToTrim = { '?', 'i', 'd', '=' };
+                var advert = advertControllerHelper.GetAdvertById(int.Parse(id.Trim(charsToTrim)));
+                return RedirectToAction(nameof(Edit), new { id = advert.Id });
+            }
+
+            return RedirectToAction(nameof(Create));
+        }
 
         // POST: AdvertsController/Delete/5
         [HttpPost]
@@ -185,12 +257,22 @@ namespace ContentManagement.Controllers
         public ActionResult Delete(AdvertsModel advert)
         {
             AdvertControllerHelper advertControllerHelper = new AdvertControllerHelper(context,host);
+            var typeofads = advertControllerHelper.GetAllAdvertTypes();
+            var adverts = advertControllerHelper.GetAllAdverts();
+            foreach (var s in adverts)
+                if (s.Id == advert.Id)
+                {
+                    advert = s;
+                    advert.TypeOfAdd = s.TypeOfAdd;
+                }
+                  
             try
             {
                 if (advertControllerHelper.Remove(advert))
                 {
                     advertControllerHelper.SaveToDb();
                 }
+                TempData["dropdownValue"] = advert.TypeOfAdd.Id;
                 return Redirect(nameof(Index));
             }
             catch (Exception e)
@@ -198,7 +280,6 @@ namespace ContentManagement.Controllers
                 Debug.WriteLine(e.Message);
                 return Redirect(nameof(Index));
             }
-            return Redirect(nameof(Index));
         }
     }
 }

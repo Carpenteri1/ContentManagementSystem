@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Hosting;
 using System.Diagnostics;
 using ContentManagement.Models.Account;
 using Microsoft.EntityFrameworkCore;
+using ContentManagement.Models.ImageModels;
 
 namespace ContentManagement.Controllers
 {
@@ -23,6 +24,8 @@ namespace ContentManagement.Controllers
         private const string DefaultDropDownValue = "1";
         private readonly IWebHostEnvironment host;
         private string dropdownValue = string.Empty;
+        private const string LocalHostName= "https://localhost:44398";
+        private const string DevHostName = "https://golf.amvdev.se/";
         public UnderPageController(CMSDbContext context, IWebHostEnvironment host)
         {
             this.context = context;
@@ -61,7 +64,10 @@ namespace ContentManagement.Controllers
                 try
                 {
                     newPage.AmmountOfAdverts = 3;
+                    if (TempData["imgsrc"] != null)
+                        newPage.underPageImgSource = TempData["imgsrc"].ToString();
                     newPage = controllerHelper.CreateNewPageData(newPage, user, int.Parse(selecterDropDownValue));
+
                     if (newPage != null)
                     {
                         controllerHelper.SaveToDb();
@@ -80,6 +86,32 @@ namespace ContentManagement.Controllers
 
         }
 
+        [HttpGet]
+        public ActionResult ShowAllImageComponent()
+        {
+            return ViewComponent("ShowAllImages");
+        }
+
+        [HttpPost]//posted with ajax form has references
+        public ActionResult UploadFile(IFormFile File,string id)
+        {
+            UnderPageControllerHelper controllerHelper = new UnderPageControllerHelper(context, host);
+            if (controllerHelper.FileManager(File))
+            {
+                controllerHelper.SaveToDb();
+            }
+            if(id != null)//if page is created id is null
+            {
+                char[] charsToTrim = { '?', 'i', 'd', '=' };
+                return RedirectToAction(nameof(Edit), new { id = int.Parse(id.Trim(charsToTrim)) });
+            }
+            else
+            {
+                
+                return RedirectToAction(nameof(Create));
+            }
+
+        }
     
         [HttpGet]
         public ActionResult Index(string dropdownValue)
@@ -112,7 +144,7 @@ namespace ContentManagement.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost]//Has references check underpage index view
         public ActionResult MoveUp(int Id)
         {
             if (User.Identity.IsAuthenticated)
@@ -128,7 +160,7 @@ namespace ContentManagement.Controllers
             }
 
         }
-        [HttpPost]
+        [HttpPost]//Has references check underpage index view
         public ActionResult MoveDown(int Id)
         {
             if (User.Identity.IsAuthenticated)
@@ -143,6 +175,30 @@ namespace ContentManagement.Controllers
             {
                 return Redirect(Url.Content("~/Login"));
             }
+        }
+
+        [HttpPost]
+        public ActionResult DeleteImage(string imgsrc, string id)
+        {
+            UnderPageControllerHelper underPageControllerHelper = new UnderPageControllerHelper(context, host);
+
+            if (imgsrc.Contains(LocalHostName))
+                imgsrc = imgsrc.Replace(LocalHostName, "");
+
+            if (imgsrc.Contains(DevHostName))
+                imgsrc = imgsrc.Replace(DevHostName, "");
+
+            TempData["imgsrc"] = imgsrc;
+            if(underPageControllerHelper.DeleteImage(imgsrc))
+            underPageControllerHelper.SaveToDb();
+
+            if (id != null)//if page is created id is null
+            {
+                char[] charsToTrim = { '?', 'i', 'd', '=' };
+                var page = underPageControllerHelper.GetUnderPageById(int.Parse(id.Trim(charsToTrim)));
+                return RedirectToAction(nameof(Edit), new { id = page.Id });
+            }
+            return RedirectToAction(nameof(Create));
         }
 
         // POST: UnderPageController/Edit/5
@@ -179,10 +235,7 @@ namespace ContentManagement.Controllers
                 var page = underPageControllerHelper.GetUnderPageById(id);
                 ViewData["Headerid"] = page.HeaderContent.Id;
                 ViewData["HeaderTheme"] = new SelectList(headerContent, "Id", "HeaderTheme", page.HeaderContent.Id.ToString());
-                page.UnderPage_ImgContent = underPageControllerHelper.GetImgeContentById(page.Id);
-                page.UnderPage_TextContents = underPageControllerHelper.GetTextContentById(page.Id);
-                page.UnderPage_TitleContents = underPageControllerHelper.GetTitleContentById(page.Id);
-
+                    
                 return View(page);
             }
             else
@@ -191,6 +244,29 @@ namespace ContentManagement.Controllers
             }
         }
 
+
+        [HttpPost]//posted by ajax and has references
+        public ActionResult SetImage(string imgsrc,string id)
+        {
+            UnderPageControllerHelper underPageControllerHelper = new UnderPageControllerHelper(context, host);
+      
+            if (imgsrc.Contains(LocalHostName))
+            {
+                TempData["imgsrc"] = imgsrc.Replace(LocalHostName, "");
+            }
+            if (imgsrc.Contains(DevHostName))
+            {
+                TempData["imgsrc"] = imgsrc.Replace(DevHostName, "");
+            }
+            if (id != null)//if page is created id is null
+            {
+                char[] charsToTrim = { '?', 'i', 'd', '=' };
+                var page = underPageControllerHelper.GetUnderPageById(int.Parse(id.Trim(charsToTrim)));
+                return RedirectToAction(nameof(Edit), new { id = page.Id });
+            }
+            return RedirectToAction(nameof(Create));
+       
+        }
 
         // POST: UnderPageController/Edit/5
         [HttpPost]
@@ -203,8 +279,10 @@ namespace ContentManagement.Controllers
                 var header = context.UnderPages.Where(item => item.Id == underPage.Id).FirstOrDefault().HeaderContent; 
                 ViewData["HeaderTheme"] = new SelectList(headerContent, "Id", "HeaderTheme");
                 underPage.HeaderContent = controllerHelper.GetHeaderContentByDropDownValue(int.Parse(controllerHelper.CheckDropDownValue(selecterDropDownValue)));
-                
-                try
+                if(TempData["imgsrc"] != null)
+                underPage.underPageImgSource = TempData["imgsrc"].ToString();
+
+            try
                 {
                     if (!controllerHelper.DoesAllContentMatch(underPage, user))
                     {
@@ -237,10 +315,6 @@ namespace ContentManagement.Controllers
            
                 UnderPageControllerHelper controllerHelper = new UnderPageControllerHelper(context, host);
                 var page = controllerHelper.GetUnderPageById(underPage.Id);
-                page.UnderPage_ImgContent = controllerHelper.GetImgeContentById(page.Id);
-                page.UnderPage_TextContents = controllerHelper.GetTextContentById(page.Id);
-                page.UnderPage_TitleContents = controllerHelper.GetTitleContentById(page.Id);
-
     
                 if (controllerHelper.Remove(page))
                 {

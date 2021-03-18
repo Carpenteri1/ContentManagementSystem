@@ -20,9 +20,9 @@ namespace ContentManagement.UnderPageModels.PageModel
         public bool ShowFormModul { get; set; }
         public int OrderPosition { get; set; }
         public bool ShowEmailFormModul { get; set; }
-        public List<UnderPage_ImgContents> UnderPage_ImgContent { get; set; }
-        public List<UnderPage_TextContents> UnderPage_TextContents { get; set; }
-        public List<UnderPage_TitleContents> UnderPage_TitleContents { get; set; }
+        public string underPageImgSource { get; set; }
+        public string TextContent { get; set; }
+        public string PageTitle { get; set; }
         public Users User { get; set; }
         public HeaderContent HeaderContent { get; set; }
         public StartPage StartPage { get; set; }

@@ -20,7 +20,20 @@ namespace ContentManagement.Data.Services
             this.host = host;
         }
 
-
+        public bool RemoveFromRootFolder(string imgsrc)
+        {
+            if(imgsrc != null ||
+                imgsrc != string.Empty)
+            {
+                string path = "wwwroot" + imgsrc;
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                    return true;
+                }
+            }
+            return false;
+        }
         public string CopyToRootFolder(IFormFile fileContent,string folder)
         {
             if (fileContent != null)

@@ -9,7 +9,6 @@
         <div class="container">
             @using (Html.BeginForm("Index", "UnderPage", FormMethod.Post, new { name = "header", id = "header" }))
             {
-
                 <div class="row">
                     <div class="col-6">
                         <label style=" width: 100%; text-align: left; display: inline-block;">
@@ -59,9 +58,9 @@
                                     <td style="background-color:white;text-align: right; width:100%; display: inline-block;font-size:0.5vw;font-weight:bold;" class="p-2">
 
                                         <a class="d-block">@Html.ActionLink("Ändra", "Edit", new { id = s.Id })&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                                        <a href="#@Html.DisplayTextFor(model => s.pageRoute)" role="button" id="ShowPopup" data-toggle="modal" class="text-decoration-none" style="color:#cc0000;"> <span style="color:black;">-</span> &nbsp;&nbsp;&nbsp;&nbsp;Ta bort</a>
+                                        <a href="#page_@Html.DisplayTextFor(model => s.Id)" role="button" id="ShowPopup" data-toggle="modal" class="text-decoration-none" style="color:#cc0000;"> <span style="color:black;">-</span> &nbsp;&nbsp;&nbsp;&nbsp;Ta bort</a>
 
-                                        <div id="@Html.DisplayTextFor(model => s.pageRoute)" class="modal fade " role="dialog">
+                                        <div id="page_@Html.DisplayTextFor(model => s.Id)" class="modal fade " role="dialog">
                                             <div class="modal-dialog text-center" style="width:35%;margin-top:10%;">
                                                 @await Component.InvokeAsync("DeleteUnderPage", new { Id = s.Id })
                                             </div>
@@ -88,9 +87,9 @@
                                     <td style="background-color: #f4f4f4;text-align: right; width:100%; display: inline-block;font-size:0.5vw;font-weight:bold;" class="p-2">
 
                                         <a class="d-block">@Html.ActionLink("Ändra", "Edit", new { id = s.Id })&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                                        <a href="#@Html.DisplayTextFor(model => s.pageRoute)" role="button" id="ShowPopup" data-toggle="modal" class="text-decoration-none" style="color:#cc0000;"> <span style="color:black;">-</span> &nbsp;&nbsp;&nbsp;&nbsp;Ta bort</a>
+                                        <a href="#page_@Html.DisplayTextFor(model => s.Id)" role="button" id="ShowPopup" data-toggle="modal" class="text-decoration-none" style="color:#cc0000;"> <span style="color:black;">-</span> &nbsp;&nbsp;&nbsp;&nbsp;Ta bort</a>
 
-                                        <div id="@Html.DisplayTextFor(model => s.pageRoute)" class="modal fade " role="dialog">
+                                        <div id="page_@Html.DisplayTextFor(model => s.Id)" class="modal fade " role="dialog">
                                             <div class="modal-dialog text-center" style="width:35%;margin-top:10%;">
                                                 @await Component.InvokeAsync("DeleteUnderPage", new { Id = s.Id })
                                             </div>
@@ -131,27 +130,5 @@
 <script>
     function submitform() {
         $('#header').submit();
-    }
-</script>
-<script>
-    function DoAjaxPostAndMore(btnClicked) {
-        var $form = $(btnClicked).parents('form');
-
-        $.ajax({
-            type: "POST",
-            url: $form.attr('action'),
-            data: $form.serialize(),
-            error: function (xhr, status, error) {
-                //do something about the error
-            },
-            success: function (response) {
-                //do something with response
-                LoadBooks();
-
-            }
-        });
-
-        return false;// if it's a link to prevent post
-
     }
 </script>

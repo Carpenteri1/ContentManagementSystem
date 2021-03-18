@@ -103,19 +103,124 @@
             </div>
         </div>
     }
- 
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/lib/jquery/jquery.js"></script>
     <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/js/site.js" async></script>
     @RenderSection("Scripts", required: false)
-    <script>
+
+<script>
         ClassicEditor
             .create(document.querySelector('#editor2'))
             .catch(error => {
                 console.error(error);
             });
-    </script>
+
+
+    function deletImage() {
+    let thisImage = document.getElementById(attribute).src;
+    let pathname = $(location).attr('search');
+    let data = { imgsrc: thisImage, id: pathname };
+    $.ajax({
+        url: '@Url.Action("DeleteImage", "UnderPage")',
+        type: "post",
+        contentType: 'application/x-www-form-urlencoded',
+        data: data,
+        success: function (result) {
+            console.log(result);
+            location.reload()//TODO try get data from db context or store old data and past it in again after reload.
+        }
+    });
+    };
+
+    function deletAddImage() {
+    let thisImage = document.getElementById(attribute).src;
+    let pathname = $(location).attr('search');
+    let data = { imgsrc: thisImage, id: pathname };
+    $.ajax({
+        url: '@Url.Action("DeleteImage", "Adverts")',
+        type: "post",
+        contentType: 'application/x-www-form-urlencoded',
+        data: data,
+        success: function (result) {
+            console.log(result);
+            location.reload()//TODO try get data from db context or store old data and past it in again after reload.
+        }
+    });
+    };
+
+
+    function pickImage() {
+    let thisImage = document.getElementById(attribute).src;
+    document.getElementById('underpageId').src = thisImage;
+    let pathname = $(location).attr('search');
+    let data = { imgsrc: thisImage, id: pathname };
+    $.ajax({
+        url: '@Url.Action("SetImage", "UnderPage")',
+        type: "post",
+        contentType: 'application/x-www-form-urlencoded',
+        data: data,
+        success: function (result) {
+            console.log(result);
+        }
+    });
+    };
+
+
+    function pickAddImage() {
+    let thisImage = document.getElementById(attribute).src;
+    document.getElementById('advertImg').src = thisImage;
+    let pathname = $(location).attr('search');
+    let data = { imgsrc: thisImage, id: pathname };
+    $.ajax({
+        url: '@Url.Action("SetImage", "Adverts")',
+        type: "post",
+        contentType: 'application/x-www-form-urlencoded',
+        data: data,
+        success: function (result) {
+            console.log(result);
+        }
+    });
+    };
+
+
+    $('form #Upload').change(function () {
+        let formData = new FormData();
+        let file = document.getElementById("Upload").files[0];
+        let pathname = $(location).attr('search');
+        formData.append("file", file);
+        formData.append("id", pathname)
+        $.ajax({
+            url: '@Url.Action("UploadFile","UnderPage")',
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                location.reload()//TODO try get data from db context or store old data and past it in again after reload.
+            }
+        });
+    });
+    $('form #UploadAdd').change(function () {
+        let formData = new FormData();
+        let file = document.getElementById("UploadAdd").files[0];
+        let pathname = $(location).attr('search');
+        formData.append("file", file);
+        formData.append("id", pathname)
+        $.ajax({
+            url: '@Url.Action("UploadImage", "Adverts")',
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                location.reload()//TODO try get data from db context or store old data and past it in again after reload.
+            }
+        });
+    });
+
+</script>
 </body>
 </html>

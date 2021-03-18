@@ -1,0 +1,32 @@
+﻿@model List<PagesImageGalleryModel>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="modal fade" id="PageGallery" role="dialog">
+    <div class="modal-dialog" style="margin-left:16em;">
+        <!-- Modal content-->
+        <div class="modal-content" style="width:48.5em;">
+            <div class="modal-body">
+                    @foreach (var s in Model)
+                    {
+                        <img src=@Html.DisplayTextFor(model => s.ImgUrl) style="height:80px;width:140px;padding-top:0.3em;" class="high">
+                    }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-block" style="background-color:grey;font-size:0.5em;width:8em;margin-right:2em;color:white;" data-dismiss="modal">Avbryt</button>
+                <button type="submit" class="btn btn-block" style="font-size:0.5em;width:8em;background-color:red;color:white;margin-right:46em;margin-bottom:1em;" onclick="deletImage()">Tabort bild</button>
+                <form action="@Url.Action("UploadFile", "UnderPage")" method="post" enctype="multipart/form-data" class="mt-2">
+                    <label class="btn btn-block" for="Upload" style="font-size:0.5em;width:10em;margin-left:10em;background-color:#1b6ec2;color:white;">
+                        Ladda upp fil
+                    </label>
+                    @Html.HiddenFor(model => model[0].Id)
+                    @Html.EditorFor(model => model[0].File, new { htmlAttributes = new { id = "Upload", accept = "image/*", type = "file", style = "display:none;", name = "file" } })
+                </form>
+                <button type="submit" class="btn btn-block" style="font-size:0.5em;width:6em;background-color:#1b6ec2;color:white;" onclick="pickImage()" data-dismiss="modal">Välj</button>
+            </div>
+        </div>
+    </div>
+</div>

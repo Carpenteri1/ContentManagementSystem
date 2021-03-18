@@ -2,9 +2,11 @@
 using ContentManagement.Data.Services;
 using ContentManagement.HeaderModel;
 using ContentManagement.Models.Account;
+using ContentManagement.Models.ImageModels;
 using ContentManagement.StartPageModels.PageModel;
 using ContentManagement.UnderPageModels.PageModel;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -19,7 +21,7 @@ namespace ContentManagement.HelperClasses
         private readonly CMSDbContext context;
         private readonly IWebHostEnvironment host;
         private const int PlusOne = 1;
-        private const string ToFolder = "/Upload/UnderPages/Images/";
+        private const string ToFolder = "/Upload/PageImages/";
         private const string DefaultDropDownValue = "1";
         public UnderPageControllerHelper(CMSDbContext context,IWebHostEnvironment host)
         {
@@ -27,74 +29,44 @@ namespace ContentManagement.HelperClasses
             this.host = host;
         }
 
-        private UnderPage PopulateImageContent(UnderPage newPage,Users user)
+        public bool DeleteImage(string imgsrc)
         {
-            FileManager manager = new FileManager(context,host);
-            newPage.UnderPage_ImgContent[0].ImgSrc = manager.CopyToRootFolder(newPage.UnderPage_ImgContent[0].File, ToFolder);
-            newPage.UnderPage_ImgContent[0].UnderPage = newPage;
-            newPage.UnderPage_ImgContent[0].Uploaded = DateTime.Now;
-            newPage.UnderPage_ImgContent[0].User = user;
 
-            return newPage;
+            if (DeleteImageFromDb(imgsrc) &&
+                DeleteImageFromRoot(imgsrc))
+                return true;
+
+
+            return false;
         }
 
-        private UnderPage PopulateTextContent(UnderPage newPage, Users user)
+        private bool DeleteImageFromRoot(string imgsrc)
         {
-            if (newPage.UnderPage_TextContents[0].TextContent == null)
-            {
-                newPage.UnderPage_TextContents[0] = new UnderPage_TextContents
-                {
-                    TextContent = string.Empty,
-                    UnderPage = newPage,
-                    Created = DateTime.Now,
-                    User = user   
-                };
-
-                return newPage;
-            }
-            else
-            {
-                newPage.UnderPage_TextContents[0] = new UnderPage_TextContents
-                {
-                    TextContent = newPage.UnderPage_TextContents[0].TextContent,
-                    UnderPage = newPage,
-                    Created = DateTime.Now,
-                    User = user
-                };
-
-
-                return newPage;
-            }
+            FileManager fileManager = new FileManager(context,host);
+            if (fileManager.RemoveFromRootFolder(imgsrc))
+                return true;
+ 
+            return false;
         }
 
-
-        private UnderPage PopulateTitleContent(UnderPage newPage, Users user)
+        private bool DeleteImageFromDb(string imgsrc)
         {
-            if (newPage.UnderPage_TitleContents[0].TextContent == null)
+            try
             {
-                newPage.UnderPage_TitleContents[0] = new UnderPage_TitleContents
-                {
-                    TextContent = string.Empty,
-                    UnderPage = newPage,
-                    Created = DateTime.Now,
-                    User = user
-                };
-
-                return newPage;
+                var gallery = context.PagesImageGallery.ToList();
+                foreach (var s in gallery)
+                    if (s.ImgUrl.Contains(imgsrc))
+                    {
+                        context.Attach(s);
+                        context.Remove(s);
+                        return true;
+                    }
             }
-            else
+            catch
             {
 
-                newPage.UnderPage_TitleContents[0] = new UnderPage_TitleContents
-                {
-                    TextContent = newPage.UnderPage_TitleContents[0].TextContent,
-                    UnderPage = newPage,
-                    Created = DateTime.Now,
-                    User = user
-                };
-
-                return newPage;
             }
+            return false;
         }
 
         private UnderPage AddStartPageFk(UnderPage newPage)
@@ -107,13 +79,7 @@ namespace ContentManagement.HelperClasses
         {
             var headercontent = context.HeaderContent.Where(header => header.Id == dropdownValue).First();
             var underpages = context.UnderPages.Where(item => item.HeaderContent.Id == headercontent.Id).ToList();
-
-
-            newPage = PopulateImageContent(newPage,user);
-            newPage = PopulateTextContent(newPage,user);
-            newPage = PopulateTitleContent(newPage,user);
             newPage = AddStartPageFk(newPage);
-
 
              if (headercontent != null &&
                  user != null)
@@ -202,21 +168,23 @@ namespace ContentManagement.HelperClasses
 
         private bool DoesAllTextsMatch(UnderPage Page)
         {
-            var DbTexts = context.UnderPages_TextContents.Where(item  => item.UnderPage.Id  == Page.Id).FirstOrDefault();
+            var DbTexts = context.UnderPages.Where(item  => item.Id  == Page.Id).FirstOrDefault();
             if (DbTexts != null)
             {
-                if (Page.UnderPage_TextContents[0].TextContent != null)
-                {
-                    if (DbTexts.TextContent != Page.UnderPage_TextContents[0].TextContent)//if they dont match, save new content
+                if (Page.TextContent != null)
                     {
-                     
-                            DbTexts.TextContent = Page.UnderPage_TextContents[0].TextContent;
-                            DbTexts.Edited = DateTime.Now;
+                    if(Page.TextContent != string.Empty)
+                    {
+                        if (DbTexts.TextContent != Page.TextContent)//if they dont match, save new content
+                        {
+
+                            DbTexts.TextContent = Page.TextContent;
                             context.Update(DbTexts);
                             return false;
                         }
                     }
-              
+                    return true;
+                }
             }
             return true;
         }
@@ -232,7 +200,6 @@ namespace ContentManagement.HelperClasses
                     {
                    
                         DbLinkTile.LinkTitle = Page.LinkTitle.ToString();
-                        DbLinkTile.Edited = DateTime.Now;
                         DbLinkTile.pageRoute = CreateRouteData(DbLinkTile.LinkTitle);
                         context.Update(DbLinkTile);
                         return false;
@@ -253,22 +220,22 @@ namespace ContentManagement.HelperClasses
                 .Replace(":","")
                 .Replace("!","")
                 .Replace("?","")
-                .Replace("-","");    
+                .Replace("-","")
+                .Replace("–","");    
 
             
         }
         private bool DoesAllTitlesMatch(UnderPage Page)
         {
-            var DbTitle = context.UnderPages_titlecontents.Where(item => item.UnderPage.Id == Page.Id).FirstOrDefault();
+            var DbTitle = context.UnderPages.Where(item => item.Id == Page.Id).FirstOrDefault();
 
             if (DbTitle != null)//if they dont match, save new content
             {
-                if (DbTitle.TextContent != Page.UnderPage_TitleContents[0].TextContent)//if they dont match, save new content
+                if (DbTitle.PageTitle != Page.PageTitle)//if they dont match, save new content
                 {
-                    if (Page.UnderPage_TitleContents[0].TextContent != null)
+                    if (Page.PageTitle != null)
                     {
-                        DbTitle.TextContent = Page.UnderPage_TitleContents[0].TextContent.ToString();
-                        DbTitle.Edited = DateTime.Now;
+                        DbTitle.PageTitle = Page.PageTitle;
                         context.Update(DbTitle);
                         return false;
                     }
@@ -279,35 +246,55 @@ namespace ContentManagement.HelperClasses
 
             return true;
         }
+      
+        public bool FileManager(IFormFile file)
+        {
+            try
+            {
+                var gallery = context.PagesImageGallery.ToList();
+                FileManager manages = new FileManager(context, host);
+                PagesImageGalleryModel galleryModel = new PagesImageGalleryModel();
+                galleryModel.ImgUrl = manages.CopyToRootFolder(file, ToFolder);
+                foreach(var s in gallery)
+                {
+                    if (s.ImgUrl.Contains(galleryModel.ImgUrl))//if image already excist
+                    {
+                        return false;
+                    }
+                }
+                context.Add(galleryModel);
+            }
+            catch
+            {
+                return false;
+            }
+     
+            return true;
+        }
+
 
         private bool DoesAllImagesMatch(UnderPage Page, Users user)
         {
 
             var DbImages = context
-                .UnderPages_imgcontents
-                .Where(item => item.UnderPage.Id == Page.Id)
+                .UnderPages
+                .Where(item => item.Id == Page.Id)
                 .FirstOrDefault();
-        
+    
             if (DbImages != null)
             {
-                if (Page.UnderPage_ImgContent[0].File != null)
-                {
-                    FileManager manages = new FileManager(context,host);
-                    Page.UnderPage_ImgContent[0].ImgSrc = manages.CopyToRootFolder(Page.UnderPage_ImgContent[0].File,ToFolder);
-
-                    if (!Page.UnderPage_ImgContent[0].ImgSrc.Equals(DbImages.ImgSrc))
+                  
+                    if (!Page.underPageImgSource.Equals(DbImages.underPageImgSource))
                     {
-                        DbImages.ImgSrc = Page.UnderPage_ImgContent[0].ImgSrc;
+                        DbImages.underPageImgSource = Page.underPageImgSource;
                         if(DbImages.User.UserName != user.UserName)
                         {
                             DbImages.User = user;
                         }
-                        DbImages.Uploaded = DateTime.Now;
                         context.Update(DbImages);
                         return false;
                     }
-                }
-            }
+            }    
             return true;
         }
         public bool DoesAllHeaderMatch(UnderPage Page)
@@ -409,6 +396,9 @@ namespace ContentManagement.HelperClasses
             if (!ShowEmailFormModul(underPage))
                 match = false;
 
+            if (!match)
+                underPage.Edited = DateTime.Now;
+
             return match;
         }
 
@@ -432,30 +422,6 @@ namespace ContentManagement.HelperClasses
                 .UnderPages
                 .Where(page => page.Id == id)
                 .FirstOrDefault();
-        }
-
-        public List<UnderPage_TitleContents> GetTitleContentById(int Id)
-        {
-            return context
-                .UnderPages_titlecontents
-                .Where(underpage => underpage.UnderPage.Id == Id)
-                .ToList();
-        }
-
-        public List<UnderPage_TextContents> GetTextContentById(int Id)
-        {
-            return context
-                .UnderPages_TextContents
-                .Where(underpage => underpage.UnderPage.Id == Id)
-                .ToList();
-        }
-
-        public List<UnderPage_ImgContents> GetImgeContentById(int Id)
-        {
-            return context
-                .UnderPages_imgcontents
-                .Where(underpage => underpage.UnderPage.Id == Id)
-                .ToList();
         }
 
         public List<HeaderContent> GetAllHeadContent()
@@ -531,18 +497,9 @@ namespace ContentManagement.HelperClasses
         public bool Remove(UnderPage item)
         {
             var headercontent = context.HeaderContent.ToList();
-            var underpages = context.UnderPages.Where(page => page.HeaderContent.Id == item.HeaderContent.Id).ToList();
             try
             {
                 context.Attach(item);
-                context.Attach(item.UnderPage_ImgContent[0]);
-                context.Attach(item.UnderPage_TextContents[0]);
-                context.Attach(item.UnderPage_TitleContents[0]);
-
-
-                context.Remove(item.UnderPage_ImgContent[0]);
-                context.Remove(item.UnderPage_TextContents[0]);
-                context.Remove(item.UnderPage_TitleContents[0]);
                 context.Remove(item);
             }
             catch (Exception e)

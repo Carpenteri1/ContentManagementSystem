@@ -68,9 +68,6 @@ namespace ContentManagement.Models.Account
         public List<StartPage_Links> StartPage_Links { get; set; }
 
         public List<UnderPage> UnderPages { get; set; }
-        public List<UnderPage_ImgContents> UnderPage_ImgContents { get; set; }
-        public List<UnderPage_TextContents> UnderPage_TextContents { get; set; }
-        public List<UnderPage_TitleContents> UnderPage_Titles { get; set; }
 
         public List<EventModel> Events { get; set; }
         public List<EventLinkModel> EventLinks { get; set; }

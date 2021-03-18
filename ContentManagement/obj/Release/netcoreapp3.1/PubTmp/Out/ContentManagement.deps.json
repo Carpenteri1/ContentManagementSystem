@@ -25,7 +25,6 @@
       "ContentManagement/1.0.0": {
         "dependencies": {
           "AspNetCore.Unobtrusive.Ajax": "1.1.2",
-          "GolfModelLibrary": "1.0.0",
           "Microsoft.AspNetCore.CookiePolicy": "2.2.8",
           "Microsoft.Azure.DocumentDB.Core": "2.13.1",
           "Microsoft.EntityFrameworkCore": "3.1.10",
@@ -4257,9 +4256,6 @@
           "WindowsBase.dll": {}
         },
         "compileOnly": true
-      },
-      "GolfModelLibrary/1.0.0": {
-        "compileOnly": true
       }
     }
   },
@@ -7001,11 +6997,6 @@
     },
     "WindowsBase/4.0.0.0": {
       "type": "referenceassembly",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "GolfModelLibrary/1.0.0": {
-      "type": "project",
       "serviceable": false,
       "sha512": ""
     }
