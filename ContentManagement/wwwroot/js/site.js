@@ -5,6 +5,7 @@
 let images = document.getElementsByClassName('high');
 let imagesLen = images.length;
 let attribute = 'marked';
+let oldAttribute = '';
 
 // loop through each image and and addEventListener for each one
 for (var i = 0; i < imagesLen; i++) {
@@ -30,7 +31,11 @@ function addBorderTo(thisImage) {
     thisImage.setAttribute('id', attribute);
 }
 
-
+function setImg(id) {
+   let element = document.getElementById(id);
+   oldAttribute = element.id;
+   element.setAttribute('id','picked');
+}
 
 
 

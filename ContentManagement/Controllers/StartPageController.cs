@@ -18,6 +18,8 @@ namespace ContentManagement.Controllers
     {
         private readonly CMSDbContext context;
         private readonly IWebHostEnvironment host;
+        private const string LocalHostName = "https://localhost:44398";
+        private const string DevHostName = "https://golf.amvdev.se/";
         public StartPageController(CMSDbContext context,IWebHostEnvironment host) 
         {
             this.host = host;
@@ -53,6 +55,70 @@ namespace ContentManagement.Controllers
 
         }
 
+
+        [HttpPost]
+        public ActionResult DeleteImage(string imgsrc)
+        {
+            StartContollerHelper contollerHelper = new StartContollerHelper(context, host);
+
+            if (imgsrc.Contains(LocalHostName))
+                imgsrc = imgsrc.Replace(LocalHostName, "");
+
+            if (imgsrc.Contains(DevHostName))
+                imgsrc = imgsrc.Replace(DevHostName, "");
+
+
+            if (contollerHelper.DeleteImage(imgsrc))
+                contollerHelper.SaveToDb();
+
+
+            return RedirectToAction(nameof(Edit));
+        }
+
+        [HttpPost]
+        public ActionResult UploadFile(IFormFile File)
+        {
+            StartContollerHelper controllerHelper = new StartContollerHelper(context, host);
+            if (controllerHelper.FileManager(File))
+            {
+                controllerHelper.SaveToDb();
+            }
+            return RedirectToAction(nameof(Edit));
+
+        }
+
+        [HttpPost]
+        public ActionResult SetImage(string imgsrc,string id)
+        {
+            var startPageGallery = context.StartPage_ImgContents.ToList();
+            if (imgsrc.Contains(LocalHostName))
+                imgsrc = imgsrc.Replace(LocalHostName, "");
+
+            if (imgsrc.Contains(DevHostName))
+                    imgsrc = imgsrc.Replace(DevHostName, "");
+
+            string[] ids = new string[]
+            { 
+                "startPageImgOne",
+                "startPageImgTwo",
+                "startPageImgThree",
+                "startPageImgFour",
+                "startPageImgSix",
+                "startPageImgFive"
+            };
+
+            foreach(var (s, index) in ids.Select((v, i) => (v, i)))
+            {
+                if (s == id)
+                {
+                    TempData[$"img_{index}"] = imgsrc;
+                    return Redirect(nameof(Edit));
+                }
+            }
+
+            return Redirect(nameof(Edit));
+        }
+
         // POST: StartPages/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -60,16 +126,21 @@ namespace ContentManagement.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(StartPage Page)
         {
- 
-                if (Page != null)
+            if (Page != null)
                 {
                     StartContollerHelper controllerHelper = new StartContollerHelper(context, host);
-                    var user = controllerHelper.GetUserByName(User.Identity.Name);  
-                    //Page.Id = context.StartPages.FirstOrDefault().Id;
-
-                    try
+                    var user = controllerHelper.GetUserByName(User.Identity.Name);
+                try
                     {
-                        if (!controllerHelper.DoesAllContentMatch(Page,user))
+
+                    foreach (var (s, index) in Page.StartPage_ImgContents.Select((v, i) => (v, i)))
+                        if (TempData[$"img_{index}"] != null)//tempdata is set in setimage method
+                        {
+                            s.ImgSrc = TempData[$"img_{index}"].ToString();
+
+                        }
+
+                    if (!controllerHelper.DoesAllContentMatch(Page,user))
                         {
                             controllerHelper.SaveToDb();
                         }

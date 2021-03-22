@@ -563,6 +563,6 @@ C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\b
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileProviders.Abstractions.dll
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileProviders.Embedded.dll
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Debug\netcoreapp3.1\ContentManagement.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Debug\netcoreapp3.1\ContentManagement.csprojAssemblyReference.cache
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\PageImageGallery\Default.cshtml.g.cs
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\AdvertsImageGallery\Default.cshtml.g.cs
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Debug\netcoreapp3.1\ContentManagement.csprojAssemblyReference.cache

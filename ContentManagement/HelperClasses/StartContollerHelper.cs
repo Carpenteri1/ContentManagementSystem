@@ -8,7 +8,8 @@ using ContentManagement.Models.Account;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using Microsoft.AspNetCore.Http;
-
+using ContentManagement.Data.Services;
+using ContentManagement.Models.ImageModels;
 
 namespace ContentManagement.ControllerHelperClasses
 {
@@ -16,12 +17,57 @@ namespace ContentManagement.ControllerHelperClasses
     {
         private readonly CMSDbContext context;
         private readonly IWebHostEnvironment host;
+        private const string ToFolder = "/Upload/PageImages/";
 
         public StartContollerHelper(CMSDbContext context,IWebHostEnvironment host)
         {
             this.context = context;
             this.host = host;
         }
+
+
+
+        public bool DeleteImage(string imgsrc)
+        {
+
+            if (DeleteImageFromDb(imgsrc) &&
+                DeleteImageFromRoot(imgsrc))
+                return true;
+
+
+            return false;
+        }
+
+        private bool DeleteImageFromRoot(string imgsrc)
+        {
+            FileManager fileManager = new FileManager(context, host);
+            if (fileManager.RemoveFromRootFolder(imgsrc))
+                return true;
+
+            return false;
+        }
+
+        private bool DeleteImageFromDb(string imgsrc)
+        {
+            try
+            {
+                var gallery = context.PagesImageGallery.ToList();
+                foreach (var s in gallery)
+                    if (s.ImgUrl.Contains(imgsrc))
+                    {
+                        context.Attach(s);
+                        context.Remove(s);
+                        return true;
+                    }
+            }
+            catch
+            {
+
+            }
+            return false;
+        }
+
+
 
         public bool DoesAllContentMatch(StartPage page, Users user)
         {
@@ -37,6 +83,31 @@ namespace ContentManagement.ControllerHelperClasses
                 match = false;
 
             return match;
+        }
+
+        public bool FileManager(IFormFile file)
+        {
+            try
+            {
+                var gallery = context.PagesImageGallery.ToList();
+                FileManager manages = new FileManager(context, host);
+                PagesImageGalleryModel galleryModel = new PagesImageGalleryModel();
+                galleryModel.ImgUrl = manages.CopyToRootFolder(file, ToFolder);
+                foreach (var s in gallery)
+                {
+                    if (s.ImgUrl.Contains(galleryModel.ImgUrl))//if image already excist
+                    {
+                        return false;
+                    }
+                }
+                context.Add(galleryModel);
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private bool DoesAllTextsMatch(StartPage Page,Users user)
@@ -119,10 +190,6 @@ namespace ContentManagement.ControllerHelperClasses
             bool match = true;
             for (int i = 0; i < Page.StartPage_ImgContents.Count(); i++)
             {
-                if (Page.StartPage_ImgContents[i].File != null)
-                {
-                    Page.StartPage_ImgContents[i] = CopyToRootFolder(Page.StartPage_ImgContents[i]);
-
                     if (Page.StartPage_ImgContents[i].ImgSrc != DbImages[i].ImgSrc)//if they dont match, save new content
                     {
                         match = false;
@@ -134,15 +201,13 @@ namespace ContentManagement.ControllerHelperClasses
                         DbImages[i].Uploaded = DateTime.Now;
                         context.Update(DbImages[i]);
                     }
-                }
-
             }
 
             return match;
         }
 
 
-        private StartPage_ImgContents CopyToRootFolder(StartPage_ImgContents imgContents)
+        /*private StartPage_ImgContents CopyToRootFolder(StartPage_ImgContents imgContents)
         {
             if (imgContents.File != null)
             {
@@ -167,7 +232,7 @@ namespace ContentManagement.ControllerHelperClasses
             }
             return imgContents;
 
-        }
+        }*/
 
         public StartPage FetchStartPageFromDB()
         {

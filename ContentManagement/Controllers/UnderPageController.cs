@@ -65,7 +65,11 @@ namespace ContentManagement.Controllers
                 {
                     newPage.AmmountOfAdverts = 3;
                     if (TempData["imgsrc"] != null)
+                    {
                         newPage.underPageImgSource = TempData["imgsrc"].ToString();
+                        TempData.Remove("imgsrc");
+                    }
+                        
                     newPage = controllerHelper.CreateNewPageData(newPage, user, int.Parse(selecterDropDownValue));
 
                     if (newPage != null)
@@ -279,8 +283,11 @@ namespace ContentManagement.Controllers
                 var header = context.UnderPages.Where(item => item.Id == underPage.Id).FirstOrDefault().HeaderContent; 
                 ViewData["HeaderTheme"] = new SelectList(headerContent, "Id", "HeaderTheme");
                 underPage.HeaderContent = controllerHelper.GetHeaderContentByDropDownValue(int.Parse(controllerHelper.CheckDropDownValue(selecterDropDownValue)));
-                if(TempData["imgsrc"] != null)
+                if(TempData["imgsrc"] != null){
                 underPage.underPageImgSource = TempData["imgsrc"].ToString();
+                TempData.Remove("imgsrc");
+                }
+              
 
             try
                 {

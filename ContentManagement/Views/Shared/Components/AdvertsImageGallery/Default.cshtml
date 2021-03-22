@@ -19,14 +19,73 @@
                 <button type="button" class="btn btn-block" style="background-color:grey;font-size:0.5em;width:8em;margin-right:2em;color:white;" data-dismiss="modal">Avbryt</button>
                  <button type="submit" class="btn btn-block" style="font-size:0.5em;width:8em;background-color:red;color:white;margin-right:46em;margin-bottom:1em;" onclick="deletAddImage()">Tabort bild</button>
         <form action="@Url.Action("UploadImage", "Adverts")" method="post" enctype="multipart/form-data" class="mt-2">
-            <label class="btn btn-block" for="UploadAdd" style="font-size:0.5em;width:10em;margin-left:10em;background-color:#1b6ec2;color:white;">
+            <label class="btn btn-block" for="UploadAdd" style="font-size:0.5em;width:10em;margin-left:10em;background-color:#0293fc;color:white;">
                 Ladda upp fil
             </label>
             @Html.HiddenFor(model => model[0].Id)
             @Html.EditorFor(model => model[0].File, new { htmlAttributes = new { id = "UploadAdd", accept = "image/*", type = "file", style = "display:none;", name = "file" } })
         </form>
-        <button type="submit" class="btn btn-block" style="font-size:0.5em;width:6em;background-color:#1b6ec2;color:white;" onclick="pickAddImage()" data-dismiss="modal">Välj</button> 
+        <button type="submit" class="btn btn-block" style="font-size:0.5em;width:6em;background-color:#0293fc;color:white;" onclick="pickAddImage()" data-dismiss="modal">Välj</button> 
             </div>
         </div>
     </div>
 </div>
+
+<script>
+
+
+
+
+    function deletAddImage() {
+    let thisImage = document.getElementById(attribute).src;
+    let pathname = $(location).attr('search');
+    let data = { imgsrc: thisImage, id: pathname };
+    $.ajax({
+        url: '@Url.Action("DeleteImage", "Adverts")',
+        type: "post",
+        contentType: 'application/x-www-form-urlencoded',
+        data: data,
+        success: function (result) {
+            console.log(result);
+            location.reload()//TODO try get data from db context or store old data and past it in again after reload.
+        }
+    });
+    };
+
+
+    function pickAddImage() {
+    let thisImage = document.getElementById(attribute).src;
+    document.getElementById('advertImg').src = thisImage;
+    let pathname = $(location).attr('search');
+    let data = { imgsrc: thisImage, id: pathname };
+    $.ajax({
+        url: '@Url.Action("SetImage", "Adverts")',
+        type: "post",
+        contentType: 'application/x-www-form-urlencoded',
+        data: data,
+        success: function (result) {
+            console.log(result);
+        }
+    });
+    };
+
+
+
+    $('form #UploadAdd').change(function () {
+        let formData = new FormData();
+        let file = document.getElementById("UploadAdd").files[0];
+        let pathname = $(location).attr('search');
+        formData.append("file", file);
+        formData.append("id", pathname)
+        $.ajax({
+            url: '@Url.Action("UploadImage", "Adverts")',
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                location.reload()//TODO try get data from db context or store old data and past it in again after reload.
+            }
+        });
+    });
+</script>

@@ -18,31 +18,30 @@ new { enctype = "multipart/form-data" }))
                         <div class="form-group text-left">
                             @Html.HiddenFor(model => model.StartPage_ImgContents[0].ImgSrc)
                             <label class="d-block" style="font-size:0.5vw;"><b>Splash Bild</b></label>
-                            <img class="d-block" src=@Html.DisplayTextFor(model => model.StartPage_ImgContents[0].ImgSrc) width="240" height="140" style="border:1px solid gray;" />
-                            @Html.HiddenFor(model => model.StartPage_ImgContents[0].File)
-                            @Html.EditorFor(model => model.StartPage_ImgContents[0].File)
+                            <img class="d-block" id="startPageImgOne" src="@Model.StartPage_ImgContents[0].ImgSrc" width="240" height="140" style="border:1px solid gray;" />
+                            <button type="button" class="btn btn-primary p-0" data-toggle="modal" data-target="#StartPageGallery" onclick="setImg(document.getElementById('startPageImgOne').id)" style="font-size: 0.4vw;width:3.8vw;height:1.2vw;background-color:#0293fc;">välj bild</button>
                         </div>
                         <div class="form-group text-center">
                             <label class="d-block text-left" style="font-size:0.5vw;"><b>Rubrik:</b></label>
-                            <input  asp-for="@Model.StartPage_TitleContents[0].TextContent" class = "form-control" style = "font-size:0.5vw;height:1.2vw;width:10vw;background-color:white;border:1px solid lightgray;"/>
+                            <input asp-for="@Model.StartPage_TitleContents[0].TextContent" class="form-control" style="font-size:0.5vw;height:1.2vw;width:10vw;background-color:white;border:1px solid lightgray;" />
                         </div>
                         <hr />
                         <div class="form-group text-center">
                             <label style="display:block;text-align:left;font-size:0.5vw;"><b>Brödtext: </b></label>
-                            <textarea asp-for="@Model.StartPage_TextContents[0].TextContent" class = "form-control" style = "width:100%;height:6vw;resize:none;font-size:0.6vw;" ></textarea>
+                            <textarea asp-for="@Model.StartPage_TextContents[0].TextContent" class="form-control" style="width:100%;height:6vw;resize:none;font-size:0.6vw;"></textarea>
                         </div>
                         <div style="height:0.5vw;"></div>
                         <div class="row mw-100 mh-100">
                             <div class="col-6 center">
                                 <div class="form-group text-center">
                                     <label class="d-block" style="text-align:left;font-size:0.5vw;"><b>LänkText: </b></label>
-                                    <input asp-for="@Model.StartPage_TextContents[1].TextContent" class = "form-control" style = "font-size:0.5vw;height:1.2vw;width:10vw;background-color:white;border:1px solid lightgray;" /> 
+                                    <input asp-for="@Model.StartPage_TextContents[1].TextContent" class="form-control" style="font-size:0.5vw;height:1.2vw;width:10vw;background-color:white;border:1px solid lightgray;" />
                                 </div>
                             </div>
                             <div class="col-6 center">
                                 <div class="form-group text-center">
                                     <label class="d-block" style="text-align:left;font-size:0.5vw;"><b>Sökväg till sidan: </b></label>
-                                    <input asp-for="@Model.StartPage_Links[0].Url" class = "form-control" style = "font-size:0.5vw;height:1.2vw;width:10vw;background-color:white;border:1px solid lightgray;" />
+                                    <input asp-for="@Model.StartPage_Links[0].Url" class="form-control" style="font-size:0.5vw;height:1.2vw;width:10vw;background-color:white;border:1px solid lightgray;" />
                                 </div>
                             </div>
                         </div>
@@ -55,16 +54,15 @@ new { enctype = "multipart/form-data" }))
                         <div class="form-group text-left">
                             @Html.HiddenFor(model => model.StartPage_ImgContents[1].ImgSrc)
                             <label class="d-block" style="font-size:0.5vw;"><b>Splash Bild</b></label>
-                            <img class="d-block" src=@Html.DisplayTextFor(model => model.StartPage_ImgContents[1].ImgSrc) width="240" height="140" style="border:1px solid gray;" />
-                            @Html.HiddenFor(model => model.StartPage_ImgContents[1].File)
-                            @Html.EditorFor(model => model.StartPage_ImgContents[1].File)
+                            <img class="d-block" id="startPageImgTwo" src="@Model.StartPage_ImgContents[1].ImgSrc" width="240" height="140" style="border:1px solid gray;" />
+                            <button type="button" class="btn btn-primary p-0" data-toggle="modal" data-target="#StartPageGallery"  onclick="setImg(document.getElementById('startPageImgTwo').id)" style="font-size: 0.4vw;width:3.8vw;height:1.2vw;background-color:#0293fc;">välj bild</button>
                         </div>
                         <div class="form-group text-center">
                             <label class="d-block text-left" style="font-size:0.5vw;"><b>Rubrik:</b></label>
                             <input asp-for="@Model.StartPage_TitleContents[1].TextContent" class="form-control" style="font-size: 0.5vw; height: 1.2vw; width: 10vw; background-color: white; border: 1px solid lightgray;" />
                         </div>
                         <label style="display:block;text-align:left;font-size:0.5vw;"><b>Brödtext: </b></label>
-                        <textarea asp-for="@Model.StartPage_TextContents[2].TextContent" class="form-control" style = "width:100%;height:6vw;resize:none;font-size:0.6vw;"></textarea>
+                        <textarea asp-for="@Model.StartPage_TextContents[2].TextContent" class="form-control" style="width:100%;height:6vw;resize:none;font-size:0.6vw;"></textarea>
                         <div style="height:0.5vw;"></div>
                         <div class="form-group text-left">
                             <div class="row mw-100 mh-100">
@@ -77,7 +75,7 @@ new { enctype = "multipart/form-data" }))
                                 <div class="col-6 center">
                                     <div class="form-group text-center">
                                         <label class="d-block" style="text-align:left;font-size:0.5vw;"><b>Sökväg till sidan: </b></label>
-                                        <input asp-for="@Model.StartPage_Links[1].Url"  class = "form-control" style = "font-size:0.5vw;height:1.2vw;width:10vw;background-color:white;border:1px solid lightgray;"/>
+                                        <input asp-for="@Model.StartPage_Links[1].Url" class="form-control" style="font-size:0.5vw;height:1.2vw;width:10vw;background-color:white;border:1px solid lightgray;" />
                                     </div>
                                 </div>
                             </div>
@@ -91,9 +89,9 @@ new { enctype = "multipart/form-data" }))
                         <div class="form-group text-left">
                             @Html.HiddenFor(model => model.StartPage_ImgContents[2].ImgSrc)
                             <label class="d-block" style="font-size:0.5vw;"><b>Splash Bild</b></label>
-                            <img class="d-block" src=@Html.DisplayTextFor(model => model.StartPage_ImgContents[2].ImgSrc) width="240" height="140" style="border:1px solid gray;" />
-                            @Html.HiddenFor(model => model.StartPage_ImgContents[2].File)
-                            @Html.EditorFor(model => model.StartPage_ImgContents[2].File)
+                            <img class="d-block" id="startPageImgThree" src="@Model.StartPage_ImgContents[2].ImgSrc" width="240" height="140" style="border:1px solid gray;" />
+                            <button type="button" class="btn btn-primary p-0" data-toggle="modal" data-target="#StartPageGallery" onclick="setImg(document.getElementById('startPageImgThree').id)" style="font-size: 0.4vw;width:3.8vw;height:1.2vw;background-color:#0293fc;">välj bild</button>
+
                         </div>
                         <div class="form-group text-left">
                             <label class="d-block text-left" style="font-size:0.5vw;"><b>Rubrik:</b></label>
@@ -127,9 +125,9 @@ new { enctype = "multipart/form-data" }))
                         <div class="form-group text-left">
                             @Html.HiddenFor(model => model.StartPage_ImgContents[3].ImgSrc)
                             <label class="d-block" style="font-size:0.5vw;"><b>Splash Bild</b></label>
-                            <img class="d-block" src=@Html.DisplayTextFor(model => model.StartPage_ImgContents[3].ImgSrc) width="240" height="140" style="border:1px solid gray;" />
-                            @Html.HiddenFor(model => model.StartPage_ImgContents[3].File)
-                            @Html.EditorFor(model => model.StartPage_ImgContents[3].File)
+                            <img class="d-block" id="startPageImgFour" src="@Model.StartPage_ImgContents[3].ImgSrc" width="240" height="140" style="border:1px solid gray;" />
+                            <button type="button" class="btn btn-primary p-0" data-toggle="modal" data-target="#StartPageGallery" onclick="setImg(document.getElementById('startPageImgFour').id)" style="font-size: 0.4vw;width:3.8vw;height:1.2vw;background-color:#0293fc;">välj bild</button>
+
                         </div>
                         <div class="form-group text-center">
                             <label class="d-block text-left" style="font-size:0.5vw;"><b>Rubrik:</b></label>
@@ -171,16 +169,16 @@ new { enctype = "multipart/form-data" }))
                         <div class="form-group text-left">
                             @Html.HiddenFor(model => model.StartPage_ImgContents[5].ImgSrc)
                             <label class="d-block" style="font-size:0.5vw;"><b>Splash Bild</b></label>
-                            <img class="d-block" src=@Html.DisplayTextFor(model => model.StartPage_ImgContents[5].ImgSrc) width="240" height="140" style="border:1px solid gray;" />
-                            @Html.HiddenFor(model => model.StartPage_ImgContents[5].File)
-                            @Html.EditorFor(model => model.StartPage_ImgContents[5].File)
+                            <img class="d-block" id="startPageImgSix" src="@Model.StartPage_ImgContents[5].ImgSrc" width="240" height="140" style="border:1px solid gray;" />
+                            <button type="button" class="btn btn-primary p-0" data-toggle="modal" data-target="#StartPageGallery" onclick="setImg(document.getElementById('startPageImgSix').id)" style="font-size: 0.4vw;width:3.8vw;height:1.2vw;background-color:#0293fc;">välj bild</button>
+                             
                         </div>
                         <div class="form-group text-left">
                             @Html.HiddenFor(model => model.StartPage_ImgContents[4].ImgSrc)
                             <label class="d-block" style="font-size:0.5vw;"><b>Splash Bild</b></label>
-                            <img class="d-block" src=@Html.DisplayTextFor(model => model.StartPage_ImgContents[4].ImgSrc) width="240" height="140" style="border:1px solid gray;" />
-                            @Html.HiddenFor(model => model.StartPage_ImgContents[4].File)
-                            @Html.EditorFor(model => model.StartPage_ImgContents[4].File)
+                            <img class="d-block" id="startPageImgFive" src="@Model.StartPage_ImgContents[4].ImgSrc" width="240" height="140" style="border:1px solid gray;" />
+                            <button type="button" class="btn btn-primary p-0" data-toggle="modal" data-target="#StartPageGallery" onclick="setImg(document.getElementById('startPageImgFive').id)" style="font-size: 0.4vw;width:3.8vw;height:1.2vw;background-color:#0293fc;">välj bild</button>
+
                         </div>
                         <div class="row mw-100 mh-100">
                             <div class="col-6 center">
@@ -215,3 +213,4 @@ new { enctype = "multipart/form-data" }))
         <div class="col-auto"></div>
     </div>
 </div>
+@await Component.InvokeAsync("PageImageGallery")

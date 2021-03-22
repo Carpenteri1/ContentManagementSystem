@@ -10,10 +10,10 @@
         <!-- Modal content-->
         <div class="modal-content" style="width:48.5em;">
             <div class="modal-body">
-                    @foreach (var s in Model)
-                    {
-                        <img src=@Html.DisplayTextFor(model => s.ImgUrl) style="height:80px;width:140px;padding-top:0.3em;" class="high">
-                    }
+                @foreach (var s in Model)
+                {
+                    <img src=@Html.DisplayTextFor(model => s.ImgUrl) style="height:80px;width:140px;padding-top:0.3em;" class="high">
+                }
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-block" style="background-color:grey;font-size:0.5em;width:8em;margin-right:2em;color:white;" data-dismiss="modal">Avbryt</button>
@@ -25,8 +25,153 @@
                     @Html.HiddenFor(model => model[0].Id)
                     @Html.EditorFor(model => model[0].File, new { htmlAttributes = new { id = "Upload", accept = "image/*", type = "file", style = "display:none;", name = "file" } })
                 </form>
-                <button type="submit" class="btn btn-block" style="font-size:0.5em;width:6em;background-color:#1b6ec2;color:white;" onclick="pickImage()" data-dismiss="modal">Välj</button>
+
+                <button type="submit" class="btn btn-block" style="font-size:0.5em;width:6em;background-color:#0293fc;color:white;" onclick="pickUnderPageImage()" data-dismiss="modal">Välj</button>
             </div>
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="StartPageGallery" role="dialog">
+    <div class="modal-dialog" style="margin-left:16em;">
+        <!-- Modal content-->
+        <div class="modal-content" style="width:48.5em;">
+            <div class="modal-body">
+                @foreach (var s in Model)
+                {
+                    <img src=@Html.DisplayTextFor(model => s.ImgUrl) style="height:80px;width:140px;padding-top:0.3em;" class="high">
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-block" style="background-color:grey;font-size:0.5em;width:8em;margin-right:2em;color:white;" data-dismiss="modal">Avbryt</button>
+                <button type="submit" class="btn btn-block" style="font-size:0.5em;width:8em;background-color:red;color:white;margin-right:46em;margin-bottom:1em;" onclick="deletStarPageImage()">Tabort bild</button>
+                <form action="@Url.Action("UploadFile", "StartPage_ImgContents")" method="post" enctype="multipart/form-data" class="mt-2">
+                    <label class="btn btn-block" for="UploadStartPage" style="font-size:0.5em;width:10em;margin-left:10em;background-color:#1b6ec2;color:white;">
+                        Ladda upp fil
+                    </label>
+                    @Html.HiddenFor(model => model[0].Id)
+                    @Html.EditorFor(model => model[0].File, new { htmlAttributes = new { id = "UploadStartPage", accept = "image/*", type = "file", style = "display:none;", name = "file" } })
+                </form>
+                <button type="submit" class="btn btn-block" style="font-size:0.5em;width:6em;background-color:#0293fc;color:white;" onclick="pickStartPageImage()" data-dismiss="modal">Välj</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+            $('form #UploadStartPage').change(function () {
+        let formData = new FormData();
+        let file = document.getElementById("UploadStartPage").files[0];
+        let pathname = $(location).attr('search');
+        formData.append("file", file);
+        $.ajax({
+            url: '@Url.Action("UploadFile", "StartPage")',
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                location.reload()//TODO try get data from db context or store old data and past it in again after reload.
+            }
+        });
+    });
+
+
+     function pickStartPageImage() {
+
+        let thisImage = document.getElementById(attribute).src;
+        document.getElementById('picked').src = thisImage;
+        let imgId = oldAttribute;
+        let data = { imgsrc: thisImage, id: imgId };
+    $.ajax({
+        url: '@Url.Action("SetImage", "StartPage")',
+        type: "post",
+        contentType: 'application/x-www-form-urlencoded',
+        data: data,
+        success: function (result) {
+            document.getElementById('picked').setAttribute('id', oldAttribute);
+            console.log(result);
+        }
+    });
+    };
+
+
+    function deletStarPageImage() {
+    let thisImage = document.getElementById(attribute).src;
+    let data = { imgsrc: thisImage};
+    $.ajax({
+        url: '@Url.Action("DeleteImage", "StartPage")',
+        type: "post",
+        contentType: 'application/x-www-form-urlencoded',
+        data: data,
+        success: function (result) {
+            console.log(result);
+            location.reload()//TODO try get data from db context or store old data and past it in again after reload.
+        }
+    });
+    };
+
+
+
+
+
+
+        function deletImage() {
+    let thisImage = document.getElementById(attribute).src;
+    let pathname = $(location).attr('search');
+    let data = { imgsrc: thisImage, id: pathname };
+    $.ajax({
+        url: '@Url.Action("DeleteImage", "UnderPage")',
+        type: "post",
+        contentType: 'application/x-www-form-urlencoded',
+        data: data,
+        success: function (result) {
+            console.log(result);
+            location.reload()//TODO try get data from db context or store old data and past it in again after reload.
+        }
+    });
+    };
+
+
+       function pickUnderPageImage() {
+    let attribute = 'marked';
+    let thisImage = document.getElementById(attribute).src;
+    document.getElementById('underpageId').src = thisImage;
+    let pathname = $(location).attr('search');
+    let data = { imgsrc: thisImage, id: pathname };
+    $.ajax({
+        url: '@Url.Action("SetImage", "UnderPage")',
+        type: "post",
+        contentType: 'application/x-www-form-urlencoded',
+        data: data,
+        success: function (result) {
+            alert(result)
+            console.log(result);
+
+        }
+    });
+    };
+
+
+
+    $('form #Upload').change(function () {
+        let formData = new FormData();
+        let file = document.getElementById("Upload").files[0];
+        let pathname = $(location).attr('search');
+        formData.append("file", file);
+        formData.append("id", pathname)
+        $.ajax({
+            url: '@Url.Action("UploadFile","UnderPage")',
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                location.reload()//TODO try get data from db context or store old data and past it in again after reload.
+            }
+        });
+    });
+
+</script>
