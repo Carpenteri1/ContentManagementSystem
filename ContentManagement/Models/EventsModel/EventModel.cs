@@ -36,6 +36,9 @@ namespace ContentManagement.Models.EventsModel
         [Required(ErrorMessage = "Eventet måste ha ett slut datum")]
         public DateTime EventEnds { get; set; }
         public bool IsPublic { get; set; }
+        public bool applicationForm { get; set; }
+
+        public List<ApplicationFormModel> Applicants { get; set; }
 
     }
 }

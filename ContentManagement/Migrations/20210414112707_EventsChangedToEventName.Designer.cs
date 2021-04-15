@@ -3,14 +3,16 @@ using System;
 using ContentManagement.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ContentManagement.Migrations
 {
     [DbContext(typeof(CMSDbContext))]
-    partial class CMSDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210414112707_EventsChangedToEventName")]
+    partial class EventsChangedToEventName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -157,12 +159,7 @@ namespace ContentManagement.Migrations
                     b.Property<string>("SurName")
                         .HasColumnType("text");
 
-                    b.Property<int?>("applyedToEventId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("applyedToEventId");
 
                     b.ToTable("EventApplicants");
                 });
@@ -516,13 +513,6 @@ namespace ContentManagement.Migrations
                     b.HasOne("ContentManagement.Models.Account.Users", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("ContentManagement.Models.EventsModel.ApplicationFormModel", b =>
-                {
-                    b.HasOne("ContentManagement.Models.EventsModel.EventModel", "applyedToEvent")
-                        .WithMany("Applicants")
-                        .HasForeignKey("applyedToEventId");
                 });
 
             modelBuilder.Entity("ContentManagement.Models.EventsModel.EventLinkModel", b =>

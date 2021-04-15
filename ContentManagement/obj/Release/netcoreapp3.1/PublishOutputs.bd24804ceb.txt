@@ -75,6 +75,7 @@ C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\o
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\StartPage\Images\start-stripe-challenge-big.jpg
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\StartPage\Images\start-stripe-challenge-small-1.jpg
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\StartPage\Images\start-stripe-challenge-small-2.jpg
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\StartPage\Images\start-stripe-tre-bilder-golf-andre-akfors.png
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\StaticImages\jumbotron-underpage.jpg
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\UnderPages\Images\annons-wellify.jpg
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\UnderPages\Images\header-logo.png

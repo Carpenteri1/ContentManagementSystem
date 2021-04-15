@@ -1,0 +1,96 @@
+﻿@model EventModel
+@{
+}
+<div style="height:1.5vw;"></div>
+<div class="centered-div mw-100 mh-100" style="border-bottom:2px solid black;">
+    <div class="row">
+        <div class="container">
+            <div class="row ml-1">
+                    <label style=" width: 100%; text-align: left; display: inline-block;">
+                        <b style="color:#555555;font-size:0.8vw;">@Model.EventTitle</b>
+                    </label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="centered-div mw-100 mh-100">
+    <table class="table" style="line-height:1em;margin-bottom:0.2em;border-bottom:2px solid black;background-color:#f4f4f4;">
+        <tbody>
+            <tr style="line-height:0.2vw;">
+                <td style="font-size: 0.5vw; font-weight: bold;width:18.8em;"><span style="margin-left:-0.5em;">Namn</span></td>
+                <td style="font-size: 0.5vw; font-weight: bold;width:15em;">GolfId</td>
+                <td style="font-size: 0.5vw; font-weight: bold;width:18em;">Hemmaklubb</td>
+                <td style="font-size: 0.5vw; font-weight: bold;width:31.5em;">MailAdress</td>
+                <td style="font-size: 0.5vw; font-weight: bold;width:15.5em;">Telefon</td>
+                <td style="font-size: 0.5vw; font-weight: bold;">Mer Info</td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table" style="line-height:0.2vw;margin-top:-0.2em;">
+        <tbody>
+
+            @if (Model != null &&
+      Model.Applicants != null &&
+      Model.Applicants.Count() > 0)
+            {
+                @for (int i = 0; i < Model.Applicants.Count(); i++)
+                {
+                    @if (i % 2 == 0)
+                    {
+                        <tr style="line-height:0.2vw;">
+                            <td style="background-color: #f4f4f4;font-size:0.5vw;font-weight:bold;" class="p-2">
+                                @Model.Applicants[i].FirstName &nbsp; @Model.Applicants[i].SurName
+                            </td>
+                            <td style="background-color: #f4f4f4;font-size:0.5vw;font-weight:bold;" class="p-2">
+                                @Model.Applicants[i].GolfId
+                            </td>
+                            <td style="background-color: #f4f4f4;font-size:0.5vw;font-weight:bold;" class="p-2">
+                                @Model.Applicants[i].HomeClubName
+                            </td>
+                            <td style="background-color: #f4f4f4;font-size:0.5vw;font-weight:bold;" class="p-2">
+                                @Model.Applicants[i].Email
+                            </td>
+                            <td style="background-color: #f4f4f4;font-size:0.5vw;font-weight:bold;" class="p-2">
+                                @Model.Applicants[i].Phone
+                            </td>
+                            <td style="background-color: #f4f4f4;font-size:0.5vw;font-weight:bold;" class="p-2">
+                                <a>@Html.ActionLink("Visa", "")</a>
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr style="line-height:0.2vw;">
+                            <td style="background-color: white;font-size:0.5vw;font-weight:bold;" class="p-2">
+                                @Model.Applicants[i].FirstName &nbsp; @Model.Applicants[i].SurName
+                            </td>
+                            <td style="background-color: white;font-size:0.5vw;font-weight:bold;" class="p-2">
+                                @Model.Applicants[i].GolfId
+                            </td>
+                            <td style="background-color: white;font-size:0.5vw;font-weight:bold;" class="p-2">
+                                @Model.Applicants[i].HomeClubName
+                            </td>
+                            <td style="background-color: white;font-size:0.5vw;font-weight:bold;" class="p-2">
+                                @Model.Applicants[i].Email
+                            </td>
+                            <td style="background-color: white;font-size:0.5vw;font-weight:bold;" class="p-2">
+                                @Model.Applicants[i].Phone
+                            </td>
+                            <td style="background-color: white;font-size:0.5vw;font-weight:bold;" class="p-2">
+                                <a>@Html.ActionLink("Visa", "")</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+            else
+            {
+                <tr style="background-color:#f4f4f4;">
+                    <td>
+                        <a style="text-align: left;width:10vw;display:inline-block; font-size: 0.5vw; color: red;"><b> Inga deltagare anmälda</b></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -503,7 +503,6 @@ C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\b
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\bin\Debug\netcoreapp3.1\runtimes\win7-x64\native\Cosmos.CRTCompat.dll
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\bin\Debug\netcoreapp3.1\runtimes\win7-x64\native\Microsoft.Azure.Documents.ServiceInterop.dll
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Debug\netcoreapp3.1\ContentManagement.csprojAssemblyReference.cache
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Debug\netcoreapp3.1\ContentManagement.AssemblyInfoInputs.cache
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Debug\netcoreapp3.1\ContentManagement.AssemblyInfo.cs
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Debug\netcoreapp3.1\ContentManagement.csproj.CoreCompileInputs.cache
@@ -567,3 +566,5 @@ C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\b
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileProviders.Abstractions.dll
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileProviders.Embedded.dll
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Debug\netcoreapp3.1\ContentManagement.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Debug\netcoreapp3.1\ContentManagement.csprojAssemblyReference.cache
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Events\Applicants.cshtml.g.cs

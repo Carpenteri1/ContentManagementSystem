@@ -36,9 +36,27 @@
             <tr style="line-height:0.2vw;">
                 @if (i % 2 == 0)
                 {
-                    <td style="font-size:0.5vw;background-color:#f4f4f4;font-weight:bold;" class="p-2">
-                        @Html.DisplayFor(modelItem => Model[i].EventTitle)
-                    </td>
+                    @if (Model[i].Applicants != null)
+                    {
+                        <td style="font-size:0.5vw;background-color:#f4f4f4;font-weight:bold;" class="p-2">
+
+                            @Html.DisplayFor(modelItem => Model[i].EventTitle)
+                        </td>
+                        <td style="font-size:0.5vw;background-color:#f4f4f4;font-weight:bold;" class="p-2">
+                            Anmälningar &nbsp; - &nbsp;(<span style="color: mediumseagreen;">@Model[i].Applicants.Count()</span>) &nbsp; - &nbsp; <a>@Html.ActionLink("Visa", "Applicants", new { id = Model[i].Id })</a>
+                        </td>
+                    }
+                    else
+                    {
+                        <td style="font-size:0.5vw;background-color:#f4f4f4;font-weight:bold;" class="p-2">
+
+                            @Html.DisplayFor(modelItem => Model[i].EventTitle)
+                        </td>
+                        <td style="font-size:0.5vw;background-color:#f4f4f4;font-weight:bold;" class="p-2">
+
+                            Anmälningar &nbsp; - &nbsp;(<span style="color:red;">0</span>)  &nbsp; - &nbsp; <a>@Html.ActionLink("Visa", "Applicants", new { id = Model[i].Id })</a>
+                        </td>
+                    }
                     <td style="background-color: #f4f4f4;text-align: right; width:100%; display: inline-block;font-size:0.5vw;font-weight:bold;" class="p-2">
 
                         <a class="d-block">@Html.ActionLink("Ändra", "Edit", new { id = Model[i].Id })&nbsp;&nbsp;&nbsp;&nbsp;</a>
@@ -52,9 +70,28 @@
                 }
                 else
                 {
-                    <td style="font-size:0.5vw;background-color:white;font-weight:bold;" class="p-2">
-                        @Html.DisplayFor(modelItem => Model[i].EventTitle)
-                    </td>
+                    @if (Model[i].Applicants != null)
+                    {
+                        <td style="font-size:0.5vw;background-color:white;font-weight:bold;" class="p-2">
+
+                            @Html.DisplayFor(modelItem => Model[i].EventTitle)
+                        </td>
+                        <td style="font-size:0.5vw;background-color:white;font-weight:bold;" class="p-2">
+
+                            Anmälningar &nbsp; - &nbsp;(<span style="color: mediumseagreen;">@Model[i].Applicants.Count()</span>)  &nbsp; - &nbsp; <a>@Html.ActionLink("Visa", "Applicants", new { id = Model[i].Id })</a>
+                        </td>
+                    }
+                    else
+                    {
+                        <td style="font-size:0.5vw;background-color:white;font-weight:bold;" class="p-2">
+
+                            @Html.DisplayFor(modelItem => Model[i].EventTitle)
+                        </td>
+                        <td style="font-size:0.5vw;background-color:white;font-weight:bold;" class="p-2">
+
+                            Anmälningar &nbsp; - &nbsp;(<span style="color:red;">0</span>)  &nbsp; - &nbsp; <a>@Html.ActionLink("Visa", "Applicants", new { id = Model[i].Id })</a>
+                        </td>
+                    }
                     <td style="background-color: white;text-align: right; width:100%; display: inline-block;font-size:0.5vw;font-weight:bold;" class="p-2">
                         <a class="d-block">@Html.ActionLink("Ändra", "Edit", new { id = Model[i].Id })&nbsp;&nbsp;&nbsp;&nbsp;</a>
                         <a href="#@Html.DisplayTextFor(model => model[i].EventTitle).Replace(" ","")" role="button" id="ShowPopup" data-toggle="modal" class="text-decoration-none" style="color:#cc0000;"> <span style="color:black;">-</span> &nbsp;&nbsp;&nbsp;&nbsp;Ta bort</a>
@@ -65,7 +102,6 @@
                         </div>
                     </td>
                 }
-
             </tr>
                 }
             }

@@ -3,14 +3,16 @@ using System;
 using ContentManagement.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ContentManagement.Migrations
 {
     [DbContext(typeof(CMSDbContext))]
-    partial class CMSDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210413112206_AnmälningsFormulärIntToString")]
+    partial class AnmälningsFormulärIntToString
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -136,9 +138,6 @@ namespace ContentManagement.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("text");
 
-                    b.Property<string>("EventName")
-                        .HasColumnType("text");
-
                     b.Property<string>("FirstName")
                         .HasColumnType("text");
 
@@ -157,12 +156,7 @@ namespace ContentManagement.Migrations
                     b.Property<string>("SurName")
                         .HasColumnType("text");
 
-                    b.Property<int?>("applyedToEventId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("applyedToEventId");
 
                     b.ToTable("EventApplicants");
                 });
@@ -202,6 +196,9 @@ namespace ContentManagement.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int?>("ApplicationFormModelId")
+                        .HasColumnType("int");
+
                     b.Property<string>("BodyText")
                         .IsRequired()
                         .HasColumnType("text");
@@ -236,6 +233,8 @@ namespace ContentManagement.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicationFormModelId");
 
                     b.HasIndex("UserId");
 
@@ -518,13 +517,6 @@ namespace ContentManagement.Migrations
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("ContentManagement.Models.EventsModel.ApplicationFormModel", b =>
-                {
-                    b.HasOne("ContentManagement.Models.EventsModel.EventModel", "applyedToEvent")
-                        .WithMany("Applicants")
-                        .HasForeignKey("applyedToEventId");
-                });
-
             modelBuilder.Entity("ContentManagement.Models.EventsModel.EventLinkModel", b =>
                 {
                     b.HasOne("ContentManagement.Models.EventsModel.EventModel", "EventModel")
@@ -538,6 +530,10 @@ namespace ContentManagement.Migrations
 
             modelBuilder.Entity("ContentManagement.Models.EventsModel.EventModel", b =>
                 {
+                    b.HasOne("ContentManagement.Models.EventsModel.ApplicationFormModel", null)
+                        .WithMany("Events")
+                        .HasForeignKey("ApplicationFormModelId");
+
                     b.HasOne("ContentManagement.Models.Account.Users", "User")
                         .WithMany("Events")
                         .HasForeignKey("UserId");

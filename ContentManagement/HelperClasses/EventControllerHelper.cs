@@ -75,6 +75,12 @@ namespace ContentManagement.HelperClasses
                     context.Update(DbEvent);
                     match = false;
                 }
+                if(DbEvent.applicationForm != eventItem.applicationForm)
+                {
+                    DbEvent.applicationForm = eventItem.applicationForm;
+                    context.Update(DbEvent);
+                    match = false;
+                }
                 if(DbEvent.User != null)
                 {
                     if (DbEvent.User.UserName != user.UserName)
@@ -146,11 +152,19 @@ namespace ContentManagement.HelperClasses
         public bool Remove(EventModel eventModel)
         {
             eventModel.Links = context.Events_Links.Where(item => item.EventModel.Id == eventModel.Id).ToList();
-
+            eventModel.Applicants = context.EventApplicants.Where(item => item.applyedToEvent.Id == eventModel.Id).ToList();
             try
             {
+                foreach(var applicant in eventModel.Applicants)
+                {
+                    context.Attach(applicant);
+                    context.Remove(applicant);
+                }
+             
+
                 context.Attach(eventModel);
                 context.Attach(eventModel.Links[0]);
+           
                 context.Remove(eventModel.Links[0]);
                 context.Remove(eventModel);
             }

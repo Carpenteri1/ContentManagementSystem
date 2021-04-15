@@ -22,7 +22,11 @@ namespace ContentManagement.Controllers
         {
             if(User.Identity.IsAuthenticated) 
             {
+             
                 var events = context.Events.ToList();
+                var applicants = context.EventApplicants.ToList();
+
+
                 return View(events); 
             } 
             else
@@ -132,6 +136,22 @@ namespace ContentManagement.Controllers
                 return Redirect(nameof(Index));
             }
             return Redirect(nameof(Index));
+        }
+
+        public IActionResult Applicants(int id)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var applicants = context.EventApplicants.Where(item => item.applyedToEvent.Id == id).ToList();
+                var theEvent = context.Events.Where(item => item.Id == id).FirstOrDefault();
+                theEvent.Applicants = applicants;
+                return View(theEvent);
+            }
+            else
+            {
+                return Redirect("~/login");
+            }
+
         }
     }
 }
