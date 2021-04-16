@@ -153,5 +153,19 @@ namespace ContentManagement.Controllers
             }
 
         }
+
+        public IActionResult DetailedViewOfApplicants(int id, string eventId)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var applicants = context.EventApplicants.Where(item => item.Id == id).FirstOrDefault();
+                TempData["EventId"] = eventId;
+                return View(applicants);
+            }
+            else
+            {
+                return Redirect("~/login");
+            }
+        }
     }
 }

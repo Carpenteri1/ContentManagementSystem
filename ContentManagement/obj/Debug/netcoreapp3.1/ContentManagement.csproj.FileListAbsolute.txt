@@ -568,3 +568,4 @@ C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\b
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Debug\netcoreapp3.1\ContentManagement.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Debug\netcoreapp3.1\ContentManagement.csprojAssemblyReference.cache
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Events\Applicants.cshtml.g.cs
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Debug\netcoreapp3.1\Razor\Views\Events\DetailedViewOfApplicants.cshtml.g.cs

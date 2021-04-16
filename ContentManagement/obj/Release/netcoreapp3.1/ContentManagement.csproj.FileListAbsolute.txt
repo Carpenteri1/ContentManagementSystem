@@ -561,3 +561,4 @@ C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\b
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\ContentManagement.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\Razor\Views\Shared\Components\MoveUp\Default.cshtml.g.cs
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\Razor\Views\Events\Applicants.cshtml.g.cs
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\Razor\Views\Events\DetailedViewOfApplicants.cshtml.g.cs
