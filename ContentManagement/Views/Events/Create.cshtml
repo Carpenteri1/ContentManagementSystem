@@ -10,7 +10,7 @@
         <div class="col-7">
 
             @using (Html.BeginForm("Create", "Events", FormMethod.Post,
-  new { enctype = "multipart/form-data" }))
+ new { enctype = "multipart/form-data" }))
             {<div style="height:1.5vw;"></div>
                 <h4>Skapa nytt event</h4>
                 <hr />
@@ -22,30 +22,23 @@
                     <span asp-validation-for="EventTitle" class="text-danger"></span>
                 </div>
                 <div class="form-group p-0">
+                    <label class="control-label text-left" style="font-size:0.5vw;font-weight:bold;">Länktext: </label>
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.EditorFor(model => model.LinkTitle, new { HtmlAttributes = new { @class = "form-control", style = "font-size:0.5vw;width:11vw;height:1.2vw;border:1px solid lightgray;" } })
+                    <span asp-validation-for="@Model.LinkTitle" class="text-danger"></span>
+                </div>
+                <div class="form-group p-0">
                     <label asp-for="EventTextContent" class="control-label text-left" style="font-size: 0.5vw; width: 11vw; height: 1.2vw;font-weight:bold;">Ingress:</label>
                     <textarea asp-for="EventTextContent" class="form-control" style="width:18vw;height:2.8vw;resize:none;font-size:0.5vw;"></textarea>
                     <span asp-validation-for="EventTextContent" class="text-danger"></span>
                 </div>
-                <div class="form-group p-0">    
+                <div class="form-group p-0">
                     <label asp-for="BodyText" class="control-label text-left" style="font-size: 0.5vw; width: 11vw; height: 1.2vw;font-weight:bold;">Brödtext</label>
                     @Html.TextAreaFor(model => model.BodyText, new { id = "editor2", style = "text-align:left;font-size:0.5vw;height:25vw;" })
                     <span asp-validation-for="BodyText" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <div class="row">
-                        <div class="col-6">
-                            <label class="control-label text-left" style="font-size:0.5vw;font-weight:bold;">Länktext: </label>
-                            @Html.HiddenFor(model => model.Links[0])
-                            @Html.EditorFor(model => model.Links[0].LinkTitle, new { HtmlAttributes = new { @class = "form-control", style = "font-size:0.5vw;width:11vw;height:1.2vw;border:1px solid lightgray;" } })
-                            <span asp-validation-for="Links[0].LinkTitle" class="text-danger"></span>
-                        </div>
-                        <div class="col-6 text-left align-content-start">
-                            <label class="control-label text-left" style="font-size:0.5vw;font-weight:bold;">Sökväg till sidan: </label>
-                            @Html.HiddenFor(model => model.Links[0])
-                            @Html.EditorFor(model => model.Links[0].Url, new { HtmlAttributes = new { @class = "form-control", style = "font-size:0.5vw;width:11vw;height:1.2vw;border:1px solid lightgray;" } })
-                            <span asp-validation-for="Links[0].Url" class="text-danger"></span>
-                        </div>
-                    </div>
+
                 </div>
                 <div style="height:1vw;"></div>
                 <div class="form-group">
@@ -63,16 +56,16 @@
                     </div>
                 </div>
                 <div style="height:1.5vw;"></div>
-                      <h6 class="text-left">Metainformation</h6>
-                    <hr />
-                    <div class="form-group">
-                        <div class="row">
-                            <div style="height:1vw;"></div>
-                            <b style="font-size: 0.5vw;" class="pl-3 pr-1">Publik:</b>  @Html.CheckBoxFor(m => m.IsPublic)
-                            <b style="font-size: 0.5vw;" class="pl-3 pr-1">Anmälan:</b>  @Html.CheckBoxFor(m => m.applicationForm)
-                        </div>
-                        <span asp-validation-for="IsPublic" class="text-danger"></span>
+                <h6 class="text-left">Metainformation</h6>
+                <hr />
+                <div class="form-group">
+                    <div class="row">
+                        <div style="height:1vw;"></div>
+                        <b style="font-size: 0.5vw;" class="pl-3 pr-1">Publik:</b>  @Html.CheckBoxFor(m => m.IsPublic)
+                        <b style="font-size: 0.5vw;" class="pl-3 pr-1">Anmälan:</b>  @Html.CheckBoxFor(m => m.applicationForm)
                     </div>
+                    <span asp-validation-for="IsPublic" class="text-danger"></span>
+                </div>
                 <hr />
                 <div class="form-group">
                     <div class="row">

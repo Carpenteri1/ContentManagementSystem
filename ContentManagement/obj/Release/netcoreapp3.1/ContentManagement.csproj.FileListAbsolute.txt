@@ -562,3 +562,13 @@ C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\o
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\Razor\Views\Shared\Components\MoveUp\Default.cshtml.g.cs
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\Razor\Views\Events\Applicants.cshtml.g.cs
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\Razor\Views\Events\DetailedViewOfApplicants.cshtml.g.cs
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\bin\Release\netcoreapp3.1\DocuSign.eSign.dll
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\bin\Release\netcoreapp3.1\Grpc.Core.dll
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\bin\Release\netcoreapp3.1\Grpc.Core.Api.dll
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\bin\Release\netcoreapp3.1\MimeKit.dll
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\bin\Release\netcoreapp3.1\RestSharp.dll
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\bin\Release\netcoreapp3.1\runtimes\linux-arm64\native\libgrpc_csharp_ext.arm64.so
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\bin\Release\netcoreapp3.1\runtimes\linux-x64\native\libgrpc_csharp_ext.x64.so
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\bin\Release\netcoreapp3.1\runtimes\osx-x64\native\libgrpc_csharp_ext.x64.dylib
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\bin\Release\netcoreapp3.1\runtimes\win-x64\native\grpc_csharp_ext.x64.dll
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\bin\Release\netcoreapp3.1\runtimes\win-x86\native\grpc_csharp_ext.x86.dll

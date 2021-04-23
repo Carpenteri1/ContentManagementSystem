@@ -73,6 +73,5 @@ namespace ContentManagement.Models.Account
         public List<UnderPage_TitleContents> UnderPage_Titles { get; set; }
 
         public List<EventModel> Events { get; set; }
-        public List<EventLinkModel> EventLinks { get; set; }
      }
 }

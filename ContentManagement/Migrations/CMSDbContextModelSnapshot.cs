@@ -176,14 +176,6 @@ namespace ContentManagement.Migrations
                     b.Property<int?>("EventModelId")
                         .HasColumnType("int");
 
-                    b.Property<string>("LinkTitle")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 
@@ -193,7 +185,7 @@ namespace ContentManagement.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Events_Links");
+                    b.ToTable("EventLinkModel");
                 });
 
             modelBuilder.Entity("ContentManagement.Models.EventsModel.EventModel", b =>
@@ -215,6 +207,9 @@ namespace ContentManagement.Migrations
                     b.Property<DateTime>("EventEnds")
                         .HasColumnType("datetime");
 
+                    b.Property<string>("EventPageRoute")
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("EventStart")
                         .HasColumnType("datetime");
 
@@ -229,6 +224,10 @@ namespace ContentManagement.Migrations
                     b.Property<bool>("IsPublic")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<string>("LinkTitle")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 
@@ -240,6 +239,26 @@ namespace ContentManagement.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Events");
+                });
+
+            modelBuilder.Entity("ContentManagement.Models.FileModel.FileModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("fileName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("filePath")
+                        .HasColumnType("text");
+
+                    b.Property<string>("fileType")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FileInfo");
                 });
 
             modelBuilder.Entity("ContentManagement.StartPageModels.PageModel.StartPage", b =>
@@ -528,7 +547,7 @@ namespace ContentManagement.Migrations
             modelBuilder.Entity("ContentManagement.Models.EventsModel.EventLinkModel", b =>
                 {
                     b.HasOne("ContentManagement.Models.EventsModel.EventModel", "EventModel")
-                        .WithMany("Links")
+                        .WithMany()
                         .HasForeignKey("EventModelId");
 
                     b.HasOne("ContentManagement.Models.Account.Users", "User")

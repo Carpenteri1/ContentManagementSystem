@@ -1,15 +1,31 @@
 ﻿@model EventModel
-
+@{
+    TempData["Modelid"] = Model.Id.ToString();
+}
 <div style="height:1.5vw;"></div>
 <div class="centered-div mw-100 mh-100" style="border-bottom:2px solid black;">
     <div class="row">
         <div class="container">
-            <div class="row ml-1">
+            <div class="row">
+                <div class="col-10">
                     <label style=" width: 100%; text-align: left; display: inline-block;">
                         <b style="color:#555555;font-size:0.8vw;">@Model.EventTitle</b>
                     </label>
+                </div>
+                <div class="col-2">
+                    @if (Model.Applicants.Count() > 0)
+                    {
+
+                        <label style="text-align: right; display: inline-block;">
+                            @Html.ActionLink("Ladda ner mailadresser", "Download", new { fileName = Model.EventTitle }, new { @class = "btn btn-primary", style = "font-size:0.6em;margin-left:2.2em;", id = "downloadlink" })
+                        </label>
+                        @*
+            <button type="submit" onclick="DownloadTextFile()">ClickMe</button> *@
+                    }
+                </div>
             </div>
         </div>
+
     </div>
 </div>
 <div class="centered-div mw-100 mh-100">
@@ -25,12 +41,12 @@
             </tr>
         </tbody>
     </table>
-    <table class="table" style="line-height:0.2vw;margin-top:-0.2em;">
+    <table class="table" style="line-height:0.2vw;margin-top:-0.2em;" id="applicantsTable">
         <tbody>
 
             @if (Model != null &&
-      Model.Applicants != null &&
-      Model.Applicants.Count() > 0)
+             Model.Applicants != null &&
+             Model.Applicants.Count() > 0)
             {
                 @for (int i = 0; i < Model.Applicants.Count(); i++)
                 {
@@ -46,14 +62,14 @@
                             <td style="background-color: #f4f4f4;font-size:0.5vw;font-weight:bold;" class="p-2">
                                 @Model.Applicants[i].HomeClubName
                             </td>
-                            <td style="background-color: #f4f4f4;font-size:0.5vw;font-weight:bold;" class="p-2">
+                            <td style="background-color: #f4f4f4;font-size:0.5vw;font-weight:bold;" class="p-2 emailClass" name="email">
                                 @Model.Applicants[i].Email
                             </td>
                             <td style="background-color: #f4f4f4;font-size:0.5vw;font-weight:bold;" class="p-2">
                                 @Model.Applicants[i].Phone
                             </td>
                             <td style="background-color: #f4f4f4;font-size:0.5vw;font-weight:bold;" class="p-2">
-                                <a>@Html.ActionLink("Visa", "DetailedViewOfApplicants", new { id = Model.Applicants[i].Id ,eventId = Model.Id})</a>
+                                <a>@Html.ActionLink("Visa", "DetailedViewOfApplicants", new { id = Model.Applicants[i].Id, eventId = Model.Id })</a>
                             </td>
                         </tr>
                     }
@@ -69,7 +85,7 @@
                             <td style="background-color: white;font-size:0.5vw;font-weight:bold;" class="p-2">
                                 @Model.Applicants[i].HomeClubName
                             </td>
-                            <td style="background-color: white;font-size:0.5vw;font-weight:bold;" class="p-2">
+                            <td style="background-color: white;font-size:0.5vw;font-weight:bold;" class="p-2 emailClass" name="email">
                                 @Model.Applicants[i].Email
                             </td>
                             <td style="background-color: white;font-size:0.5vw;font-weight:bold;" class="p-2">
@@ -93,3 +109,26 @@
         </tbody>
     </table>
 </div>
+@*
+<script>
+    function DownloadTextFile() {
+        alert('hello');
+        let email []= document.getElementsByName("email");
+        alert(email.length);
+     
+        $.ajax({
+            type: "GET",
+            url:@Url.Action("Download","Events"),
+            data: $form.serialize(),
+            error: function (xhr, status, error) {
+                //do something about the error
+                alert('error');
+            },
+            success: function (response) {
+                //do something with response
+                alert('Succses');
+
+            }
+        });
+    }
+</script>*@

@@ -10,7 +10,6 @@ namespace ContentManagement.Models.EventsModel
     public class EventModel
     {
         public int Id { get; set; }
-        public List<EventLinkModel> Links { get; set; }
         [Display(Name = "Rubrik: ")]
         [Required(ErrorMessage = "Måste ha en rubrik")]
         public string EventTitle { get; set; }
@@ -25,7 +24,9 @@ namespace ContentManagement.Models.EventsModel
         public Users User { get; set; }
         [DataType(DataType.Date)]
         public DateTime Created { get; set; }
-
+        [Display(Name = "Länk titel.: ")]
+        [Required(ErrorMessage = "Måste ha en länk title")]
+        public string LinkTitle { get; set; }
         public DateTime? Edited { get; set; }
         [DataType(DataType.Date)]
         [Display(Name = "Eventet börjar: ")]
@@ -37,7 +38,7 @@ namespace ContentManagement.Models.EventsModel
         public DateTime EventEnds { get; set; }
         public bool IsPublic { get; set; }
         public bool applicationForm { get; set; }
-
+        public string EventPageRoute { get; set; }
         public List<ApplicationFormModel> Applicants { get; set; }
 
     }

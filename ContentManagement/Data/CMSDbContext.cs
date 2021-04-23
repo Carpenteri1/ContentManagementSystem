@@ -6,7 +6,7 @@ using ContentManagement.HeaderModel;
 using ContentManagement.Models.EventsModel;
 using ContentManagement.Models.Adverts;
 using ContentManagement.Data.Services;
-
+using ContentManagement.Models.FileModel;
 namespace ContentManagement.Data
 {
     public class CMSDbContext : DbContext
@@ -35,13 +35,16 @@ namespace ContentManagement.Data
 
         #region Event region
         public DbSet<EventModel> Events { get; set; }
-        public DbSet<EventLinkModel> Events_Links { get; set; }
         public DbSet<ApplicationFormModel> EventApplicants { get; set; }
         #endregion
 
         #region Adverts
         public DbSet<AdvertsModel> Adverts { get; set; }
         public DbSet<AdvertType> AdvertTypes { get; set; }
+        #endregion
+
+        #region Files
+        public DbSet<FileModel> FileInfo { get; set; }
         #endregion
 
 

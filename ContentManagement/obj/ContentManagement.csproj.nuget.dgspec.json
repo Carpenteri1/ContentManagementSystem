@@ -52,6 +52,14 @@
               "target": "Package",
               "version": "[1.1.2, )"
             },
+            "DocuSign.eSign.dll": {
+              "target": "Package",
+              "version": "[5.2.0, )"
+            },
+            "Grpc.Core": {
+              "target": "Package",
+              "version": "[2.37.0, )"
+            },
             "Microsoft.AspNetCore.CookiePolicy": {
               "target": "Package",
               "version": "[2.2.8, )"
@@ -87,6 +95,10 @@
             "Microsoft.jQuery.Unobtrusive.Validation": {
               "target": "Package",
               "version": "[3.2.12, )"
+            },
+            "MimeKit": {
+              "target": "Package",
+              "version": "[2.11.0, )"
             },
             "MySql.Data": {
               "target": "Package",

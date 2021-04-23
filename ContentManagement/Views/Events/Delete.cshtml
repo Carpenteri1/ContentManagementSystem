@@ -38,21 +38,12 @@
                     <dd class="col-sm-10">
                         @Html.DisplayFor(model => model.BodyText)
                     </dd>
-                    @foreach (var s in Model.Links)
-                    {
-                        <dt class="col-sm-2">
-                            @Html.DisplayNameFor(model => s.Url)
-                        </dt>
-                        <dd class="col-sm-10">
-                            @Html.DisplayFor(model => s.Url)
-                        </dd>
-                        <dt class="col-sm-2">
-                            @Html.DisplayNameFor(model => s.LinkTitle)
-                        </dt>
-                        <dd class="col-sm-10">
-                            @Html.DisplayFor(model => s.LinkTitle)
-                        </dd>
-                    }
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.LinkTitle)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.LinkTitle)
+                    </dd>
                     <dt class="col-sm-2">
                         @Html.DisplayNameFor(model => model.EventStart)
                     </dt>
@@ -72,7 +63,7 @@
                new { enctype = "multipart/form-data" }))
                 {
                     @Html.HiddenFor(model => model.Id)
-                    @Html.HiddenFor(model => model.Links[0].Id)
+                    @Html.HiddenFor(model => model.LinkTitle)
                     <div class="form-group">
                         <div class="row">
                             <div class="col-6">

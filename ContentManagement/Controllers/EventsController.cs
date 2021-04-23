@@ -1,12 +1,19 @@
 ﻿using ContentManagement.Data;
 using ContentManagement.HelperClasses;
 using ContentManagement.Models.EventsModel;
+using DocuSign.eSign.Model;
+using System.Web;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using MimeKit;
+using ContentManagement.Data.Services;
+using ContentManagement.Models.FileModel;
 
 namespace ContentManagement.Controllers
 {
@@ -14,26 +21,28 @@ namespace ContentManagement.Controllers
     {
         public readonly CMSDbContext context;
         private const int IncreaseByOne = 1;
-        public EventsController(CMSDbContext context)
+        private readonly IHostingEnvironment environment;
+        private readonly IWebHostEnvironment host;
+        public EventsController(CMSDbContext context, IHostingEnvironment environment, IWebHostEnvironment host)
         {
             this.context = context;
+            this.environment = environment;
+            this.host = host;
         }
         public IActionResult Index()
         {
-            if(User.Identity.IsAuthenticated) 
+            if (User.Identity.IsAuthenticated)
             {
-             
+
                 var events = context.Events.ToList();
                 var applicants = context.EventApplicants.ToList();
-
-
-                return View(events); 
-            } 
+                return View(events);
+            }
             else
             {
                 return Redirect("~/Login");
             }
-       
+
         }
 
         public IActionResult Create()
@@ -55,30 +64,33 @@ namespace ContentManagement.Controllers
             try
             {
                 var events = context.Events.ToList();
-                var links = context.Events_Links.ToList();
-
                 var user = context.Users.Where(item => item.UserName == User.Identity.Name).FirstOrDefault();
-
-                foreach (var s in postedEvent.Links)
-                {
-                    s.EventModel = postedEvent;
-                    s.User = user;
-                    s.EventModel = s.EventModel;
-                }
                 postedEvent.User = user;
                 postedEvent.Created = DateTime.Now;
-
-                context.Add(postedEvent);
-                context.SaveChanges();
+                postedEvent.EventPageRoute = postedEvent.EventTitle
+                        .Replace("å", "a")
+                        .Replace("ä", "a")
+                        .Replace("ö", "o")
+                        .Replace(" ", "_")
+                        .Replace("!", "")
+                        .Replace("?", "")
+                        .Replace("–","-")
+                        .Replace("&","och");
+                EventControllerHelper controllerHelper = new EventControllerHelper(context);
+               
+                if (controllerHelper.Add(postedEvent))
+                {
+                    controllerHelper.SaveToDb();
+                }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Debug.WriteLine(e.Message);
                 return Redirect(nameof(Index));
             }
-                
 
-                return Redirect(nameof(Index));
+
+            return Redirect(nameof(Index));
 
         }
 
@@ -89,10 +101,6 @@ namespace ContentManagement.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var Event = context.Events.Where(item => item.Id == id).FirstOrDefault();
-                var links = context.Events_Links.Where(item => item.EventModel.Id == id).ToList();
-                    Event.Links = links;    
-
-
                 return View(Event);
             }
             else
@@ -104,7 +112,7 @@ namespace ContentManagement.Controllers
         [HttpPost]
         public IActionResult Edit(EventModel eventModel)
         {
-         
+
             EventControllerHelper eventControllerHelper = new EventControllerHelper(context);
             var user = eventControllerHelper.GetUserByName(User.Identity.Name);
 
@@ -128,7 +136,7 @@ namespace ContentManagement.Controllers
                 {
                     eventHelper.SaveToDb();
                 }
-                
+
             }
             catch (Exception e)
             {
@@ -166,6 +174,47 @@ namespace ContentManagement.Controllers
             {
                 return Redirect("~/login");
             }
+        }
+
+
+        [HttpGet]
+        public ActionResult Download(string fileName)
+        {
+
+            var eventmodel = context.Events.Where(item => item.EventTitle == fileName).FirstOrDefault();
+            string folder = "/TextFiles/";
+            string filetype = ".txt";
+            string fullPath = fileName + filetype;
+            FileManager fileManager = new FileManager(context, host);
+
+            eventmodel.Applicants = context.EventApplicants.Where(item => item.applyedToEvent.EventTitle == fileName).ToList();
+            List<string> emailList = new List<string>();
+            foreach (var s in eventmodel.Applicants)
+                emailList.Add(s.Email);
+
+            var file = context.FileInfo.Where(item => item.fileName == eventmodel.EventTitle).FirstOrDefault();
+
+            if (file == null)
+            {
+                FileModel newFile = new FileModel();
+                newFile.filePath = fileManager.CreateFileInRootFolder(fullPath, folder, emailList);
+                newFile.fileName = fileName;
+                newFile.fileType = filetype;
+                context.Add(newFile);
+                context.SaveChanges();
+                file = newFile;
+            }
+            else
+            {
+                file.filePath = fileManager.CreateFileInRootFolder(fullPath, folder, emailList);
+                context.Update(file);
+                context.SaveChanges();
+            }
+
+            string contentRootPath = host.WebRootPath + file.filePath;
+            string fullFileName = $"{file.fileName}{file.fileType}";
+            byte[] bytes = System.IO.File.ReadAllBytes(contentRootPath);
+            return File(bytes, "application/octet-stream", fullFileName);
         }
     }
 }

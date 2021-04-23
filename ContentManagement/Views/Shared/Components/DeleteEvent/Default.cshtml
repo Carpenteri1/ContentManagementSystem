@@ -3,7 +3,7 @@
 
 
 @using (Html.BeginForm("Delete", "Events", FormMethod.Post,
-        new { name = "deleteEvent", id = "deleteEvent" }))
+      new { name = "deleteEvent", id = "deleteEvent" }))
 {
 <div class="modal-content p-2">
     @Html.HiddenFor(model => model.Id)
