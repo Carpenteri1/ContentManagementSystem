@@ -127,6 +127,33 @@ namespace ContentManagement.Migrations
                     b.ToTable("Adverts");
                 });
 
+            modelBuilder.Entity("ContentManagement.Models.Adverts.Adverts_ImageContent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("AdvertId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImgSrc")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("Uploaded")
+                        .HasColumnType("datetime");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AdvertId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Adverts_ImageContent");
+                });
+
             modelBuilder.Entity("ContentManagement.Models.EventsModel.ApplicationFormModel", b =>
                 {
                     b.Property<int>("Id")
@@ -167,25 +194,26 @@ namespace ContentManagement.Migrations
                     b.ToTable("EventApplicants");
                 });
 
-            modelBuilder.Entity("ContentManagement.Models.EventsModel.EventLinkModel", b =>
+            modelBuilder.Entity("ContentManagement.Models.EventsModel.EventImageContentModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("EventModelId")
+                    b.Property<int?>("EventPageId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("ImgSrc")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("Uploaded")
+                        .HasColumnType("datetime");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EventModelId");
+                    b.HasIndex("EventPageId");
 
-                    b.HasIndex("UserId");
-
-                    b.ToTable("EventLinkModel");
+                    b.ToTable("EventImageContentModel");
                 });
 
             modelBuilder.Entity("ContentManagement.Models.EventsModel.EventModel", b =>
@@ -219,6 +247,9 @@ namespace ContentManagement.Migrations
 
                     b.Property<string>("EventTitle")
                         .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ImgSrc")
                         .HasColumnType("text");
 
                     b.Property<bool>("IsPublic")
@@ -537,6 +568,17 @@ namespace ContentManagement.Migrations
                         .HasForeignKey("UserId");
                 });
 
+            modelBuilder.Entity("ContentManagement.Models.Adverts.Adverts_ImageContent", b =>
+                {
+                    b.HasOne("ContentManagement.Models.Adverts.AdvertsModel", "Advert")
+                        .WithMany("Adverts_ImageContents")
+                        .HasForeignKey("AdvertId");
+
+                    b.HasOne("ContentManagement.Models.Account.Users", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("ContentManagement.Models.EventsModel.ApplicationFormModel", b =>
                 {
                     b.HasOne("ContentManagement.Models.EventsModel.EventModel", "applyedToEvent")
@@ -544,15 +586,11 @@ namespace ContentManagement.Migrations
                         .HasForeignKey("applyedToEventId");
                 });
 
-            modelBuilder.Entity("ContentManagement.Models.EventsModel.EventLinkModel", b =>
+            modelBuilder.Entity("ContentManagement.Models.EventsModel.EventImageContentModel", b =>
                 {
-                    b.HasOne("ContentManagement.Models.EventsModel.EventModel", "EventModel")
-                        .WithMany()
-                        .HasForeignKey("EventModelId");
-
-                    b.HasOne("ContentManagement.Models.Account.Users", "User")
-                        .WithMany("EventLinks")
-                        .HasForeignKey("UserId");
+                    b.HasOne("ContentManagement.Models.EventsModel.EventModel", "EventPage")
+                        .WithMany("EventImageContentModels")
+                        .HasForeignKey("EventPageId");
                 });
 
             modelBuilder.Entity("ContentManagement.Models.EventsModel.EventModel", b =>

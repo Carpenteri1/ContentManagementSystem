@@ -37,7 +37,6 @@ namespace ContentManagement.Controllers
             {
                 UnderPageControllerHelper controllerHelper = new UnderPageControllerHelper(context, host);
                 List<HeaderContent> headerContent = controllerHelper.GetAllHeadContent();
-                var newPage = new UnderPage();
                 ViewData["HeaderTheme"] = new SelectList(headerContent, "Id", "HeaderTheme");
                 ViewData["AmmountOfAdds"] = new SelectList("10", "AmmountOfAdverts"); 
                 return View(new UnderPage());

@@ -34,10 +34,11 @@ namespace ContentManagement.HelperClasses
             if (advertType != null &&
                 user != null)
             {
-                newAd.TypeOfAdd = advertType;
-                newAd.Id = allAds.Last().Id + PlusOne;
-                newAd.User = user;
-                context.Add(newAd);
+                    newAd.TypeOfAdd = advertType;
+                    newAd.Id = allAds.Last().Id + PlusOne;
+                    newAd.User = user;
+                    newAd.Adverts_ImageContents[0].User = user;
+                    context.Add(newAd);
             }
 
             return newAd;
@@ -45,8 +46,18 @@ namespace ContentManagement.HelperClasses
 
         private AdvertsModel PopulateImg(AdvertsModel newAd)
         {
-            FileManager manager = new FileManager(context, host);
-            newAd.ImgUrl = manager.CopyToRootFolder(newAd.File, ToFolder);
+            if (newAd.Adverts_ImageContents[0].File != null)
+            {
+                FileManager manager = new FileManager(context, host);
+                newAd.Adverts_ImageContents[0].ImgSrc = manager.CopyToRootFolder(newAd.Adverts_ImageContents[0].File, ToFolder);
+          
+            }
+            else
+            {
+                newAd.Adverts_ImageContents[0].ImgSrc ="\"\"";
+            }
+            newAd.ImgUrl = newAd.Adverts_ImageContents[0].ImgSrc;
+            newAd.Adverts_ImageContents[0].Uploaded = DateTime.Now;
             newAd.Uploaded = DateTime.Now;
             return newAd;
         }
@@ -80,7 +91,12 @@ namespace ContentManagement.HelperClasses
 
         public AdvertType GetAdvertTypeById(int id)
         {
-            return context.AdvertTypes.Where(item => item.AdvertsModel[0].Id == id).FirstOrDefault();
+            return context.AdvertTypes.Where(item => item.Id == id).FirstOrDefault();
+        }
+
+        public Adverts_ImageContent GetAdvertImageContentById(int id)
+        {
+            return context.adverts_imagecontent.Where(item => item.Advert.Id == id).FirstOrDefault();
         }
 
 
@@ -143,16 +159,26 @@ namespace ContentManagement.HelperClasses
                     context.Update(Dbadverts);
                     match = false;
                 }
-                if (advert.File != null)
+                if (advert.Adverts_ImageContents[0].File != null)
                 {
                     FileManager manages = new FileManager(context, host);
-                    advert.ImgUrl = manages.CopyToRootFolder(advert.File, ToFolder);
+                    advert.Adverts_ImageContents[0].ImgSrc = manages.CopyToRootFolder(advert.Adverts_ImageContents[0].File, ToFolder);
+                    advert.ImgUrl = advert.Adverts_ImageContents[0].ImgSrc;
 
                     if (!advert.ImgUrl.Equals(Dbadverts.ImgUrl))
                     {
+                        advert.Adverts_ImageContents[0].Uploaded = DateTime.Now;
                         Dbadverts.ImgUrl = advert.ImgUrl;
-                        Dbadverts.Uploaded = DateTime.Now;
-                        context.Update(Dbadverts);
+                        Dbadverts.Uploaded = advert.Uploaded;
+                        var DbadvertImageContent = context.adverts_imagecontent.Where(item => item.Advert.Id == advert.Id).FirstOrDefault();
+                        DbadvertImageContent.ImgSrc = advert.ImgUrl;
+                        DbadvertImageContent.Uploaded = advert.Uploaded;
+                        DbadvertImageContent.User = Dbadverts.User;
+
+                        context.Attach(DbadvertImageContent);
+                        context.Attach(Dbadverts);
+                        context.Update(DbadvertImageContent);
+                        context.Update(Dbadverts);                        
                         match = false;
                     }
                 }
@@ -178,11 +204,14 @@ namespace ContentManagement.HelperClasses
             return match;
         }
 
-        public bool Remove(AdvertsModel advert)
+        public bool Remove(AdvertsModel advert,Adverts_ImageContent adverts_ImageContent)
         {
             try
             {
+                context.Attach(adverts_ImageContent);
+                context.Attach(advert);
                 context.Remove(advert);
+                context.Remove(adverts_ImageContent);
             }
             catch (Exception e)
             {

@@ -26,13 +26,16 @@ namespace ContentManagement.Controllers
         }
 
         // GET: AdvertsController
-        public ActionResult Index()
+        public ActionResult Index(string selecterDropDownValue)
         {
             if (User.Identity.IsAuthenticated)
             {
                 AdvertControllerHelper advertControllerHelper = new AdvertControllerHelper(context, host);
                 var advertTypes = advertControllerHelper.GetAllAdvertTypes();
-                ViewData["TypeOfAd"] = new SelectList(advertTypes, "Id", "TypeOfAd");
+                if(selecterDropDownValue == null)
+                    ViewData["TypeOfAd"] = new SelectList(advertTypes, "Id", "TypeOfAd");
+                else
+                ViewData["TypeOfAd"] = new SelectList(advertTypes, "Id", "TypeOfAd", selecterDropDownValue);
                 var adverts = advertControllerHelper.GetAdsByDropDownValue(advertControllerHelper.CheckDropDownValue(null));
 
                 return View(adverts);
@@ -45,13 +48,13 @@ namespace ContentManagement.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(string selecterDropDownValue)
+        public ActionResult Index(string selecterDropDownValue,int id)
         {
             try
             {
                 AdvertControllerHelper advertControllerHelper = new AdvertControllerHelper(context, host);
                 var advertTypes = advertControllerHelper.GetAllAdvertTypes();
-                ViewData["TypeOfAd"] = new SelectList(advertTypes, "Id", "TypeOfAd");
+                ViewData["TypeOfAd"] = new SelectList(advertTypes, "Id", "TypeOfAd", selecterDropDownValue);
                 var adverts = advertControllerHelper.GetAdsByDropDownValue(advertControllerHelper.CheckDropDownValue(selecterDropDownValue));
                 return View(adverts);
             }
@@ -88,24 +91,18 @@ namespace ContentManagement.Controllers
                 AdvertControllerHelper advertHelper = new AdvertControllerHelper(context,host);
                 try
                 {
-                    newAdvert = advertHelper.CreateNewAdvertData(newAdvert,advertHelper.GetUser(User.Identity.Name),advertHelper.CheckDropDownValue(selecterDropDownValue));
+                    newAdvert = advertHelper.CreateNewAdvertData(newAdvert,advertHelper.GetUser(User.Identity.Name),
+                        advertHelper.CheckDropDownValue(selecterDropDownValue));
+
                     if (newAdvert != null)
                         advertHelper.SaveToDb();
-                   
-                    return RedirectToAction(nameof(Index));
-
                 }
-                catch
+                catch(Exception e)
                 {
-                    return Redirect(nameof(Create));
+                    return RedirectToAction("Index", new { selecterDropDownValue = selecterDropDownValue });
                 }
             }
-            else
-            {
-                return Redirect(nameof(Create));
-            }
-
-         
+            return RedirectToAction("Index", new { selecterDropDownValue = selecterDropDownValue });
         }
 
         [HttpGet]
@@ -116,9 +113,12 @@ namespace ContentManagement.Controllers
             {
                 AdvertControllerHelper advertHelper = new AdvertControllerHelper(context, host);
                 var advertTypes = advertHelper.GetAllAdvertTypes();
-                ViewData["TypeOfAd"] = new SelectList(advertTypes, "Id", "TypeOfAd");
+                var advertImage = advertHelper.GetAdvertImageContentById(id);
                 var advert = advertHelper.GetAdvertById(id);
+                ViewData["TypeOfAd"] = new SelectList(advertTypes, "Id", "TypeOfAd", advert.TypeOfAdd.Id.ToString());
 
+
+                advert.Adverts_ImageContents[0] = advertImage;
                 return View(advert);
             }
             else
@@ -127,57 +127,31 @@ namespace ContentManagement.Controllers
             }
         }
 
-        // POST: AdvertsController/Edit/5
+        // POST: Adverts/Edit/5
         [HttpPost]
-        public ActionResult Edit(AdvertsModel adverts, string selecterDropDownValue)
+        public IActionResult Edit(AdvertsModel advert,string selecterDropDownValue)
         {
             AdvertControllerHelper advertHelper = new AdvertControllerHelper(context, host);
+            var user = context.Users.Where(item => item.UserName == User.Identity.Name).FirstOrDefault();
+            var advertTypes = advertHelper.GetAllAdvertTypes();
+            ViewData["TypeOfAd"] = new SelectList(advertTypes, "Id", "TypeOfAd", selecterDropDownValue);
+
+            advert.TypeOfAdd = advertHelper.GetAdvertTypeById(int.Parse(selecterDropDownValue));
             try
             {
-                var advertTypes = advertHelper.GetAllAdvertTypes();
-                ViewData["TypeOfAd"] = new SelectList(advertTypes, "Id", "TypeOfAd");
-                adverts.TypeOfAdd = advertHelper.GetAdvertTypeByDropDownValue(advertHelper.CheckDropDownValue(selecterDropDownValue));
-
-
-                if (!advertHelper.DoesAllContentMatch(adverts,advertHelper.GetUser(User.Identity.Name)))
+                if (!advertHelper.DoesAllContentMatch(advert, user))
                 {
                     advertHelper.SaveToDb();
                 }
 
-
-                return RedirectToAction("Edit", new { id = adverts.Id });
             }
-            catch(Exception e )
+            catch(Exception e)
             {
                 Debug.WriteLine(e.Message);
-                return Redirect(nameof(Index));
+                return RedirectToAction("Index", new { selecterDropDownValue = selecterDropDownValue });
             }
+            return RedirectToAction("Index", new { selecterDropDownValue = selecterDropDownValue });
         }
-        /*
-        // GET: AdvertsController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                AdvertControllerHelper advertControllerHelper = new AdvertControllerHelper(context,host);
-                var advert = advertControllerHelper.GetAdvertById(id);
-          
-                if (advert != null)
-                {
-                    return View(advert);
-                }
-                else
-                {
-                    return Redirect(nameof(Index));
-                }
-           
-            }
-            else
-            {
-                return Redirect("~/login");
-            }
- 
-        }*/
 
         // POST: AdvertsController/Delete/5
         [HttpPost]
@@ -185,9 +159,10 @@ namespace ContentManagement.Controllers
         public ActionResult Delete(AdvertsModel advert)
         {
             AdvertControllerHelper advertControllerHelper = new AdvertControllerHelper(context,host);
+            var advertImageContent = context.adverts_imagecontent.Where(item => item.Advert.Id == advert.Id).FirstOrDefault();
             try
             {
-                if (advertControllerHelper.Remove(advert))
+                if (advertControllerHelper.Remove(advert,advertImageContent))
                 {
                     advertControllerHelper.SaveToDb();
                 }
@@ -198,7 +173,6 @@ namespace ContentManagement.Controllers
                 Debug.WriteLine(e.Message);
                 return Redirect(nameof(Index));
             }
-            return Redirect(nameof(Index));
         }
     }
 }

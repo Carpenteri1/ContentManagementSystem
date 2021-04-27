@@ -1,6 +1,8 @@
 ﻿using ContentManagement.Data;
+using ContentManagement.Data.Services;
 using ContentManagement.Models.Account;
 using ContentManagement.Models.EventsModel;
+using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,9 +14,13 @@ namespace ContentManagement.HelperClasses
     public class EventControllerHelper
     {
         private readonly CMSDbContext context;
-        public EventControllerHelper(CMSDbContext context)
+        private readonly IWebHostEnvironment host;
+        private const string ToFolder = "/Upload/EventPage/Images/";
+
+        public EventControllerHelper(CMSDbContext context, IWebHostEnvironment host)
         {
             this.context = context;
+            this.host = host;
         }
 
         public bool DoesAllEventsMatch(EventModel eventItem, Users user)
@@ -102,6 +108,27 @@ namespace ContentManagement.HelperClasses
                         match = false;
                     }
                 }
+                if (eventItem.EventImageContentModels[0].File != null)
+                {
+                    FileManager manages = new FileManager(context, host);
+                    eventItem.EventImageContentModels[0].ImgSrc = manages.CopyToRootFolder(eventItem.EventImageContentModels[0].File, ToFolder);
+                    eventItem.ImgSrc = eventItem.EventImageContentModels[0].ImgSrc;
+
+                    if (!eventItem.ImgSrc.Equals(DbEvent.ImgSrc))
+                    {
+                        eventItem.EventImageContentModels[0].Uploaded = DateTime.Now;
+                        DbEvent.ImgSrc = eventItem.ImgSrc;
+                        var DbEventImageContent = context.EventImageContentModel.Where(item => item.EventPage.Id == eventItem.Id).FirstOrDefault();
+                        DbEventImageContent.ImgSrc = eventItem.ImgSrc;
+                        DbEventImageContent.Uploaded = DateTime.Now;
+
+                        context.Attach(DbEventImageContent);
+                        context.Attach(DbEvent);
+                        context.Update(DbEventImageContent);
+                        context.Update(DbEvent);
+                        match = false;
+                    }
+                }
                 if (DbEvent.User != null)
                 {
                     if (DbEvent.User.UserName != user.UserName)
@@ -134,13 +161,7 @@ namespace ContentManagement.HelperClasses
                     DbeventItem.LinkTitle = eventItem.LinkTitle;
                     context.Update(DbeventItem);
                     match = false;
-                }/*
-                if(DbeventItem.Url != eventItem.Links[0].Url)
-                {
-                    DbeventItem.Url = eventItem.Links[0].Url;
-                    context.Update(DbeventItem);
-                    match = false;
-                }*/
+                }
                 if(DbeventItem.User != null)
                 {
                     if(DbeventItem.User.UserName != user.UserName)
@@ -168,6 +189,7 @@ namespace ContentManagement.HelperClasses
         public bool Remove(EventModel eventModel)
         {
             eventModel.Applicants = context.EventApplicants.Where(item => item.applyedToEvent.Id == eventModel.Id).ToList();
+            var eventModelImageContent = context.EventImageContentModel.Where(item => item.EventPage.Id == eventModel.Id).FirstOrDefault();
             try
             {
                 foreach(var applicant in eventModel.Applicants)
@@ -175,9 +197,9 @@ namespace ContentManagement.HelperClasses
                     context.Attach(applicant);
                     context.Remove(applicant);
                 }
-             
-
+                context.Attach(eventModelImageContent);
                 context.Attach(eventModel);
+                context.Remove(eventModelImageContent);
                 context.Remove(eventModel);
             }
             catch(Exception e)
@@ -207,12 +229,39 @@ namespace ContentManagement.HelperClasses
             try
             {
                 context.Add(eventModel);
+                context.Add(eventModel.EventImageContentModels[0]);
             }
-            catch
+            catch(Exception e)
             {
                 return false;
             }
             return true;
+        }
+
+        public EventModel CreateNewEventData(EventModel eventModel)
+        {
+
+            if(eventModel.EventImageContentModels[0].File != null)
+            {
+                FileManager mangager = new FileManager(context, host);
+                eventModel.EventImageContentModels[0].ImgSrc = mangager.CopyToRootFolder(eventModel.EventImageContentModels[0].File, ToFolder);
+            }
+            else
+            {
+                eventModel.EventImageContentModels[0].ImgSrc = "\"\"";
+            }
+            try
+            {
+               
+                eventModel.ImgSrc = eventModel.EventImageContentModels[0].ImgSrc;
+                eventModel.EventImageContentModels[0].Uploaded = DateTime.Now;
+                eventModel.EventImageContentModels[0].EventPage = eventModel;
+            }
+            catch
+            {
+                return eventModel;
+            }
+            return eventModel;
         }
     }
 }

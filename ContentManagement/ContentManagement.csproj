@@ -7,14 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="wwwroot\Upload\StartPage\Editor\**" />
-    <Content Remove="wwwroot\Upload\StartPage\Editor\**" />
-    <EmbeddedResource Remove="wwwroot\Upload\StartPage\Editor\**" />
-    <None Remove="wwwroot\Upload\StartPage\Editor\**" />
-    <TypeScriptCompile Remove="wwwroot\Upload\StartPage\Editor\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="Views\Shared\Error.cshtml" />
     <None Include="Views\Shared\_Layout.cshtml" />
     <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
@@ -70,6 +62,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\TextFiles\" />
+    <Folder Include="wwwroot\Upload\EventPage\Images\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="https://json.schemastore.org/netlify.json" /></VisualStudio></ProjectExtensions>

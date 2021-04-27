@@ -35,12 +35,14 @@ namespace ContentManagement.Data
 
         #region Event region
         public DbSet<EventModel> Events { get; set; }
+        public DbSet<EventImageContentModel> EventImageContentModel { get; set; }
         public DbSet<ApplicationFormModel> EventApplicants { get; set; }
         #endregion
 
         #region Adverts
         public DbSet<AdvertsModel> Adverts { get; set; }
         public DbSet<AdvertType> AdvertTypes { get; set; }
+        public DbSet<Adverts_ImageContent> adverts_imagecontent { get; set; }
         #endregion
 
         #region Files

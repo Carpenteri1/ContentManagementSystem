@@ -36,10 +36,13 @@ namespace ContentManagement.Models.EventsModel
         [Display(Name = "Eventet slutar: ")]
         [Required(ErrorMessage = "Eventet måste ha ett slut datum")]
         public DateTime EventEnds { get; set; }
+
+        public string ImgSrc { get; set; }
         public bool IsPublic { get; set; }
         public bool applicationForm { get; set; }
         public string EventPageRoute { get; set; }
         public List<ApplicationFormModel> Applicants { get; set; }
+        public List<EventImageContentModel> EventImageContentModels { get; set; }
 
     }
 }

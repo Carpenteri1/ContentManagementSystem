@@ -32,10 +32,7 @@ namespace ContentManagement.Models.Adverts
         [Display(Name = "Välj annons typ: ")]
         public AdvertType TypeOfAdd { get; set; }
         public DateTime Uploaded { get; set; }
-        [NotMapped]
-        [Display(Name = "Annons bild")]
-        [Required(ErrorMessage = ("Måste finnas en bild"))]
-        public IFormFile? File { get; set; }
+        public List<Adverts_ImageContent> Adverts_ImageContents { get; set; }
 
     }
 }

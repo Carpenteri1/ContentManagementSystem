@@ -65,7 +65,7 @@ namespace ContentManagement.Data.Services
                     {
                         if (i < listOfIngress.Count() - 1)
                         {
-                            writer.Write(listOfIngress[i].Replace("\n", "").Replace(" ", "") + ",");
+                            writer.Write(listOfIngress[i].Replace("\n", "").Replace(" ", "") + "; ");
                         }
                         else
                         {

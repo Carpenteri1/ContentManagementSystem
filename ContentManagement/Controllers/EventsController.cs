@@ -76,9 +76,9 @@ namespace ContentManagement.Controllers
                         .Replace("?", "")
                         .Replace("–","-")
                         .Replace("&","och");
-                EventControllerHelper controllerHelper = new EventControllerHelper(context);
+                EventControllerHelper controllerHelper = new EventControllerHelper(context,host);
                
-                if (controllerHelper.Add(postedEvent))
+                if (controllerHelper.Add(controllerHelper.CreateNewEventData(postedEvent)))
                 {
                     controllerHelper.SaveToDb();
                 }
@@ -101,6 +101,9 @@ namespace ContentManagement.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var Event = context.Events.Where(item => item.Id == id).FirstOrDefault();
+                var eventImageContent = context.EventImageContentModel.Where(item => item.EventPage.Id == id).FirstOrDefault();
+                Event.EventImageContentModels[0] = eventImageContent;
+                eventImageContent.EventPage = Event;
                 return View(Event);
             }
             else
@@ -113,7 +116,7 @@ namespace ContentManagement.Controllers
         public IActionResult Edit(EventModel eventModel)
         {
 
-            EventControllerHelper eventControllerHelper = new EventControllerHelper(context);
+            EventControllerHelper eventControllerHelper = new EventControllerHelper(context,host);
             var user = eventControllerHelper.GetUserByName(User.Identity.Name);
 
             if (!eventControllerHelper.DoesAllEventsMatch(eventModel, user))
@@ -123,13 +126,13 @@ namespace ContentManagement.Controllers
                 eventControllerHelper.SaveToDb();
 
 
-            return RedirectToAction("Edit", new { id = eventModel.Id });
+            return RedirectToAction(nameof(Index));
 
         }
         [HttpPost]
         public IActionResult Delete(EventModel eventModel)
         {
-            EventControllerHelper eventHelper = new EventControllerHelper(context);
+            EventControllerHelper eventHelper = new EventControllerHelper(context,host);
             try
             {
                 if (eventHelper.Remove(eventModel))
