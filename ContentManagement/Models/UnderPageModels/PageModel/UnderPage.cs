@@ -8,6 +8,8 @@ using ContentManagement.Models.Account;
 using Microsoft.AspNetCore.Http;
 using ContentManagement.StartPageModels.PageModel;
 using ContentManagement.Models.Adverts;
+using ContentManagement.Models.FilesModel;
+
 namespace ContentManagement.UnderPageModels.PageModel
 {
     public class UnderPage
@@ -20,13 +22,20 @@ namespace ContentManagement.UnderPageModels.PageModel
         public bool ShowFormModul { get; set; }
         public int OrderPosition { get; set; }
         public bool ShowEmailFormModul { get; set; }
-        public List<UnderPage_ImgContents> UnderPage_ImgContent { get; set; }
-        public List<UnderPage_TextContents> UnderPage_TextContents { get; set; }
-        public List<UnderPage_TitleContents> UnderPage_TitleContents { get; set; }
+        public string pageRoute { get; set; }
+        public int AmmountOfAdverts { get; set; }
+        public UnderPage_TextContents UnderPage_TextContents { get; set; }
+        public UnderPage_TitleContents UnderPage_TitleContents { get; set; }
         public Users User { get; set; }
         public HeaderContent HeaderContent { get; set; }
         public StartPage StartPage { get; set; }
-        public string pageRoute { get; set; }   
-        public int AmmountOfAdverts { get; set; }
+        public PageImageGallery ImageGallery { get; set; }
+        public List<AdvertImageGallery> AdvertImageGallery { get; set; }
+
+
+
+
+
+        public List<UnderPage_ImgContents> UnderPage_ImgContent { get; set; }
     }
 }

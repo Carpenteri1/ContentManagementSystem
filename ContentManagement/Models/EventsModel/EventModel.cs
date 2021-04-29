@@ -5,6 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using ContentManagement.Models.Account;
+using ContentManagement.Models.FilesModel;
+
 namespace ContentManagement.Models.EventsModel
 {
     public class EventModel
@@ -42,6 +44,10 @@ namespace ContentManagement.Models.EventsModel
         public bool applicationForm { get; set; }
         public string EventPageRoute { get; set; }
         public List<ApplicationFormModel> Applicants { get; set; }
+        public PageImageGallery ImageGallery { get; set; }
+        public List<AdvertImageGallery> AdvertImageGallery { get; set; }
+
+
         public List<EventImageContentModel> EventImageContentModels { get; set; }
 
     }

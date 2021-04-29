@@ -3,6 +3,7 @@ using ContentManagement.Data.Services;
 using ContentManagement.Models.Account;
 using ContentManagement.Models.EventsModel;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,7 +17,7 @@ namespace ContentManagement.HelperClasses
         private readonly CMSDbContext context;
         private readonly IWebHostEnvironment host;
         private const string ToFolder = "/Upload/EventPage/Images/";
-
+        public enum eventstatus { Kommande, Passerade };
         public EventControllerHelper(CMSDbContext context, IWebHostEnvironment host)
         {
             this.context = context;
@@ -262,6 +263,60 @@ namespace ContentManagement.HelperClasses
                 return eventModel;
             }
             return eventModel;
+        }
+
+        public List<EventModel> GetEvents(List<EventModel> eventList,string selecterDropDownValue)
+        {
+            if (selecterDropDownValue == "1")
+            {
+
+                //shows passed events
+                List<EventModel> passedEvents = new List<EventModel>();
+                foreach (var s in eventList)
+                    if (HasEventPassed(DateTime.Now, s.EventEnds))
+                        passedEvents.Add(s);
+
+                return passedEvents;
+            }
+            else
+            {
+                // shows upcoming events
+                List<EventModel> upcomingEvents = new List<EventModel>();
+                foreach (var s in eventList)
+                    if (!HasEventPassed(DateTime.Now, s.EventEnds))
+                        upcomingEvents.Add(s);
+
+
+                return upcomingEvents;
+            }
+         
+        }
+
+        public bool HasEventPassed(DateTime now, DateTime theEvent)
+        {
+            return  now >= theEvent;
+        }
+
+        public SelectList CreateSelectedList(string dropdownValue)
+        {
+            if (dropdownValue == null)
+            {
+                SelectList dropdownList = new SelectList(Enum.GetValues(typeof(eventstatus)).Cast<eventstatus>().Select(v => new SelectListItem
+                {
+                    Text = v.ToString(),
+                    Value = ((int)v).ToString(),
+                }).ToList(), "Value", "Text");
+                return dropdownList;
+            }
+            else 
+            {
+                SelectList dropdownList = new SelectList(Enum.GetValues(typeof(eventstatus)).Cast<eventstatus>().Select(v => new SelectListItem
+                {
+                    Text = v.ToString(),
+                    Value = ((int)v).ToString(),
+                }).ToList(), "Value", "Text", dropdownValue);
+                return dropdownList;
+            }
         }
     }
 }

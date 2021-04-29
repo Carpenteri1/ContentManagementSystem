@@ -387,18 +387,18 @@ namespace ContentManagement.Controllers
 
         [Route("Confirm")]
         [HttpPost]
-        public IActionResult ConfirmRegister(Users newUser)
+        public IActionResult ConfirmRegister(Users confirmingUser)
         {
             if (User.Identity.IsAuthenticated)
             {
-                var verifyedUser = context
+                var dbUser = context
                     .Users
                     .First
                     (item => item.UserName == User.Identity.Name);
 
-                if (verifyedUser != null)
+                if (dbUser != null)
                 {
-                    if (!PasswordHandler.Verify(verifyedUser.Password, newUser.Password))
+                    if (!PasswordHandler.Verify(confirmingUser.Password, dbUser.Password))
                     {
 
                         TempData.Remove("NewUser_UserName");
@@ -412,7 +412,7 @@ namespace ContentManagement.Controllers
                     }
                     else
                     {
-
+                        var newUser = new Users();
                         newUser.UserName = TempData["NewUser_UserName"].ToString();
                         newUser.Password = TempData["NewUser_Pass"].ToString();
                         newUser.UserCreated = DateTime.Now;

@@ -89,8 +89,15 @@ using ContentManagement.Models.FileModel;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 12 "C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\Views\_ViewImports.cshtml"
+using System.Globalization;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"83493099a1dfb6c0aa716685a3405615d2887579", @"/Views/Shared/Components/DeleteUnderPage/Default.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"2276f95a2448b58a6f5584714e2509092364520e", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"6baa5fadf3949e9b9999bf82d5dbc67344e40ef3", @"/Views/_ViewImports.cshtml")]
     public class Views_Shared_Components_DeleteUnderPage_Default : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<UnderPage>
     {
         #pragma warning disable 1998

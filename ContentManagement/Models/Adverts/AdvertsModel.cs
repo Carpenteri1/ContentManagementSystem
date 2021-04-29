@@ -1,5 +1,6 @@
 ﻿
 using ContentManagement.Models.Account;
+using ContentManagement.Models.FilesModel;
 using ContentManagement.UnderPageModels.PageModel;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -32,7 +33,15 @@ namespace ContentManagement.Models.Adverts
         [Display(Name = "Välj annons typ: ")]
         public AdvertType TypeOfAdd { get; set; }
         public DateTime Uploaded { get; set; }
+
+        public AdvertImageGallery advertImageGallery { get; set; }
+
+
+
+
         public List<Adverts_ImageContent> Adverts_ImageContents { get; set; }
+
+
 
     }
 }

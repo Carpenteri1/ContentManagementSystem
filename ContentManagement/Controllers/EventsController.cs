@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using MimeKit;
 using ContentManagement.Data.Services;
 using ContentManagement.Models.FileModel;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ContentManagement.Controllers
 {
@@ -23,18 +24,24 @@ namespace ContentManagement.Controllers
         private const int IncreaseByOne = 1;
         private readonly IHostingEnvironment environment;
         private readonly IWebHostEnvironment host;
+        private const string PassedEvents = "1";
+        private const string UpcomningEvents = "0";
+    
         public EventsController(CMSDbContext context, IHostingEnvironment environment, IWebHostEnvironment host)
         {
             this.context = context;
             this.environment = environment;
             this.host = host;
         }
-        public IActionResult Index()
+
+        [HttpGet]
+        public IActionResult Index(string selecterDropDownValue)
         {
             if (User.Identity.IsAuthenticated)
             {
-
-                var events = context.Events.ToList();
+                EventControllerHelper eventControllerHelper = new EventControllerHelper(context, host);
+                ViewData["EventStatus"] = eventControllerHelper.CreateSelectedList(selecterDropDownValue);
+                var events = eventControllerHelper.GetEvents(context.Events.ToList(), selecterDropDownValue);
                 var applicants = context.EventApplicants.ToList();
                 return View(events);
             }
@@ -43,6 +50,17 @@ namespace ContentManagement.Controllers
                 return Redirect("~/Login");
             }
 
+        }
+
+
+        [HttpPost]
+        public IActionResult Index(string selecterDropDownValue, int id)
+        {
+            EventControllerHelper eventControllerHelper = new EventControllerHelper(context, host);
+            ViewData["EventStatus"] = eventControllerHelper.CreateSelectedList(selecterDropDownValue);
+            var events = eventControllerHelper.GetEvents(context.Events.ToList(), selecterDropDownValue);
+            var applicants = context.EventApplicants.ToList();
+            return View(events);
         }
 
         public IActionResult Create()
@@ -130,23 +148,35 @@ namespace ContentManagement.Controllers
 
         }
         [HttpPost]
-        public IActionResult Delete(EventModel eventModel)
+        public IActionResult Delete(EventModel eventModel )
         {
             EventControllerHelper eventHelper = new EventControllerHelper(context,host);
+            var grabbedEvent = context.Events.Where(item => item.Id == eventModel.Id).FirstOrDefault();
             try
-            {
-                if (eventHelper.Remove(eventModel))
+            { 
+                if (eventHelper.HasEventPassed(DateTime.Now, grabbedEvent.EventEnds))
                 {
-                    eventHelper.SaveToDb();
+                    if (eventHelper.Remove(grabbedEvent))
+                        eventHelper.SaveToDb();
+
+                    return RedirectToAction("Index", new { selecterDropDownValue = PassedEvents });
                 }
+                else
+                {
+                        if (eventHelper.Remove(grabbedEvent))
+                                eventHelper.SaveToDb();
+
+                        return RedirectToAction("Index", new { selecterDropDownValue = UpcomningEvents });
+                }
+            
 
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e.Message);
-                return Redirect(nameof(Index));
+                return RedirectToAction("Index", new { selecterDropDownValue = UpcomningEvents });
             }
-            return Redirect(nameof(Index));
+    
         }
 
         public IActionResult Applicants(int id)
