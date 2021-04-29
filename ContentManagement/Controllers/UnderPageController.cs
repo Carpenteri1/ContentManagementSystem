@@ -102,8 +102,6 @@ namespace ContentManagement.Controllers
                     return View(underPage);
                 }
                     
-          
-
             }
             else
             {
@@ -179,8 +177,8 @@ namespace ContentManagement.Controllers
                 ViewData["Headerid"] = page.HeaderContent.Id;
                 ViewData["HeaderTheme"] = new SelectList(headerContent, "Id", "HeaderTheme", page.HeaderContent.Id.ToString());
                 page.UnderPage_ImgContent = underPageControllerHelper.GetImgeContentById(page.Id);
-                page.UnderPage_TextContents = underPageControllerHelper.GetTextContentById(page.Id);
-                page.UnderPage_TitleContents = underPageControllerHelper.GetTitleContentById(page.Id);
+                //page.UnderPage_TextContents = underPageControllerHelper.GetTextContentById(page.Id);
+                //page.UnderPage_TitleContents = underPageControllerHelper.GetTitleContentById(page.Id);
 
                 return View(page);
             }
@@ -237,8 +235,8 @@ namespace ContentManagement.Controllers
                 UnderPageControllerHelper controllerHelper = new UnderPageControllerHelper(context, host);
                 var page = controllerHelper.GetUnderPageById(underPage.Id);
                 page.UnderPage_ImgContent = controllerHelper.GetImgeContentById(page.Id);
-                page.UnderPage_TextContents = controllerHelper.GetTextContentById(page.Id);
-                page.UnderPage_TitleContents = controllerHelper.GetTitleContentById(page.Id);
+                //page.UnderPage_TextContents = controllerHelper.GetTextContentById(page.Id);
+                //page.UnderPage_TitleContents = controllerHelper.GetTitleContentById(page.Id);
 
     
                 if (controllerHelper.Remove(page))

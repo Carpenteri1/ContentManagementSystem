@@ -38,11 +38,11 @@ namespace ContentManagement.HelperClasses
             return newPage;
         }
 
-        private UnderPage PopulateTextContent(UnderPage newPage, Users user)
+        /*private UnderPage PopulateTextContent(UnderPage newPage, Users user)
         {
-            if (newPage.UnderPage_TextContents[0].TextContent == null)
+            if (newPage.UnderPage_TextContents.TextContent == null)
             {
-                newPage.UnderPage_TextContents[0] = new UnderPage_TextContents
+                newPage.UnderPage_TextContents = new UnderPage_TextContents
                 {
                     TextContent = string.Empty,
                     UnderPage = newPage,
@@ -54,9 +54,9 @@ namespace ContentManagement.HelperClasses
             }
             else
             {
-                newPage.UnderPage_TextContents[0] = new UnderPage_TextContents
+                newPage.UnderPage_TextContents = new UnderPage_TextContents
                 {
-                    TextContent = newPage.UnderPage_TextContents[0].TextContent,
+                    TextContent = newPage.UnderPage_TextContents.TextContent,
                     UnderPage = newPage,
                     Created = DateTime.Now,
                     User = user
@@ -70,9 +70,9 @@ namespace ContentManagement.HelperClasses
 
         private UnderPage PopulateTitleContent(UnderPage newPage, Users user)
         {
-            if (newPage.UnderPage_TitleContents[0].TextContent == null)
+            if (newPage.TextContent == null)
             {
-                newPage.UnderPage_TitleContents[0] = new UnderPage_TitleContents
+                newPage.UnderPage_TitleContents = new UnderPage_TitleContents
                 {
                     TextContent = string.Empty,
                     UnderPage = newPage,
@@ -85,9 +85,9 @@ namespace ContentManagement.HelperClasses
             else
             {
 
-                newPage.UnderPage_TitleContents[0] = new UnderPage_TitleContents
+                newPage.UnderPage_TitleContents = new UnderPage_TitleContents
                 {
-                    TextContent = newPage.UnderPage_TitleContents[0].TextContent,
+                    TextContent = newPage.UnderPage_TitleContents.TextContent,
                     UnderPage = newPage,
                     Created = DateTime.Now,
                     User = user
@@ -95,7 +95,7 @@ namespace ContentManagement.HelperClasses
 
                 return newPage;
             }
-        }
+        }*/
 
         private UnderPage AddStartPageFk(UnderPage newPage)
         {
@@ -110,8 +110,8 @@ namespace ContentManagement.HelperClasses
 
 
             newPage = PopulateImageContent(newPage,user);
-            newPage = PopulateTextContent(newPage,user);
-            newPage = PopulateTitleContent(newPage,user);
+            //newPage = PopulateTextContent(newPage,user);
+            //newPage = PopulateTitleContent(newPage,user);
             newPage = AddStartPageFk(newPage);
 
 
@@ -202,15 +202,15 @@ namespace ContentManagement.HelperClasses
 
         private bool DoesAllTextsMatch(UnderPage Page)
         {
-            var DbTexts = context.UnderPages_TextContents.Where(item  => item.UnderPage.Id  == Page.Id).FirstOrDefault();
+            var DbTexts = context.UnderPages.Where(item  => item.Id  == Page.Id).FirstOrDefault();
             if (DbTexts != null)
             {
-                if (Page.UnderPage_TextContents[0].TextContent != null)
+                if (Page.TextContent != null)
                 {
-                    if (DbTexts.TextContent != Page.UnderPage_TextContents[0].TextContent)//if they dont match, save new content
-                    {
+                        if (DbTexts.TextContent != Page.TextContent)//if they dont match, save new content
+                        {
                      
-                            DbTexts.TextContent = Page.UnderPage_TextContents[0].TextContent;
+                            DbTexts.TextContent = Page.TextContent;
                             DbTexts.Edited = DateTime.Now;
                             context.Update(DbTexts);
                             return false;
@@ -259,15 +259,15 @@ namespace ContentManagement.HelperClasses
         }
         private bool DoesAllTitlesMatch(UnderPage Page)
         {
-            var DbTitle = context.UnderPages_titlecontents.Where(item => item.UnderPage.Id == Page.Id).FirstOrDefault();
+            var DbTitle = context.UnderPages.Where(item => item.Id == Page.Id).FirstOrDefault();
 
             if (DbTitle != null)//if they dont match, save new content
             {
-                if (DbTitle.TextContent != Page.UnderPage_TitleContents[0].TextContent)//if they dont match, save new content
+                if (DbTitle.PageTitle != Page.PageTitle)//if they dont match, save new content
                 {
-                    if (Page.UnderPage_TitleContents[0].TextContent != null)
+                    if (Page.PageTitle != null)
                     {
-                        DbTitle.TextContent = Page.UnderPage_TitleContents[0].TextContent.ToString();
+                        DbTitle.PageTitle = Page.PageTitle.ToString();
                         DbTitle.Edited = DateTime.Now;
                         context.Update(DbTitle);
                         return false;
@@ -536,13 +536,13 @@ namespace ContentManagement.HelperClasses
             {
                 context.Attach(item);
                 context.Attach(item.UnderPage_ImgContent[0]);
-                context.Attach(item.UnderPage_TextContents[0]);
-                context.Attach(item.UnderPage_TitleContents[0]);
+                //context.Attach(item.UnderPage_TextContents[0]);
+                //context.Attach(item.UnderPage_TitleContents[0]);
 
 
                 context.Remove(item.UnderPage_ImgContent[0]);
-                context.Remove(item.UnderPage_TextContents[0]);
-                context.Remove(item.UnderPage_TitleContents[0]);
+                //context.Remove(item.UnderPage_TextContents[0]);
+                //context.Remove(item.UnderPage_TitleContents[0]);
                 context.Remove(item);
             }
             catch (Exception e)

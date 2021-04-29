@@ -26,8 +26,8 @@
                             <div class="row">
                                 <div class="col-6">
                                     <label class="d-block" style="font-size:0.5vw;"><b>Rubrik:</b></label>
-                                    <input asp-for="@Model.UnderPage_TitleContents[0].TextContent" class="form-control" style="font-size:0.5vw;height:1.2vw;width:10.5vw;background-color:white;border:1px solid lightgray;">
-                                    <span asp-validation-for="@Model.UnderPage_TitleContents[0].TextContent" class="text-danger"></span>
+                                    <input asp-for="@Model.PageTitle" class="form-control" style="font-size:0.5vw;height:1.2vw;width:10.5vw;background-color:white;border:1px solid lightgray;">
+                                    <span asp-validation-for="@Model.PageTitle" class="text-danger"></span>
                                 </div>
                                 <div class="col-6">
                                     @Html.HiddenFor(model => model.Id)
@@ -62,8 +62,8 @@
                         <div style="height:3vw;"></div>
                         <div class="text-left p-2" style="font-size:0.5vw;">
                             <label class="control-label text-left" style="font-weight:bold;">Brödtext: </label>
-                            @Html.HiddenFor(text => text.UnderPage_TextContents[0])
-                            @Html.TextAreaFor(model => model.UnderPage_TextContents[0].TextContent, new { id = "editor2",style="font-size:2em;"})                        
+                            @Html.HiddenFor(text => text.TextContent)
+                            @Html.TextAreaFor(model => model.TextContent, new { id = "editor2",style="font-size:2em;"})                        
                         </div>
                     </div>
                     <h6 class="text-left">Metainformation</h6>

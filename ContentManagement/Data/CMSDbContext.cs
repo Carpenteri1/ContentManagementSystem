@@ -47,6 +47,8 @@ namespace ContentManagement.Data
 
         #region Files
         public DbSet<FileModel> FileInfo { get; set; }
+        public DbSet<Adverts_ImageContent> adverts_ImageContents { get; set; }
+        public DbSet<StartPage_ImgContents> Page_ImgContents { get; set; }
         #endregion
 
 

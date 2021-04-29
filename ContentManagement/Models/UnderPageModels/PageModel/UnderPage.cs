@@ -24,8 +24,8 @@ namespace ContentManagement.UnderPageModels.PageModel
         public bool ShowEmailFormModul { get; set; }
         public string pageRoute { get; set; }
         public int AmmountOfAdverts { get; set; }
-        public UnderPage_TextContents UnderPage_TextContents { get; set; }
-        public UnderPage_TitleContents UnderPage_TitleContents { get; set; }
+        public string TextContent { get; set; }
+        public string PageTitle { get; set; }
         public Users User { get; set; }
         public HeaderContent HeaderContent { get; set; }
         public StartPage StartPage { get; set; }
