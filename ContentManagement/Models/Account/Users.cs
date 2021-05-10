@@ -62,16 +62,5 @@ namespace ContentManagement.Models.Account
         public string Surname { get; set; }
 
         public DateTime? UserEdited { get; set; }
-        public List<StartPage_ImgContents> StartPage_ImgContents { get; set; }
-        public List<StartPage_TextContents> StartPage_TextContents { get; set; }
-        public List<StartPage_TitleContents> StartPage_Titles { get; set; }
-        public List<StartPage_Links> StartPage_Links { get; set; }
-
-        public List<UnderPage> UnderPages { get; set; }
-        public List<UnderPage_ImgContents> UnderPage_ImgContents { get; set; }
-        public List<UnderPage_TextContents> UnderPage_TextContents { get; set; }
-        public List<UnderPage_TitleContents> UnderPage_Titles { get; set; }
-
-        public List<EventModel> Events { get; set; }
      }
 }

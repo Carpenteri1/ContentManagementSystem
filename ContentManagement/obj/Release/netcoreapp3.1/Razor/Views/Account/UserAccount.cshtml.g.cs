@@ -84,7 +84,7 @@ using ContentManagement.Models.Adverts;
 #nullable disable
 #nullable restore
 #line 11 "C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\Views\_ViewImports.cshtml"
-using ContentManagement.Models.FileModel;
+using ContentManagement.Models.FilesModel;
 
 #line default
 #line hidden
@@ -97,7 +97,7 @@ using System.Globalization;
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"33376a6b104399efaaa053910c29658be6dc0c61", @"/Views/Account/UserAccount.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"6baa5fadf3949e9b9999bf82d5dbc67344e40ef3", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"99d99f729d15ad1eb5830da23fce3868d7cb8054", @"/Views/_ViewImports.cshtml")]
     public class Views_Account_UserAccount : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<List<Users>>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("text-right"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -325,7 +325,7 @@ WriteAttributeValue("", 1086, Url.Action("Register"), 1086, 23, false);
 #line hidden
 #nullable disable
             WriteLiteral("                        <tr style=\"background-color:white;line-height:0.2vw;\">\r\n                            <td>\r\n                            </td>\r\n                            <td style=\"text-align:right;\">\r\n                                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "33376a6b104399efaaa053910c29658be6dc0c6116490", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "33376a6b104399efaaa053910c29658be6dc0c6116491", async() => {
                 WriteLiteral("<b>Ändra uppgifter</b>");
             }
             );

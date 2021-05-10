@@ -7,6 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\Upload\Images\andre-akfors-start-splash-image-dec2020.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\Upload\Images\jkhifjihd.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\Upload\Images\Puff_foretagsgolf.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\Upload\Images\Puff_spelare.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\Upload\Images\Puff_utveckla-spelet.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\Upload\Images\sadksadjsa.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\Upload\Images\sadsadsaty.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\Upload\Images\start-box-1-company.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="Views\Shared\Error.cshtml" />
     <None Include="Views\Shared\_Layout.cshtml" />
     <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
@@ -46,15 +57,51 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Update="wwwroot\Upload\Extra\langas.jpg">
+    <Content Update="wwwroot\Upload\Sponsors\langas.jpg">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Update="wwwroot\Upload\Extra\wellify.jpg">
+    <Content Update="wwwroot\Upload\Sponsors\wellify.jpg">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Update="wwwroot\Upload\Extra\xlbyggcenter.jpg">
+    <Content Update="wwwroot\Upload\Sponsors\xlbyggcenter.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\Upload\Images\jumbotron-underpage.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\Upload\Images\start-box-1-golfclub.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\Upload\Images\start-box-3-golfplayers.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\Upload\Images\start-splash-background.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\Upload\Images\start-stripe-challenge-background.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\Upload\Images\start-stripe-challenge-big.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\Upload\Images\start-stripe-challenge-small-1.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\Upload\Images\start-stripe-challenge-small-2.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\Upload\Images\start-stripe-tre-bilder-golf-andre-akfors.png">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
@@ -62,7 +109,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\TextFiles\" />
-    <Folder Include="wwwroot\Upload\EventPage\Images\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="https://json.schemastore.org/netlify.json" /></VisualStudio></ProjectExtensions>

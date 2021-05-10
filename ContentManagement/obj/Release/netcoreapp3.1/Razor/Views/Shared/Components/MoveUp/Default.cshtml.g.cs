@@ -84,7 +84,7 @@ using ContentManagement.Models.Adverts;
 #nullable disable
 #nullable restore
 #line 11 "C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\Views\_ViewImports.cshtml"
-using ContentManagement.Models.FileModel;
+using ContentManagement.Models.FilesModel;
 
 #line default
 #line hidden
@@ -97,7 +97,7 @@ using System.Globalization;
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"b6826f9df0a34e0d8d3fdda82330b7ddb639efdd", @"/Views/Shared/Components/MoveUp/Default.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"6baa5fadf3949e9b9999bf82d5dbc67344e40ef3", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"99d99f729d15ad1eb5830da23fce3868d7cb8054", @"/Views/_ViewImports.cshtml")]
     public class Views_Shared_Components_MoveUp_Default : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<UnderPage>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "MoveUp", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -129,7 +129,7 @@ using System.Globalization;
         #pragma warning disable 1998
         public async override global::System.Threading.Tasks.Task ExecuteAsync()
         {
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "b6826f9df0a34e0d8d3fdda82330b7ddb639efdd6949", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "b6826f9df0a34e0d8d3fdda82330b7ddb639efdd6950", async() => {
                 WriteLiteral("\r\n    <input type=\"submit\" value=\"Upp\" class=\"btn-link\" />\r\n");
             }
             );

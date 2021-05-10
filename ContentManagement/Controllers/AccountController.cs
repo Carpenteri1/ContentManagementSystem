@@ -211,20 +211,6 @@ namespace ContentManagement.Controllers
                 else
                 {
 
-                    dbUser.StartPage_ImgContents = context.StartPage_ImgContents
-                        .Where(item => item.User.Id == dbUser.Id)
-                        .ToList();
-
-                    dbUser.StartPage_TextContents = context.StartPage_TextContents
-                        .Where(item => item.User.Id == dbUser.Id)
-                        .ToList();
-
-                    dbUser.StartPage_Titles = context.StartPage_TitleContents
-                        .Where(item => item.User.Id == dbUser.Id)
-                        .ToList();
-
-
-
                     if (dbUser.UserRole.Equals(UserRoles.Admin.ToString()))
                     {
                         dbUser.UserRole = UserRoles.Admin.ToString();

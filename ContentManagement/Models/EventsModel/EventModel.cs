@@ -5,12 +5,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using ContentManagement.Models.Account;
+using ContentManagement.Models.Adverts;
 using ContentManagement.Models.FilesModel;
 
 namespace ContentManagement.Models.EventsModel
 {
     public class EventModel
-    {
+    {   
+        [Key]
         public int Id { get; set; }
         [Display(Name = "Rubrik: ")]
         [Required(ErrorMessage = "Måste ha en rubrik")]
@@ -21,7 +23,7 @@ namespace ContentManagement.Models.EventsModel
 
         [Display(Name = "Bröd Text: ")]
         [Required(ErrorMessage = "Måste innehålla bröd text")]
-        public string BodyText { get; set; }
+        public string TextContent { get; set; }
 
         public Users User { get; set; }
         [DataType(DataType.Date)]
@@ -38,17 +40,21 @@ namespace ContentManagement.Models.EventsModel
         [Display(Name = "Eventet slutar: ")]
         [Required(ErrorMessage = "Eventet måste ha ett slut datum")]
         public DateTime EventEnds { get; set; }
-
-        public string ImgSrc { get; set; }
         public bool IsPublic { get; set; }
         public bool applicationForm { get; set; }
         public string EventPageRoute { get; set; }
         public List<ApplicationFormModel> Applicants { get; set; }
-        public PageImageGallery ImageGallery { get; set; }
-        public List<AdvertImageGallery> AdvertImageGallery { get; set; }
+
+        [ForeignKey("ImageGallery_FK")]
+        public PageImageGallery TopImage { get; set; }
 
 
-        public List<EventImageContentModel> EventImageContentModels { get; set; }
+
+
+        //public ICollection<AdvertsModel> Adverts { get; set; }
+
+
+        //public List<EventImageContentModel> EventImageContentModels { get; set; }
 
     }
 }

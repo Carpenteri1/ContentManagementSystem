@@ -16,8 +16,7 @@ namespace ContentManagement.StartPageModels.PageModel
         public List<StartPage_TitleContents> StartPage_TitleContents { get; set; }
         public List<StartPage_Links> StartPage_Links { get; set; }
         public List<UnderPage> UnderPages { get; set; }
-        public PageImageGallery PageImageGallery { get; set; }
-
+        public List<PageImageGallery> Image { get; set; }
 
 
         public List<StartPage_ImgContents> StartPage_ImgContents { get; set; }

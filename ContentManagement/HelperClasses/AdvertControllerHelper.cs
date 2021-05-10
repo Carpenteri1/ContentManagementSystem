@@ -2,7 +2,9 @@
 using ContentManagement.Data.Services;
 using ContentManagement.Models.Account;
 using ContentManagement.Models.Adverts;
+using ContentManagement.Models.FilesModel;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,7 +19,7 @@ namespace ContentManagement.HelperClasses
         private readonly CMSDbContext context;
         private const int PlusOne = 1;
         private const string DefaultDropDownValue = "1";
-        private const string ToFolder = "/Upload/Extra/";
+        private const string ToFolder = "/Upload/Sponsors/";
 
 
         public AdvertControllerHelper(CMSDbContext context, IWebHostEnvironment host) 
@@ -25,41 +27,58 @@ namespace ContentManagement.HelperClasses
             this.context = context;
             this.host = host;
         }
-        public AdvertsModel CreateNewAdvertData(AdvertsModel newAd, Users user, string selectDropDownValue)
+        public AdvertsModel CreateNewAdvertData(List<string> values)
         {
-            var advertType = GetAdvertTypeByDropDownValue(selectDropDownValue); 
-            var allAds = GetAllAdverts();
-            newAd = PopulateImg(newAd);
-
-            if (advertType != null &&
-                user != null)
+            var newAdvert = new AdvertsModel
             {
-                    newAd.TypeOfAdd = advertType;
-                    newAd.Id = allAds.Last().Id + PlusOne;
-                    newAd.User = user;
-                    newAd.Adverts_ImageContents[0].User = user;
-                    context.Add(newAd);
-            }
+                LinkTitle = values.ElementAt(0),
+                LinkTo = values.ElementAt(1),
+                isActive = Convert.ToBoolean(values.ElementAt(2)),
+            };
+            var advertType = GetAdvertTypeByDropDownValue(CheckDropDownValue(values.ElementAt(3))); //element 3 is dropdown value
+            //var allAds = GetAllAdverts();
+            if(advertType != null)
+                newAdvert.TypeOfAdd = advertType;
 
-            return newAd;
+            newAdvert.AdvertImage = PopulateImg(values.ElementAt(4).Replace(values.ElementAt(5),""));//element 5 removes location.origin from the img string
+            context.Add(newAdvert);
+            return newAdvert;
         }
 
-        private AdvertsModel PopulateImg(AdvertsModel newAd)
+        public AdvertsModel GetAdvertsData(List<string> values)
         {
-            if (newAd.Adverts_ImageContents[0].File != null)
+            var newAdvert = new AdvertsModel
             {
-                FileManager manager = new FileManager(context, host);
-                newAd.Adverts_ImageContents[0].ImgSrc = manager.CopyToRootFolder(newAd.Adverts_ImageContents[0].File, ToFolder);
-          
-            }
-            else
+                LinkTitle = values.ElementAt(0),
+                LinkTo = values.ElementAt(1),
+                isActive = Convert.ToBoolean(values.ElementAt(2)),
+                Id = int.Parse(values.ElementAt(6)),
+            };
+            var advertType = GetAdvertTypeById(int.Parse(values.ElementAt(3)));
+            if (advertType != null)
+                newAdvert.TypeOfAdd = advertType;
+
+            newAdvert.AdvertImage = GetImage(values.ElementAt(4).Replace(values.ElementAt(5), ""));//element 5 removes location.origin from the img string
+            return newAdvert;
+        }
+
+        private AdvertImageGallery GetImage(string imgsrc)
+        {
+            var newImage = context.AdvertImageGallery.Where(img => img.ImgSrc == imgsrc).FirstOrDefault();
+            return newImage;
+        }
+
+        private AdvertImageGallery PopulateImg(string imgsrc)
+        {
+            var newImage = context.AdvertImageGallery.Where(img => img.ImgSrc == imgsrc).FirstOrDefault();
+            if(newImage == null)
             {
-                newAd.Adverts_ImageContents[0].ImgSrc ="\"\"";
+                newImage = new AdvertImageGallery();
+                newImage.ImgSrc = imgsrc;
+                context.Add(newImage);
             }
-            newAd.ImgUrl = newAd.Adverts_ImageContents[0].ImgSrc;
-            newAd.Adverts_ImageContents[0].Uploaded = DateTime.Now;
-            newAd.Uploaded = DateTime.Now;
-            return newAd;
+                   
+            return newImage;
         }
 
 
@@ -71,11 +90,6 @@ namespace ContentManagement.HelperClasses
         public List<AdvertsModel> GetAdsByDropDownValue(string selecterDropDownValue)
         {
            return context.Adverts.Where(s => s.TypeOfAdd.Id == int.Parse(selecterDropDownValue)).ToList();
-        }
-
-        public Users GetUser(string nameof)
-        {
-           return context.Users.Where(user => user.UserName == nameof).FirstOrDefault();
         }
 
         public AdvertsModel GetAdvertById(int id)
@@ -94,10 +108,6 @@ namespace ContentManagement.HelperClasses
             return context.AdvertTypes.Where(item => item.Id == id).FirstOrDefault();
         }
 
-        public Adverts_ImageContent GetAdvertImageContentById(int id)
-        {
-            return context.adverts_imagecontent.Where(item => item.Advert.Id == id).FirstOrDefault();
-        }
 
 
         public List<AdvertType> GetAllAdvertTypes()
@@ -120,19 +130,28 @@ namespace ContentManagement.HelperClasses
             {
                 context.SaveChanges();
             }
-            catch
+            catch(Exception e)
             {
+                Debug.WriteLine(e.Message);
                 return false;
             }
             return true;
         }
 
 
-
-        public bool DoesAllContentMatch(AdvertsModel advert,Users user)
+        public List<AdvertImageGallery> GetAdvertImages()
         {
-            var Dbadverts = GetAdvertById(advert.Id);
+            return context.AdvertImageGallery.ToList();
+        }
+
+
+
+        public bool DoesAllContentMatch(AdvertsModel advert)
+        {
             bool match = true;
+            var allAdvertsType = GetAllAdvertTypes();
+            var advertImages = GetAdvertImages();
+            var Dbadverts = GetAdvertById(advert.Id);
             if (Dbadverts != null)//if they dont match, save new content
             {
                 if (Dbadverts.LinkTitle != null)
@@ -159,44 +178,22 @@ namespace ContentManagement.HelperClasses
                     context.Update(Dbadverts);
                     match = false;
                 }
-                if (advert.Adverts_ImageContents[0].File != null)
-                {
-                    FileManager manages = new FileManager(context, host);
-                    advert.Adverts_ImageContents[0].ImgSrc = manages.CopyToRootFolder(advert.Adverts_ImageContents[0].File, ToFolder);
-                    advert.ImgUrl = advert.Adverts_ImageContents[0].ImgSrc;
-
-                    if (!advert.ImgUrl.Equals(Dbadverts.ImgUrl))
-                    {
-                        advert.Adverts_ImageContents[0].Uploaded = DateTime.Now;
-                        Dbadverts.ImgUrl = advert.ImgUrl;
-                        Dbadverts.Uploaded = advert.Uploaded;
-                        var DbadvertImageContent = context.adverts_imagecontent.Where(item => item.Advert.Id == advert.Id).FirstOrDefault();
-                        DbadvertImageContent.ImgSrc = advert.ImgUrl;
-                        DbadvertImageContent.Uploaded = advert.Uploaded;
-                        DbadvertImageContent.User = Dbadverts.User;
-
-                        context.Attach(DbadvertImageContent);
-                        context.Attach(Dbadverts);
-                        context.Update(DbadvertImageContent);
-                        context.Update(Dbadverts);                        
-                        match = false;
-                    }
-                }
                 if (Dbadverts.TypeOfAdd != null)
                 {
-                    if (Dbadverts.TypeOfAdd != advert.TypeOfAdd)
+                    if (Dbadverts.TypeOfAdd.TypeOfAd != advert.TypeOfAdd.TypeOfAd)
                     {
                         Dbadverts.TypeOfAdd = advert.TypeOfAdd;
                         context.Update(Dbadverts);
                         match = false;
                     }
                 }
-                if(Dbadverts.User != null)
+                if(Dbadverts.AdvertImage != null)
                 {
-                    if (Dbadverts.User.UserName != user.UserName)
+                    if (Dbadverts.AdvertImage.ImgSrc != advert.AdvertImage.ImgSrc)
                     {
-                        Dbadverts.User = user;
+                        Dbadverts.AdvertImage = GetImage(advert.AdvertImage.ImgSrc);
                         context.Update(Dbadverts);
+                        match = false;
                     }
                 }
            
@@ -204,14 +201,11 @@ namespace ContentManagement.HelperClasses
             return match;
         }
 
-        public bool Remove(AdvertsModel advert,Adverts_ImageContent adverts_ImageContent)
+        public bool Remove(AdvertsModel advert)
         {
             try
             {
-                context.Attach(adverts_ImageContent);
-                context.Attach(advert);
                 context.Remove(advert);
-                context.Remove(adverts_ImageContent);
             }
             catch (Exception e)
             {
@@ -219,6 +213,25 @@ namespace ContentManagement.HelperClasses
                 return false;
             }
             return true;
+        }
+
+
+        public AdvertImageGallery GetImgeContentById(int Id)
+        {
+            return context.Adverts.Where(item => item.Id == Id)
+                .Select(item => item.AdvertImage).FirstOrDefault();
+        }
+        
+        public bool DeleteImageFile(string imageName)
+        {
+            FileManager filemanager = new FileManager(context,host);
+            return filemanager.DeleteAdvertImage(imageName);
+        }
+
+        public bool UploadImageFile(IFormFile file)
+        {
+            var filemanager = new FileManager(context, host);
+            return filemanager.UploadAdvertImage(file,ToFolder);
         }
     }
 }

@@ -94,8 +94,7 @@ namespace ContentManagement.Controllers
                         .Replace("?", "")
                         .Replace("–","-")
                         .Replace("&","och");
-                EventControllerHelper controllerHelper = new EventControllerHelper(context,host);
-               
+                EventControllerHelper controllerHelper = new EventControllerHelper(context,host);      
                 if (controllerHelper.Add(controllerHelper.CreateNewEventData(postedEvent)))
                 {
                     controllerHelper.SaveToDb();
@@ -106,8 +105,6 @@ namespace ContentManagement.Controllers
                 Debug.WriteLine(e.Message);
                 return Redirect(nameof(Index));
             }
-
-
             return Redirect(nameof(Index));
 
         }
@@ -118,11 +115,11 @@ namespace ContentManagement.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var Event = context.Events.Where(item => item.Id == id).FirstOrDefault();
-                var eventImageContent = context.EventImageContentModel.Where(item => item.EventPage.Id == id).FirstOrDefault();
-                Event.EventImageContentModels[0] = eventImageContent;
-                eventImageContent.EventPage = Event;
-                return View(Event);
+                EventControllerHelper controllerHelper = new EventControllerHelper(context, host);
+                var eventModel = controllerHelper.GetEventById(id);
+               // eventModel.TopImage = controllerHelper.GetImgeContentById(id);
+                //eventModel.TopImage.EventPage = eventModel;
+                return View(eventModel);
             }
             else
             {
@@ -230,7 +227,7 @@ namespace ContentManagement.Controllers
             if (file == null)
             {
                 FileModel newFile = new FileModel();
-                newFile.filePath = fileManager.CreateFileInRootFolder(fullPath, folder, emailList);
+                newFile.filePath = fileManager.CreateTextFileInRootFolder(fullPath, folder, emailList);
                 newFile.fileName = fileName;
                 newFile.fileType = filetype;
                 context.Add(newFile);
@@ -239,7 +236,7 @@ namespace ContentManagement.Controllers
             }
             else
             {
-                file.filePath = fileManager.CreateFileInRootFolder(fullPath, folder, emailList);
+                file.filePath = fileManager.CreateTextFileInRootFolder(fullPath, folder, emailList);
                 context.Update(file);
                 context.SaveChanges();
             }

@@ -84,7 +84,7 @@ using ContentManagement.Models.Adverts;
 #nullable disable
 #nullable restore
 #line 11 "C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\Views\_ViewImports.cshtml"
-using ContentManagement.Models.FileModel;
+using ContentManagement.Models.FilesModel;
 
 #line default
 #line hidden
@@ -97,7 +97,7 @@ using System.Globalization;
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"1a9060163efae4c94c976547109df7c637217994", @"/Views/Events/DetailedViewOfApplicants.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"6baa5fadf3949e9b9999bf82d5dbc67344e40ef3", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"99d99f729d15ad1eb5830da23fce3868d7cb8054", @"/Views/_ViewImports.cshtml")]
     public class Views_Events_DetailedViewOfApplicants : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<ApplicationFormModel>
     {
         #pragma warning disable 1998

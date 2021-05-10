@@ -6,74 +6,69 @@
     <div class="row">
         <div class="col-7">
             <div class="container text-center align-content-center">
-                @using (Html.BeginForm("Edit","Adverts", FormMethod.Post,
-            new { enctype = "multipart/form-data" }))
-                {
-                    @Html.HiddenFor(model => model.Id)
+                    @Html.HiddenFor(model => model.Id,new {id="hiddeforAdvertId"})
                     <div style="height:0.8vw;"></div>
                     <div class="row p-0">
                         <h4>Redigera annons @Model.LinkTitle</h4>
                     </div>
                     <hr />
-
-                    <div class="p-2 mw-100 mh-100">
-                        <div class="form-group p-0 text-left" style="font-size:0.4vw;">
-                            <div class="row">
-                                <div class="col-6">
-                                    <label asp-for="LinkTitle" class="control-label" style="font-size: 0.5vw; width: 11vw; height: 0em; font-weight: bold;">Länktext i meny: </label>
-                                    <input asp-for="LinkTitle" class="form-control" style="font-size: 0.5vw; width: 20em; height: 1vw; border: 1px solid lightgray;" />
-                                    <span asp-validation-for="LinkTitle" class="text-danger"></span>
-                                </div>
-                                <div class="col-6">
-                                    <label asp-for="LinkTo" class="control-label" style="font-size: 0.5vw; width: 6vw; height: 0em;margin-left:0.5em;font-weight:bold;">Sökväg till sidan: </label>
-                                    <input asp-for="LinkTo" class="form-control" style="width:24em;height:1vw;resize:none;font-size:0.5vw;" />
-                                    <span asp-validation-for="LinkTo" class="text-danger"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group p-0">
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="text-left">
-                                        <label style=" width: 100%;">
-                                            <b class="d-block" style="font-size:0.5vw;margin-top:0.2vw;">Välj reklam typ:</b>
-                                            @Html.DropDownList("selecterDropDownValue", (SelectList)ViewData["TypeOfAd"], new { style = "width:3.8vw;height:1vw;font-size:0.5vw;", @onchange = "submitform();" })
-                                        </label>
+                    <form>
+                        <div class="p-2 mw-100 mh-100">
+                            <div class="form-group p-0 text-left" style="font-size:0.4vw;">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label asp-for="LinkTitle" class="control-label" style="font-size: 0.5vw; width: 11vw; height: 0em; font-weight: bold;">Länktext i meny: </label>
+                                        <input asp-for="LinkTitle" class="form-control" style="font-size: 0.5vw; width: 20em; height: 1vw; border: 1px solid lightgray;" id="AdvertLinkTitle" />
+                                        <span asp-validation-for="LinkTitle" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-6">
+                                        <label asp-for="LinkTo" class="control-label" style="font-size: 0.5vw; width: 6vw; height: 0em;margin-left:0.5em;font-weight:bold;">Sökväg till sidan: </label>
+                                        <input asp-for="LinkTo" class="form-control" style="width:24em;height:1vw;resize:none;font-size:0.5vw;" id="AdvertLinkTo" />
+                                        <span asp-validation-for="LinkTo" class="text-danger"></span>
                                     </div>
                                 </div>
-                                <div class="col-6"></div>
+                            </div>
+                            <div class="form-group p-0">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="text-left">
+                                            <label style=" width: 100%;">
+                                                <b class="d-block" style="font-size:0.5vw;margin-top:0.2vw;">Välj reklam typ:</b>
+                                                @Html.DropDownList("selecterDropDownValue", (SelectList)ViewData["TypeOfAd"], new { style = "width:3.8vw;height:1vw;font-size:0.5vw;", id = "AdvertSeletecDropDown", @onchange = "submitform();" })
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6"></div>
+                                </div>
+                            </div>
+                            <div style="height:1.5vw;"></div>
+                            <div class="form-group" style="text-align:left;font-size:0.5vw;">
+                                <label class="d-block" style="font-size:0.5vw;"><b>Annons bild</b></label>
+                                @Html.HiddenFor(model => model.AdvertImage.Id)
+                                <img class="d-block" id="SponsorImage" src=@Model.AdvertImage.ImgSrc width="140" height="80" alt="bild kunde ej laddas" />
+                                <button type="button" class="btn btn-primary p-0" data-toggle="modal" data-target="#AdvertGallery" style="font-size: 0.4vw;width:3.8vw;height:1.2vw;background-color:#0293fc;">välj bild</button>
                             </div>
                         </div>
-                        <div style="height:1.5vw;"></div>
-                        <div class="form-group" style="text-align:left;font-size:0.5vw;">
-                            <label class="d-block" style="font-size:0.5vw;"><b>Annons bild</b></label>
-                            @Html.HiddenFor(model => model.Adverts_ImageContents[0].Id)
-                            <img class="d-block" src=@Html.DisplayTextFor(model => model.Adverts_ImageContents[0].ImgSrc) width="140" height="80" alt="bild kunde ej laddas" />
-                            @Html.HiddenFor(model => model.Adverts_ImageContents[0].File)
-                            @Html.EditorFor(model => model.Adverts_ImageContents[0].File)
-                        </div>
-                    </div>
                         <div style="height:1.5vw;"></div>
                         <h6 class="text-left">Metainformation</h6>
                         <hr />
                         <div class="row">
-                            <b style="font-size: 0.5vw;" class="pl-3 pr-1">Annonsen aktiv:</b>  @Html.CheckBoxFor(m => m.isActive)
+                            <b style="font-size: 0.5vw;" class="pl-3 pr-1">Annonsen aktiv:</b>  @Html.CheckBoxFor(m => m.isActive, new { id = "AdvertIsActive" })
                         </div>
                         <hr />
                         <div class="row">
                             <div class="col-6 text-left">
-                                <button type="button" class="btn text-white p-0 text-center" onclick="location.href='@Url.Action("Index", "Adverts")'" style="font-size: 0.4vw;width:3.8vw;height:1.2vw;background-color:#8c8c8c;">Avbryt</button>
+                                <button type="button" class="btn text-white p-0 text-center" onclick="location.href='@Url.Action("Index", "Adverts",new { selecterDropDownValue = Model.TypeOfAdd.Id.ToString()})'" style="font-size: 0.4vw;width:3.8vw;height:1.2vw;background-color:#8c8c8c;">Avbryt</button>
                             </div>
                             <div class="col-6 text-right">
-                                <button type="submit" class="btn text-white p-0 text-center" style="font-size: 0.4vw;width:3.8vw;height:1.2vw;background-color:#0293fc;">Bekräfta</button>
+                                <button type="button" class="btn text-white p-0 text-center" style="font-size: 0.4vw;width:3.8vw;height:1.2vw;background-color:#0293fc;" onclick="postSponsorImage('/Adverts/Edit')">Bekräfta</button>
                             </div>
                         </div>
                         <div style="height:2.5vw;"></div>
-
-                        }
-
-                    </div>
+                    </form>
+            </div>
         </div>
         <div class="col-auto"></div>
     </div>
 </div>
+@await Component.InvokeAsync("DropDownAddsImageGallery")

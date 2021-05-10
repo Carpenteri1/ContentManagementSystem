@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using ContentManagement.Models.FilesModel;
 
 namespace ContentManagement.HelperClasses
 {
@@ -19,7 +20,7 @@ namespace ContentManagement.HelperClasses
         private readonly CMSDbContext context;
         private readonly IWebHostEnvironment host;
         private const int PlusOne = 1;
-        private const string ToFolder = "/Upload/UnderPages/Images/";
+        private const string ToFolder = "/Upload/Images/";
         private const string DefaultDropDownValue = "1";
         public UnderPageControllerHelper(CMSDbContext context,IWebHostEnvironment host)
         {
@@ -27,75 +28,33 @@ namespace ContentManagement.HelperClasses
             this.host = host;
         }
 
-        private UnderPage PopulateImageContent(UnderPage newPage,Users user)
+        private UnderPage PopulateImageContent(UnderPage newPage)
         {
-            FileManager manager = new FileManager(context,host);
-            newPage.UnderPage_ImgContent[0].ImgSrc = manager.CopyToRootFolder(newPage.UnderPage_ImgContent[0].File, ToFolder);
-            newPage.UnderPage_ImgContent[0].UnderPage = newPage;
-            newPage.UnderPage_ImgContent[0].Uploaded = DateTime.Now;
-            newPage.UnderPage_ImgContent[0].User = user;
+            if (newPage.TopImage.File != null)
+            {
+                FileManager manager = new FileManager(context, host);
+                var topImage = context.Page_ImgContents.Where(img => img.ImgSrc == manager.CopyToRootFolder(newPage.TopImage.File, ToFolder)).FirstOrDefault();
+                if (topImage != null)
+                {
+                    newPage.TopImage = topImage;
+                }
+                else
+                {
+                    PageImageGallery eventTopImage = new PageImageGallery();
+                    eventTopImage.ImgSrc = manager.CopyToRootFolder(newPage.TopImage.File, ToFolder);
+                    newPage.TopImage = eventTopImage;
+                }
+                return newPage;
 
+            }
+            newPage.TopImage = null;
             return newPage;
+
+            /*
+            FileManager manager = new FileManager(context,host);
+            newPage.TopImage.ImgSrc = manager.CopyToRootFolder(newPage.TopImage.File, ToFolder);
+            return newPage;*/
         }
-
-        /*private UnderPage PopulateTextContent(UnderPage newPage, Users user)
-        {
-            if (newPage.UnderPage_TextContents.TextContent == null)
-            {
-                newPage.UnderPage_TextContents = new UnderPage_TextContents
-                {
-                    TextContent = string.Empty,
-                    UnderPage = newPage,
-                    Created = DateTime.Now,
-                    User = user   
-                };
-
-                return newPage;
-            }
-            else
-            {
-                newPage.UnderPage_TextContents = new UnderPage_TextContents
-                {
-                    TextContent = newPage.UnderPage_TextContents.TextContent,
-                    UnderPage = newPage,
-                    Created = DateTime.Now,
-                    User = user
-                };
-
-
-                return newPage;
-            }
-        }
-
-
-        private UnderPage PopulateTitleContent(UnderPage newPage, Users user)
-        {
-            if (newPage.TextContent == null)
-            {
-                newPage.UnderPage_TitleContents = new UnderPage_TitleContents
-                {
-                    TextContent = string.Empty,
-                    UnderPage = newPage,
-                    Created = DateTime.Now,
-                    User = user
-                };
-
-                return newPage;
-            }
-            else
-            {
-
-                newPage.UnderPage_TitleContents = new UnderPage_TitleContents
-                {
-                    TextContent = newPage.UnderPage_TitleContents.TextContent,
-                    UnderPage = newPage,
-                    Created = DateTime.Now,
-                    User = user
-                };
-
-                return newPage;
-            }
-        }*/
 
         private UnderPage AddStartPageFk(UnderPage newPage)
         {
@@ -109,9 +68,7 @@ namespace ContentManagement.HelperClasses
             var underpages = context.UnderPages.Where(item => item.HeaderContent.Id == headercontent.Id).ToList();
 
 
-            newPage = PopulateImageContent(newPage,user);
-            //newPage = PopulateTextContent(newPage,user);
-            //newPage = PopulateTitleContent(newPage,user);
+            newPage = PopulateImageContent(newPage);
             newPage = AddStartPageFk(newPage);
 
 
@@ -120,7 +77,6 @@ namespace ContentManagement.HelperClasses
              {
                  newPage.HeaderContent = headercontent;
                  newPage.OrderPosition = underpages.Count() + PlusOne;
-                 newPage.User = user;
                  newPage.pageRoute = CreateRouteData(newPage.LinkTitle);
                  context.Add(newPage);
 
@@ -282,33 +238,38 @@ namespace ContentManagement.HelperClasses
 
         private bool DoesAllImagesMatch(UnderPage Page, Users user)
         {
+            bool match = true;
 
-            var DbImages = context
-                .UnderPages_imgcontents
-                .Where(item => item.UnderPage.Id == Page.Id)
+            var DbunderPage = context
+                .UnderPages
+                .Where(item => item.Id == Page.Id)
                 .FirstOrDefault();
         
-            if (DbImages != null)
+            if (DbunderPage != null)
             {
-                if (Page.UnderPage_ImgContent[0].File != null)
+                if (Page.TopImage.File != null)
                 {
-                    FileManager manages = new FileManager(context,host);
-                    Page.UnderPage_ImgContent[0].ImgSrc = manages.CopyToRootFolder(Page.UnderPage_ImgContent[0].File,ToFolder);
-
-                    if (!Page.UnderPage_ImgContent[0].ImgSrc.Equals(DbImages.ImgSrc))
+                    FileManager manages = new FileManager(context, host);
+                    DbunderPage.TopImage = context.Page_ImgContents.Where(img => img.ImgSrc == manages.CopyToRootFolder(Page.TopImage.File, ToFolder)).FirstOrDefault();
+                    if (DbunderPage.TopImage == null)
                     {
-                        DbImages.ImgSrc = Page.UnderPage_ImgContent[0].ImgSrc;
-                        if(DbImages.User.UserName != user.UserName)
-                        {
-                            DbImages.User = user;
-                        }
-                        DbImages.Uploaded = DateTime.Now;
-                        context.Update(DbImages);
-                        return false;
+                        PageImageGallery newImage = new PageImageGallery();
+                        newImage.ImgSrc = manages.CopyToRootFolder(Page.TopImage.File, ToFolder);
+                        DbunderPage.TopImage = newImage;
+                        context.Add(newImage);
+                        context.Attach(DbunderPage);
+                        context.Update(DbunderPage);
+                        match = false;
+                    }
+                    else
+                    {
+                        context.Attach(DbunderPage);
+                        context.Update(DbunderPage);
+                        match = false;
                     }
                 }
             }
-            return true;
+            return match;
         }
         public bool DoesAllHeaderMatch(UnderPage Page)
         {
@@ -434,28 +395,10 @@ namespace ContentManagement.HelperClasses
                 .FirstOrDefault();
         }
 
-        public List<UnderPage_TitleContents> GetTitleContentById(int Id)
+        public PageImageGallery GetImgeContentById(int Id)
         {
-            return context
-                .UnderPages_titlecontents
-                .Where(underpage => underpage.UnderPage.Id == Id)
-                .ToList();
-        }
-
-        public List<UnderPage_TextContents> GetTextContentById(int Id)
-        {
-            return context
-                .UnderPages_TextContents
-                .Where(underpage => underpage.UnderPage.Id == Id)
-                .ToList();
-        }
-
-        public List<UnderPage_ImgContents> GetImgeContentById(int Id)
-        {
-            return context
-                .UnderPages_imgcontents
-                .Where(underpage => underpage.UnderPage.Id == Id)
-                .ToList();
+            return context.UnderPages.Where(page => page.Id == Id)
+                .Select(item => item.TopImage).FirstOrDefault();
         }
 
         public List<HeaderContent> GetAllHeadContent()
@@ -535,14 +478,6 @@ namespace ContentManagement.HelperClasses
             try
             {
                 context.Attach(item);
-                context.Attach(item.UnderPage_ImgContent[0]);
-                //context.Attach(item.UnderPage_TextContents[0]);
-                //context.Attach(item.UnderPage_TitleContents[0]);
-
-
-                context.Remove(item.UnderPage_ImgContent[0]);
-                //context.Remove(item.UnderPage_TextContents[0]);
-                //context.Remove(item.UnderPage_TitleContents[0]);
                 context.Remove(item);
             }
             catch (Exception e)

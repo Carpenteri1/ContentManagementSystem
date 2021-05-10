@@ -176,7 +176,9 @@ namespace ContentManagement.Controllers
                 var page = underPageControllerHelper.GetUnderPageById(id);
                 ViewData["Headerid"] = page.HeaderContent.Id;
                 ViewData["HeaderTheme"] = new SelectList(headerContent, "Id", "HeaderTheme", page.HeaderContent.Id.ToString());
-                page.UnderPage_ImgContent = underPageControllerHelper.GetImgeContentById(page.Id);
+                page.TopImage = underPageControllerHelper.GetImgeContentById(id);
+
+                //page.UnderPage_ImgContent = underPageControllerHelper.GetImgeContentById(page.Id);
                 //page.UnderPage_TextContents = underPageControllerHelper.GetTextContentById(page.Id);
                 //page.UnderPage_TitleContents = underPageControllerHelper.GetTitleContentById(page.Id);
 
@@ -234,7 +236,8 @@ namespace ContentManagement.Controllers
            
                 UnderPageControllerHelper controllerHelper = new UnderPageControllerHelper(context, host);
                 var page = controllerHelper.GetUnderPageById(underPage.Id);
-                page.UnderPage_ImgContent = controllerHelper.GetImgeContentById(page.Id);
+                //page.im = controllerHelper.GetImgeContentById(page.Id);
+                page.TopImage = controllerHelper.GetImgeContentById(page.Id);
                 //page.UnderPage_TextContents = controllerHelper.GetTextContentById(page.Id);
                 //page.UnderPage_TitleContents = controllerHelper.GetTitleContentById(page.Id);
 

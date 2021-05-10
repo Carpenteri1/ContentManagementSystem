@@ -9,11 +9,13 @@ using Microsoft.AspNetCore.Http;
 using ContentManagement.StartPageModels.PageModel;
 using ContentManagement.Models.Adverts;
 using ContentManagement.Models.FilesModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace ContentManagement.UnderPageModels.PageModel
 {
     public class UnderPage
     {
+        [Key]
         public int Id { get; set; }
         public string LinkTitle { get; set; }
         public DateTime? Edited { get; set; }
@@ -26,16 +28,17 @@ namespace ContentManagement.UnderPageModels.PageModel
         public int AmmountOfAdverts { get; set; }
         public string TextContent { get; set; }
         public string PageTitle { get; set; }
-        public Users User { get; set; }
         public HeaderContent HeaderContent { get; set; }
         public StartPage StartPage { get; set; }
-        public PageImageGallery ImageGallery { get; set; }
-        public List<AdvertImageGallery> AdvertImageGallery { get; set; }
+
+        [ForeignKey("TopImage_FK")]
+        public PageImageGallery TopImage { get; set; }
+       // public ICollection<AdvertsModel> Adverts { get; set; }
 
 
 
 
 
-        public List<UnderPage_ImgContents> UnderPage_ImgContent { get; set; }
+       // public List<UnderPage_ImgContents> UnderPage_ImgContent { get; set; }
     }
 }

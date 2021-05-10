@@ -32,10 +32,10 @@
                         <div class="col-6">
                             <div class="form-group" style="text-align:left;font-size:0.5vw;">
                                 <label class="d-block" style="font-size:0.5vw;"><b>Splash bild</b></label>
-                                @Html.HiddenFor(model => model.EventImageContentModels[0].Id)
-                                @Html.HiddenFor(model => model.EventImageContentModels[0].ImgSrc)
-                                @Html.HiddenFor(model => model.EventImageContentModels[0].File)
-                                @Html.EditorFor(model => model.EventImageContentModels[0].File)
+                                @Html.HiddenFor(model => model.TopImage.Id)
+                                @Html.HiddenFor(model => model.TopImage.ImgSrc)
+                                @Html.HiddenFor(model => model.TopImage.File)
+                                @Html.EditorFor(model => model.TopImage.File)
                             </div>
                         </div>
                         <div class="col-6"></div>
@@ -47,9 +47,9 @@
                     <span asp-validation-for="EventTextContent" class="text-danger"></span>
                 </div>
                 <div class="form-group p-0">
-                    <label asp-for="BodyText" class="control-label text-left" style="font-size: 0.5vw; width: 11vw; height: 1.2vw;font-weight:bold;">Brödtext</label>
-                    @Html.TextAreaFor(model => model.BodyText, new { id = "editor2", style = "text-align:left;font-size:0.5vw;height:25vw;" })
-                    <span asp-validation-for="BodyText" class="text-danger"></span>
+                    <label asp-for="TextContent" class="control-label text-left" style="font-size: 0.5vw; width: 11vw; height: 1.2vw;font-weight:bold;">Brödtext</label>
+                    @Html.TextAreaFor(model => model.TextContent, new { id = "editor2", style = "text-align:left;font-size:0.5vw;height:25vw;" })
+                    <span asp-validation-for="TextContent" class="text-danger"></span>
                 </div>
                 <div class="form-group">
 

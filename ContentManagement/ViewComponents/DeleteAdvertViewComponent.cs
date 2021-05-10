@@ -17,6 +17,7 @@ namespace ContentManagement.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync(int Id)
         {
+            var typeofAdd = context.AdvertTypes.ToList();
             var advertData = context.Adverts.Where(item => item.Id == Id).FirstOrDefault();
             return View(advertData);
         }

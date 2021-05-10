@@ -1,5 +1,6 @@
 ﻿
 using ContentManagement.Models.Account;
+using ContentManagement.Models.EventsModel;
 using ContentManagement.Models.FilesModel;
 using ContentManagement.UnderPageModels.PageModel;
 using Microsoft.AspNetCore.Http;
@@ -14,6 +15,7 @@ namespace ContentManagement.Models.Adverts
 {
     public class AdvertsModel
     {
+        [Key]
         public int Id { get; set; }
         [DataType(DataType.Text)]
         [Display(Name = "Länk rubrik: ")]
@@ -23,25 +25,13 @@ namespace ContentManagement.Models.Adverts
         [Display(Name = "Länka till: ")]
         [Required(ErrorMessage = ("Måste finnas en länk"))]
         public string LinkTo { get; set; }
-        public string ImgUrl { get; set; }
-
-        [Display(Name = "Annons beskrivning: ")]
-        public string? Description { get; set; }
         [Display(Name = "Annons aktiv: ")]
         public bool isActive { get; set; }
-        public Users User { get; set; }
         [Display(Name = "Välj annons typ: ")]
         public AdvertType TypeOfAdd { get; set; }
-        public DateTime Uploaded { get; set; }
 
-        public AdvertImageGallery advertImageGallery { get; set; }
-
-
-
-
-        public List<Adverts_ImageContent> Adverts_ImageContents { get; set; }
-
-
-
+        [ForeignKey("AdvertImageGallery_FK")]
+        public AdvertImageGallery AdvertImage { get; set; }
+ 
     }
 }

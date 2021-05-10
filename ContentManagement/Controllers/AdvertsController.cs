@@ -33,12 +33,21 @@ namespace ContentManagement.Controllers
                 AdvertControllerHelper advertControllerHelper = new AdvertControllerHelper(context, host);
                 var advertTypes = advertControllerHelper.GetAllAdvertTypes();
                 if(selecterDropDownValue == null)
+                {
                     ViewData["TypeOfAd"] = new SelectList(advertTypes, "Id", "TypeOfAd");
+                    var adverts = advertControllerHelper.GetAdsByDropDownValue(advertControllerHelper.CheckDropDownValue(null));
+                   
+                    return View(adverts);
+                }
                 else
-                ViewData["TypeOfAd"] = new SelectList(advertTypes, "Id", "TypeOfAd", selecterDropDownValue);
-                var adverts = advertControllerHelper.GetAdsByDropDownValue(advertControllerHelper.CheckDropDownValue(null));
+                {
+                    ViewData["TypeOfAd"] = new SelectList(advertTypes, "Id", "TypeOfAd", selecterDropDownValue);
+                    var adverts = advertControllerHelper.GetAdsByDropDownValue(advertControllerHelper.CheckDropDownValue(selecterDropDownValue));
 
-                return View(adverts);
+                    return View(adverts);
+                }
+                 
+
             }
             else
             {
@@ -83,26 +92,21 @@ namespace ContentManagement.Controllers
 
         // POST: AdvertsController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(AdvertsModel newAdvert, string selecterDropDownValue)
+        public ActionResult Create(List<String> values)
         {
-            if (newAdvert.LinkTitle != null)
-            {
-                AdvertControllerHelper advertHelper = new AdvertControllerHelper(context,host);
+            AdvertControllerHelper advertHelper = new AdvertControllerHelper(context, host);
                 try
-                {
-                    newAdvert = advertHelper.CreateNewAdvertData(newAdvert,advertHelper.GetUser(User.Identity.Name),
-                        advertHelper.CheckDropDownValue(selecterDropDownValue));
-
+                {                
+                    var newAdvert = advertHelper.CreateNewAdvertData(values);
                     if (newAdvert != null)
                         advertHelper.SaveToDb();
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
-                    return RedirectToAction("Index", new { selecterDropDownValue = selecterDropDownValue });
+                Debug.WriteLine(e.Message);
+                return Json(Url.Action("Index", "Adverts", new { selecterDropDownValue = "1" }));
                 }
-            }
-            return RedirectToAction("Index", new { selecterDropDownValue = selecterDropDownValue });
+            return Json(new { redirectToUrl = Url.Action("Index", "Adverts", new { selecterDropDownValue = advertHelper.CheckDropDownValue(values.ElementAt(3)) }) });
         }
 
         [HttpGet]
@@ -113,65 +117,96 @@ namespace ContentManagement.Controllers
             {
                 AdvertControllerHelper advertHelper = new AdvertControllerHelper(context, host);
                 var advertTypes = advertHelper.GetAllAdvertTypes();
-                var advertImage = advertHelper.GetAdvertImageContentById(id);
                 var advert = advertHelper.GetAdvertById(id);
+                advert.AdvertImage = advertHelper.GetImgeContentById(id);
                 ViewData["TypeOfAd"] = new SelectList(advertTypes, "Id", "TypeOfAd", advert.TypeOfAdd.Id.ToString());
-
-
-                advert.Adverts_ImageContents[0] = advertImage;
                 return View(advert);
             }
             else
             {
                 return Redirect("~/login");
             }
-        }
+        } 
 
         // POST: Adverts/Edit/5
-        [HttpPost]
-        public IActionResult Edit(AdvertsModel advert,string selecterDropDownValue)
+        [HttpPost] //AJAX post
+        public ActionResult Edit(List<String> values)
         {
             AdvertControllerHelper advertHelper = new AdvertControllerHelper(context, host);
-            var user = context.Users.Where(item => item.UserName == User.Identity.Name).FirstOrDefault();
-            var advertTypes = advertHelper.GetAllAdvertTypes();
-            ViewData["TypeOfAd"] = new SelectList(advertTypes, "Id", "TypeOfAd", selecterDropDownValue);
-
-            advert.TypeOfAdd = advertHelper.GetAdvertTypeById(int.Parse(selecterDropDownValue));
-            try
+            var advert = advertHelper.GetAdvertsData(values);
+            if (values.Count() == 7)
             {
-                if (!advertHelper.DoesAllContentMatch(advert, user))
+                try
                 {
-                    advertHelper.SaveToDb();
+                    if (!advertHelper.DoesAllContentMatch(advert))
+                        advertHelper.SaveToDb();
                 }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                }
+            }
 
-            }
-            catch(Exception e)
-            {
-                Debug.WriteLine(e.Message);
-                return RedirectToAction("Index", new { selecterDropDownValue = selecterDropDownValue });
-            }
-            return RedirectToAction("Index", new { selecterDropDownValue = selecterDropDownValue });
+           return Json(new { redirectToUrl = Url.Action("Index", "Adverts", new { selecterDropDownValue = advertHelper.CheckDropDownValue(values.ElementAt(3))}) });
         }
 
         // POST: AdvertsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(AdvertsModel advert)
+        public ActionResult Delete(AdvertsModel advert,string selecterDropDownValue)
         {
-            AdvertControllerHelper advertControllerHelper = new AdvertControllerHelper(context,host);
-            var advertImageContent = context.adverts_imagecontent.Where(item => item.Advert.Id == advert.Id).FirstOrDefault();
+            AdvertControllerHelper advertHelper = new AdvertControllerHelper(context, host);
             try
             {
-                if (advertControllerHelper.Remove(advert,advertImageContent))
+                if (advertHelper.Remove(advert))
                 {
-                    advertControllerHelper.SaveToDb();
+                    advertHelper.SaveToDb();
                 }
-                return Redirect(nameof(Index));
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e.Message);
-                return Redirect(nameof(Index));
+            }
+
+            return RedirectToAction("Index","Adverts", new { selecterDropDownValue = advertHelper.CheckDropDownValue(selecterDropDownValue)});
+        }
+
+
+        [HttpPost]//ajax post
+        public void SetImage(string imgsrc, string id, string domain)
+        {
+            AdvertControllerHelper advertControllerHelper = new AdvertControllerHelper(context, host);
+                TempData["imgsrc"] = imgsrc.Replace(domain, string.Empty);//used in edit and creat action
+        }
+
+        [HttpPost]//Ajax Post
+        public void UploadImage(IFormFile file, string id)
+        {
+            AdvertControllerHelper advertHelper = new AdvertControllerHelper(context, host);
+            if (advertHelper.UploadImageFile(file))
+            {
+                advertHelper.SaveToDb();
+            }
+            if (id != null)//if page is created id is null
+            {
+                char[] charsToTrim = { '?', 'i', 'd', '=' };
+                var advert = advertHelper.GetAdvertById(int.Parse(id.Trim(charsToTrim)));
+            }
+
+        }
+
+
+        [HttpPost]//Ajax Post
+        public void DeleteImage(string imgsrc, string id,string domain)
+        {
+            AdvertControllerHelper advertControllerHelper = new AdvertControllerHelper(context, host);
+            if (advertControllerHelper.DeleteImageFile(imgsrc.Replace(domain, string.Empty)))
+                advertControllerHelper.SaveToDb();
+
+            if (id != null)//if page is created id is null
+            {
+                char[] charsToTrim = { '?', 'i', 'd', '=' };
+                var advert = advertControllerHelper.GetAdvertById(int.Parse(id.Trim(charsToTrim)));
             }
         }
     }
