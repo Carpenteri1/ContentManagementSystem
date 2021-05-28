@@ -100,7 +100,13 @@ namespace ContentManagement.HelperClasses
                         .Replace("!", "")
                         .Replace("?", "")
                         .Replace("–", "-")
-                        .Replace("&", "och");
+                        .Replace("&", "och")
+                        .Replace("Å", "A")
+                        .Replace("Ä", "A")
+                        .Replace("Ö", "O")
+                        .Replace("è","e")
+                        .Replace("È","E");
+
 
                         DbEvent.EventPageRoute = eventItem.EventPageRoute;
                         

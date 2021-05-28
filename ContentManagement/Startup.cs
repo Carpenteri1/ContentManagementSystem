@@ -1,17 +1,12 @@
-
 using System;
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using ContentManagement.Data;
-using ContentManagement.UnderPageModels.PageModel;
-using ContentManagement.Models.Account;
 
 namespace ContetManagement
 {
@@ -47,7 +42,7 @@ namespace ContetManagement
 
             services.AddDbContext<CMSDbContext>(options =>
             options.UseMySQL(
-            Configuration.GetConnectionString("AmvDevGolfConnection")));
+            Configuration.GetConnectionString("AmvGolfConnection")));
                
             services.AddControllersWithViews();
             services.AddRazorPages();

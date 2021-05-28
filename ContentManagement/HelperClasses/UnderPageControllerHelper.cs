@@ -230,7 +230,6 @@ namespace ContentManagement.HelperClasses
                 {
                     if (DbLinkTile.LinkTitle != Page.LinkTitle)
                     {
-                   
                         DbLinkTile.LinkTitle = Page.LinkTitle.ToString();
                         DbLinkTile.Edited = DateTime.Now;
                         DbLinkTile.pageRoute = CreateRouteData(DbLinkTile.LinkTitle);
@@ -253,7 +252,12 @@ namespace ContentManagement.HelperClasses
                 .Replace(":","")
                 .Replace("!","")
                 .Replace("?","")
-                .Replace("-","");    
+                .Replace("-","")
+                .Replace("Ö","O")
+                .Replace("Å","A")
+                .Replace("Ä","A")
+                .Replace("È","E")
+                .Replace("é","e");    
 
             
         }

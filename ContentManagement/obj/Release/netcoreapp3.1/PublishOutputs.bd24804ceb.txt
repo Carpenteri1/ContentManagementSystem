@@ -48,9 +48,11 @@ C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\o
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\lib\jquery\jquery.slim.min.js
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\lib\jquery\jquery.slim.min.map
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\lib\jquery\LICENSE.txt
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\EventPage\Images\andre-akfors-start-splash-image-dec2020.jpg
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\EventPage\Images\download.jfif
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\EventPage\Images\Skiss-Undersida-v2-Åkfors-André-on-Tour-2020-12-04 (1).jpg
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\EventPage\Images\start-stripe-tre-bilder-golf-andre-akfors.png
+C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\EventPage\Images\test.jpg
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\Extra\annons-hb-akulla-andre-med-vanner.jpg
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\Extra\annons-hb-akulla-golfcamp.jpg
 C:\Users\nicla\source\repos\AMV\Golf\ContentManagementSystem\ContentManagement\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Upload\Extra\annons-hb-bjorkang-vagkrog.jpg
